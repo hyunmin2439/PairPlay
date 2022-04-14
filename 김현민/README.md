@@ -2,9 +2,10 @@
 
 ### 소모임 카카오 오픈 채팅방으로 바로 연계 불가
 
+
+
 1. 카카오 Rest api로 오픈 채팅방 개설 불가
-    
-    
+   
 2. KakaoTalk 오픈채팅 정보 검색
 - 이 API는 카카오톡 오픈채팅방 정보 검색을 할수 있는 API입니다
 - [https://docs.develope.kr/ko/apis/room_info.html](https://docs.develope.kr/ko/apis/room_info.html)
