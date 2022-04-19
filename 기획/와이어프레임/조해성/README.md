@@ -20,9 +20,14 @@
 
 ##### 운동 장소 선택
 
-![16499401667611](README.assets/16499401667611.png)
+<img src="README.assets/16499401667611.png" alt="16499401667611" style="zoom:50%;" />
 
 ##### 운동 시설 상세화면 페이지
 
+<img src="README.assets/image-20220419182919166.png" alt="image-20220419182919166" style="zoom: 33%;" />
 
 
+
+**개인 프로필 활동 기록**
+
+![image-20220419183009825](README.assets/image-20220419183009825.png)
