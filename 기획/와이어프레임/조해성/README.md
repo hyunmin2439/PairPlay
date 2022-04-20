@@ -28,6 +28,18 @@
 
 
 
-**개인 프로필 활동 기록**
+#### **3. 회원관리** 
+
+##### **개인 프로필 **
+
+- 활동 기록
 
 ![image-20220419183009825](README.assets/image-20220419183009825.png)
+
+
+
+##### 팀 프로필
+
+- 팀 소개 및 게시글
+
+<img src="README.assets/image-20220420183209866.png" alt="image-20220420183209866" style="width:400px" /> <img src="README.assets/image-20220420183334497.png" alt="image-20220420183334497" style="width:400px" />
