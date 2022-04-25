@@ -1,5 +1,7 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.MemberSignupPostReq;
+import com.ssafy.api.request.MemberSignupPutReq;
 import com.ssafy.common.util.PasswordUtil;
 import com.ssafy.domain.entity.Member;
 import com.ssafy.domain.repository.MemberRepository;
@@ -15,55 +17,44 @@ public class MemberService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-//    @Override
-//    public Member createUser(UserRegisterPostReq userRegisterInfo) {
+    public Member signup(MemberSignupPostReq memberInfo) {
+        String email = memberInfo.getEmail();
+        String nickname = memberInfo.getNickname();
+        String password = passwordEncoder.encode(memberInfo.getPassword());
+
+        Member member = Member.builder()
+                .email(email)
+                .nickname(nickname)
+                .password(password)
+                .build();
+        return memberRepository.save(member);
+    }
+
+//    public Member afterSignup(MemberSignupPutReq memberInfo) {
 //
-//        String nickname = userRegisterInfo.getNickname();
-//        String email = userRegisterInfo.getEmail();
-//        String password = passwordEncoder.encode(userRegisterInfo.getPassword());
-//
-//        Member user = User.builder()
+//        Member member = Member.builder()
 //                .email(email)
 //                .nickname(nickname)
 //                .password(password)
-//                .role("USER")
-//                .maskId(1)
-//                .maskBack(1)
-//                .socialId("0")
-//                .profileImg("default-profile-image.jpg")
 //                .build();
-//        return memberRepository.save(user);
+//        return memberRepository.save(member);
 //    }
-//
-    public Member getMemberById(Long memberId) {
-        // 디비에 유저 정보 조회 (userEmail 를 통한 조회).
-        Member member = memberRepository.findById(memberId).orElse(null);
 
-        System.out.println(member); // 추가
-        return member;
+    public Member getMemberById(Long memberId) {
+        // 디비에 유저 정보 조회 (memberId 를 통한 조회).
+        return memberRepository.findById(memberId).orElse(null);
     }
 
     public Member getMemberByEmail(String memberEmail) {
         // 디비에 유저 정보 조회 (userEmail 를 통한 조회).
-        Member member = memberRepository.findByEmail(memberEmail).orElse(null);
-
-        System.out.println(member); // 추가
-        return member;
+        return memberRepository.findByEmail(memberEmail).orElse(null);
     }
 
-//    @Override
-//    public User getUserByNickname(String userNickname) {
-//
-//        User user = userRepositorySupport.findByNickname(userNickname).orElse(null);
-//        return user;
-//    }
-//
-//    @Override
-//    public User getUserById(Long userId) {
-//        User user = userRepositorySupport.findUserById(userId).orElse(null);
-//        return user;
-//    }
-//
+    public Member getMemberByNickname(String memberNickname) {
+        // 디비에 유저 정보 조회 (userEmail 를 통한 조회).
+        return memberRepository.findByNickname(memberNickname).orElse(null);
+    }
+
 //    @Override
 //    public boolean sendMail(String email) {
 //        // 아이디로 메일, 비밀번호 가져오기
