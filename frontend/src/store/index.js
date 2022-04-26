@@ -1,11 +1,15 @@
-import { createStore } from "vuex";
-import createPersistedState from "vuex-persistedstate";
+// Vuex 조립
+import state from "./state";
+import * as getters from "./getters";
+import * as mutations from "./mutations";
+import * as actions from "./actions";
 
-export default createStore({
-  plugins: [createPersistedState()],
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {},
-});
+const root = {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions,
+};
+
+export default root;
