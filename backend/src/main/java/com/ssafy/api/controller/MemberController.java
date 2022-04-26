@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
-@Api(value = "유저 API", tags = {"User"})
+@Api(value = "유저 API", tags = {"Members"})
 @RestController
 @RequestMapping("/api/v1/members")
 public class MemberController {
@@ -52,7 +52,7 @@ public class MemberController {
     @PostMapping("/signup")
     @ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
+//            @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
     })
     public ResponseEntity<? extends BaseResponseBody> signup(
             @RequestBody @ApiParam(value = "회원가입 정보", required = true) MemberSignupPostReq memberInfo) {

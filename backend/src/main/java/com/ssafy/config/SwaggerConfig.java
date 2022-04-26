@@ -99,8 +99,9 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Bean
     UiConfiguration uiConfig() {
         return UiConfigurationBuilder.builder()
-                .supportedSubmitMethods(newArrayList("get").toArray(new String[0])) // try it 기능 활성화 범위
-                .operationsSorter(METHOD)
+                // try it 기능 활성화 범위, 만약 try it 기능이 안된다면 아래 부분 있는지 확인
+//                .supportedSubmitMethods(newArrayList("get").toArray(new String[0]))
+//                .operationsSorter(METHOD)
                 .build();
     }
 
