@@ -13,7 +13,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
 
+/*
+ * ~ com\ssafy\config\WebMvcConfig.java uses unchecked or unsafe operations.
+ * Recompile with -Xlint:unchecked for details.
+ *
+ * Generic 클래스나 인터페이스를 선언 및 생성할 때 자료형 선언 안해서 나는 에러
+ * 실행 시 정상 동작하므로 큰 신경 안써도 됨.
+ */
+
 @Configuration
+@SuppressWarnings("unchecked") // 위의 나는 에러 안보이게 처리
 public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -35,8 +44,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     		registry.addResourceHandler("/resources/**")
     				.addResourceLocations("/WEB-INF/resources/");
     		
-    		registry.addResourceHandler("swagger-ui.html")
-    				.addResourceLocations("classpath:/META-INF/resources/");
+//    		registry.addResourceHandler("/swagger-ui/index.html/")
+//    				.addResourceLocations("classpath:/META-INF/resources/");
 
     		registry.addResourceHandler("/webjars/**")
     				.addResourceLocations("classpath:/META-INF/resources/webjars/");
@@ -46,18 +55,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
     		 * Front-end에서 참조하는 URL을 /dist로 매핑
     		 * 
     		 */
-        registry.addResourceHandler("/css/**")
-        			.addResourceLocations("classpath:/dist/css/");
-        	registry.addResourceHandler("/fonts/**")
-        			.addResourceLocations("classpath:/dist/fonts/");
-        registry.addResourceHandler("/icons/**")
-				.addResourceLocations("classpath:/dist/icons/");
-        registry.addResourceHandler("/img/**")
-			.addResourceLocations("classpath:/dist/img/");
-        registry.addResourceHandler("/js/**")
-				.addResourceLocations("classpath:/dist/js/");
-        registry.addResourceHandler("/profile/image/**")
-                .addResourceLocations("classpath:/static/profile_img/**");
+//        registry.addResourceHandler("/css/**")
+//        			.addResourceLocations("classpath:/dist/css/");
+//        	registry.addResourceHandler("/fonts/**")
+//        			.addResourceLocations("classpath:/dist/fonts/");
+//        registry.addResourceHandler("/icons/**")
+//				.addResourceLocations("classpath:/dist/icons/");
+//        registry.addResourceHandler("/img/**")
+//			.addResourceLocations("classpath:/dist/img/");
+//        registry.addResourceHandler("/js/**")
+//				.addResourceLocations("classpath:/dist/js/");
+//        registry.addResourceHandler("/profile/image/**")
+//                .addResourceLocations("classpath:/static/profile_img/**");
     }
 
     public Filter requestLoggingFilter() {

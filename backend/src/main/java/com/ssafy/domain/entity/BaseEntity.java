@@ -22,6 +22,7 @@ public class BaseEntity {
     @CreatedDate
     private LocalDateTime createdDate;
 
+    // 수정일자 자동으로 안 찍히면 나중에 수정
     @LastModifiedBy
     private LocalDateTime modifiedDate;
 }
