@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container" style="max-width: 1200px">
       <!-- <header></header> -->
       <div class="category container">
         <div class="category-title ps-3 mt-5 mb-4">
@@ -64,7 +64,7 @@ header {
 .PlaceBackground-Content {
   position: absolute;
   top: 40%;
-  /* max-width: */
+  /* max-width: 968px; */
   font-size: calc(1em + 2vw);
   /* transform: translate(-50%, -50%); */
   z-index: 2;
@@ -73,13 +73,16 @@ header {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .container {
-  /* max-width: 1280px; */
+  /* max-width: 1280x; */
   margin: auto;
   background-color: wheat;
 }
 .category {
   background-color: wheat;
   padding: 2rem;
+}
+#place-category {
+  width: 100%;
 }
 .recommendPlaceForUser {
   background-color: wheat;

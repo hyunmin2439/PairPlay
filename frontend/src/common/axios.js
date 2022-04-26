@@ -7,5 +7,3 @@ axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers["Content-Type"] = DEFAULT_ACCEPT_TYPE;
 
 export default { axios };
-
-

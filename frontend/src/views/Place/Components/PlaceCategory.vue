@@ -1,53 +1,30 @@
 <template>
   <!-- 카테고리 카드들 시작 -->
-  <div class="Catergory-card row row-cols-5">
+  <div class="catergory-card row row-cols-5">
     <!-- for문돌리면 됨 -->
-    <div class="card bg-dark text-white col">
+    <div class="card text-white col">
       <img src="https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img" alt="..." />
       <div class="card-img-overlay">
         <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text">Last updated 3 mins ago</p>
       </div>
     </div>
-    <div class="card bg-dark text-white col">
+    <div class="card text-white col">
       <img src="https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img" alt="..." />
+      <!-- <img src="https://as2.ftcdn.net/v2/jpg/02/88/72/69/1000_F_288726952_DTp7aFoemOB7AhGU66vz3YK7fijkqkMt.jpg" class="card-img" alt="..." /> -->
       <div class="card-img-overlay">
         <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text">Last updated 3 mins ago</p>
       </div>
     </div>
-    <div class="card bg-dark text-white">
+    <div class="card text-white col">
       <img src="https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img" alt="..." />
       <div class="card-img-overlay">
         <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text">Last updated 3 mins ago</p>
       </div>
     </div>
-    <div class="card bg-dark text-white">
+    <div class="card text-white col">
       <img src="https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img" alt="..." />
       <div class="card-img-overlay">
         <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text">Last updated 3 mins ago</p>
-      </div>
-    </div>
-    <div class="card bg-dark text-white">
-      <img src="https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img" alt="..." />
-      <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text">Last updated 3 mins ago</p>
-      </div>
-    </div>
-    <div class="card bg-dark text-white">
-      <img src="https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img" alt="..." />
-      <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text">Last updated 3 mins ago</p>
       </div>
     </div>
   </div>
@@ -64,14 +41,33 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.catergory-card {
+  // gap: 0px;
+  margin: auto;
+}
 .card {
-  margin: 10px;
   flex-grow: 1;
-  /* image: 100%; */
+  margin: 10px 10px;
+  padding: 0px;
+  border-radius: 15px;
+  // padding: 0px !important;
 }
 .card-img {
-  /* object-fit: fit; */
-  width: 100%;
+  border-radius: 15px;
 }
+/* .cards-img {
+  margin: auto;
+  object-fit: cover;
+  width: 250px;
+  height: 150px;
+  border-radius: 15px;
+} */
+/* .cards-img {
+  margin: auto;
+  object-fit: cover;
+  width: 250px;
+  height: 150px;
+  border-radius: 15px;
+} */
 </style>

@@ -1,25 +1,20 @@
 <template>
-  <div>
-    
-  </div>
+  <div></div>
 </template>
 
 <script>
-import { reactive } from "vue"
+import { reactive } from "vue";
 // import { useStore } from 'vuex'
 export default {
   name: "Login",
-  setup(){
+  setup() {
     // const store = useStore()
     const state = reactive({
       email: "",
-    })
-    return { state }
-  }
-  
-}
+    });
+    return { state };
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
