@@ -50,7 +50,7 @@
 import { reactive } from "vue"
 import { useStore } from 'vuex'
 export default {
-  name: "Login",
+  name: "LoginSecond",
   setup(){
     const store = useStore()
     const state = reactive({
