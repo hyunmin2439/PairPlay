@@ -1,6 +1,6 @@
 import $axios from "axios";
 
-export async function loginGetEmail({ state }, payload) {
+export async function signUpGetEmail({ state }, payload) {
   const url = 'members/check/email'
   const body = payload
   console.log(state)
