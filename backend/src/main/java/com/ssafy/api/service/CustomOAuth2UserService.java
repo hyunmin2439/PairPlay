@@ -1,8 +1,10 @@
-package com.ssafy.api.service;//package com.ssafy.api.service;
+//package com.ssafy.api.service;
 //
 //import com.ssafy.db.entity.OAuthAttributes;
 //import com.ssafy.db.entity.User;
 //import com.ssafy.db.repository.UserRepository;
+//import com.ssafy.domain.entity.Member;
+//import com.ssafy.domain.repository.MemberRepository;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -22,7 +24,7 @@ package com.ssafy.api.service;//package com.ssafy.api.service;
 //@Service
 //public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 //
-//    private final UserRepository userRepository;
+//    private final MemberRepository memberRepository;
 //
 //    @Override
 //    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -55,16 +57,16 @@ package com.ssafy.api.service;//package com.ssafy.api.service;
 //        OAuthAttributes attributes = OAuthAttributes.
 //                of(registrationId, userNameAttributeName, attribute);
 //
-//        User user = null;
+//        Member member = null;
 //        try {
-//            user = userRepository.findByEmail(attributes.getEmail()).orElse(null);
-//            user = saveOrUpdate(attributes, socialId);
+//            member = memberRepository.findByEmail(attributes.getEmail()).orElse(null);
+//            member = saveOrUpdate(attributes, socialId);
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
 //
 //        return new DefaultOAuth2User(
-//                Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
+//                Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
 //                attributes.getAttributes(),
 //                attributes.getNameAttributeKey());
 //    }
@@ -72,12 +74,12 @@ package com.ssafy.api.service;//package com.ssafy.api.service;
 //    private User saveOrUpdate(OAuthAttributes attributes, String socialId) throws SQLException {
 //        String nickname = randomNickname(attributes.getNickname());
 //
-//        User user = userRepository.findByEmail(attributes.getEmail())
+//        User user = memberRepository.findByEmail(attributes.getEmail())
 //                .map(entity -> entity.modifySocialId(
 //                        socialId)) // 업데이트 : 사용자 정보 업데이트시 같이 변경
 //                .orElse(attributes.toEntity(socialId, nickname));
 //
-//        return userRepository.save(user);
+//        return memberRepository.save(user);
 //    }
 //
 //    private String randomNickname(String nickName) {
@@ -85,7 +87,7 @@ package com.ssafy.api.service;//package com.ssafy.api.service;
 //        String number = "";
 //
 //        while (true) {
-//            if(userRepository.findByNickname((nickName + number)).orElse(null) == null) return nickName + number;
+//            if(memberRepository.findByNickname((nickName + number)).orElse(null) == null) return nickName + number;
 //
 //            number = String.valueOf(random.nextInt(10000) + 1);
 //        }

@@ -73,7 +73,7 @@ public class MemberService {
     /**
      * 회원 가입
      */
-    public void signup(MemberSignupPostReq memberInfo) {
+    public Member signup(MemberSignupPostReq memberInfo) {
         String email = memberInfo.getEmail();
         String nickname = memberInfo.getNickname();
 
@@ -86,20 +86,16 @@ public class MemberService {
                 .password(memberInfo.getPassword())
                 .build();
 
-        memberRepository.save(member);
+        return memberRepository.save(member);
     }
 
     /**
      * 추가 정보 등록
      */
-    public void afterSignup(MemberSignupPutReq memberInfo) {
-
-//        Member member = Member.builder()
-//                .email(email)
-//                .nickname(nickname)
-//                .password(password)
-//                .build();
-//        memberRepository.save(null);
+    public void afterSignup(MemberSignupPutReq memberInfo, Long memberId) {
+        Member member = memberRepository.getById(memberId);
+        member.afterSignup(memberInfo);
+        memberRepository.save(member);
     }
 
 //    @Override

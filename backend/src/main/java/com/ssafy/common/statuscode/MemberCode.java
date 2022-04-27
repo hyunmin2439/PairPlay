@@ -6,10 +6,15 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum MemberCode implements StatusCode{
     // 200 Success 요청 성공
-    SUCCESS_SIGN_UP(200, "회원가입에 성공했습니다."),
     SUCCESS_AFTER_SIGN_UP(200, "추가 정보 등록에 성공했습니다."),
     SUCCESS_EMAIL_NOT_FOUND(200, "등록 가능한 이메일입니다."),
     SUCCESS_NICKNAME_NOT_FOUND(200, "등록 가능한 닉네임입니다."),
+    SUCCESS_SIGN_UP(200, "회원가입에 성공했습니다."),
+    SUCCESS_SIGN_IN(200, "로그인에 성공했습니다."),
+
+    // 401 Access Dinied 접근 권한 없음
+    FAIL_INVALID_EMAIL(401, "유효한 이메일이 아닙니다."),
+    FAIL_INVALID_PASSWORD(401, "유효한 비밀번호가 아닙니다."),
 
     // 409 CONFLICT 중복된 리소스
     FAIL_ALREADY_EXIST_EMAIL(409, "이미 존재하는 이메일입니다."),
