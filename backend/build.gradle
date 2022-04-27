@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
 	id 'org.springframework.boot' version '2.6.7'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -14,8 +16,14 @@ configurations {
 	}
 }
 
+// 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지 정함
 repositories {
 	mavenCentral()
+//	jcenter() // 더 이상 지원 되지 않는 서비스 종료된 저장소
+	google()
+
+//	의존성 선언이 안되면 다운받을 저장소 직접 url로 지정해서 사용
+//	maven { url "https://~~~" }
 }
 
 dependencies {
@@ -23,12 +31,33 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'mysql:mysql-connector-java'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	implementation 'com.google.guava:guava:29.0-jre'
+
+	// ------------------- swagger ----------------------
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+	// ------------------- querydsl ---------------------
+	implementation 'com.querydsl:querydsl-jpa'
+	implementation 'com.querydsl:querydsl-apt'
+
+	// ------------------- jwt ---------------------
+	implementation 'com.auth0:java-jwt:3.10.3'
+
+	// ------------------- oauth 2.0 ---------------------
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jar {
+	enabled = false
 }
