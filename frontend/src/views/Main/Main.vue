@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>gkgkgkgk</h1>
+  <div style="height: 100vh; width: 100vw; margin: 0px;">
+    <div class="main"></div>
   </div>
 </template>
 
@@ -11,5 +11,8 @@ export default {
 </script>
 
 <style>
-
+main {
+  background-image: url('@/assets/images/Main/Main.jpeg');
+  background-size: cover;
+}
 </style>

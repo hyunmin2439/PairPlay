@@ -47,14 +47,13 @@ export async function signupSecond({ state }, payload) {
   const url = 'members/signup'
   const header = localStorage.getItem("jwt")
   const body = payload
+  console.log(body)
   console.log(state)
-  await $axios.put({
-    url: url,
+  await $axios.put(url, body, {
     headers: {
-      Authorization: header
+      Authorization: header,
     },
-    data: body
-  })
+    })
     .then((res) => {
       console.log(res)
       // dispatch("getUserInfo")
