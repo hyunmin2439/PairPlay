@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.MemberCheckPostReq;
 import com.ssafy.api.request.MemberSignupPostReq;
+import com.ssafy.api.request.MemberSignupPutReq;
 import com.ssafy.api.response.BaseResponseBody;
 import com.ssafy.api.service.MemberService;
 import com.ssafy.common.handler.CustomException;
@@ -51,7 +52,8 @@ public class MemberController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "등록 가능한 이메일입니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 400, message = "요청 변수 값이 비어 있습니다.", response = BaseResponseBody.class),
-            @ApiResponse(code = 409, message = "이미 존재하는 이메일입니다.", response = BaseResponseBody.class)
+            @ApiResponse(code = 409, message = "이미 존재하는 이메일입니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> checkEmail(
             @RequestBody @ApiParam(value = "이메일", required = true) MemberCheckPostReq checkInfo) {
@@ -65,7 +67,8 @@ public class MemberController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "등록 가능한 닉네임입니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 400, message = "요청 변수 값이 비어 있습니다.", response = BaseResponseBody.class),
-            @ApiResponse(code = 409, message = "이미 존재하는 닉네임입니다.", response = BaseResponseBody.class)
+            @ApiResponse(code = 409, message = "이미 존재하는 닉네임입니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> checkNickname(
             @RequestBody @ApiParam(value = "닉네임", required = true) MemberCheckPostReq checkInfo) {
@@ -80,7 +83,8 @@ public class MemberController {
             @ApiResponse(code = 200, message = "회원가입에 성공했습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 400, message = "요청 변수 값이 비어 있습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 409, message = "이미 존재하는 이메일입니다.", response = BaseResponseBody.class),
-            @ApiResponse(code = 409, message = "이미 존재하는 닉네임입니다.", response = BaseResponseBody.class)
+            @ApiResponse(code = 409, message = "이미 존재하는 닉네임입니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> signup(
             @RequestBody @ApiParam(value = "회원가입 정보", required = true) MemberSignupPostReq memberInfo) {
@@ -93,6 +97,20 @@ public class MemberController {
 
         memberInfo.setPassword( passwordEncoder.encode(password) );
         memberService.signup(memberInfo);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_SIGN_UP.getCode(), SUCCESS_SIGN_UP.getMessage()));
+    }
+
+    @PostMapping("/signup")
+    @ApiOperation(value = "2차 회원가입", notes = "<strong>유저 추가 정보</strong>를 등록한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "회원가입에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<? extends BaseResponseBody> afterSignup(
+            @RequestBody @ApiParam(value = "회원가입 정보", required = true) MemberSignupPutReq memberInfo) {
+
+        // 수정
+//        memberService.signup(memberInfo);
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_SIGN_UP.getCode(), SUCCESS_SIGN_UP.getMessage()));
     }
 

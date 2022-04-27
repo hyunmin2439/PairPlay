@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
 			    return ResponseEntity.ok().contentType(MediaType.TEXT_HTML).body(body);
 			} catch (IOException e) {
 				e.printStackTrace();
-				return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("There was an error completing the action.");
+				return ResponseEntity.status(200).body("{\"code\": 500, \"message\": \"There was an error completing the action.\"}");
 			}
 		}
 	}
@@ -71,6 +71,6 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({ Exception.class })
 	protected ResponseEntity handleServerException(Exception ex) {
 		ex.printStackTrace();
-		return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("Server Error.");
+		return ResponseEntity.status(200).body(BaseResponseBody.of(500, "Server Error."));
 	}
 }
