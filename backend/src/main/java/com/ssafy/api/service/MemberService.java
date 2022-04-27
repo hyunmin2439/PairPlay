@@ -89,14 +89,17 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public Member afterSignup(MemberSignupPutReq memberInfo) {
+    /**
+     * 추가 정보 등록
+     */
+    public void afterSignup(MemberSignupPutReq memberInfo) {
 
 //        Member member = Member.builder()
 //                .email(email)
 //                .nickname(nickname)
 //                .password(password)
 //                .build();
-        return memberRepository.save(null);
+//        memberRepository.save(null);
     }
 
 //    @Override

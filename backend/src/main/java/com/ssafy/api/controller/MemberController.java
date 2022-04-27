@@ -6,13 +6,11 @@ import com.ssafy.api.request.MemberSignupPutReq;
 import com.ssafy.api.response.BaseResponseBody;
 import com.ssafy.api.service.MemberService;
 import com.ssafy.common.handler.CustomException;
+import com.ssafy.common.statuscode.MemberCode;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
 import static com.ssafy.common.statuscode.MemberCode.*;
@@ -39,10 +37,11 @@ public class MemberController {
      * 4. immutable 하다.
      * 5. 오류를 사전에 방지할 수 있다.
      */
+
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    public MemberController(MemberService memberService, PasswordEncoder passwordEncoder) {
+    public MemberController(MemberService memberService, PasswordEncoder passwordEncoder, MemberCode memberCode) {
         this.memberService = memberService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -100,18 +99,16 @@ public class MemberController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_SIGN_UP.getCode(), SUCCESS_SIGN_UP.getMessage()));
     }
 
-    @PostMapping("/signup")
+    @PutMapping("/signup")
     @ApiOperation(value = "2차 회원가입", notes = "<strong>유저 추가 정보</strong>를 등록한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "회원가입에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 200, message = "추가 정보 등록에 성공했습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> afterSignup(
-            @RequestBody @ApiParam(value = "회원가입 정보", required = true) MemberSignupPutReq memberInfo) {
-
-        // 수정
-//        memberService.signup(memberInfo);
-        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_SIGN_UP.getCode(), SUCCESS_SIGN_UP.getMessage()));
+            @RequestBody @ApiParam(value = "추가 정보", required = true) MemberSignupPutReq memberInfo) {
+        memberService.afterSignup(memberInfo);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_AFTER_SIGN_UP.getCode(), SUCCESS_AFTER_SIGN_UP.getMessage()));
     }
 
     //    @PostMapping("/signin")
