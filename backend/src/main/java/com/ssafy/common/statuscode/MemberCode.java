@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 public enum MemberCode implements StatusCode{
     // 200 Success 요청 성공
     SUCCESS_SIGN_UP(200, "회원가입에 성공했습니다."),
+    SUCCESS_AFTER_SIGN_UP(200, "추가 정보 등록에 성공했습니다."),
     SUCCESS_EMAIL_NOT_FOUND(200, "등록 가능한 이메일입니다."),
     SUCCESS_NICKNAME_NOT_FOUND(200, "등록 가능한 닉네임입니다."),
 
