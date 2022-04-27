@@ -55,6 +55,9 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         filterChain.doFilter(request, response);
 	}
 	
+    /*
+     * 토큰을 분해해서 인증 정보를 확인 하는 코드
+     */
 	@Transactional(readOnly = true)
     public Authentication getAuthentication(HttpServletRequest request) throws Exception {
         String token = request.getHeader(JwtTokenUtil.HEADER_STRING);
