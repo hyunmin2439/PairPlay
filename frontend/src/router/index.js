@@ -8,8 +8,8 @@ const routes = [
   },
   {
     path: "/signup/next",
-    name: "SignupSecond",
-    component: () => import("../views/Accounts/SignupSecond.vue"),
+    name: "SignUpSecond",
+    component: () => import("../views/Accounts/SignUpSecond.vue"),
   },
   {
     path: "/place",

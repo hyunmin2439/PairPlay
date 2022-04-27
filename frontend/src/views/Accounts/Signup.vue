@@ -68,7 +68,7 @@ export default {
 
     const moveToNext = async function() {
       await router.push({
-        name: 'SignupSecond',
+        name: 'SignUpSecond',
       })
     }
 
