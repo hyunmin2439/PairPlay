@@ -41,7 +41,7 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    public MemberController(MemberService memberService, PasswordEncoder passwordEncoder, MemberCode memberCode) {
+    public MemberController(MemberService memberService, PasswordEncoder passwordEncoder) {
         this.memberService = memberService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -96,6 +96,8 @@ public class MemberController {
 
         memberInfo.setPassword( passwordEncoder.encode(password) );
         memberService.signup(memberInfo);
+        
+        // 여기서 회원 가입 성공 시에 userId값 jwtToken에 담아야 함
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_SIGN_UP.getCode(), SUCCESS_SIGN_UP.getMessage()));
     }
 
@@ -111,7 +113,7 @@ public class MemberController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_AFTER_SIGN_UP.getCode(), SUCCESS_AFTER_SIGN_UP.getMessage()));
     }
 
-    //    @PostMapping("/signin")
+//        @PostMapping("/signin")
 //    @ApiOperation(value = "로그인", notes = "<strong>아이디와 패스워드</strong>를 통해 로그인 한다.")
 //    @ApiResponses({
 //            @ApiResponse(code = 200, message = "Success", response = UserLoginPostRes.class),
