@@ -7,62 +7,32 @@
       <center>
       <h1 style="margin-top: 10%; margin-bottom: 5%; font-weight: bold;">회원가입</h1>
       <div class="box my-4 d-flex align-items-center row">
-        <div class="col-2 icon email">
+        <div class="col-2 icon name">
         </div>
         <div class="v-line col-1">
         </div>
-        <input class="col-8" type="text" style="border: 0px; height: 80%;" placeholder="이름" v-model="state.email">
+        <input class="col-8" type="text" style="border: 0px; height: 80%;" placeholder="이름" v-model="state.name">
       </div>
       <div class="box my-4 d-flex align-items-center row">
-        <div class="col-2 icon nickname">
+        <div class="col-2 icon phone">
         </div>
         <div class="v-line col-1">
         </div>
-        <input class="col-8" type="text" style="border: 0px; height: 80%;" placeholder="휴대 전화" v-model="state.nickname">
+        <input class="col-8" type="text" style="border: 0px; height: 80%;" placeholder="휴대 전화" v-model="state.phone">
       </div>
-      <span style="color: rgb(175 173 173); font-size: large; font-weight: 400;">생년월일</span>
-      <br>
-      <br>
       <div class="box my-4 d-flex align-items-center row">
-        <div class="col-2 icon nickname">
+        <div class="col-2 icon birthday">
         </div>
         <div class="v-line col-1">
         </div>
+        <input class="col-8" type="text" style="border: 0px; height: 80%;" placeholder="생년월일" v-model="state.birthday">
       </div>
-      <!-- <div style="width: 60%;" class="d-flex justify-content-around">
-        <span class="birth-drop">
-          <select v-model="state.yyyy" class="birth-select">
-            <option value="">년</option>
-            <option v-for="(item, index) in state.yyyyList" :key="index" :value="item.value">
-              {{ item.text }}
-            </option>
-          </select>
-        </span>
-        <span class="birth-drop">
-          <select v-model="state.mm" class="birth-select">
-            <option value="">월</option>
-            <option v-for="(item, index) in state.mmlist" :key="index" :value="item.value">
-              {{ item.text }}
-            </option>
-          </select>
-        </span>
-        <span class="birth-drop">
-          <select v-model="state.dd" class="birth-select">
-            <option value="">월</option>
-            <option v-for="(item, index) in state.ddlist" :key="index" :value="item.value" >
-              {{ item.text }}
-            </option>
-          </select>
-        </span>
-      </div> -->
-      <br>
-      <!-- <span class="error_next_box" v-if="checkFlag && (!signup.yyyy || !signup.mm || !signup.dd)" >생년월일을 입력하세요</span> -->
       <div class="box my-4 d-flex align-items-center row">
-        <div class="col-2 icon password">
+        <div class="col-2 icon address">
         </div>
         <div class="v-line col-1">
         </div>
-        <input class="col-8" type="text" style="border: 0px; height: 80%;" placeholder="주소" v-model="state.password">
+        <input class="col-8" type="text" id="address" @click="search()" style="border: 0px; height: 80%;" placeholder="주소" v-model="state.address">
       </div>
       <button class="my-4 accounts-btn">다음으로</button>
       <div class="d-flex" style="width: 60%;">
@@ -82,8 +52,8 @@ export default {
     const state = reactive({
       name: "",
       phone: "",
+      birthday: "",
       address: "",
-      birth: "",
       yyyyList: [],
       mmlist: [],
       ddlist: [],
@@ -108,7 +78,54 @@ export default {
       }
     })
 
-    return { state, onMounted }
+    const search = function () {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          var roadAddr = data.roadAddress; // 도로명 주소 변수
+          var extraRoadAddr = ''; // 참고 항목 변수
+          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+          if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+              extraRoadAddr += data.bname;
+          }
+          // 건물명이 있고, 공동주택일 경우 추가한다.
+          if(data.buildingName !== '' && data.apartment === 'Y'){
+              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+          }
+          // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+          if(extraRoadAddr !== ''){
+              extraRoadAddr = ' (' + extraRoadAddr + ')';
+          }
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          document.getElementById('address').value = roadAddr;
+          // document.getElementById('postcode').value = data.zonecode;
+          // document.getElementById("roadAddress").value = roadAddr;
+          // document.getElementById("jibunAddress").value = data.jibunAddress;
+          
+          // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+          if(roadAddr !== ''){
+              document.getElementById("extraAddress").value = extraRoadAddr;
+          } else {
+              document.getElementById("extraAddress").value = '';
+          }
+          var guideTextBox = document.getElementById("guide");
+          // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+          if(data.autoRoadAddress) {
+              var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+              guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+              guideTextBox.style.display = 'block';
+          } else if(data.autoJibunAddress) {
+              var expJibunAddr = data.autoJibunAddress;
+              guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+              guideTextBox.style.display = 'block';
+          } else {
+              guideTextBox.innerHTML = '';
+              guideTextBox.style.display = 'none';
+          }
+        }
+      }).open();
+    }
+    return { state, onMounted, search }
   }
   
 }
@@ -135,16 +152,20 @@ export default {
   filter: opacity(0.5);
 }
 
-.email {
-  background-image: url('@/assets/images/Accounts/email.png');
-}
-
-.nickname {
+.name {
   background-image: url('@/assets/images/Accounts/nickname.png');
 }
 
-.password {
-  background-image: url('@/assets/images/Accounts/password.png');
+.phone {
+  background-image: url('@/assets/images/Accounts/phone.png');
+}
+
+.birthday {
+  background-image: url('@/assets/images/Accounts/birthday.png');
+}
+
+.address {
+  background-image: url('@/assets/images/Accounts/address.png');
 }
 
 .v-line{
