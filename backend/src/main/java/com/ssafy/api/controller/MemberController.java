@@ -123,11 +123,11 @@ public class MemberController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        Long memberId = Long.parseLong(authentication.getName());
 
-//        System.out.println(authentication.getCredentials());
-//        System.out.println(authentication.getAuthorities());
-//        System.out.println(authentication.getPrincipal());
-//        System.out.println(authentication.getDetails());
-//        System.out.println(authentication.getName());
+        System.out.println(authentication.getCredentials());
+        System.out.println(authentication.getAuthorities());
+        System.out.println(authentication.getPrincipal());
+        System.out.println(authentication.getDetails());
+        System.out.println(authentication.getName());
 
 //        System.out.println(memberId);
 
