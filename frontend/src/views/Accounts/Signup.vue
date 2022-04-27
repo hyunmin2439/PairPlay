@@ -12,7 +12,7 @@
         <div class="v-line col-1">
         </div>
         <input class="col-6" type="text" style="border: 0px; height: 80%;" placeholder="이메일 주소" v-model="state.email">
-        <span class="col-2 ms-4" style="padding: 0px" type="button">중복확인</span>
+        <span class="col-2 ms-4" style="padding: 0px" type="button" id="email_dup" @click="checkDuplicate($event)">중복확인</span>
       </div>
       <div class="box my-4 d-flex align-items-center row">
         <div class="col-2 icon nickname">
@@ -20,26 +20,26 @@
         <div class="v-line col-1">
         </div>
         <input class="col-6" type="text" style="border: 0px; height: 80%;" placeholder="닉네임" v-model="state.nickname">
-        <span class="col-2 ms-4" style="padding: 0px" type="button">중복확인</span>
+        <span class="col-2 ms-4" style="padding: 0px" type="button" id="nick_dup" @click="checkDuplicate($event)">중복확인</span>
       </div>
       <div class="box my-4 d-flex align-items-center row">
         <div class="col-2 icon password">
         </div>
         <div class="v-line col-1">
         </div>
-        <input class="col-8" type="text" style="border: 0px; height: 80%;" placeholder="비밀번호" v-model="state.password">
+        <input class="col-8" type="password" style="border: 0px; height: 80%;" placeholder="비밀번호" v-model="state.password">
       </div>
       <div class="box my-4 d-flex align-items-center row">
         <div class="col-2 icon password">
         </div>
         <div class="v-line col-1">
         </div>
-        <input class="col-8" type="text" style="border: 0px; height: 80%;" placeholder="비밀번호 확인" v-model="state.passwordConfirm">
+        <input class="col-8" type="password" style="border: 0px; height: 80%;" placeholder="비밀번호 확인" v-model="state.passwordConfirm">
       </div>
-      <button class="my-4 accounts-btn" @click="moveToNext">다음으로</button>
+      <button class="my-4 accounts-btn" @click="GetSignUp">다음으로</button>
       <div class="d-flex" style="width: 60%;">
         <span class="me-4 hyperlink" type="button" @click="moveToLogin">로그인</span>
-        <span class="hyperlink" type="button" @click="moveToHome">뒤로 가기</span>
+        <span class="hyperlink" type="button" @click="moveToMain">뒤로 가기</span>
       </div>
       </center>
     </div>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { reactive } from "vue"
+import { reactive, computed, onMounted } from "vue"
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 export default {
@@ -60,19 +60,59 @@ export default {
       nickname: "",
       password: "",
       passwordConfirm: "",
+      emailDuplicate: computed(() => store.getters["root/emailDuplicate"]),
+      nicknameDuplicate: computed(() => store.getters["root/nicknameDuplicate"])
     })
 
-    const signUpGetEmail = async function() {
-      await store.dispatch("root/signUpGetEmail", {"value": state.email})
+    onMounted(() => {
+      store.commit("root/SIGNUP_DUPLICATE_EMAIL", 0)
+      store.commit("root/SIGNUP_DUPLICATE_NICKNAME", 0)
+    })
+
+    const checkDuplicate = async function(val) {
+      if (val.target.id === 'email_dup') {
+        await store.dispatch("root/signupDuplicateEmail", {"value": state.email})
+      } else {
+        await store.dispatch("root/signupDuplicateNickname", {"value": state.nickname})
+      }
     }
 
-    const moveToNext = async function() {
+    const GetSignUp = async function() {
+      if (state.emailDuplicate===1 & state.nicknameDuplicate === 1 & state.password===state.passwordConfirm) {
+        const payload = {
+          email: state.email,
+          nickname: state.nickname,
+          password: state.password,
+        }
+        await store.dispatch("root/signup", payload)
+        await router.push({
+          name: 'SignUpSecond',
+        })
+      } else {
+        if (state.emailDuplicate === 0) {
+          alert('이메일 중복 확인을 해주세요.')
+        } else if (state.nicknameDuplicate === 0) {
+          alert('닉네임 중복 확인을 해주세요.')
+        } else {
+          alert('비밀번호와 비밀번호 확인이 동일하지 않습니다.')
+        }
+      }
+      
+    }
+
+    const moveToLogin = async function () {
       await router.push({
-        name: 'SignUpSecond',
+        name: "Login"
       })
     }
 
-    return { state, signUpGetEmail, moveToNext }
+    const moveToMain = async function () {
+      await router.push({
+        name: "Main"
+      })
+    }
+
+    return { state, onMounted, checkDuplicate, GetSignUp, moveToLogin, moveToMain }
   }
   
 }
@@ -119,7 +159,7 @@ export default {
 }
 
 ::placeholder {
-  color: #E0E0E0;
+  color: rgb(180 180 180);
   font-size: large;
   font-weight: 400;
   opacity: 1; /* Firefox */

@@ -1,3 +1,4 @@
 export default {
-  userInfo: null,
+  emailDuplicate: 0,
+  nicknameDuplicate: 0,
 };

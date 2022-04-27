@@ -2,6 +2,11 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
+    path: "",
+    name: "Main",
+    component: () => import("../views/Main/Main.vue"),
+  },
+  {
     path: "/signup",
     name: "Signup",
     component: () => import("../views/Accounts/Signup.vue"),
@@ -12,6 +17,11 @@ const routes = [
     component: () => import("../views/Accounts/SignUpSecond.vue"),
   },
   {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Accounts/Login.vue"),
+  },
+  {
     path: "/place",
     name: "Place",
     component: () => import("../views/Place/Place.vue"),
@@ -20,6 +30,14 @@ const routes = [
     path: "/placesearch",
     name: "PlaceSearch",
     component: () => import("../views/PlaceSearch/PlaceSearch.vue"),
+  },
+
+  {
+    path: "/placedetail/:id",
+    name: "PlaceDetail",
+    component: () => import("../views/PlaceDetail/PlaceDetail.vue"),
+    //props true로 설정하면 데이터를 props로도 받음.
+    props: true,
   },
 ];
 
