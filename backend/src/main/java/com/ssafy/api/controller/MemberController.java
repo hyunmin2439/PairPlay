@@ -109,6 +109,7 @@ public class MemberController {
     public ResponseEntity<? extends BaseResponseBody> afterSignup(
             @RequestBody @ApiParam(value = "회원가입 정보", required = true) MemberSignupPutReq memberInfo) {
 
+        // 수정
 //        memberService.signup(memberInfo);
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_SIGN_UP.getCode(), SUCCESS_SIGN_UP.getMessage()));
     }
