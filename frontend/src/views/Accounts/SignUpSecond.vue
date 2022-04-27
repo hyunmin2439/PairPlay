@@ -58,10 +58,12 @@
 <script>
 import { reactive } from "vue"
 import { useStore } from "vuex"
+import { useRouter} from 'vue-router'
 export default {
   name: "SignUpSecond",
   setup(){
     const store = useStore()
+    const router = useRouter()
     const state = reactive({
       name: "",
       phone: "",
@@ -121,7 +123,7 @@ export default {
       }
     }
 
-    const UpdateSignUp = function () {
+    const UpdateSignUp = async function () {
       const payload = {
         name: state.name,
         gender: state.gender_status,
@@ -129,8 +131,10 @@ export default {
         address: state.address,
         phone: state.phone
       }
-      store.dispatch("root/signupSecond", payload)
-      
+      await store.dispatch("root/signupSecond", payload)
+      await router.push({
+        name: "Main"
+      })
     }
 
     return { state, yourCustomMethod, search, autoHypen, changeGender, UpdateSignUp }

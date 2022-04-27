@@ -50,7 +50,7 @@ export async function signupSecond({ state }, payload) {
   console.log(state)
   await $axios.put(url, {
     headers: {
-      Authorization: `Bearer ${header}`
+      Authorization: header
       }
     }, body)
     .then((res) => {
@@ -60,4 +60,17 @@ export async function signupSecond({ state }, payload) {
     .catch((err) => {
       console.log(err)
     });
+}
+
+export async function login({ state }, payload) {
+  const url = 'members/signin'
+  const body = payload
+  console.log(state)
+  await $axios.post(url, body)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
