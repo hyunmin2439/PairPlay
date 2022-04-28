@@ -5,15 +5,14 @@ import com.ssafy.api.request.MemberLoginPostReq;
 import com.ssafy.api.request.MemberSignupPostReq;
 import com.ssafy.api.request.MemberSignupPutReq;
 import com.ssafy.api.response.BaseResponseBody;
-import com.ssafy.api.response.MemberLoginPostRes;
+import com.ssafy.api.response.MemberInfoRes;
+import com.ssafy.api.response.MemberLoginRes;
 import com.ssafy.api.service.MemberService;
 import com.ssafy.common.handler.CustomException;
 import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.domain.entity.Member;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -101,10 +100,10 @@ public class MemberController {
 
         memberInfo.setPassword( passwordEncoder.encode(password) );
         Member member = memberService.signup(memberInfo);
-        
-        // 여기서 회원 가입 성공 시에 userId값 jwtToken에 담아야 함
+
         return ResponseEntity.status(200).body(
-                MemberLoginPostRes.of(
+                MemberInfoRes.of(
+                        member,
                         SUCCESS_SIGN_UP.getCode(),
                         SUCCESS_SIGN_UP.getMessage(),
                         JwtTokenUtil.getToken(String.valueOf(member.getId()))
@@ -120,38 +119,41 @@ public class MemberController {
     })
     public ResponseEntity<? extends BaseResponseBody> afterSignup(
             @RequestBody @ApiParam(value = "추가 정보", required = true) MemberSignupPutReq memberInfo) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Long memberId = Long.parseLong(authentication.getName());
+        Member member = memberService.afterSignup(memberInfo);
 
-        System.out.println(authentication.getCredentials());
-        System.out.println(authentication.getAuthorities());
-        System.out.println(authentication.getPrincipal());
-        System.out.println(authentication.getDetails());
-        System.out.println(authentication.getName());
-
-//        System.out.println(memberId);
-
-//        memberService.afterSignup(memberInfo, memberId);
-        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_AFTER_SIGN_UP.getCode(), SUCCESS_AFTER_SIGN_UP.getMessage()));
+        return ResponseEntity.status(200).body(
+                MemberInfoRes.of(
+                        member,
+                        SUCCESS_AFTER_SIGN_UP.getCode(),
+                        SUCCESS_AFTER_SIGN_UP.getMessage()
+                )
+        );
     }
 
     @PostMapping("/signin")
     @ApiOperation(value = "로그인", notes = "<strong>아이디와 패스워드</strong>를 통해 로그인 한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "유효한 이메일이 아닙니다.", response = MemberLoginPostRes.class),
+            @ApiResponse(code = 200, message = "로그인에 성공했습니다.", response = MemberLoginRes.class),
+            @ApiResponse(code = 400, message = "요청 변수 값이 비어 있습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 401, message = "유효한 이메일이 아닙니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 401, message = "유효한 비밀번호가 아닙니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> login(@RequestBody @ApiParam(value = "로그인 정보", required = true) MemberLoginPostReq loginInfo) {
+        if( "".equals(loginInfo.getEmail()) || loginInfo.getEmail() == null
+        ||  "".equals(loginInfo.getPassword()) || loginInfo.getPassword() == null )
+            throw new CustomException(EMPTY_REQUEST_VALUE);
+
         Member member = memberService.getMemberByEmail(loginInfo.getEmail());
-        if(member == null) throw new CustomException(FAIL_INVALID_EMAIL);
+        if(member == null)
+            throw new CustomException(FAIL_INVALID_EMAIL);
 
         if ( ! passwordEncoder.matches(loginInfo.getPassword(), member.getPassword()))
             throw new CustomException(FAIL_INVALID_PASSWORD);
 
         return ResponseEntity.status(200).body(
-                MemberLoginPostRes.of(
+                MemberInfoRes.of(
+                        member,
                         SUCCESS_SIGN_IN.getCode(),
                         SUCCESS_SIGN_IN.getMessage(),
                         JwtTokenUtil.getToken(String.valueOf(member.getId()))

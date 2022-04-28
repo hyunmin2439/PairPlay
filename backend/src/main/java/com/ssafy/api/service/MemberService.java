@@ -5,6 +5,8 @@ import com.ssafy.api.request.MemberSignupPutReq;
 import com.ssafy.common.handler.CustomException;
 import com.ssafy.domain.entity.Member;
 import com.ssafy.domain.repository.MemberRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
@@ -92,10 +94,13 @@ public class MemberService {
     /**
      * 추가 정보 등록
      */
-    public void afterSignup(MemberSignupPutReq memberInfo, Long memberId) {
-        Member member = memberRepository.getById(memberId);
+    public Member afterSignup(MemberSignupPutReq memberInfo) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        Member member = getMemberById(memberId);
         member.afterSignup(memberInfo);
-        memberRepository.save(member);
+        return memberRepository.save(member);
     }
 
 //    @Override
