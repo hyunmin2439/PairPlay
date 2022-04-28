@@ -1,8 +1,5 @@
 //package com.ssafy.api.service;
 //
-//import com.ssafy.db.entity.OAuthAttributes;
-//import com.ssafy.db.entity.User;
-//import com.ssafy.db.repository.UserRepository;
 //import com.ssafy.domain.entity.Member;
 //import com.ssafy.domain.repository.MemberRepository;
 //import lombok.RequiredArgsConstructor;
@@ -71,7 +68,7 @@
 //                attributes.getNameAttributeKey());
 //    }
 //
-//    private User saveOrUpdate(OAuthAttributes attributes, String socialId) throws SQLException {
+//    private Member saveOrUpdate(OAuthAttributes attributes, String socialId) throws SQLException {
 //        String nickname = randomNickname(attributes.getNickname());
 //
 //        User user = memberRepository.findByEmail(attributes.getEmail())

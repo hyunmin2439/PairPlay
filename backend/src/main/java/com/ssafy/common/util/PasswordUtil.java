@@ -1,5 +1,8 @@
 package com.ssafy.common.util;
 
+import com.ssafy.api.service.MemberService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.security.SecureRandom;
 import java.util.Date;
 
@@ -7,6 +10,12 @@ import java.util.Date;
  * 패스워드에 관련한 유틸 모음
  */
 public class PasswordUtil {
+
+    private final PasswordEncoder passwordEncoder;
+
+    public PasswordUtil(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     // 10자리의 랜덤한 비밀번호 생성
     public static String getRandomPassword() {

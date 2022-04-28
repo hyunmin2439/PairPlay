@@ -4,11 +4,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@ToString
 @ApiModel("MemberSignupPuttRequest")
 public class MemberSignupPutReq {
     @ApiModelProperty(name="이름", example="김싸피")

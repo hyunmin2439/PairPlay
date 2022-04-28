@@ -6,17 +6,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 유저 로그인 API ([POST] /api/v1/auth) 요청에 대한 응답값 정의.
+ * 요청에 따른 statusCode와 massage, accessToken을 내려줌
  */
 @Getter
 @Setter
 @ApiModel("UserLoginPostResponse")
-public class MemberLoginPostRes extends BaseResponseBody{
+public class MemberLoginRes extends BaseResponseBody{
 	@ApiModelProperty(name="JWT 인증 토큰", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN...")
 	String accessToken;
 
-	public static MemberLoginPostRes of(Integer statusCode, String message, String accessToken) {
-		MemberLoginPostRes res = new MemberLoginPostRes();
+	public static MemberLoginRes of(Integer statusCode, String message, String accessToken) {
+		MemberLoginRes res = new MemberLoginRes();
 		res.setCode(statusCode);
 		res.setMessage(message);
 		res.setAccessToken(accessToken);
