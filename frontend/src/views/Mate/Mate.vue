@@ -1,16 +1,16 @@
 <template>
   <div>
     <mate-filter></mate-filter>
-    <mateview></mateview>
+    <mate-view></mate-view>
   </div>
 </template>
 
 <script>
-import MateFilter from './components/MateFilter.vue'
-import Mateview from './components/Mateview.vue'
+import MateFilter from './Components/MateFilter.vue'
+import MateView from './Components/MateView.vue'
 export default {
   name: "Mate",
-  components: { MateFilter, Mateview },
+  components: { MateFilter, MateView },
   setup() {
 
   }
