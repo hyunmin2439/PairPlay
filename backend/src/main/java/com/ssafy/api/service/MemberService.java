@@ -105,6 +105,9 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    /**
+     * 비밀번호 초기화
+     */
     public void sendMail(String email, String tmpPassword, String encrypted) {
         if( "".equals(email) || email == null )
             throw new CustomException(EMPTY_REQUEST_VALUE);

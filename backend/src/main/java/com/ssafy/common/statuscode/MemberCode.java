@@ -1,6 +1,5 @@
 package com.ssafy.common.statuscode;
 
-import io.swagger.annotations.Contact;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

@@ -16,26 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
+ * 체육 시설 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
-@Api(value = "유저 API", tags = {"Members"})
+@Api(value = "체육 시설 관련 API", tags = {"Places"})
 @RestController
 @RequestMapping("/api/v1/places")
 public class PlaceController {
-
-    private final ActivityService activityService;
-
-    public PlaceController(ActivityService activityService) {
-        this.activityService = activityService;
-    }
-
+    
     @GetMapping()
-    @ApiOperation(value = "게시글 목록 정보", notes = "<strong>전체 게시글 목록</strong>을 넘겨준다.")
+    @ApiOperation(value = "체육 시설 목록 정보", notes = "<strong>전체 체육 시설 목록</strong>을 넘겨준다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = PlaceListRes.class),
     })
     public ResponseEntity<? extends Page<PlaceListRes>> placeList(@PageableDefault(page = 0, size = 8) Pageable pageable) {
-        Page<Activity> activities = activityService.getAvtivityList(pageable);
+
         return ResponseEntity.status(200).body( null );
     }
 }

@@ -149,6 +149,9 @@ public class MemberController {
         if(member == null)
             throw new CustomException(FAIL_INVALID_EMAIL);
 
+        if( !member.isEnable() ) // 탈퇴 시
+            throw new CustomException(FAIL_MEMBER_NOT_FOUND);
+
         if ( ! passwordEncoder.matches(loginInfo.getPassword(), member.getPassword()))
             throw new CustomException(FAIL_INVALID_PASSWORD);
 
