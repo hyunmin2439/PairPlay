@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 
+import com.ssafy.api.request.ActivityCategoryReq;
 import com.ssafy.api.request.ActivityPostReq;
 import com.ssafy.api.response.ActivityRes;
 import com.ssafy.api.response.BaseResponseBody;
@@ -38,23 +39,25 @@ public class ActivityController {
         Page<Activity> activities = activityService.getAvtivityList(pageable);
 
         if(activities != null){
-            return ResponseEntity.status(500).body(ActivityListRes.of(activities));
+            return ResponseEntity.status(200).body(ActivityListRes.of(activities));
         }else {
-            return ResponseEntity.status(500).body(null);
+            return ResponseEntity.status(200).body(null);
         }
-    }
+    }//-> 지역기반 추가 수정 해야함
 
 
 
-//    //공고 카테고리별 조회
+    //공고 카테고리별 조회
 //    @PostMapping()
 //    @ApiOperation(value = "공고 카테고리별 조회", notes = "공고를 <strong>카테고리별 조회</strong>한다")
 //    @ApiResponses({
 //            @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
 //    })
-//    public ResponseEntity<ActivityRes> getCategory(@RequestBody @ApiParam(value = "카테고리") //ActivityCategoryReq
-//                                                   // ){
+//    public ResponseEntity<ActivityRes> getCategory(@RequestBody @ApiParam(value = "카테고리") @PageableDefault(page = 0, size = 6) ActivityCategoryReq activityCategoryReq){
 //
+//
+//
+//        return null;
 //    }
 
 
