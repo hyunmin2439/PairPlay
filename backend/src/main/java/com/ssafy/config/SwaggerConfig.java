@@ -34,10 +34,10 @@ import static springfox.documentation.swagger.web.OperationsSorter.METHOD;
  *
  *
  * SpringBoot 2.6버전 Swagger 3.0 버전 적용시 에러
- * 
+ *
  * 에러 메세지
  * Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
- * 
+ *
  * @EnableWebMvc
  * 위 어노테이션을 적용하면 해결된다는 말이 있으나 이것으로 해결 불가
  * 위 어노테이션 적용시 WebMvcConfigurer 인터페이스를 구현한 클래스 안에 ResourceHandler를 Override한 것이 동작하지가 않는다.
