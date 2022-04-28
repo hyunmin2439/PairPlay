@@ -5,7 +5,7 @@
     <div class="PlaceBackgroundImage">
       <div class="PlaceBackgroundImageCover">
         <div class="PlaceBackground-Content ms-5 ps-5">
-          <p class="ps-5 ms-4">
+          <p class="PlaceTitle">
             당신에게 적합한 <br />
             운동장소를 찾아보세요.
           </p>
@@ -62,8 +62,9 @@ export default {
 /* width: 100%; */
 /* } */
 .PlaceBackgroundImage {
-  width: 100%;
-  height: 330px;
+  width: 1200px;
+  height: 300px;
+  margin: auto;
   background: black;
   margin-bottom: 5rem;
   /* background-color: rgba(0, 0, 0, 0.4); */
@@ -72,8 +73,9 @@ export default {
 }
 .PlaceBackgroundImageCover {
   position: absolute;
-  width: 100%;
-  height: 330px;
+  margin: auto;
+  width: 1200px;
+  height: 300px;
   background: linear-gradient(30deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
   /* background-color: rgba(0, 0, 0, 0.3); */
   z-index: 1;
