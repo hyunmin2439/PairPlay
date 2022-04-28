@@ -1,11 +1,10 @@
 <template>
-  <div>
-    <div class="dropdown dropdownsmenus">
+  <div class="btn placeSearchFiltersRegion btnPlace">
+    <div class="dropdown">
       <div class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">지역</div>
       <ul class="dropdown-menu mt-2" aria-labelledby="dropdownMenuButton">
         <li>
-          <a class="dropdown-item d-flex justify-content-between px-4" href="#"><span>부산</span> <span>></span></a>
-
+          <a class="dropdown-item d-flex justify-content-between px-4" href="#"><span>부산</span><span>></span></a>
           <ul class="dropdown-menu dropdown-submenu px-2 text-align">
             <li class="d-flex justify-content-around text-start my-2">
               <a class="dropdown-item ps-4" href="#">중구</a>
@@ -49,29 +48,17 @@
         <li>
           <a class="dropdown-item d-flex justify-content-between px-4" href="#"><span>부산2</span> <span>&gt;</span></a>
           <ul class="dropdown-menu dropdown-submenu">
-            <li>
-              <a class="dropdown-item" href="#">Submenu item 1</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Submenu item 2</a>
-            </li>
+            <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
+            <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
             <li>
               <a class="dropdown-item d-flex justify-content-between px-4" href="#"><span>부산</span> <span>&gt;</span></a>
               <ul class="dropdown-menu dropdown-submenu">
-                <li>
-                  <a class="dropdown-item" href="#">Multi level 1</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Multi level 2</a>
-                </li>
+                <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                <li><a class="dropdown-item" href="#">Multi level 2</a></li>
               </ul>
             </li>
-            <li>
-              <a class="dropdown-item" href="#">Submenu item 4</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Submenu item 5</a>
-            </li>
+            <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+            <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
           </ul>
         </li>
       </ul>
@@ -93,17 +80,30 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.placeSearchFiltersRegion {
+  left: 500px;
+}
 .btnPlace {
-  margin: 10px 20px 10px 20px;
+  margin: 10px 5px 10px 5px;
   background: #ffff;
-  border-radius: 30px;
-  /* box-shadow: (0 1px 10px rgba(24, 24, 24, 0.04)); */
-  box-shadow: (0 0 8px rgba(24, 24, 24, 0.04));
+  border-radius: 5px;
+  box-shadow: (0 1px 10px rgba(24, 24, 24, 0.04));
+  // box-shadow: (0 0 8px rgba(24, 24, 24, 0.04));
   border: 1px solid rgba(1, 1, 1, 0.1);
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
+// .btnPlace {
+//   margin: 10px 20px 10px 20px;
+//   background: #ffff;
+//   border-radius: 30px;
+//   /* box-shadow: (0 1px 10px rgba(24, 24, 24, 0.04)); */
+//   box-shadow: 0 0 8px rgba(24, 24, 24, 0.04);
+//   border: 1px solid rgba(1, 1, 1, 0.1);
+//   font-size: 14px;
+//   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+// }
 .dropdown-menu li {
   position: relative;
 }
@@ -112,8 +112,10 @@ export default {
   display: none;
   position: relative;
   left: 100%;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  box-shadow: 0 0 8px rgba(24, 24, 24, 0.1);
+
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
 }
@@ -121,12 +123,12 @@ export default {
   display: none;
   position: absolute;
   left: 100%;
-  top: -10px;
+  top: -9px;
   width: 250px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 .dropdown-menu .dropdown-submenu-left {
   right: 100%;
@@ -140,8 +142,5 @@ export default {
 .dropdown-menu > li:hover > .dropdown-submenu {
   display: block;
   border-left: 1px solid rgba(1, 1, 1, 0.1);
-}
-.dropdown-item {
-  /* font-size: 14px; */
 }
 </style>

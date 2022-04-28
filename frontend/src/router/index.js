@@ -39,6 +39,11 @@ const routes = [
     //props true로 설정하면 데이터를 props로도 받음.
     props: true,
   },
+  {
+    path: "/Mate",
+    name: "Mate",
+    component: () => import("../views/Mate/Mate.vue"),
+  },
 ];
 
 const router = createRouter({

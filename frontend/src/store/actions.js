@@ -64,15 +64,19 @@ export async function signupSecond({ state }, payload) {
     });
 }
 
-export async function login({ state }, payload) {
+export async function login({ commit }, payload) {
   const url = 'members/signin'
   const body = payload
-  console.log(state)
   await $axios.post(url, body)
     .then((res) => {
+      commit("LOGIN_STATUS", true)
       console.log(res)
     })
     .catch((err) => {
       console.log(err)
     })
 }
+
+// export async function getUserInfo({ commit }, payload) {
+//   const url = 'profiles'
+// }
