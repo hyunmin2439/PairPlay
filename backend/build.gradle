@@ -1,0 +1,77 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.7'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.ssafy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+// 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지 정함
+repositories {
+	mavenCentral()
+//	jcenter() // 더 이상 지원 되지 않는 서비스 종료된 저장소
+	google()
+
+//	의존성 선언이 안되면 다운받을 저장소 직접 url로 지정해서 사용
+//	maven { url "https://~~~" }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'mysql:mysql-connector-java'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	implementation 'com.google.guava:guava:29.0-jre'
+
+	// ------------------- swagger ----------------------
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+	// Swagger NumberFormat Exception 해결 두줄
+	implementation("io.swagger:swagger-annotations:1.5.21")
+	implementation("io.swagger:swagger-models:1.5.21")
+
+	// ------------------- querydsl 설정관련 ---------------------
+	implementation("com.querydsl:querydsl-jpa")
+	implementation("com.querydsl:querydsl-apt")
+
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
+	annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+
+	// ------------------- jwt ---------------------
+	implementation 'com.auth0:java-jwt:3.10.3'
+
+	// ------------------- oauth 2.0 ---------------------
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+	// ------------------- mail ---------------------
+	implementation("org.springframework.boot:spring-boot-starter-mail")
+
+	//  aws s3
+//	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+//	implementation("io.awspring.cloud:spring-cloud-aws-context:2.3.3")
+//	implementation("org.springframework.cloud:spring-cloud-aws-autoconfigure:2.2.6.RELEASE")
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+jar {
+	enabled = false
+}
