@@ -1,20 +1,24 @@
 <template>
   <div>
-    <Header></Header>
-    <div class="PlaceBackgroundImage">
-      <div class="PlaceBackgroundImageCover">
-        <div class="PlaceBackground-Content ms-5 ps-5">
-          <p class="ps-5 ms-4">
-            당신에게 적합한 <br />
-            운동장소를 찾아보세요.
-          </p>
+    <div style="max-width: 1255px; margin: auto;">
+      <Header></Header>
+    </div>
+    <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7;">
+    <div style="max-width: 1255px; margin: auto;">
+      <div class="PlaceBackgroundImage">
+        <div class="PlaceBackgroundImageCover">
+          <div class="PlaceBackground-Content ms-5 ps-2">
+            <p>
+              PAIR PLAY
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="container" style="max-width: 1280px;">
-      <div class="category container">
+    <div class="container" style="max-width: 1280px; padding: 0px;">
+      <div class="category container" style="padding: 0px;">
         <div class="ps-3 mb-4">
-          <div class="fs-3 fw-bold">주요 서비스</div>
+          <div class="fs-2 fw-bold">주요 서비스</div>
           <div class="container-in mt-4 mb-5">
             <div class="thumbex">    
               <div class="thumbnail one">
@@ -33,10 +37,25 @@
               </div>
             </div>
           </div>
-          <div class="pt-5 fs-3 fw-bold">핵심 기술</div>
+          <div class="pt-5 fs-2 fw-bold">핵심 기술</div>
           <div class="container-in mt-5">
             <div class="box">
-
+              <div class="thumbnail one">
+                <a href="javascript:void(0)">
+                  <span class="serv">서비스</span>
+                  <span class="desc">설명</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="container-in mt-4">
+            <div class="box">
+              <div class="thumbnail one">
+                <a href="javascript:void(0)">
+                  <span class="serv">서비스</span>
+                  <span class="desc">설명</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -63,12 +82,12 @@ export default {
   background: black;
   margin-bottom: 5rem;
   /* background-color: rgba(0, 0, 0, 0.4); */
-  background: url("https://images.pexels.com/photos/3601094/pexels-photo-3601094.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260") 50% 40% no-repeat;
+  background-image: url("@/assets/images/Main/Main.jpeg");
   background-size: 100% auto;
 }
 .PlaceBackgroundImageCover {
   position: absolute;
-  width: 100%;
+  width: 1255px;
   height: 300px;
   background: linear-gradient(30deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
   /* background-color: rgba(0, 0, 0, 0.3); */
@@ -76,8 +95,10 @@ export default {
   color: white;
 }
 .PlaceBackground-Content {
-  position: absolute;
-  top: 40%;
+  position: relative;
+  top: 60%;
+  
+  left: -1%;
   /* max-width: 968px; */
   font-size: calc(1em + 2vw);
   /* transform: translate(-50%, -50%); */
@@ -170,6 +191,65 @@ export default {
       }
     }
   }
+
+  .box{
+    margin: 10px 0px 30px;
+    width: 100%;
+    min-width: 250px;
+    max-width: 100%;
+    height: 300px;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    background-size: cover;
+    border-radius: 15px;
+    transition: all 0.4s ease-out;
+    // box-shadow: 5px 10px 40px 5px rgba(0,0,0,0.5);
+    &:hover{
+      box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.5);
+    }  
+    
+    .thumbnail{
+      overflow: hidden;
+      // min-width: 250px;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      backface-visibility: hidden;
+      transition: all 0.4s ease-out;
+      
+      span{
+        position: absolute;
+        z-index: 2;
+        padding: 0px 10px;
+        margin: 0px 45px;
+        font-size: 40px;
+        color: black;
+        font-weight: bold;
+        letter-spacing: 0.2px;
+        // transition: all 0.3s ease-out;
+      }
+      
+      &:hover{
+        backface-visibility: hidden;
+        // transform: scale(1.15, 1.15);
+        opacity: 0.8;
+        box-shadow: 5px 10px 40px 5px rgba(0,0,0,0.5);        
+      }
+    }
+  }
+}
+
+.serv {
+  top: calc(150px - 110px);
+  text-align: left;
+}
+
+.desc {
+  top: calc(150px + 40px);
+  text-align: right;
+  right: 1%;
 }
 
 .one {

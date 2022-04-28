@@ -1,33 +1,72 @@
 <template>
-  <div class="header-main is-sticky" :class="isTransparent">
-    <div class="container">
-      <div class="header-wrap">
-        <!-- logo -->
-        <div class="header-logo">
-          <!-- logo link -->
-          <router-link to="/" class="logo-link">
-            <p class="logo">Pairplay</p>
-          </router-link>
-        </div>
-        <!-- .header-logo -->
-        <!-- mobile action -->
-        <!-- <MobileAction></MobileAction> -->
-        <!-- heder search -->
-        <!-- <HeaderSearch></HeaderSearch> -->
-        <!-- Menu -->
-        <Menu classname="btn-dark"></Menu>
-        <div class="header-overlay"></div>
-      </div>
-      <!-- .header-warp-->
+  <div style="height: 100px;" class="d-flex justify-content-between align-items-center">
+    <div class="logo" @click="moveToHome">
     </div>
-    <!-- .container-->
+    <div class="hyper" v-if="state.loginStatus">
+      <span class="mx-4">Place</span>
+      <span class="mx-4">Mate</span>
+      <span class="mx-4">Profile</span>
+      <span class="mx-4" @click="logout">Logout</span>
+    </div>
+    <div class="hyper" v-else>
+      <span class="mx-4" @click="moveToLogin">Login</span>
+      <span class="mx-4" @click="moveToSignUp">SignUp</span>
+    </div>
   </div>
-  <!-- .header-main-->
 </template>
 <script>
+import { computed, reactive } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 export default {
   name: "Header",
-  props: [],
-  components: {},
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+    const state = reactive({
+      loginStatus: computed(() => store.getters["root/loginStatus"])
+    })
+    const moveToHome = function () {
+      router.push({
+        name: 'Main',
+      })
+    }
+    const moveToLogin = function () {
+      router.push({
+        name: 'Login',
+      })
+    }
+    const moveToSignUp = function () {
+      router.push({
+        name: 'Signup',
+      })
+    }
+    const logout = function () {
+      localStorage.removeItem('jwt')
+      localStorage.removeItem('vuex')
+    }
+    return { state, moveToHome, moveToLogin, moveToSignUp, logout }
+  }
 };
 </script>
+<style scoped lang="scss">
+.logo {
+  background-image: url("@/assets/images/Main/Logo.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+  width: 10%;
+  height: 100%;
+  margin-left: 2%;
+  cursor: pointer;
+}
+
+.hyper {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+span {
+  cursor: pointer;
+}
+</style>
