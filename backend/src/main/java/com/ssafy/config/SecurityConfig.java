@@ -38,9 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // Password 인코딩 방식에 BCrypt 암호화 방식 사용
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
 
     // DAO 기반으로 Authentication Provider를 생성
     // BCrypt Password Encoder와 UserDetailService 구현체를 설정

@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        
+
         try {
             // If header is present, try grab user principal from database and perform authorization
             Authentication authentication = getAuthentication(request);

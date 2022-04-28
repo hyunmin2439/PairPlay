@@ -8,11 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel("MemberSignupPostRequest")
-public class MemberSignupPostReq {
-    @ApiModelProperty(name="이메일", example="ssafy@ssafy.com")
-    String email;
+public class MemberSignupPostReq extends MemberLoginPostReq{
     @ApiModelProperty(name="닉네임", example="ssafy1234")
     String nickname;
-    @ApiModelProperty(name="비밀번호", example="!ssafy1234")
-    String password;
 }

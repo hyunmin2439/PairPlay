@@ -4,29 +4,29 @@ import com.ssafy.common.util.JwtTokenUtil;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
-import java.util.List;
 
-/*
+/**
+ * 에러 1
  * ~ com\ssafy\config\WebMvcConfig.java uses unchecked or unsafe operations.
  * Recompile with -Xlint:unchecked for details.
  *
  * Generic 클래스나 인터페이스를 선언 및 생성할 때 자료형 선언 안해서 나는 에러
  * 실행 시 정상 동작하므로 큰 신경 안써도 됨.
+ *
  */
 
 @Configuration
-@SuppressWarnings("unchecked") // 위의 나는 에러 안보이게 처리
+@SuppressWarnings("unchecked") // 위의 나는 에러1 안보이게 처리
 public class WebMvcConfig implements WebMvcConfigurer {
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -46,7 +46,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
     		registry.addResourceHandler("/resources/**")
     				.addResourceLocations("/WEB-INF/resources/");
-    		
+
 //    		registry.addResourceHandler("/swagger-ui/index.html/")
 //    				.addResourceLocations("classpath:/META-INF/resources/");
 

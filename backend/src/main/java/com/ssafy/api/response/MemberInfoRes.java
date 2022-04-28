@@ -13,7 +13,7 @@ import java.time.LocalDate;
  */
 @Getter
 @Setter
-@ApiModel("UserLoginPostResponse")
+@ApiModel("MemberInfoResponse")
 public class MemberInfoRes extends MemberLoginRes{
     @ApiModelProperty(name="User email")
     String email;

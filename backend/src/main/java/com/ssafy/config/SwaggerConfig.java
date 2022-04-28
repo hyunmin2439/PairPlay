@@ -8,7 +8,8 @@ import lombok.Setter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.PathSelectors;
@@ -35,7 +36,7 @@ import static springfox.documentation.swagger.web.OperationsSorter.METHOD;
  *
  * SpringBoot 2.6버전 Swagger 3.0 버전 적용시 에러
  *
- * 에러 메세지
+ * 에러 1
  * Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
  *
  * @EnableWebMvc
@@ -47,11 +48,33 @@ import static springfox.documentation.swagger.web.OperationsSorter.METHOD;
  * 메서드가 정상 동작 하지 않아서 Swagger에 접속할 수 없다.
  *
  * Swagger 구현 클래스에 extends WebMvcConfigurationSupport를 추가하고 addResourceHandlers를 Override하면 정상 동작
+ *
+ *
+ * 에러 2
+ * No primary or single unique constructor found for interface org.springframework.data.domain.Pageable
+ *
+ * 1. WebMvcConfigurationSupport Extends 받아 addResourceHandlers를 오버라이드할 경우
+ *
+ * 2. WebAutoConfiguration이 MVC를 구성해 주지 않는다.
+ *
+ * 3. Pageable을 자동으로 init해주는 리졸버는 PageableHandlerMethodArgumentResolver
+ *
+ * 4. PageableHandlerMethodArgumentResolver는 WebAutoConfiguration에서 추가 해주기 때문에 기본 생성자가 없다는 것
+ *
+ * 즉, 현재 상황은 Swagger 때문에 WebMvcConfigurationSupport extends가 강제되는 상황
+ *
+ * 직접, PageableHandlerMethodArgumentResolver를 추가해주는 방법
  */
 
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig extends WebMvcConfigurationSupport {
+
+    // Pageable 설정 추가
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add( new PageableHandlerMethodArgumentResolver());
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

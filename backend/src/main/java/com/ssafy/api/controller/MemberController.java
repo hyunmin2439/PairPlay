@@ -10,6 +10,7 @@ import com.ssafy.api.response.MemberLoginRes;
 import com.ssafy.api.service.MemberService;
 import com.ssafy.common.handler.CustomException;
 import com.ssafy.common.util.JwtTokenUtil;
+import com.ssafy.common.util.PasswordUtil;
 import com.ssafy.domain.entity.Member;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -83,7 +84,7 @@ public class MemberController {
     @PostMapping("/signup")
     @ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드, 닉네임</strong>을 입력하여 회원가입 한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "회원가입에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 200, message = "회원가입에 성공했습니다.", response = MemberInfoRes.class),
             @ApiResponse(code = 400, message = "요청 변수 값이 비어 있습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 409, message = "이미 존재하는 이메일입니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 409, message = "이미 존재하는 닉네임입니다.", response = BaseResponseBody.class),
@@ -114,7 +115,7 @@ public class MemberController {
     @PutMapping("/signup")
     @ApiOperation(value = "2차 회원가입", notes = "<strong>유저 추가 정보</strong>를 등록한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "추가 정보 등록에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 200, message = "추가 정보 등록에 성공했습니다.", response = MemberInfoRes.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> afterSignup(
@@ -161,20 +162,20 @@ public class MemberController {
         );
     }
 
-//    @PostMapping("/resetPassword")
-//    @ApiOperation(value = "이메일 입력 받음", notes = "회원의 이메일로 임시 비밀번호 전송")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "SUCCESS", response = BaseResponseBody.class),
-//            @ApiResponse(code = 404, message = "FAIL", response = BaseResponseBody.class)
-//    })
-//    public ResponseEntity<BaseResponseBody> resetPassword(@RequestBody @ApiParam(value = "이메일 정보", required = true) UserLoginPostReq email) {
-//        String tempEmail = email.getEmail();
-        // 여기서 임시 비밀번호 생성 해서 service로 넘겨줘야 함
-//        System.out.println(tempEmail);
-//        if (memberService.sendMail(tempEmail)) {
-//            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "SUCCESS"));
-//        } else {
-//            return ResponseEntity.status(404).body(BaseResponseBody.of(404, "FAIL"));
-//        }
-//    }
+    @PostMapping("/password")
+    @ApiOperation(value = "비밀번호 초기화", notes = "회원의 이메일로 임시 비밀번호 전송")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "비밀번호 초기화에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 400, message = "요청 변수 값이 비어 있습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 404, message = "해당 유저 정보를 찾지 못했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<BaseResponseBody> resetPassword(@RequestBody @ApiParam(value = "이메일 정보", required = true) MemberCheckPostReq emailInfo) {
+        String tmpPassword = PasswordUtil.getRandomPassword(); // 임시비밀번호
+        String encrypted = passwordEncoder.encode(tmpPassword); // 임시비밀번호의 jwtToken
+
+        memberService.sendMail(emailInfo.getValue(), tmpPassword, encrypted);
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_RESET_PASSWORD.getCode(), SUCCESS_RESET_PASSWORD.getMessage()));
+    }
 }
