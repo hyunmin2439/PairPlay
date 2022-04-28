@@ -19,7 +19,7 @@ public class ProfilePutReq {
     @ApiModelProperty(name = "이름", example = "김싸피")
     String name;
     @ApiModelProperty(name = "성별", example = "0 (남자) or 1 (여자)")
-    int gender;
+    int gender = -1;
     @ApiModelProperty(name = "생년월일", example = "1995-01-01")
     LocalDate birthDt;
     @ApiModelProperty(name = "주소", example = "부산광역시 싸피구 싸피동 100")

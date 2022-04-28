@@ -54,13 +54,27 @@ public class Member extends BaseEntity {
     // 회원 정보 수정
     public void profileUpdate(ProfilePutReq profilePutReq) {
         this.nickname = profilePutReq.getNickname();
-        this.password = profilePutReq.getPassword();
         this.name = profilePutReq.getName();
         this.gender = profilePutReq.getGender();
         this.birthDt = profilePutReq.getBirthDt();
         this.address = profilePutReq.getAddress();
         this.phone = profilePutReq.getPhone();
         this.description = profilePutReq.getDescription();
+    }
+
+    // Profile Image URL Update
+    public void profileImageUpdate(String profileImageUrl) {
+        this.profileImage = profileImageUrl;
+    }
+
+    // Password Update
+    public void passwordUpdate(String password) {
+        this.password = password;
+    }
+
+    // Member Enable Update
+    public void memberEnableUpdate(boolean isEnable) {
+        this.enable = isEnable;
     }
 
 }
