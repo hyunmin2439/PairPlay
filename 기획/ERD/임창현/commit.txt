@@ -1,2 +1,6 @@
 5팀화이팅
 1일 1커밋
+2022-04-25
+DockerFile 작성
+MySQL Container 생성
+Frontend Container 생성

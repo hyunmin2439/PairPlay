@@ -3,6 +3,7 @@ package com.ssafy.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.api.request.MemberSignupPutReq;
+import com.ssafy.api.request.ProfilePutReq;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +30,8 @@ public class Member extends BaseEntity {
     String phone;
     String profileImage; // 프로필 이미지 주소
     boolean enable; // 삭제 여부
-    
+    String description;
+
     // Jackson 라이브러리 Annotation
     @JsonIgnoreProperties// 직렬화 시 제외 필드
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // 쓰기 전용
@@ -47,6 +49,18 @@ public class Member extends BaseEntity {
         this.birthDt = memberInfo.getBirthDt();
         this.address = memberInfo.getAddress();
         this.phone = memberInfo.getPhone();
+    }
+
+    // 회원 정보 수정
+    public void profileUpdate(ProfilePutReq profilePutReq) {
+        this.nickname = profilePutReq.getNickname();
+        this.password = profilePutReq.getPassword();
+        this.name = profilePutReq.getName();
+        this.gender = profilePutReq.getGender();
+        this.birthDt = profilePutReq.getBirthDt();
+        this.address = profilePutReq.getAddress();
+        this.phone = profilePutReq.getPhone();
+        this.description = profilePutReq.getDescription();
     }
 
 }
