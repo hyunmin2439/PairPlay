@@ -1,6 +1,6 @@
 <template>
   <div>
-    <naver-maps class="naverMaps" :mapOptions="mapOptions" style="width: 600px" :initLayers="initLayers" @onLoad="onLoadMap($event)"> </naver-maps>
+    <naver-maps class="naverMaps" :mapOptions="mapOptions" style="width: 100%; height: 70vh" :initLayers="initLayers" @onLoad="onLoadMap($event)"> </naver-maps>
   </div>
 </template>
 

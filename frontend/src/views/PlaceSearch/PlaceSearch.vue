@@ -17,7 +17,7 @@
           </div>
           <!-- <place-search-maps class="placeSearchMaps col-6" style="height: 800px">아아</place-search-maps> -->
         </div>
-        <place-search-maps class="col">아아</place-search-maps>
+        <place-search-maps class="col placeSearchMaps">아아</place-search-maps>
       </div>
     </div>
     <footer>푸터</footer>
@@ -95,8 +95,22 @@ export default {
   border-bottom: 1px solid rgba(1, 1, 1, 0.1);
 }
 .PlaceSearchContentFrame {
+  width: 100%;
+
+  // width: 50%;
+  // background-color: wheat;
+  max-height: 70vh;
+  overflow-y: overlay;
+  // overflow-x: overlay;
+  // scrollbar-width: 0px;
   max-width: 100vw;
 }
+.PlaceSearchContentFrame {
+}
+// ::-webkit-scrollbar {
+//   // display: none;
+//   // width: 0px;
+// }
 .placeSearchContent {
   max-width: 1400px;
 }
@@ -108,24 +122,16 @@ export default {
 // padding-left: 5px;
 // padding-right: 5px;
 // }
-.placeSearchList {
-  width: 100%;
 
-  // width: 50%;
-  // background-color: wheat;
-  max-height: 500px;
-  overflow-y: overlay;
-  overflow-x: overlay;
-  scrollbar-width: 0px;
+.placeSearchMaps {
+  display: block;
+  height: unset;
+  position: sticky;
+  top: 0px;
+  visibility: unset;
+  width: unset;
+  //   width: 55%;
+  // background: black;
+  // height: 600px;
 }
-::-webkit-scrollbar {
-  // display: none;
-  width: 0px;
-}
-
-// .placeSearchMaps {
-//   width: 55%;
-// background: black;
-// height: 600px;
-// }
 </style>
