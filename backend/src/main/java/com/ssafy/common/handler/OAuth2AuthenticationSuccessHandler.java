@@ -37,7 +37,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         String targetUrl = determineTargetUrl(request, response, authentication);
 
-        String url = makeRedirectUrl(JwtTokenUtil.getToken(String.valueOf(member.getId())));
+        String url = makeRedirectUrl(
+                request.getServerName(),
+                JwtTokenUtil.getToken(String.valueOf(member.getId()))
+        );
 
         if (response.isCommitted()) {
             logger.debug("응답이 이미 커밋된 상태입니다. " + url + "로 리다이렉트하도록 바꿀 수 없습니다.");
@@ -47,9 +50,20 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         getRedirectStrategy().sendRedirect(request, response, url);
     }
 
-    private String makeRedirectUrl(String token) {
-        return UriComponentsBuilder.fromUriString("https://k6e205.p.ssafy.io:443/oauth/success")
+    private String makeRedirectUrl(String domain, String token) {
+        System.out.println(domain);
+
+        if(domain.contains("localhost"))
+            domain = "http://" + domain + ":8080";
+        else
+            domain = "https://" + domain + ":443";
+
+        return UriComponentsBuilder.fromUriString(domain + "/oauth/success")
                 .queryParam("accessToken", token)
                 .build().toUriString();
+
+//        return UriComponentsBuilder.fromUriString("https://k6e205.p.ssafy.io:443/oauth/success")
+//                .queryParam("accessToken", token)
+//                .build().toUriString();
     }
 }

@@ -1,6 +1,7 @@
 package com.ssafy.common.handler;
 
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -19,13 +20,20 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         logger.debug("소셜 로그인 가입을 할 수 없습니다.");
 
-        String url = makeRedirectUrl();
+        String url = makeRedirectUrl(request.getServerName());
 
         getRedirectStrategy().sendRedirect(request, response, url);
     }
 
-    private String makeRedirectUrl() {
-        return UriComponentsBuilder.fromUriString("https://k6e205.p.ssafy.io:443/oauth/failure")
+    private String makeRedirectUrl(String domain) {
+        System.out.println(domain);
+
+        if(domain.contains("localhost"))
+            domain = "http://" + domain + ":8080";
+        else
+            domain = "https://" + domain + ":443";
+
+        return UriComponentsBuilder.fromUriString(domain + "/oauth/failure")
                 .build().toUriString();
     }
 }
