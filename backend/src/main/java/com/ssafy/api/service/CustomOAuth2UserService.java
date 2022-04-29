@@ -70,6 +70,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String nickname = randomNickname(attributes.getNickname());
 
         Member member = memberRepository.findByEmail(attributes.getEmail())
+                .map(entity -> entity.updateSocialId(
+                        socialId)) // 업데이트 : 사용자 정보 업데이트시 같이 변경
                 .orElse(attributes.toEntity(socialId, nickname));
 
         return memberRepository.save(member);

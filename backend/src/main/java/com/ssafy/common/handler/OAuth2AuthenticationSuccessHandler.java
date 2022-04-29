@@ -24,14 +24,14 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         // socialId
-        String memberId = authentication.getName();
+        String userSocialId = authentication.getName();
 
-        Member member = memberRepository.findById(Long.parseLong(memberId)).orElse(null);
+        Member member = memberRepository.findBySocialId(userSocialId).orElse(null);
 
         // 유저가 존재하면
         if(member != null) {
             // google에서 사용하는 userId를 비밀번호로
-            member.resetPassword(new BCryptPasswordEncoder().encode(memberId));
+            member.resetPassword(new BCryptPasswordEncoder().encode(userSocialId));
             memberRepository.save(member);
         }
 
