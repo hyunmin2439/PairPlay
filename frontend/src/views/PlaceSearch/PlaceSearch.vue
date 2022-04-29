@@ -1,11 +1,14 @@
 <template>
   <div>
     <!-- 헤더 -->
-    <Header></Header>
+    <div style="max-width: 1400px; margin: auto">
+      <Header></Header>
+    </div>
+    <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" />
     <place-search-filters class="placeSearchFilters"></place-search-filters>
     <div class="container PlaceSearchContentFrame">
       <div class="placeSearchContent container d-flex justify-content-around align-items-start">
-        <div class="mt-4">
+        <div class="mt-4 col">
           <div class="placeSearchTitle mb-3 ps-3">부산 금정구 운동시설</div>
           <div class="py-2">
             <div class="placeSearchList">
@@ -14,7 +17,7 @@
           </div>
           <!-- <place-search-maps class="placeSearchMaps col-6" style="height: 800px">아아</place-search-maps> -->
         </div>
-        <div class="placeSearchMaps">카드맵</div>
+        <place-search-maps class="col">아아</place-search-maps>
       </div>
     </div>
     <footer>푸터</footer>
@@ -25,11 +28,11 @@
 import Header from "../Common/Header.vue";
 import PlaceSearchFilters from "./Components/PlaceSearchFilters.vue";
 import PlaceSearchList from "./Components/PlaceSearchList.vue";
-// import PlaceSearchMaps from "./Components/PlaceSearchMaps.vue";
+import PlaceSearchMaps from "./Components/PlaceSearchMaps.vue";
 export default {
   name: "PlaceSearch",
-  // PlaceSearchMaps
-  components: { Header, PlaceSearchFilters, PlaceSearchList },
+
+  components: { Header, PlaceSearchFilters, PlaceSearchList, PlaceSearchMaps },
   setup() {
     const cards = [
       {
@@ -88,7 +91,7 @@ export default {
 // }
 .placeSearchFilters {
   // width: 100vw;
-  padding: 1rem 0rem 1rem 5%;
+  padding: 0rem 0rem 1rem 5%;
   border-bottom: 1px solid rgba(1, 1, 1, 0.1);
 }
 .PlaceSearchContentFrame {
@@ -120,9 +123,9 @@ export default {
   width: 0px;
 }
 
-.placeSearchMaps {
-  width: 60%;
-  background: black;
-  // height: 600px;
-}
+// .placeSearchMaps {
+//   width: 55%;
+// background: black;
+// height: 600px;
+// }
 </style>

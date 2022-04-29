@@ -1,6 +1,6 @@
 <template>
   <div>
-    <naver-maps :mapOptions="mapOptions" :initLayers="initLayers" @onLoad="onLoadMap($event)"> </naver-maps>
+    <naver-maps class="naverMaps" :mapOptions="mapOptions" style="width: 600px" :initLayers="initLayers" @onLoad="onLoadMap($event)"> </naver-maps>
   </div>
 </template>
 
@@ -28,6 +28,7 @@ export default {
       // map.value.setCenter(new window.naver.maps.LatLng(36, 127)); // 지도 중앙 변경
     };
     return {
+      map,
       mapOptions,
       initLayers,
       onLoadMap,
@@ -36,4 +37,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// .naverMaps {
+// width: 100%;
+// height: 500px;
+// }
+</style>

@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- 헤더 -->
-    <Header></Header>
+    <div style="max-width: 1255px; margin: auto">
+      <Header></Header>
+    </div>
+    <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" />
     <div class="PlaceBackgroundImage">
       <div class="PlaceBackgroundImageCover">
         <div class="PlaceBackground-Content ms-5 ps-5">
