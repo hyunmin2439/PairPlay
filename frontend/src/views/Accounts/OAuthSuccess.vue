@@ -22,13 +22,13 @@ export default {
       localStorage.setItem("jwt", token)
       alert(route.query.isLogin)
       if (localStorage.getItem("jwt")) {
-        if (isLogin==true) {
+        if (isLogin==1) {
           store.commit("root/LOGIN_STATUS", true)
           await store.dispatch("root/getUserInfo", { 'jwt': token, 'memberId': memberId })
           await router.push({
             name: "Main",
           })
-        } else {
+        } else if (isLogin==0) {
           await router.push({
             name: "SignUpSecond"
           })
