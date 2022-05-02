@@ -54,6 +54,11 @@ const routes = [
     name: "Mate",
     component: () => import("../views/Mate/Mate.vue"),
   },
+  {
+    path: "/profile/:memberId",
+    name: "Profile",
+    component: () => import("../views/Profile/Profile.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -3,8 +3,8 @@
     <div class="logo" @click="moveToHome"></div>
     <div class="hyper" v-if="state.loginStatus">
       <span class="mx-4" @click="moveToPlace">Place</span>
-      <span class="mx-4">Mate</span>
-      <span class="mx-4">Profile</span>
+      <span class="mx-4" @click="moveToMate">Mate</span>
+      <span class="mx-4" @click="moveToProfile">Profile</span>
       <span class="mx-4" @click="logout">Logout</span>
     </div>
     <div class="hyper" v-else>
@@ -24,6 +24,7 @@ export default {
     const router = useRouter();
     const state = reactive({
       loginStatus: computed(() => store.getters["root/loginStatus"]),
+      userInfo: computed(() => store.getters["root/userInfo"]),
     });
     const moveToHome = function () {
       router.push({
@@ -45,12 +46,25 @@ export default {
         name: "Place",
       });
     };
+    const moveToMate = function () {
+      router.push({
+        name: "Mate"
+      })
+    }
+    const moveToProfile = function () {
+      router.push({
+        name: "Profile",
+        params: {
+          memberId: state.userInfo.memberId,
+        }
+      })
+    }
     const logout = function () {
       localStorage.removeItem("jwt");
       localStorage.removeItem("vuex");
       router.go();
     };
-    return { state, moveToHome, moveToLogin, moveToSignUp, moveToPlace, logout };
+    return { state, moveToHome, moveToLogin, moveToSignUp, moveToPlace, moveToMate, moveToProfile, logout };
   },
 };
 </script>

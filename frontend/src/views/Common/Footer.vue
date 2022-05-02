@@ -1,15 +1,15 @@
 <template>
-  <div style="height: 100px" class="d-flex justify-content-between align-items-center">
-    <div class="logo" @click="moveToHome"></div>
-    <div class="hyper" v-if="state.loginStatus">
-      <span class="mx-4" @click="moveToPlace">Place</span>
-      <span class="mx-4">Mate</span>
-      <span class="mx-4">Profile</span>
-      <span class="mx-4" @click="logout">Logout</span>
+  <div style="height: 100%; background-color: black; text-align: center;">
+    <div class="logo-footer py-5">
+      PairPlay
     </div>
-    <div class="hyper" v-else>
-      <span class="mx-4" @click="moveToLogin">Login</span>
-      <span class="mx-4" @click="moveToSignUp">SignUp</span>
+    <div class="pb-5">
+      <p>대표 : 조영현</p>
+      <div class="pb-3">
+        <span>번호 : 010-XXXX-YYYY</span><span class="ms-5">사업자 번호 : 0655215</span>
+      </div>
+      <p>사업장 : 부산 연제구 해맞이로 유림아시아드 해성이형집</p>
+      <p style="font-weight: bold;">Copyright @ SSAFY PairPlay Inc. All Rights Reserved.</p>
     </div>
   </div>
 </template>
@@ -55,24 +55,19 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.logo {
-  background-image: url("@/assets/images/Main/Logo.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: left;
-  width: 10%;
-  height: 100%;
-  margin-left: 2%;
-
-  cursor: pointer;
-}
-
-.hyper {
-  font-size: x-large;
+.logo-footer {
+  font-size: xx-large;
+  color: white;
   font-weight: bold;
 }
 
+p {
+  font-size: large;
+  color: white;
+}
+
 span {
-  cursor: pointer;
+  font-size: large;
+  color: white;
 }
 </style>

@@ -11,3 +11,7 @@ export function nicknameDuplicate(state) {
 export function loginStatus(state) {
   return state.loginStatus;
 }
+
+export function userInfo(state) {
+  return state.userInfo;
+}
