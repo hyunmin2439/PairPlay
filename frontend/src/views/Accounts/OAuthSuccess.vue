@@ -20,9 +20,9 @@ export default {
       // isLogin : true => 메인페이지 / false => 2차 로그인
       const isLogin = route.query.isLogin;
       localStorage.setItem("jwt", token)
-      alert(route)
+      alert(route.query.isLogin)
       if (localStorage.getItem("jwt")) {
-        if (isLogin) {
+        if (isLogin==true) {
           store.commit("root/LOGIN_STATUS", true)
           await store.dispatch("root/getUserInfo", { 'jwt': token, 'memberId': memberId })
           await router.push({
