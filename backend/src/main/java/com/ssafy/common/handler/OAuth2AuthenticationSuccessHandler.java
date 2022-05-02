@@ -13,6 +13,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Component
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -27,19 +29,27 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String userSocialId = authentication.getName();
 
         Member member = memberRepository.findBySocialId(userSocialId).orElse(null);
+        boolean isLogin = false;
+
+        System.out.println(ChronoUnit.MINUTES.between(member.getCreatedDate(), LocalDateTime.now()));
 
         // 유저가 존재하면
         if(member != null) {
             // google에서 사용하는 userId를 비밀번호로
             member.resetPassword(new BCryptPasswordEncoder().encode(userSocialId));
+
+            isLogin = (ChronoUnit.MINUTES.between(member.getCreatedDate(), LocalDateTime.now()) >= 1);
+
             memberRepository.save(member);
         }
 
-        String targetUrl = determineTargetUrl(request, response, authentication);
+//        String targetUrl = determineTargetUrl(request, response, authentication);
 
         String url = makeRedirectUrl(
                 request.getServerName(),
-                JwtTokenUtil.getToken(String.valueOf(member.getId()))
+                JwtTokenUtil.getToken(String.valueOf(member.getId())),
+                member.getId(),
+                isLogin
         );
 
         if (response.isCommitted()) {
@@ -50,7 +60,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         getRedirectStrategy().sendRedirect(request, response, url);
     }
 
-    private String makeRedirectUrl(String domain, String token) {
+    private String makeRedirectUrl(String domain, String token, Long memberId, boolean isLogin) {
         System.out.println(domain);
 
         if(domain.contains("localhost"))
@@ -60,6 +70,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         return UriComponentsBuilder.fromUriString(domain + "/oauth/success")
                 .queryParam("accessToken", token)
+                .queryParam("memberId", memberId)
+                .queryParam("isLogin", isLogin)
                 .build().toUriString();
 
 //        return UriComponentsBuilder.fromUriString("https://k6e205.p.ssafy.io:443/oauth/success")

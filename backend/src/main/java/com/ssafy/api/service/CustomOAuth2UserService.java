@@ -54,7 +54,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         Member member = null;
         try {
-            member = memberRepository.findByEmail(attributes.getEmail()).orElse(null);
             member = saveOrUpdate(attributes, socialId);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @Setter
 @ApiModel("MemberInfoResponse")
 public class MemberInfoRes extends MemberLoginRes{
+    @ApiModelProperty(name = "Member Id")
+    Long memberId;
     @ApiModelProperty(name="User email")
     String email;
     @ApiModelProperty(name="User nickname")
@@ -40,6 +42,7 @@ public class MemberInfoRes extends MemberLoginRes{
         res.setCode(statusCode);
         res.setMessage(message);
 
+        res.setMemberId(member.getId());
         res.setEmail(member.getEmail());
         res.setNickname(member.getNickname());
         res.setName(member.getName());
@@ -58,6 +61,7 @@ public class MemberInfoRes extends MemberLoginRes{
         res.setMessage(message);
         res.setAccessToken(accessToken);
 
+        res.setMemberId(member.getId());
         res.setEmail(member.getEmail());
         res.setNickname(member.getNickname());
         res.setName(member.getName());
