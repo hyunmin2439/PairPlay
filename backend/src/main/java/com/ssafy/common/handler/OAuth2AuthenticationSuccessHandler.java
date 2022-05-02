@@ -29,7 +29,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String userSocialId = authentication.getName();
 
         Member member = memberRepository.findBySocialId(userSocialId).orElse(null);
-        boolean isLogin = false;
+        int isLogin = 0;
 
         System.out.println(ChronoUnit.MINUTES.between(member.getCreatedDate(), LocalDateTime.now()));
 
@@ -38,7 +38,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             // google에서 사용하는 userId를 비밀번호로
             member.resetPassword(new BCryptPasswordEncoder().encode(userSocialId));
 
-            isLogin = (ChronoUnit.MINUTES.between(member.getCreatedDate(), LocalDateTime.now()) >= 1);
+            isLogin = (ChronoUnit.MINUTES.between(member.getCreatedDate(), LocalDateTime.now()) >= 1) ? 1 : 0;
 
             memberRepository.save(member);
         }
@@ -60,7 +60,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         getRedirectStrategy().sendRedirect(request, response, url);
     }
 
-    private String makeRedirectUrl(String domain, String token, Long memberId, boolean isLogin) {
+    private String makeRedirectUrl(String domain, String token, Long memberId, int isLogin) {
         System.out.println(domain);
 
         if(domain.contains("localhost"))
