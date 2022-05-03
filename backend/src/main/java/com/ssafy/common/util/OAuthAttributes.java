@@ -74,6 +74,7 @@ public class OAuthAttributes {
                 .email(email)
                 .socialId(socialId)
                 .profileImage(picture != "" ? picture : "")
+                .enable(true)
                 .build();
     }
 

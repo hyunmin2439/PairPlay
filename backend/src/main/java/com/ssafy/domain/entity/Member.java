@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.api.request.MemberSignupPutReq;
 import com.ssafy.api.request.ProfilePutReq;
+import com.ssafy.common.util.AddressUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,7 +54,7 @@ public class Member extends BaseEntity {
         this.name = memberInfo.getName();
         this.gender = memberInfo.getGender();
         this.birthDt = memberInfo.getBirthDt();
-        set2DepthAddress( memberInfo.getAddress() );
+        set3DepthAddress( memberInfo.getAddress() );
         this.phone = memberInfo.getPhone();
     }
 
@@ -63,21 +64,20 @@ public class Member extends BaseEntity {
         this.name = profilePutReq.getName();
         this.gender = profilePutReq.getGender();
         this.birthDt = profilePutReq.getBirthDt();
-        set2DepthAddress( profilePutReq.getAddress() );
+        set3DepthAddress( profilePutReq.getAddress() );
         this.phone = profilePutReq.getPhone();
         this.description = profilePutReq.getDescription();
     }
 
     // 주소 체계 저장
-    public void set2DepthAddress(String address) {
+    public void set3DepthAddress(String address) {
         StringTokenizer st = new StringTokenizer(address);
-        this.sido = st.nextToken();
-        this.gugun = st.nextToken();
-        StringBuffer sb = new StringBuffer();
-        while(st.hasMoreTokens())
-            sb.append(st.nextToken()).append(" ");
-        sb.setLength(sb.length() - 1);
-        this.detailAddress = sb.toString();
+
+        String[] splitAddress = AddressUtil.get3DepthAddress(address);
+        this.sido = splitAddress[0];
+        this.gugun = splitAddress[1];
+        this.detailAddress = splitAddress[2];
+
     }
 
     // 주소 가져올 때
