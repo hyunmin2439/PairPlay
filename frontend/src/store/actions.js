@@ -61,10 +61,9 @@ export async function signupSecond({ commit }, payload) {
   await $axios.put(url, body, {
     headers: {
       Authorization: "Bearer " + header,
-    },
+      },
     })
     .then((res) => {
-      console.log(res)
       commit("USER_INFO", res.data)
       commit("LOGIN_STATUS", true)
     })
@@ -88,18 +87,17 @@ export async function login({ commit }, payload) {
     })
 }
 
-export async function getUserInfo({ state }, payload) {
+export async function getUserInfo({ commit }, payload) {
   const memberId = payload.memberId
   const jwt = payload.jwt
   const url = `profiles/${memberId}`
-  console.log(state)
   await $axios.get(url, {
     headers: {
       Authorization: "Bearer " + jwt,
     },
   })
     .then((res) => {
-      console.log(res)
+      commit("USER_INFO", res.data)
     })
     .catch ((err) => {
       console.log(err)

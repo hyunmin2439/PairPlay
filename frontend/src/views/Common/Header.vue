@@ -59,10 +59,17 @@ export default {
         }
       })
     }
-    const logout = function () {
+    const logout = async function () {
       localStorage.removeItem("jwt");
       localStorage.removeItem("vuex");
-      router.go();
+      if (router.currentRoute.value.name == "Main") {
+        router.go()
+      } else {
+        await router.push({
+          name: "Main"
+        })
+        router.go()
+      }
     };
     return { state, moveToHome, moveToLogin, moveToSignUp, moveToPlace, moveToMate, moveToProfile, logout };
   },

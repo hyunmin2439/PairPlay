@@ -15,6 +15,7 @@ export function LOGIN_STATUS(state, data) {
 export function USER_INFO(state, data) {
   state.userInfo['address'] = data.address
   state.userInfo['birthDt'] = data.birthDt
+  state.userInfo['description'] = data.description
   state.userInfo['email'] = data.email
   if (data.gender == 0) {
     state.userInfo['gender'] = '남성'
@@ -25,5 +26,5 @@ export function USER_INFO(state, data) {
   state.userInfo['name'] = data.name
   state.userInfo['nickname'] = data.nickname
   state.userInfo['phone'] = data.phone
-  state.userInfo['prfileImg'] = data.prfileImg
+  state.userInfo['prfileImage'] = data.prfileImage
 }
