@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import java.time.LocalDate;
+import java.util.StringTokenizer;
 
 /**
  * 유저 모델 정의.
@@ -26,7 +27,11 @@ public class Member extends BaseEntity {
     String name;
     int gender; // 0(남) / 1(여) Converter 사용할지 고민
     LocalDate birthDt;
-    String address;
+
+    String sido;
+    String gugun;
+    String detailAddress;
+
     String phone;
     String profileImage; // 프로필 이미지 주소
     boolean enable; // 삭제 여부
@@ -48,7 +53,7 @@ public class Member extends BaseEntity {
         this.name = memberInfo.getName();
         this.gender = memberInfo.getGender();
         this.birthDt = memberInfo.getBirthDt();
-        this.address = memberInfo.getAddress();
+        set2DepthAddress( memberInfo.getAddress() );
         this.phone = memberInfo.getPhone();
     }
 
@@ -58,9 +63,20 @@ public class Member extends BaseEntity {
         this.name = profilePutReq.getName();
         this.gender = profilePutReq.getGender();
         this.birthDt = profilePutReq.getBirthDt();
-        this.address = profilePutReq.getAddress();
+        set2DepthAddress( profilePutReq.getAddress() );
         this.phone = profilePutReq.getPhone();
         this.description = profilePutReq.getDescription();
+    }
+
+    public void set2DepthAddress(String address) {
+        StringTokenizer st = new StringTokenizer(address);
+        this.sido = st.nextToken();
+        this.gugun = st.nextToken();
+        StringBuffer sb = new StringBuffer();
+        while(st.hasMoreTokens())
+            sb.append(st.nextToken()).append(" ");
+        sb.setLength(sb.length() - 1);
+        this.detailAddress = sb.toString();
     }
 
     // Profile Image URL Update
