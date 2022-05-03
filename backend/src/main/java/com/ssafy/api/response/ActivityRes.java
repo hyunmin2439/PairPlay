@@ -43,7 +43,7 @@ public class ActivityRes {
         res.setTitle(activity.getTitle());
         res.setDescription(activity.getDescription());
         res.setLocation(activity.getLocation());
-        res.setTeam(activity.isTeam());
+        res.setTeam(activity.getIsTeam());
 
         return res;
     }

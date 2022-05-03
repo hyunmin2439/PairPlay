@@ -15,6 +15,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.ssafy.common.statuscode.ActivityCode.SUCCESS_MATE_LIST;
+import static com.ssafy.common.statuscode.MemberCode.SUCCESS_RESET_PASSWORD;
+
 
 @Api(value = "메이트 API", tags = {"MATE"})
 @RestController
@@ -34,9 +37,12 @@ public class ActivityController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
     })
-    public ResponseEntity<Page<ActivityRes>> getActivityList(@PageableDefault(page = 0, size = 6) Pageable pageable){
+    public ResponseEntity<Page<ActivityRes>> getActivityList(@PageableDefault(page = 0, size = 8) Pageable pageable){
 
         Page<Activity> activities = activityService.getAvtivityList(pageable);
+
+
+        //return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage()));
 
         if(activities != null){
             return ResponseEntity.status(200).body(ActivityListRes.of(activities));
@@ -53,8 +59,10 @@ public class ActivityController {
 //    @ApiResponses({
 //            @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
 //    })
-//    public ResponseEntity<ActivityRes> getCategory(@RequestBody @ApiParam(value = "카테고리") @PageableDefault(page = 0, size = 6) ActivityCategoryReq activityCategoryReq){
+//    public ResponseEntity<Page<ActivityRes>> getCategory(@RequestBody @ApiParam(value = "카테고리") ActivityCategoryReq activityCategoryReq, @PageableDefault(page = 0, size = 6) Pageable pageable){
 //
+//
+//        Page<Activity> activities = activityService.getCategoryList(activityCategoryReq, pageable);
 //
 //
 //        return null;

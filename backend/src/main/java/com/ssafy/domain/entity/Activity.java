@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
@@ -17,7 +18,8 @@ import java.time.LocalDateTime;
 @Builder
 public class Activity extends BaseEntity{
 
-    boolean isTeam;
+    @Column(name = "is_team", columnDefinition = "BOOLEAN")
+    Boolean isTeam;
     Long categoryId;
     Long createId;
     String title;
@@ -25,5 +27,8 @@ public class Activity extends BaseEntity{
     LocalDateTime meetDt;
     LocalDateTime closeDt;
     String location;
+
+    @Column(name = "is_end", columnDefinition = "BOOLEAN")
+    Boolean isEnd;
 
 }
