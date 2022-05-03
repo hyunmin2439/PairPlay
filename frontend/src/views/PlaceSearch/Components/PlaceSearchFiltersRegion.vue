@@ -82,7 +82,7 @@ export default {
 
 <style lang="scss">
 .placeSearchFiltersRegion {
-  left: 500px;
+  // left: 500px;
 }
 .btnPlace {
   margin: 10px 5px 10px 5px;

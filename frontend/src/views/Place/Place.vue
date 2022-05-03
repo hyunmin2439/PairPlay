@@ -34,7 +34,7 @@
       </div>
       <div class="placeRecentView container my-5">
         <div class="category-title ps-3 mt-3 mb-2 d-flex justify-content-between">
-          <div class="fs-5 fw-bold">최근 user 님이 조회한 장소</div>
+          <div class="fs-5 fw-bold">최근 조회 시설</div>
           <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p>
         </div>
         <place-recent-view></place-recent-view>

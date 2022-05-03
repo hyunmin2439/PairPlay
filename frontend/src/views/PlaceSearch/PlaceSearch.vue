@@ -4,15 +4,15 @@
     <div style="max-width: 1400px; margin: auto">
       <Header></Header>
     </div>
-    <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" />
-    <place-search-filters class="placeSearchFilters"></place-search-filters>
+    <!-- <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" /> -->
+    <place-search-filters></place-search-filters>
     <div class="container PlaceSearchContentFrame">
       <div class="placeSearchContent container d-flex justify-content-around align-items-start">
         <div class="mt-4 col">
-          <div class="placeSearchTitle mb-3 ps-3">부산 금정구 운동시설</div>
+          <div class="placeSearchTitle mb-3 ps-2">부산 금정구 운동시설</div>
           <div class="py-2">
             <div class="placeSearchList">
-              <place-search-list v-for="card in cards" :key="card.idx" :card="card" class="placeSearchList col"> </place-search-list>
+              <place-search-list v-for="card in cards" :key="card.idx" :card="card" class="placeSearchList me-3 col"> </place-search-list>
             </div>
           </div>
           <!-- <place-search-maps class="placeSearchMaps col-6" style="height: 800px">아아</place-search-maps> -->
@@ -89,11 +89,7 @@ export default {
 // .totalFrmae {
 //   // height: 100vh;
 // }
-.placeSearchFilters {
-  // width: 100vw;
-  padding: 0rem 0rem 1rem 5%;
-  border-bottom: 1px solid rgba(1, 1, 1, 0.1);
-}
+
 .PlaceSearchContentFrame {
   width: 100%;
 
