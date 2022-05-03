@@ -24,6 +24,7 @@ public class ActivityRepositorySupport {
         QueryResults<Activity> activities = jpaQueryFactory
                 .select(qActivity)
                 .from(qActivity)
+                .where(qActivity.isEnd.isFalse())
                 .orderBy(qActivity.id.desc())
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
@@ -34,5 +35,51 @@ public class ActivityRepositorySupport {
 
     }
 
+    public Page<Activity> findByCategory(Pageable pageable, Long categoryId, String location){
 
+
+        QueryResults<Activity> activities = jpaQueryFactory
+                .select(qActivity)
+                .from(qActivity)
+                .where(qActivity.categoryId.eq(categoryId),qActivity.location.eq(location))
+                .orderBy(qActivity.id.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchResults();
+        if(activities == null) return Page.empty();
+
+        return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
+    }
+
+    public Page<Activity> findByCategory(Pageable pageable, Long categoryId){
+
+
+        QueryResults<Activity> activities = jpaQueryFactory
+                .select(qActivity)
+                .from(qActivity)
+                .where(qActivity.categoryId.eq(categoryId))
+                .orderBy(qActivity.id.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchResults();
+        if(activities == null) return Page.empty();
+
+        return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
+    }
+
+
+    public Page<Activity> findByCategory(Pageable pageable,String location){
+
+        QueryResults<Activity> activities = jpaQueryFactory
+                .select(qActivity)
+                .from(qActivity)
+                .where(qActivity.location.eq(location))
+                .orderBy(qActivity.id.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchResults();
+        if(activities == null) return Page.empty();
+
+        return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
+    }
 }

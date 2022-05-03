@@ -31,11 +31,12 @@ public class Member extends BaseEntity {
     String profileImage; // 프로필 이미지 주소
     boolean enable; // 삭제 여부
     String description;
+    String socialId;
 
     // Jackson 라이브러리 Annotation
     @JsonIgnoreProperties// 직렬화 시 제외 필드
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // 쓰기 전용
-    String password;
+            String password;
 
     // 패스워드 랜덤 비밀번호로 초기화
     public void resetPassword(String password) {
@@ -77,4 +78,8 @@ public class Member extends BaseEntity {
         this.enable = isEnable;
     }
 
+    public Member updateSocialId(String socialId) {
+        this.socialId = socialId;
+        return this;
+    }
 }

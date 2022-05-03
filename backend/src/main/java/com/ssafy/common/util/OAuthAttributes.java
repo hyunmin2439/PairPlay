@@ -47,14 +47,14 @@ public class OAuthAttributes {
     }
 
     private static OAuthAttributes ofKaKao(String userNameAttributeName,
-                                            Map<String, Object> attributes) {
+                                           Map<String, Object> attributes) {
         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
         Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
 
-        System.out.println(attributes);
-        System.out.println(profile.get("nickname"));
-        System.out.println(kakaoAccount.get("email"));
-        System.out.println(profile.get("profile_image_url"));
+//        System.out.println(attributes);
+//        System.out.println(profile.get("nickname"));
+//        System.out.println(kakaoAccount.get("email"));
+//        System.out.println(profile.get("profile_image_url"));
 
         return OAuthAttributes.builder()
                 .nickname((String) profile.get("nickname"))
@@ -72,6 +72,7 @@ public class OAuthAttributes {
         return Member.builder()
                 .nickname(nickname)
                 .email(email)
+                .socialId(socialId)
                 .profileImage(picture != "" ? picture : "")
                 .build();
     }

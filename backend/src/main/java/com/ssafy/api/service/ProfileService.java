@@ -2,21 +2,33 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.ProfilePasswordPostReq;
 import com.ssafy.api.request.ProfilePutReq;
+import com.ssafy.common.handler.CustomException;
 import com.ssafy.common.util.JwtTokenUtil;
+import com.ssafy.domain.entity.Activity;
+import com.ssafy.domain.entity.Mate;
 import com.ssafy.domain.entity.Member;
+import com.ssafy.domain.repository.ActivityRepository;
 import com.ssafy.domain.repository.MemberRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.ssafy.common.statuscode.ProfileCode.FAIL_MEMBER_NOT_FOUND;
+
 @Service("profileService")
 public class ProfileService {
 
     private final MemberRepository memberRepository;
+    private final ActivityRepository activityRepository;
 
-    public ProfileService(MemberRepository memberRepository) {
+    public ProfileService(MemberRepository memberRepository, ActivityRepository activityRepository) {
         this.memberRepository = memberRepository;
+        this.activityRepository = activityRepository;
     }
 
 //    public Member getMemberProfile(Long memberId) {
@@ -31,10 +43,9 @@ public class ProfileService {
 
         Member member = memberRepository.findById(memberId).orElse(null);
 
-        // ProfilePutReq에서 null인 값은 수정하지 않는다
-        // 그러기 위해서 ProfilePutReq에서 null인 값들을 모두 member의 값으로 update 해준다
-        // 나중에 member.profileUpdate 를 수정해서 password 부분을 빼주어야 할 것
-        // 대신에, profileImage에 대한 함수나 Password 변경에 대한 함수를 추가해주어야 할 것
+        if (member == null)
+            throw new CustomException(FAIL_MEMBER_NOT_FOUND);
+
         if (profilePutReq.getNickname() == null) profilePutReq.setNickname(member.getNickname());
         if (profilePutReq.getName() == null) profilePutReq.setName(member.getName());
         if (profilePutReq.getGender() == -1) profilePutReq.setGender(member.getGender());
@@ -61,8 +72,11 @@ public class ProfileService {
         Long memberId = Long.parseLong(authentication.getName());
 
         Member member = memberRepository.findById(memberId).orElse(null);
-        member.passwordUpdate(profilePasswordPostReq.getPassword());
 
+        if (member == null)
+            throw new CustomException(FAIL_MEMBER_NOT_FOUND);
+
+        member.passwordUpdate(profilePasswordPostReq.getPassword());
         memberRepository.save(member);
     }
 
@@ -72,10 +86,46 @@ public class ProfileService {
         Long memberId = Long.parseLong(authentication.getName());
 
         Member member = memberRepository.findById(memberId).orElse(null);
-        member.memberEnableUpdate(false);
 
+        if (member == null)
+            throw new CustomException(FAIL_MEMBER_NOT_FOUND);
+
+        member.memberEnableUpdate(false);
         memberRepository.save(member);
     }
 
+    // 달력 조회
+    public List<Activity> searchCalendar() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        // memberId와 날짜 범위를 사용해서 Activity를 조회
+        // repo -> List<Activity> findByIdAndMeetDtBetween(LocalDateTime 지금-기간, LocalDateTime 지금);
+        List<Activity> list = activityRepository.findAll();
+
+        return list;
+    }
+
+    // 해당 날짜에 참여한 모든 Activity 조회
+    public List<Activity> searchCalendarDetail(LocalDate date) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        // memberId와 정확한 Date를 사용하여 Activity를 조회
+        // repo -> List<Activity> findByIdAndMeetDt
+        List<Activity> list = activityRepository.findAll();
+
+        return list;
+    }
+
+    // 해당 Activity에 참여한 모든 Mate 조회
+    public List<Mate> searchActivityMate(Long ActivityId) {
+        // repo -> List<Mate> findById
+        List<Mate> list = new ArrayList<>();
+
+        return list;
+    }
+    
+    // Activity와 Mate의 Repo를 추가/수정하여 DB에 접근할 수 있을 것
 
 }

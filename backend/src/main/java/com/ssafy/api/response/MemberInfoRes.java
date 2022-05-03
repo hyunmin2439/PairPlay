@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @Setter
 @ApiModel("MemberInfoResponse")
 public class MemberInfoRes extends MemberLoginRes{
+    @ApiModelProperty(name = "Member Id")
+    Long memberId;
     @ApiModelProperty(name="User email")
     String email;
     @ApiModelProperty(name="User nickname")
@@ -29,9 +31,9 @@ public class MemberInfoRes extends MemberLoginRes{
     String address;
     @ApiModelProperty(name="휴대폰 번호", example="010-1234-5678")
     String phone;
-    @ApiModelProperty(name="User ProfileImg")
-    String profileImg;
-    @ApiModelProperty(name="User ProfileImg")
+    @ApiModelProperty(name="User profileImage")
+    String profileImage;
+    @ApiModelProperty(name="User description")
     String description;
 
     public static MemberInfoRes of(Member member, Integer statusCode, String message) {
@@ -40,6 +42,7 @@ public class MemberInfoRes extends MemberLoginRes{
         res.setCode(statusCode);
         res.setMessage(message);
 
+        res.setMemberId(member.getId());
         res.setEmail(member.getEmail());
         res.setNickname(member.getNickname());
         res.setName(member.getName());
@@ -47,6 +50,7 @@ public class MemberInfoRes extends MemberLoginRes{
         res.setBirthDt(member.getBirthDt());
         res.setAddress(member.getAddress());
         res.setPhone(member.getPhone());
+        res.setProfileImage(member.getProfileImage());
         res.setDescription(member.getDescription());
 
         return res;
@@ -58,6 +62,7 @@ public class MemberInfoRes extends MemberLoginRes{
         res.setMessage(message);
         res.setAccessToken(accessToken);
 
+        res.setMemberId(member.getId());
         res.setEmail(member.getEmail());
         res.setNickname(member.getNickname());
         res.setName(member.getName());
@@ -65,6 +70,7 @@ public class MemberInfoRes extends MemberLoginRes{
         res.setBirthDt(member.getBirthDt());
         res.setAddress(member.getAddress());
         res.setPhone(member.getPhone());
+        res.setProfileImage(member.getProfileImage());
         res.setDescription(member.getDescription());
 
         return res;

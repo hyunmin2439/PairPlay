@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ApiModel("ProfileResponse")
-public class ProfileRes {
+public class ProfileRes extends BaseResponseBody {
     @ApiModelProperty(name = "Member Id")
     Long memberId;
     @ApiModelProperty(name = "Email")
@@ -35,8 +35,11 @@ public class ProfileRes {
     @ApiModelProperty(name = "Description")
     String description;
 
-    public static ProfileRes of(Member member) {
+    public static ProfileRes of(Member member, Integer statusCode, String message) {
         ProfileRes res = new ProfileRes();
+
+        res.setCode(statusCode);
+        res.setMessage(message);
 
         res.setMemberId(member.getId());
         res.setEmail(member.getEmail());
