@@ -68,6 +68,7 @@ public class Member extends BaseEntity {
         this.description = profilePutReq.getDescription();
     }
 
+    // 주소 체계 저장
     public void set2DepthAddress(String address) {
         StringTokenizer st = new StringTokenizer(address);
         this.sido = st.nextToken();
@@ -77,6 +78,11 @@ public class Member extends BaseEntity {
             sb.append(st.nextToken()).append(" ");
         sb.setLength(sb.length() - 1);
         this.detailAddress = sb.toString();
+    }
+
+    // 주소 가져올 때
+    public String getAddress() {
+        return this.sido + " " + this.gugun + " " + this.detailAddress;
     }
 
     // Profile Image URL Update
