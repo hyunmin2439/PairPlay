@@ -86,8 +86,8 @@ public class Member extends BaseEntity {
     }
 
     // Profile Image URL Update
-    public void profileImageUpdate(String profileImageUrl) {
-        this.profileImage = profileImageUrl;
+    public void profileImageUpdate(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     // Password Update
