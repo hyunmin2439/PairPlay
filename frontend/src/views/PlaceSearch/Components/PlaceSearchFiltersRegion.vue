@@ -82,7 +82,7 @@ export default {
 
 <style lang="scss">
 .placeSearchFiltersRegion {
-  left: 500px;
+  // left: 500px;
 }
 .btnPlace {
   margin: 10px 5px 10px 5px;
@@ -143,4 +143,9 @@ export default {
   display: block;
   border-left: 1px solid rgba(1, 1, 1, 0.1);
 }
+// .dropdown-item {
+// &:hover {
+// box-shadow: 0 0 8px rgba(24, 24, 24, 0.1);
+// }
+// }
 </style>

@@ -9,7 +9,7 @@
           <div class="card-body text-start d-flex flex-column justify-content-between text-start">
             <div class="d-flex justify-content-between">
               <p class="card-region">{{ card.position }}</p>
-              <i class="bi bi-heart"></i>
+              <i class="bi bi-heart pe-3"></i>
             </div>
             <div>
               <p class="card-title mb-2 me-4">{{ card.title }}</p>

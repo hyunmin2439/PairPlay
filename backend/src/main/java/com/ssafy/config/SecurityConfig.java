@@ -1,9 +1,12 @@
 package com.ssafy.config;
 
 //import com.ssafy.api.service.CustomOAuth2UserService;
+import com.ssafy.api.service.CustomOAuth2UserService;
 import com.ssafy.api.service.MemberService;
 import com.ssafy.common.auth.JwtAuthenticationFilter;
 import com.ssafy.common.auth.PairplayUserDetailService;
+import com.ssafy.common.handler.OAuth2AuthenticationFailureHandler;
+import com.ssafy.common.handler.OAuth2AuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,9 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MemberService memberService;
 
-//    private final CustomOAuth2UserService customOAuth2UserService;
-//    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-//    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
     // Password 인코딩 방식에 BCrypt 암호화 방식 사용
     @Bean
@@ -65,18 +68,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), memberService)) //HTTP 요청에 JWT 토큰 인증 필터를 거치도록 필터를 추가
                 .authorizeRequests()
+                .antMatchers("/oauth2/authorization/google").authenticated() // 인증이 필요한 부분 구글 oauth2Login부분
                 .anyRequest().permitAll() // 인증이 필요 없는 부분
-//                .antMatchers("/oauth2/authorization/google").authenticated() // 인증이 필요한 부분 구글 oauth2Login부분
                 .and()
                 .logout()
-                .logoutSuccessUrl("/");
-//                .and()
-//                .oauth2Login()
-//                .userInfoEndpoint();
-//                .userService(customOAuth2UserService)
-//                .and()
-////                .successHandler(oAuth2AuthenticationSuccessHandler)
-////                .failureHandler(oAuth2AuthenticationFailureHandler);
+//                .logoutSuccessUrl("/") // get Mapping / 가 없다는 에러가 계속 떠서 막아놓음
+                .and()
+                .oauth2Login()
+                .userInfoEndpoint()
+                .userService(customOAuth2UserService)
+                .and()
+                .successHandler(oAuth2AuthenticationSuccessHandler)
+                .failureHandler(oAuth2AuthenticationFailureHandler);
 
 
         // 에러 복구용

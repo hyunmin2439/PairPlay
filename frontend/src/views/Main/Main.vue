@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="container" style="max-width: 1280px; padding: 0px;">
+    <div class="container mb-5 pb-5" style="max-width: 1280px; padding: 0px;">
       <div class="category container" style="padding: 0px;">
         <div class="ps-3 mb-4">
           <div class="fs-2 fw-bold">주요 서비스</div>
@@ -62,15 +62,18 @@
         <place-category></place-category>
       </div>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from "../Common/Header.vue";
+import Footer from '../Common/Footer.vue';
 export default {
   name: "Main",
   components: {
     Header,
+    Footer,
   },
 };
 </script>

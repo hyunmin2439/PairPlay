@@ -11,3 +11,15 @@ export function nicknameDuplicate(state) {
 export function loginStatus(state) {
   return state.loginStatus;
 }
+
+export function userInfo(state) {
+  return state.userInfo;
+}
+
+export function otherInfo(state) {
+  return state.otherInfo;
+}
+
+export function mateArticleList(state) {
+  return state.mateArticleList;
+}

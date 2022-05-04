@@ -3,9 +3,15 @@
   <div class="catergory-card row row-cols-5">
     <!-- for문돌리면 됨 -->
     <div class="card text-white col">
-      <img src="https://as2.ftcdn.net/v2/jpg/02/97/52/81/1000_F_297528198_uu6DjM2ZqSp5y0nXMeo2WsUFOhlyeHeO.jpg" class="card-img" alt="..." />
+      <img src="https://as1.ftcdn.net/v2/jpg/03/29/57/64/1000_F_329576400_OxTGJEObT6VwF9uVQQZTKAJYKBT4tfe8.jpg" class="card-img" alt="..." />
       <div class="card-img-overlay">
-        <div class="card-img-cover d-flex"><p class="card-title fs-3 fw-bold align-self-end pb-3 ps-3">축구 / 풋살</p></div>
+        <div class="card-img-cover d-flex"><p class="card-title fs-3 fw-bold align-self-end pb-3 ps-3">축 구</p></div>
+      </div>
+    </div>
+    <div class="card text-white col">
+      <img src="https://t4.ftcdn.net/jpg/02/17/33/89/240_F_217338920_7ecAmCLjodnCE1y1usoaS2VOdtk0JyOH.jpg" class="card-img" alt="..." />
+      <div class="card-img-overlay">
+        <div class="card-img-cover d-flex"><p class="card-title fs-3 fw-bold align-self-end pb-3 ps-3">풋 살</p></div>
       </div>
     </div>
     <div class="card text-white col">
@@ -66,12 +72,6 @@
       <img src="https://t4.ftcdn.net/jpg/01/21/79/67/240_F_121796713_1HXzWNcoAb9gB73FVol689PuO541S7tJ.jpg" class="card-img" alt="..." />
       <div class="card-img-overlay">
         <div class="card-img-cover d-flex"><p class="card-title fs-3 fw-bold align-self-end pb-3 ps-3">수 영</p></div>
-      </div>
-    </div>
-    <div class="card text-white col">
-      <img src="https://t4.ftcdn.net/jpg/02/79/66/33/240_F_279663378_b6mTMZYfRBZCoqrIR4rFxFcRf7hyTALu.jpg" class="card-img" alt="..." />
-      <div class="card-img-overlay">
-        <div class="card-img-cover d-flex"><p class="card-title fs-3 fw-bold align-self-end pb-3 ps-3">클라이밍</p></div>
       </div>
     </div>
   </div>

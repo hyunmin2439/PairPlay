@@ -1,6 +1,6 @@
 <template>
   <div class="btn-group">
-    <button type="button" class="btn btnPlace dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" :aria-expanded="`${expand}`">Price</button>
+    <button type="button" class="btn btnPlace dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" :aria-expanded="`${expand}`">가격</button>
     <ul class="dropdown-menu ps-5" style="width: 400px; height: 300px; font-size: 14px">
       <Slider v-model="value" type="input" :format="format" />
       <div class="d-flex justify-content-around">
@@ -39,6 +39,11 @@ export default {
 <style src="@vueform/slider/themes/default.css"></style>
 
 <style lang="scss" scoped>
+.btn {
+  &:hover {
+    border: 1px solid black;
+  }
+}
 .dropdown-menu:checked {
   display: block;
 }

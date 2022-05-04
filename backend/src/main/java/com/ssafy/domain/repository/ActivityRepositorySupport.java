@@ -24,6 +24,7 @@ public class ActivityRepositorySupport {
         QueryResults<Activity> activities = jpaQueryFactory
                 .select(qActivity)
                 .from(qActivity)
+                .where(qActivity.isEnd.isFalse())
                 .orderBy(qActivity.id.desc())
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
@@ -33,6 +34,90 @@ public class ActivityRepositorySupport {
         return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
 
     }
+
+
+
+    /**
+     * 카테고리, 지역, 검색어
+     */
+    public Page<Activity> findByCategorySearch(Pageable pageable, String location, Long categoryId, String search){
+
+        QueryResults<Activity> activities = jpaQueryFactory
+                .select(qActivity)
+                .from(qActivity)
+                .where(qActivity.location.eq(location)
+                .and(qActivity.categoryId.eq(categoryId))
+                .and(qActivity.title.contains(search).or(qActivity.description.contains(search)))
+                )
+                .orderBy(qActivity.id.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchResults();
+        if(activities == null) return Page.empty();
+
+        return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
+    }
+
+
+    /**
+     * 지역, 검색어
+     */
+    public Page<Activity> findByCategorySearch(Pageable pageable, String location, String search){
+
+        QueryResults<Activity> activities = jpaQueryFactory
+                .select(qActivity)
+                .from(qActivity)
+                .where(qActivity.location.eq(location).and(qActivity.title.contains(search).or(qActivity.description.contains(search))))
+                .orderBy(qActivity.id.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchResults();
+        if(activities == null) return Page.empty();
+
+        return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
+    }
+
+
+    /**
+     * 카테고리, 지역
+     */
+    public Page<Activity> findByCategory(Pageable pageable, String location, Long categoryId){
+
+
+        QueryResults<Activity> activities = jpaQueryFactory
+                .select(qActivity)
+                .from(qActivity)
+                .where(qActivity.categoryId.eq(categoryId),qActivity.location.eq(location))
+                .orderBy(qActivity.id.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchResults();
+        if(activities == null) return Page.empty();
+
+        return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
+    }
+
+
+    /**
+     * 지역
+     */
+    public Page<Activity> findByCategorySearch(Pageable pageable,String location){
+
+        QueryResults<Activity> activities = jpaQueryFactory
+                .select(qActivity)
+                .from(qActivity)
+                .where(qActivity.location.eq(location))
+                .orderBy(qActivity.id.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchResults();
+        if(activities == null) return Page.empty();
+
+        return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
+    }
+
+
+
 
 
 }

@@ -1,20 +1,23 @@
 <template>
   <div>
     <!-- 헤더 -->
-    <Header></Header>
-    <place-search-filters class="placeSearchFilters"></place-search-filters>
+    <div style="max-width: 1400px; margin: auto">
+      <Header></Header>
+    </div>
+    <!-- <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" /> -->
+    <place-search-filters></place-search-filters>
     <div class="container PlaceSearchContentFrame">
       <div class="placeSearchContent container d-flex justify-content-around align-items-start">
-        <div class="mt-4">
-          <div class="placeSearchTitle mb-3 ps-3">부산 금정구 운동시설</div>
+        <div class="mt-4 col">
+          <div class="placeSearchTitle mb-3 ps-2">부산 금정구 운동시설</div>
           <div class="py-2">
             <div class="placeSearchList">
-              <place-search-list v-for="card in cards" :key="card.idx" :card="card" class="placeSearchList col"> </place-search-list>
+              <place-search-list v-for="card in cards" :key="card.idx" :card="card" class="placeSearchList me-3 col"> </place-search-list>
             </div>
           </div>
           <!-- <place-search-maps class="placeSearchMaps col-6" style="height: 800px">아아</place-search-maps> -->
         </div>
-        <div class="placeSearchMaps">카드맵</div>
+        <place-search-maps class="col placeSearchMaps">아아</place-search-maps>
       </div>
     </div>
     <footer>푸터</footer>
@@ -22,16 +25,17 @@
 </template>
 
 <script>
+import { reactive } from "vue";
 import Header from "../Common/Header.vue";
 import PlaceSearchFilters from "./Components/PlaceSearchFilters.vue";
 import PlaceSearchList from "./Components/PlaceSearchList.vue";
-// import PlaceSearchMaps from "./Components/PlaceSearchMaps.vue";
+import PlaceSearchMaps from "./Components/PlaceSearchMaps.vue";
 export default {
   name: "PlaceSearch",
-  // PlaceSearchMaps
-  components: { Header, PlaceSearchFilters, PlaceSearchList },
+
+  components: { Header, PlaceSearchFilters, PlaceSearchList, PlaceSearchMaps },
   setup() {
-    const cards = [
+    const cards = reactive([
       {
         title: "장정구 복싱 체육관",
         position: "부산 연제구",
@@ -72,7 +76,8 @@ export default {
         rate: "4.1",
         cost: "시간당 10,000원 ",
       },
-    ];
+    ]);
+
     // const store = userStore();
     // const route = useRoute();
     return { cards };
@@ -86,14 +91,24 @@ export default {
 // .totalFrmae {
 //   // height: 100vh;
 // }
-.placeSearchFilters {
-  // width: 100vw;
-  padding: 1rem 0rem 1rem 5%;
-  border-bottom: 1px solid rgba(1, 1, 1, 0.1);
-}
+
 .PlaceSearchContentFrame {
+  width: 100%;
+
+  // width: 50%;
+  // background-color: wheat;
+  max-height: 70vh;
+  overflow-y: overlay;
+  // overflow-x: overlay;
+  // scrollbar-width: 0px;
   max-width: 100vw;
 }
+.PlaceSearchContentFrame {
+}
+// ::-webkit-scrollbar {
+//   // display: none;
+//   // width: 0px;
+// }
 .placeSearchContent {
   max-width: 1400px;
 }
@@ -105,24 +120,16 @@ export default {
 // padding-left: 5px;
 // padding-right: 5px;
 // }
-.placeSearchList {
-  width: 100%;
-
-  // width: 50%;
-  // background-color: wheat;
-  max-height: 500px;
-  overflow-y: overlay;
-  overflow-x: overlay;
-  scrollbar-width: 0px;
-}
-::-webkit-scrollbar {
-  // display: none;
-  width: 0px;
-}
 
 .placeSearchMaps {
-  width: 60%;
-  background: black;
+  display: block;
+  height: unset;
+  position: sticky;
+  top: 0px;
+  visibility: unset;
+  width: unset;
+  //   width: 55%;
+  // background: black;
   // height: 600px;
 }
 </style>
