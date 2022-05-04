@@ -59,71 +59,58 @@ public class ActivityService {
     public Page<Activity> getCategoryList(ActivityCategoryReq activityCategoryReq, Pageable pageable) {
 
         Page<Activity> activities = null;
+        String location = null, sido = null, gugun = null;
 
-        String location = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
 
-        if(activityCategoryReq.getSido().equals("") && activityCategoryReq.getGungu().equals("")){
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            Long memberId = Long.parseLong(authentication.getName());
-            Member member = memberRepository.findById(memberId).orElse(null);
+        Member member = memberRepository.findById(memberId).orElse(null);
 
-            assert member != null;
-            location = member.getSido() + " " + member.getGugun();
+        assert member != null;
+        sido = member.getSido();
+        gugun = member.getGugun();
+
+        if(activityCategoryReq.getSido() != null || activityCategoryReq.getGungu() != null){
+            sido = activityCategoryReq.getSido();
+            gugun = activityCategoryReq.getGungu();
         }
+
+        location = sido + " " + gugun;
+
         System.out.println(location);
 
         /*
-         * 운동 카테고리, 위치, 검색어
-         */
-        if(activityCategoryReq.getCategoryId()!=0 && location != null && !activityCategoryReq.getSearch().equals("")) {
-
-            activities = activityRepositorySupport.findByCategorySearch(pageable, activityCategoryReq.getCategoryId(), activityCategoryReq.getLocation(), activityCategoryReq.getSearch());
-
-        }
-        /*
          * 운동 카테고리, 검색어
          */
-        else if(activityCategoryReq.getCategoryId()!=0 && activityCategoryReq.getLocation().equals("") && !activityCategoryReq.getSearch().equals("")){
-            activities = activityRepositorySupport.findByCategorySearch(pageable, activityCategoryReq.getCategoryId(), activityCategoryReq.getSearch());
+        if(activityCategoryReq.getCategoryId()!=0 && !activityCategoryReq.getSearch().equals("")){
+            activities = activityRepositorySupport.findByCategorySearch(pageable, location, activityCategoryReq.getCategoryId(), activityCategoryReq.getSearch());
 
         }
-        /*
-         * 지역, 검색어
-         */
-        else if(activityCategoryReq.getCategoryId()==0 && !activityCategoryReq.getLocation().equals("") && !activityCategoryReq.getSearch().equals("")) {
-            activities = activityRepositorySupport.findByCategorySearch(pageable, activityCategoryReq.getLocation(), activityCategoryReq.getSearch());
 
-        }
-        /*
-         * 운동 카테고리, 지역
-         */
-        else if(activityCategoryReq.getCategoryId()!=0 && !activityCategoryReq.getLocation().equals("")) {
-            activities = activityRepositorySupport.findByCategory(pageable, activityCategoryReq.getCategoryId(), activityCategoryReq.getLocation());
-
-        }
         /*
          * 운동 카테고리
          */
-        else if(activityCategoryReq.getCategoryId()!=0 && activityCategoryReq.getLocation().equals("")){
-            activities = activityRepositorySupport.findByCategory(pageable, activityCategoryReq.getCategoryId());
+        else if(activityCategoryReq.getCategoryId()!=0){
+            activities = activityRepositorySupport.findByCategory(pageable, location, activityCategoryReq.getCategoryId());
 
         }
-        /*
-         * 지역
-         */
-        else if(activityCategoryReq.getCategoryId()==0 && !activityCategoryReq.getLocation().equals("")) {
-            activities = activityRepositorySupport.findByCategory(pageable, activityCategoryReq.getLocation());
 
-        }
         /*
          * 검색어
          */
         else if(!activityCategoryReq.getSearch().equals("")) {
-            activities = activityRepositorySupport.findByCategorySearch(pageable, activityCategoryReq.getSearch());
+            activities = activityRepositorySupport.findByCategorySearch(pageable, location, activityCategoryReq.getSearch());
+        }
+        /*
+         * 지역만 검색
+         */
+        else{
+            activities = activityRepositorySupport.findByCategorySearch(pageable, location);
         }
 
 
-        return activities;
+
+        return  activities;
     }
     
     

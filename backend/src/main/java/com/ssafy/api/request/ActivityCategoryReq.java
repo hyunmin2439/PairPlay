@@ -12,9 +12,12 @@ import lombok.Setter;
 @ApiModel("MateCategoryReq")
 public class ActivityCategoryReq {
 
-    @ApiModelProperty(name = "주소")
-    String location;
+    @ApiModelProperty(name = "시도")
+    String sido;
 
+    @ApiModelProperty(name = "군구")
+    String gungu;
+    
     @ApiModelProperty(name = "카테고리ID")
     Long categoryId;
 
