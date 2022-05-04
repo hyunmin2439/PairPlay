@@ -32,5 +32,4 @@ public class ActivityPostReq {
     String description;
 
 
-
 }

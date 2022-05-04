@@ -3,6 +3,7 @@ package com.ssafy.api.response;
 
 import com.ssafy.domain.entity.Activity;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
@@ -14,10 +15,19 @@ import java.util.List;
 
 @Getter
 @Setter
-@ApiModel("MateListResponse")
-public class ActivityListRes {
+@ApiModel("Mate List Response")
+public class ActivityListRes extends BaseResponseBody{
 
-    public static Page<ActivityRes> of(Page<Activity> activityList){
+    @ApiModelProperty(name = "activity List")
+    Page<ActivityRes> list;
+
+
+    public static ActivityListRes of(Page<Activity> activityList, Integer statusCode, String message){
+
+        ActivityListRes activityListRes = new ActivityListRes();
+        activityListRes.setCode(statusCode);
+        activityListRes.setMessage(message);
+
         List<ActivityRes> list = new ArrayList<>();
 
         Pageable pageable = activityList.getPageable();
@@ -27,7 +37,9 @@ public class ActivityListRes {
             list.add(ActivityRes.of(activity));
         });
 
-        return new PageImpl<ActivityRes>(list, pageable, total);
+        activityListRes.setList(new PageImpl<ActivityRes>(list, pageable, total));
+
+        return activityListRes;
     }
 
 
