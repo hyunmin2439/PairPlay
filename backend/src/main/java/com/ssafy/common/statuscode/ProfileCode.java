@@ -12,6 +12,9 @@ public enum ProfileCode implements StatusCode{
     SUCCESS_WITHDRAW_MEMBER(200, "회원 비활성화에 성공했습니다."),
     SUCCESS_SEARCH_CALENDAR(200, "달력 조회에 성공했습니다."),
     SUCCESS_SEARCH_CALENDAR_DATE(200, "개인활동 조회에 성공했습니다."),
+    SUCCESS_SEARCH_PLACE_RESERVATION(200, "예약된 체육시설 조회에 성공하였습니다."),
+    SUCCESS_SEARCH_PLACE_USED(200, "사용 완료한 체육시설 조회에 성공하였습니다."),
+    SUCCESS_SEARCH_PLACE_LIKE(200, "찜한 체육시설 조회에 성공하였습니다."),
 
     // 404 NOT_FOUND 잘못된 리소스 접근
     FAIL_PROFILE_IMAGE_S3_UPLOAD_ERROR(404, "프로필 이미지를 S3서버에 업로드하지 못했습니다."),

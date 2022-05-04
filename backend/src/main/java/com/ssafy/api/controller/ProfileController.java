@@ -3,10 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.CalendarDateReq;
 import com.ssafy.api.request.ProfilePasswordPostReq;
 import com.ssafy.api.request.ProfilePutReq;
-import com.ssafy.api.response.BaseResponseBody;
-import com.ssafy.api.response.CalendarActivityRes;
-import com.ssafy.api.response.CalendarDetailRes;
-import com.ssafy.api.response.ProfileRes;
+import com.ssafy.api.response.*;
 import com.ssafy.api.service.MemberService;
 import com.ssafy.api.service.ProfileService;
 import com.ssafy.api.service.S3FileUploadService;
@@ -235,9 +232,81 @@ public class ProfileController {
         );
     }
 
-    // 예약 체육시설 조회
-    //// 체육시설 예약 기능이 생기면, 해당 예약이 생성될 것
-    //// 해당 테이블을 읽어오기만 하면 될듯
+    
+    
+    // 체육시설 조회와 같은 시설을 보여주어야 할 것 같다
+    // 비슷한 방식 + Reservation 정보를 담은 res가 필요할 것이다
+
+    // ProfilePlaceRes -> ProfileResercationRes의 List를 가지고 있을 것
+    // ProfileReservationRes -> Place의 정보와 Reservation정보를 담은 DTO
+
+    // Search할 때, 지금 날짜와 시간을 통해서 Search한다
+    // 지금 보다 미래에 사용 예약된 상품이라면, 예약 상품 조회 -> 이후, 해당 시설에 대한 정보 찾기
+    // 지금 보다 과거에 사용 예약된 상품이라면, 사용 완료 상품 조회 -> 이후, 해당 시설에 대한 정보 찾기
+
+
+    // 예약, 사용, 찜한
+    // pageable
+
+    
+    // 예약 중인 상품
+    //// place_reservation 테이블에서 기록을 읽어올 수 있을 것
+    //// 읽어진 기록을 통해서 현재 예약 중인 상품을 알 수 있을 것이고, 해당 데이터를 MongoDB에 접근하여 시설정보를 알아온다
+    //// 예약중 -> 시설예약날짜+시간이 아직 오지 않은 상품
+    @GetMapping("/places/reservation")
+    @ApiOperation(value = "예약 체육시설 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>예약한 체육시설</string>목록을 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "예약된 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
+    })
+    public ResponseEntity<? extends ProfilePlaceRes> searchPlaceReservation() {
+
+        List<ProfileReservationRes> list = new ArrayList<>();
+
+        return ResponseEntity.status(200).body(
+                ProfilePlaceRes.of(
+                        SUCCESS_SEARCH_PLACE_RESERVATION.getCode(),
+                        SUCCESS_SEARCH_PLACE_RESERVATION.getMessage(),
+                        list
+                )
+        );
+    }
+
+    // 사용 완료 상품
+    //// 예약 중인 상품과 다르게, 시설예약날짜+시간이 이미 지나간 상품
+    @GetMapping("/places/used")
+    @ApiOperation(value = "사용 완료한 체육시설 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>사용 완료한 체육시설</string>목록을 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "사용 완료한 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
+    })
+    public ResponseEntity<? extends ProfilePlaceRes> searchPlaceUsed() {
+
+        List<ProfileReservationRes> list = new ArrayList<>();
+
+        return ResponseEntity.status(200).body(
+                ProfilePlaceRes.of(
+                        SUCCESS_SEARCH_PLACE_RESERVATION.getCode(),
+                        SUCCESS_SEARCH_PLACE_RESERVATION.getMessage(),
+                        list
+                )
+        );
+    }
+
+
+//    // 찜한 상품
+//    //// like 테이블을 활용하여, 시설 아이디를 얻어내고, 해당 아이디로 시설 조회
+//    //// 찜한 시설의 경우는 조금 다르다
+//    //// 찜한 시선은 그냥 내가 선택한 시설만 가져온다
+//    //// 그렇지만, like 테이블을 조회한 다음, 해당 정보를 사용해서 시설정보를 가져올 것
+//    //// 다른 DTO 하나를 추가로 만들어야 할 것
+//    //// 그냥 시설 정보에 대한 것만 가져오면 되기 때문
+//    @GetMapping("/places/like")
+//    @ApiOperation(value = "찜한 체육시설 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>찜한 체육시설</string>목록을 조회한다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "찜한 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
+//    })
+//    public ResponseEntity<? extends ProfilePlaceRes> searchPlaceLike() {
+//
+//    }
 
 
 
