@@ -9,14 +9,18 @@ import com.ssafy.api.response.CalendarDetailRes;
 import com.ssafy.api.response.ProfileRes;
 import com.ssafy.api.service.MemberService;
 import com.ssafy.api.service.ProfileService;
+import com.ssafy.api.service.S3FileUploadService;
 import com.ssafy.common.handler.CustomException;
 import com.ssafy.domain.entity.Activity;
 import com.ssafy.domain.entity.Mate;
 import com.ssafy.domain.entity.Member;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.ArrayList;
@@ -32,11 +36,13 @@ public class ProfileController {
 
     private final MemberService memberService;
     private final ProfileService profileService;
+    private final S3FileUploadService s3FileUploadService;
     private final PasswordEncoder passwordEncoder;
 
-    public ProfileController (MemberService memberService, ProfileService profileService, PasswordEncoder passwordEncoder) {
+    public ProfileController (MemberService memberService, ProfileService profileService, S3FileUploadService s3FileUploadService, PasswordEncoder passwordEncoder) {
         this.memberService = memberService;
         this.profileService = profileService;
+        this.s3FileUploadService = s3FileUploadService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -58,6 +64,8 @@ public class ProfileController {
     })
     public ResponseEntity<? extends ProfileRes> searchProfile(@PathVariable Long memberId) {
         Member member = memberService.getMemberById(memberId);
+        // 프로필 이미지 fileName을 fileUrl로 변경
+        member.profileImageUpdate(s3FileUploadService.findImg(member.getProfileImage()));
 
         return ResponseEntity.status(200).body(
                 ProfileRes.of(
@@ -72,7 +80,7 @@ public class ProfileController {
     @PutMapping("")
     @ApiOperation(value = "유저 프로필 수정", notes = "<string>JWT토큰</string>의 ID에 해당하는 회원 정보를 수정한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "유저 프로필 수정에 성공했습니다.", response = ProfileRes.class),
+            @ApiResponse(code = 200, message = "유저 프로필 수정에 성공했습니다.", response = BaseResponseBody.class),
     })
     public ResponseEntity<? extends BaseResponseBody> updateProfile(@RequestBody ProfilePutReq profilePutReq) {
         profileService.updateMemberProfile(profilePutReq);
@@ -89,10 +97,25 @@ public class ProfileController {
     @PutMapping("/profileImage")
     @ApiOperation(value = "유저 프로필사진 수정", notes = "<string>JWT토큰</string>의 ID에 해당하는 회원 프로필 사진을 수정한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "유저 프로필 이미지 수정에 성공했습니다.", response = ProfileRes.class),
+            @ApiResponse(code = 200, message = "유저 프로필 이미지 수정에 성공했습니다.", response = BaseResponseBody.class),
     })
     public ResponseEntity<? extends BaseResponseBody> updateProfileImage(MultipartHttpServletRequest request) {
-        profileService.updateMemberProfileImage(request);
+        MultipartFile file = request.getFile("profileImage");
+        System.out.println(file.getOriginalFilename());
+        System.out.println(file.getSize());
+        if (file != null && file.getSize() != 0) {
+            try {
+                String fileName = s3FileUploadService.upload(request.getFile("profileImage"));
+                profileService.updateMemberProfileImage(fileName);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new CustomException(FAIL_PROFILE_IMAGE_S3_UPLOAD_ERROR);
+            }
+        } else {
+            System.out.println("Default Profile");
+            profileService.updateMemberProfileImage("default_profile.jpeg");
+        }
+
         return ResponseEntity.status(200).body(
                 BaseResponseBody.of(
                         SUCCESS_UPDATE_PROFILE_IMAGE.getCode(),
@@ -105,7 +128,8 @@ public class ProfileController {
     @PostMapping("")
     @ApiOperation(value = "유저 비밀번호 수정", notes = "<string>JWT토큰</string>의 ID에 해당하는 회원 비밀번호를 수정한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "비밀번호 변경에 성공했습니다.", response = ProfileRes.class),
+            @ApiResponse(code = 200, message = "비밀번호 변경에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 409, message = "현재 비밀번호와 동일한 비밀번호 입니다.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> updatePassword(@RequestBody ProfilePasswordPostReq profilePasswordPostReq) {
         // 순환 참조 문제 해결 때문에 컨트롤러에서 암호화해서 넣기
@@ -114,9 +138,19 @@ public class ProfileController {
         if ("".equals(password) || password == null)
             throw new CustomException(EMPTY_REQUEST_VALUE);
 
-        profilePasswordPostReq.setPassword( passwordEncoder.encode(password) );
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
 
+        Member member = memberService.getMemberById(memberId);
+        
+        // 비밀번호 중복여부 검사
+        if ( passwordEncoder.matches(password, member.getPassword()))
+            throw new CustomException(FAIL_DUPLICATE_PASSWORD);
+
+        profilePasswordPostReq.setPassword( passwordEncoder.encode(password) );
         profileService.updateMemberPassword(profilePasswordPostReq);
+
         return ResponseEntity.status(200).body(
                 BaseResponseBody.of(
                         SUCCESS_UPDATE_PASSWORD.getCode(),
@@ -181,7 +215,7 @@ public class ProfileController {
             @ApiResponse(code = 200, message = "개인활동 조회에 성공했습니다.", response = ProfileRes.class),
     })
     public ResponseEntity<? extends CalendarDetailRes> searchCalendarDetail(@RequestBody @ApiParam(value = "날짜", required = true)CalendarDateReq calendarDateReq) {
-        List<Activity> activityList = profileService.searchCalendarDetail(calendarDateReq.getActivityDate());
+        List<Activity> activityList = profileService.searchCalendarDetail(calendarDateReq.getDate());
         List<Mate> mateList = new ArrayList<>();
 
         // 하나의 mateList에 여러 Activity의 모든 Mate를 넣는다
@@ -201,9 +235,9 @@ public class ProfileController {
         );
     }
 
-
-
-
+    // 예약 체육시설 조회
+    //// 체육시설 예약 기능이 생기면, 해당 예약이 생성될 것
+    //// 해당 테이블을 읽어오기만 하면 될듯
 
 
 
@@ -220,16 +254,5 @@ public class ProfileController {
     // 현재 신청 수락 완료된 상태, 아니면 신청을 넣어만 놓은 상태
     // 해당 상태를 구분해서 볼 수 있어야 할 것
 
-
-
-    // 이미 종료된 Activity 역시 조회할 수 있을 것
-    // 해당 내용이 달력에서 표시하는 기능일 것
-
-    // 달력 조회 -> activity에 대한 list와 각 activity를 같이 한 mate에 대한 프로필 사진 + 아이디 같은 것
-    //// 달력에 표시되는 것과, 해당 날짜에 대한 활동 이력들에 대한 리스트일 것
-
-    // 예약 체육시설 조회
-    //// 체육시설 예약 기능이 생기면, 해당 예약이 생성될 것
-    //// 해당 테이블을 읽어오기만 하면 될듯
 
 }

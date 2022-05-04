@@ -18,8 +18,6 @@ import java.time.LocalDateTime;
 @Builder
 public class Activity extends BaseEntity{
 
-    @Column(name = "is_team", columnDefinition = "BOOLEAN")
-    Boolean isTeam;
     Long categoryId;
     Long createId;
     String title;

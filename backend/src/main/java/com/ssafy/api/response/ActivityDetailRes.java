@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ApiModel("MateResponse")
-public class ActivityRes{
+@ApiModel("Mate Detail Response")
+public class ActivityDetailRes extends BaseResponseBody{
 
     @ApiModelProperty(name = "Activity id")
     Long activityId;
@@ -31,10 +31,10 @@ public class ActivityRes{
     @ApiModelProperty(name = "위치 주소")
     String location;
 
-    public static ActivityRes of(Activity activity) {
-        System.out.println(activity);
+    public static ActivityDetailRes of(Activity activity, Integer statusCode, String message) {
 
-        ActivityRes res = new ActivityRes();
+        ActivityDetailRes res = new ActivityDetailRes();
+
         res.setActivityId(activity.getId());
         res.setCreatedDate(activity.getCreatedDate());
         res.setCategoryId(activity.getCategoryId());
@@ -42,6 +42,8 @@ public class ActivityRes{
         res.setDescription(activity.getDescription());
         res.setLocation(activity.getLocation());
 
+        res.setCode(statusCode);
+        res.setMessage(message);
         return res;
     }
 }

@@ -13,5 +13,5 @@ import java.time.LocalDate;
 public class CalendarDateReq {
     @ApiModelProperty(name="날짜", example="1995-01-01")
     //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    LocalDate activityDate;
+    LocalDate date;
 }

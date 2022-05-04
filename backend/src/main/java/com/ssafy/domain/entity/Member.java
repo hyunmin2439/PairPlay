@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.api.request.MemberSignupPutReq;
 import com.ssafy.api.request.ProfilePutReq;
+import com.ssafy.common.util.AddressUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import java.time.LocalDate;
+import java.util.StringTokenizer;
 
 /**
  * 유저 모델 정의.
@@ -26,7 +28,11 @@ public class Member extends BaseEntity {
     String name;
     int gender; // 0(남) / 1(여) Converter 사용할지 고민
     LocalDate birthDt;
-    String address;
+
+    String sido;
+    String gugun;
+    String detailAddress;
+
     String phone;
     String profileImage; // 프로필 이미지 주소
     boolean enable; // 삭제 여부
@@ -48,7 +54,7 @@ public class Member extends BaseEntity {
         this.name = memberInfo.getName();
         this.gender = memberInfo.getGender();
         this.birthDt = memberInfo.getBirthDt();
-        this.address = memberInfo.getAddress();
+        set3DepthAddress( memberInfo.getAddress() );
         this.phone = memberInfo.getPhone();
     }
 
@@ -58,14 +64,30 @@ public class Member extends BaseEntity {
         this.name = profilePutReq.getName();
         this.gender = profilePutReq.getGender();
         this.birthDt = profilePutReq.getBirthDt();
-        this.address = profilePutReq.getAddress();
+        set3DepthAddress( profilePutReq.getAddress() );
         this.phone = profilePutReq.getPhone();
         this.description = profilePutReq.getDescription();
     }
 
+    // 주소 체계 저장
+    public void set3DepthAddress(String address) {
+        StringTokenizer st = new StringTokenizer(address);
+
+        String[] splitAddress = AddressUtil.get3DepthAddress(address);
+        this.sido = splitAddress[0];
+        this.gugun = splitAddress[1];
+        this.detailAddress = splitAddress[2];
+
+    }
+
+    // 주소 가져올 때
+    public String getAddress() {
+        return this.sido + " " + this.gugun + " " + this.detailAddress;
+    }
+
     // Profile Image URL Update
-    public void profileImageUpdate(String profileImageUrl) {
-        this.profileImage = profileImageUrl;
+    public void profileImageUpdate(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     // Password Update
