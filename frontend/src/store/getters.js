@@ -15,3 +15,7 @@ export function loginStatus(state) {
 export function userInfo(state) {
   return state.userInfo;
 }
+
+export function otherInfo(state) {
+  return state.otherInfo;
+}

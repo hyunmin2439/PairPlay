@@ -102,8 +102,8 @@ export default {
           state.address = roadAddr
         }
       }).open({
-        left: (window.screen.width / 3),
-        top: (window.screen.height / 3),
+        left: window.screenLeft/2,
+        right: window.screenTop/2,
         popupKey: 'popup1',
         autoClose: true,
       });
@@ -127,10 +127,11 @@ export default {
       const payload = {
         name: state.name,
         gender: state.gender_status,
-        birthDt: state.birthday.toISOString().substr(0, 10),
+        birthDt: new Date(state.birthday.getTime() - (state.birthday.getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         address: state.address,
         phone: state.phone
       }
+      console.log(payload)
       await store.dispatch("root/signupSecond", payload)
       await router.push({
         name: "Main"

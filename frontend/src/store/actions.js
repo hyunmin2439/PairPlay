@@ -78,7 +78,6 @@ export async function login({ commit }, payload) {
   await $axios.post(url, body)
     .then((res) => {
       localStorage.setItem("jwt", res.data.accessToken)
-      console.log(res)
       commit("USER_INFO", res.data)
       commit("LOGIN_STATUS", true)
     })
@@ -100,6 +99,44 @@ export async function getUserInfo({ commit }, payload) {
       commit("USER_INFO", res.data)
     })
     .catch ((err) => {
+      console.log(err)
+    })
+}
+
+export async function getOtherInfo({ commit }, payload) {
+  const memberId = payload.memberId
+  const jwt = payload.jwt
+  const url = `profiles/${memberId}`
+  await $axios.get(url, {
+    headers: {
+      Authorization: "Bearer " + jwt,
+    },
+  })
+    .then((res) => {
+      commit("OTHER_INFO", res.data)
+    })
+    .catch ((err) => {
+      console.log(err)
+    })
+}
+
+export async function profileChangeInfo({ state, dispatch }, payload) {
+  const body = payload
+  const memberId = state.userInfo.memberId
+  const url = `profiles`
+  const header = localStorage.getItem('jwt')
+  await $axios.put(url, body, {
+    headers: {
+      Authorization: "Bearer " + header,
+      },
+    })
+    .then(() => {
+      dispatch("getOtherInfo", {
+        'memberId': memberId,
+        'jwt': header,
+      })
+    })
+    .catch((err) => {
       console.log(err)
     })
 }

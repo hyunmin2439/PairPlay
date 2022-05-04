@@ -3,4 +3,5 @@ export default {
   nicknameDuplicate: 0,
   loginStatus: false,
   userInfo: {},
+  otherInfo: {},
 };
