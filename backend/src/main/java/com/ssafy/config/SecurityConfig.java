@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll() // 인증이 필요 없는 부분
                 .and()
                 .logout()
-                .logoutSuccessUrl("/")
+//                .logoutSuccessUrl("/") // get Mapping / 가 없다는 에러가 계속 떠서 막아놓음
                 .and()
                 .oauth2Login()
                 .userInfoEndpoint()
