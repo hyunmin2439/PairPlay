@@ -19,3 +19,7 @@ export function userInfo(state) {
 export function otherInfo(state) {
   return state.otherInfo;
 }
+
+export function mateArticleList(state) {
+  return state.mateArticleList;
+}
