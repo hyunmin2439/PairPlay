@@ -20,11 +20,7 @@ public class ActivityRepositorySupport {
 
     QActivity qActivity = QActivity.activity;
 
-    /**
-     * 멤버 저장된 주소 없으면 공고 전체 검색
-     */
     public Page<Activity> findAll(Pageable pageable){
-
         QueryResults<Activity> activities = jpaQueryFactory
                 .select(qActivity)
                 .from(qActivity)
@@ -38,26 +34,6 @@ public class ActivityRepositorySupport {
         return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
 
     }
-
-    /**
-     * 멤버 저장된 주소 있으면 주소 기반 검색
-     */
-    public Page<Activity> findAllByLocation(Pageable pageable, String location){
-
-        QueryResults<Activity> activities = jpaQueryFactory
-                .select(qActivity)
-                .from(qActivity)
-                .where(qActivity.isEnd.isFalse().and(qActivity.location.contains(location)))
-                .orderBy(qActivity.id.desc())
-                .limit(pageable.getPageSize())
-                .offset(pageable.getOffset())
-                .fetchResults();
-        if(activities == null) return Page.empty();
-
-        return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
-
-    }
-
 
 
     /**

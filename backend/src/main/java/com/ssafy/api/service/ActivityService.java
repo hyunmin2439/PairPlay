@@ -36,18 +36,8 @@ public class ActivityService {
     }
 
     public Page<Activity> getActivityList(Pageable pageable) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long memberId = Long.parseLong(authentication.getName());
-
-        Member member = memberRepository.findById(memberId).orElse(null);
-
-        if(member != null){
-            String location = member.getSido() + " " + member.getGugun();
-            return activityRepositorySupport.findAllByLocation(pageable, location);
-        }
 
         return activityRepositorySupport.findAll(pageable);
-
     }
 
 
@@ -59,6 +49,7 @@ public class ActivityService {
          * 운동 카테고리, 위치, 검색어
          */
         if(activityCategoryReq.getCategoryId()!=0 && !activityCategoryReq.getLocation().equals("") && !activityCategoryReq.getSearch().equals("")) {
+            System.out.println("1");
             activities = activityRepositorySupport.findByCategorySearch(pageable, activityCategoryReq.getCategoryId(), activityCategoryReq.getLocation(), activityCategoryReq.getSearch());
 
         }
@@ -66,6 +57,7 @@ public class ActivityService {
          * 운동 카테고리, 검색어
          */
         else if(activityCategoryReq.getCategoryId()!=0 && activityCategoryReq.getLocation().equals("") && !activityCategoryReq.getSearch().equals("")){
+            System.out.println("2");
             activities = activityRepositorySupport.findByCategorySearch(pageable, activityCategoryReq.getCategoryId(), activityCategoryReq.getSearch());
 
         }
@@ -73,6 +65,7 @@ public class ActivityService {
          * 지역, 검색어
          */
         else if(activityCategoryReq.getCategoryId()==0 && !activityCategoryReq.getLocation().equals("") && !activityCategoryReq.getSearch().equals("")) {
+            System.out.println("3");
             activities = activityRepositorySupport.findByCategorySearch(pageable, activityCategoryReq.getLocation(), activityCategoryReq.getSearch());
 
         }
@@ -80,6 +73,7 @@ public class ActivityService {
          * 운동 카테고리, 지역
          */
         else if(activityCategoryReq.getCategoryId()!=0 && !activityCategoryReq.getLocation().equals("")) {
+            System.out.println("4");
             activities = activityRepositorySupport.findByCategory(pageable, activityCategoryReq.getCategoryId(), activityCategoryReq.getLocation());
 
         }
@@ -87,6 +81,7 @@ public class ActivityService {
          * 운동 카테고리
          */
         else if(activityCategoryReq.getCategoryId()!=0 && activityCategoryReq.getLocation().equals("")){
+            System.out.println("5");
             activities = activityRepositorySupport.findByCategory(pageable, activityCategoryReq.getCategoryId());
 
         }
@@ -94,6 +89,7 @@ public class ActivityService {
          * 지역
          */
         else if(activityCategoryReq.getCategoryId()==0 && !activityCategoryReq.getLocation().equals("")) {
+            System.out.println("6");
             activities = activityRepositorySupport.findByCategory(pageable, activityCategoryReq.getLocation());
 
         }
@@ -101,6 +97,7 @@ public class ActivityService {
          * 검색어
          */
         else if(!activityCategoryReq.getSearch().equals("")) {
+            System.out.println("7");
             activities = activityRepositorySupport.findByCategorySearch(pageable, activityCategoryReq.getSearch());
         }
 

@@ -5,6 +5,7 @@ import com.ssafy.api.request.ActivityCategoryReq;
 import com.ssafy.api.request.ActivityPostReq;
 import com.ssafy.api.request.ActivityRegisterReq;
 import com.ssafy.api.response.ActivityDetailRes;
+import com.ssafy.api.response.ActivityRes;
 import com.ssafy.api.response.BaseResponseBody;
 import com.ssafy.api.response.ActivityListRes;
 import com.ssafy.api.service.ActivityService;
@@ -43,9 +44,11 @@ public class ActivityController {
 
         Page<Activity> activities = activityService.getActivityList(pageable);
 
+
         return ResponseEntity.status(200).body(ActivityListRes.of(activities, SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage()));
 
-    }
+    }//-> 지역기반 추가 수정 해야함
+
 
 
     /**
