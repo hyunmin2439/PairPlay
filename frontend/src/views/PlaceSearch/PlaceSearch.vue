@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { reactive } from "vue";
 import Header from "../Common/Header.vue";
 import PlaceSearchFilters from "./Components/PlaceSearchFilters.vue";
 import PlaceSearchList from "./Components/PlaceSearchList.vue";
@@ -34,7 +35,7 @@ export default {
 
   components: { Header, PlaceSearchFilters, PlaceSearchList, PlaceSearchMaps },
   setup() {
-    const cards = [
+    const cards = reactive([
       {
         title: "장정구 복싱 체육관",
         position: "부산 연제구",
@@ -75,7 +76,8 @@ export default {
         rate: "4.1",
         cost: "시간당 10,000원 ",
       },
-    ];
+    ]);
+
     // const store = userStore();
     // const route = useRoute();
     return { cards };

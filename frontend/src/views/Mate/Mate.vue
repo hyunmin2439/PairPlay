@@ -1,8 +1,4 @@
 <template>
-  <div style="max-width: 1255px; margin: auto">
-    <Header></Header>
-  </div>
-  <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" />
   <div>
     <div style="max-width: 1255px; margin: auto;">
       <Header></Header>

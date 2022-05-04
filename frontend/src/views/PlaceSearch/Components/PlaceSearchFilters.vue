@@ -4,7 +4,7 @@
       <!--  -->
       <!-- Default dropend button -->
       <!-- <div class="input-group serachbar">search</div> -->
-      <div class="d-flex align-items-center col-lg-9">
+      <div class="d-flex align-items-center col-lg-9 filters">
         <place-search-filters-region></place-search-filters-region>
         <place-search-filters-price></place-search-filters-price>
         <place-search-filters-time></place-search-filters-time>
@@ -59,6 +59,11 @@ export default {
 // .dropdown-menu:checked {
 //   display: block;
 // }
+.btn {
+  &:hover {
+    border: 0.5px solid black;
+  }
+}
 .placeSearchFiltersTotalFrame {
   border-bottom-width: 100vw;
   border-bottom: 1px solid rgba(1, 1, 1, 0.1);

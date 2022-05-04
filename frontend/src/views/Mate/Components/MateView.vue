@@ -1,92 +1,45 @@
 <template>
   <div class="container">
     <p class="total-cards col-12">총 00 건의 검색결과</p>
-    <a class="card" href="#">
-      <h3>This is option 1</h3>
-      <p class="small">Card description with lots of great facts and interesting details.</p>
-      
-      <div class="go-corner" href="#">
-        <div class="go-arrow">
-          →
-        </div>
-      </div>
-    </a>
-    <a class="card" href="#">
-      <h3>This is option 2</h3>
-      <p class="small">Card description with lots of great facts and interesting details.</p>
-      
-      <div class="go-corner" href="#">
-        <div class="go-arrow">
-          →
-        </div>
-      </div>
-    </a>
-    <a class="card" href="#">
-      <h3>This is option 3</h3>
-      <p class="small">Card description with lots of great facts and interesting details.</p>
-      
-      <div class="go-corner" href="#">
-        <div class="go-arrow">
-          →
-        </div>
-      </div>
-    </a>
-    <a class="card" href="#">
-      <h3>This is option 4</h3>
-      <p class="small">Card description with lots of great facts and interesting details.</p>
-      
-      <div class="go-corner" href="#">
-        <div class="go-arrow">
-          →
-        </div>
-      </div>
-    </a>
-    <a class="card" href="#">
-      <h3>This is option 5</h3>
-      <p class="small">Card description with lots of great facts and interesting details.</p>
-      
-      <div class="go-corner" href="#">
-        <div class="go-arrow">
-          →
-        </div>
-      </div>
-    </a>
-    <a class="card" href="#">
-      <h3>This is option 6</h3>
-      <p class="small">Card description with lots of great facts and interesting details.</p>
-      
-      <div class="go-corner" href="#">
-        <div class="go-arrow">
-          →
-        </div>
-      </div>
-    </a>
-    <a class="card" href="#">
-      <h3>This is option 7</h3>
-      <p class="small">Card description with lots of great facts and interesting details.</p>
-      
-      <div class="go-corner" href="#">
-        <div class="go-arrow">
-          →
-        </div>
-      </div>
-    </a>
-    <a class="card" href="#">
-      <h3>This is option 8</h3>
-      <p class="small">Card description with lots of great facts and interesting details.</p>
-      
-      <div class="go-corner" href="#">
-        <div class="go-arrow">
-          →
-        </div>
-      </div>
-    </a>
+    <div>
+      <ul v-for="(card, i) in state.cards" :key="i">
+        <li>
+          <a class="card" href="#">
+            <h3>{{card.title}}</h3>
+            <p class="small">{{card.description}}</p>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
+import { onMounted, reactive, computed } from 'vue';
+import { useStore } from 'vuex';
+
 export default {
   name: "MateView",
+  setup() {
+    const store = useStore()
+    // let cards = [];
+    const state = reactive({
+      cards: computed(() => store.getters["root/mateArticleList"])
+    })
+    onMounted(() => {
+      store.dispatch("root/mateArticleList")
+    })
+    // let expand = false;
+    // const refresh = () =>
+    // const changedExpand = () => {
+    //   expand = !expand;
+    //   console.log(expand, "expand");
+    //   console.log(value, "value");
+    //   return;
+    // };
+
+    return { state, onMounted };
+  }
 }
 </script>
 
@@ -135,26 +88,26 @@ export default {
     }
   }
 
-  .go-corner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    overflow: hidden;
-    top: 0;
-    right: 0;
-    background-color: #00838d;
-    border-radius: 0 4px 0 32px;
-  }
+  // .go-corner {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   position: absolute;
+  //   width: 32px;
+  //   height: 32px;
+  //   overflow: hidden;
+  //   top: 0;
+  //   right: 0;
+  //   background-color: #00838d;
+  //   border-radius: 0 4px 0 32px;
+  // }
 
-  .go-arrow {
-    margin-top: -4px;
-    margin-right: -4px;
-    color: white;
-    font-family: courier, sans;
-  }
+  // .go-arrow {
+  //   margin-top: -4px;
+  //   margin-right: -4px;
+  //   color: white;
+  //   font-family: courier, sans;
+  // }
 
   .card {
     display: block;
