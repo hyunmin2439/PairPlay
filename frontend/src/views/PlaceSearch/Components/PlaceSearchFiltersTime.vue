@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Datepicker v-model="date" :enableTimePicker="false" range multiCalendars style="width: 250px; box-shadow: 0 0 8px rgba(24, 24, 24, 0.1); border-radius: 500px" class="ms-2"></Datepicker>
+    <Datepicker v-model="date" :enableTimePicker="false" range multiCalendars class="ms-2 datePicker"></Datepicker>
   </div>
 </template>
 
@@ -31,4 +31,14 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.datePicker {
+  width: 250px;
+  box-shadow: 0 0 8px rgba(24, 24, 24, 0.1);
+  // border-radius: 500px;
+  &:hover {
+    border: 0.5px solid black;
+    border-radius: 4px;
+  }
+}
+</style>

@@ -78,7 +78,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.btn {
+  &:hover {
+    border: 0.5px solid black;
+  }
+}
 .form-check-label {
   font-size: 14px;
 }

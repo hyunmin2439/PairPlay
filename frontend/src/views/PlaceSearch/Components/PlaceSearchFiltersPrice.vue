@@ -39,6 +39,11 @@ export default {
 <style src="@vueform/slider/themes/default.css"></style>
 
 <style lang="scss" scoped>
+.btn {
+  &:hover {
+    border: 1px solid black;
+  }
+}
 .dropdown-menu:checked {
   display: block;
 }
