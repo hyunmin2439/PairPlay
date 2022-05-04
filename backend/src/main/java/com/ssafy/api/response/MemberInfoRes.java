@@ -31,9 +31,9 @@ public class MemberInfoRes extends MemberLoginRes{
     String address;
     @ApiModelProperty(name="휴대폰 번호", example="010-1234-5678")
     String phone;
-    @ApiModelProperty(name="User profileImage")
+    @ApiModelProperty(name="멤버 프로필 이미지")
     String profileImage;
-    @ApiModelProperty(name="User description")
+    @ApiModelProperty(name="멤버 한줄 소개")
     String description;
 
     public static MemberInfoRes of(Member member, Integer statusCode, String message) {

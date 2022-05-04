@@ -40,7 +40,7 @@ public class MemberService {
         return memberRepository.findByEmail(memberEmail).orElse(null);
     }
 
-    /**
+    /**+
      * memberNickname을 통해 DB에서 유저 정보 조회
      */
     public Member getMemberByNickname(String memberNickname) {
