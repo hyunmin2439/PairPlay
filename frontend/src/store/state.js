@@ -4,5 +4,5 @@ export default {
   loginStatus: false,
   userInfo: {},
   otherInfo: {},
-  mateArticleList: {},
+  mateArticleList: [],
 };
