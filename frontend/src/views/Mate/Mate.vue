@@ -46,7 +46,7 @@ export default {
   components: { MateFilter, MateView, Header },
   name: "Mate",
   setup() {
-
+    return { }
   }
 }
 </script>

@@ -5,10 +5,11 @@
       <!-- Default dropend button -->
       <!-- <div class="input-group serachbar">search</div> -->
       <div class="d-flex align-items-center col-lg-9 filters">
-        <place-search-filters-region></place-search-filters-region>
+        <place-search-filters-region @regionData="selectRegion"></place-search-filters-region>
         <place-search-filters-price></place-search-filters-price>
-        <place-search-filters-time></place-search-filters-time>
-        <place-search-filter-sports-category></place-search-filter-sports-category>
+        <place-search-filters-time @timeData="selectTime"></place-search-filters-time>
+        <place-search-filter-sports-category @sportsCategoryData="selectSportsCategory"></place-search-filter-sports-category>
+        <div class="btn btn-Cancel btn-secondary" type="button" @click="cancelFilters">초기화</div>
         <!-- <div class="btn-group">
         <button type="button" class="btn btnPlace dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" :aria-expanded="`${expand}`">Price</button>
         <ul class="dropdown-menu ps-5" style="width: 400px; height: 300px; font-size: 14px">
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import { ref, watch } from "vue";
 import PlaceSearchFiltersPrice from "./PlaceSearchFiltersPrice.vue";
 import PlaceSearchFiltersRegion from "./PlaceSearchFiltersRegion.vue";
 import PlaceSearchFiltersTime from "./PlaceSearchFiltersTime.vue";
@@ -41,18 +43,53 @@ import PlaceSearchFilterSportsCategory from "./PlaceSearchFilterSportsCategory.v
 
 export default {
   name: "PlaceSearchFilters",
+  emits: ["searchFiltersData"],
   components: { PlaceSearchFiltersRegion, PlaceSearchFiltersPrice, PlaceSearchFiltersTime, PlaceSearchFilterSportsCategory },
-  setup() {
+  setup(_, { emit }) {
+    let searchFiltersData = ref({
+      price: "",
+      region: { sido: "", gugun: "" },
+      time: { startDate: "", endDate: "" },
+      sportsCategory: "",
+    });
+    const selectRegion = (res) => {
+      // console.log(res, "나옵니까");
+      searchFiltersData.value.region = res;
+    };
+    const selectTime = (res) => {
+      let startTime = new Date(+res[0] + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
+      let endTime = new Date(+res[1] + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
+      searchFiltersData.value.time.startDate = startTime;
+      searchFiltersData.value.time.endDate = endTime;
+    };
+    const selectSportsCategory = (res) => {
+      // console.log(res);
+      searchFiltersData.value.sportsCategory = res;
+    };
+    // searchFiltersData.value.region.sido = regionData.sido;
+    // searchFiltersData.value.region.gugun = regionData.gugun;
     // let value = [20, 40];
     // const format = (value) => {
     //   return `${value}원`;
     // };
-
+    // console.log(searchFiltersData, "아아");
+    const cancelFilters = () => {
+      searchFiltersData.value.price = "";
+      searchFiltersData.value.region = { sido: "", gugun: "" };
+      searchFiltersData.value.time = { startDate: "", endDate: "" };
+      searchFiltersData.value.sportsCategory = "";
+    };
+    watch(searchFiltersData.value, () => {
+      emit("searchFiltersData", searchFiltersData.value);
+      // console.log(res);
+      // console.log(searchFiltersData.value, "searchFiltersData");
+    });
     // const refresh = () =>
-    return {};
+    return { searchFiltersData, selectRegion, selectTime, selectSportsCategory, cancelFilters };
   },
 };
 </script>
+
 <style src="@vueform/slider/themes/default.css"></style>
 
 <style lang="scss" scoped>
@@ -86,7 +123,17 @@ export default {
   font-size: 14px;
   font-family: "bootstrap-icons", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-
+.btn-Cancel {
+  margin: 10px 5px 10px 5px;
+  // background: red;
+  color: white;
+  border-radius: 5px;
+  // box-shadow: (0 1px 10px rgba(24, 24, 24, 0.04));
+  box-shadow: (0 0 8px rgba(24, 24, 24, 0.04));
+  border: 1px solid rgba(1, 1, 1, 0.1);
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
 // .btnPlace {
 //   margin: 10px 5px 10px 5px;
 //   background: #ffff;

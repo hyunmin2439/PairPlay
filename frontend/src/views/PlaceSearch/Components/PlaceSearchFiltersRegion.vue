@@ -3,81 +3,96 @@
     <div class="dropdown">
       <div class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">지역</div>
       <ul class="dropdown-menu mt-2" aria-labelledby="dropdownMenuButton">
-        <li>
-          <a class="dropdown-item d-flex justify-content-between px-4" href="#"><span>부산</span><span>></span></a>
-          <ul class="dropdown-menu dropdown-submenu px-2 text-align">
+        <li class="sido">
+          <a class="dropdown-item d-flex justify-content-between px-4">
+            <div>부산</div>
+          </a>
+          <ul class="dropdown-menu dropdown-submenu px-2 text-align" @click="selectBusanGugun">
             <li class="d-flex justify-content-around text-start my-2">
-              <a class="dropdown-item ps-4" href="#">중구</a>
-              <a class="dropdown-item" href="#">서구</a>
+              <input type="button" class="dropdown-item ps-4" value="중구" />
+              <input type="button" class="dropdown-item" value="서구" />
             </li>
-            <!-- <a class="dropdown-item" href="#">중구</a>
-              <a class="dropdown-item" href="#">서구</a> -->
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="동구" />
+              <input type="button" class="dropdown-item" value="영도구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="진구" />
+              <input type="button" class="dropdown-item" value="동래구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="남구" />
+              <input type="button" class="dropdown-item" value="북구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="사상구" />
+              <input type="button" class="dropdown-item" value="사하구" />
+            </li>
 
             <li class="d-flex justify-content-around text-start my-2">
-              <a class="dropdown-item ps-4" href="#">동구</a>
-              <a class="dropdown-item" href="#">영도구</a>
+              <input type="button" class="dropdown-item ps-4" value="금정구" />
+              <input type="button" class="dropdown-item" value="강서구" />
             </li>
             <li class="d-flex justify-content-around text-start my-2">
-              <a class="dropdown-item ps-4" href="#">진구</a>
-              <a class="dropdown-item" href="#">동래구</a>
+              <input type="button" class="dropdown-item ps-4" value="연제구" />
+              <input type="button" class="dropdown-item" value="수영구" />
             </li>
             <li class="d-flex justify-content-around text-start my-2">
-              <a class="dropdown-item ps-4" href="#">남구</a>
-              <a class="dropdown-item" href="#">북구</a>
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <a class="dropdown-item ps-4" href="#">사상구</a>
-              <a class="dropdown-item" href="#">사하구</a>
-            </li>
-
-            <li class="d-flex justify-content-around text-start my-2">
-              <a class="dropdown-item ps-4" href="#">금정구</a>
-              <a class="dropdown-item" href="#">강서구</a>
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <a class="dropdown-item ps-4" href="#">연제구</a>
-              <a class="dropdown-item" href="#">수영구</a>
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <a class="dropdown-item ps-4" href="#">기장군</a>
-              <a class="dropdown-item" href="#">해운대구</a>
+              <input type="button" class="dropdown-item ps-4" value="해운대구" />
+              <input type="button" class="dropdown-item" value="기장군" />
             </li>
             <li class="d-flex"></li>
           </ul>
         </li>
-        <li>
-          <a class="dropdown-item d-flex justify-content-between px-4" href="#"><span>부산2</span> <span>&gt;</span></a>
+        <!-- <li class="sido">
+          <a class="dropdown-item d-flex justify-content-between px-4"><span>서울</span> <span>&gt;</span></a>
           <ul class="dropdown-menu dropdown-submenu">
-            <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
-            <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+            <li><a class="dropdown-item">관악구</a></li>
+            <li><a class="dropdown-item">서초구</a></li>
             <li>
-              <a class="dropdown-item d-flex justify-content-between px-4" href="#"><span>부산</span> <span>&gt;</span></a>
+              <a class="dropdown-item d-flex justify-content-between px-4"><span>부산</span> <span>&gt;</span></a>
               <ul class="dropdown-menu dropdown-submenu">
-                <li><a class="dropdown-item" href="#">Multi level 1</a></li>
-                <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                <li><a class="dropdown-item">Multi level 1</a></li>
+                <li><a class="dropdown-item">Multi level 2</a></li>
               </ul>
             </li>
-            <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
-            <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+            <li><a class="dropdown-item">Submenu item 4</a></li>
+            <li><a class="dropdown-item">Submenu item 5</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-// import {ref} from vue
+// console.log();
+
+import { ref } from "vue";
 // import {useRoute} from "vue-router"
 // import {mapState, useStore} from "vuex"
 
 export default {
   name: "PlaceSearchFiltersRegion",
-  // setup() {
-  // const store = userStore();
-  // const route = useRoute();
-  // },
+  emits: ["regionData"],
+  setup(props, { emit }) {
+    const regionData = ref({ sido: "", gugun: "" });
+    // const store = userStore();
+    // const route = useRoute();
+    const selectBusanGugun = (res) => {
+      regionData.value.sido = "부산";
+      regionData.value.gugun = res.target.value;
+      emit("regionData", regionData.value);
+    };
+    return { regionData, selectBusanGugun };
+  },
 };
+// let getDropdownItemsData = document.querySelectorAll(".dropdown-item");
+// document.addEventListener("click", async function () {
+//   await getDropdownItemsData.forEach(function (item) {
+//     console.log(item.textContent);
+//   });
+// });
 </script>
 
 <style lang="scss">

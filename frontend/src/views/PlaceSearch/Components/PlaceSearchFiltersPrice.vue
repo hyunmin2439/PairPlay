@@ -17,6 +17,7 @@ import Slider from "@vueform/slider";
 export default {
   name: "PlaceSearchFiltersPrice",
   components: { Slider },
+  // emits: [priceData],
   setup() {
     let value = [20, 40];
     const format = (value) => {
