@@ -49,3 +49,7 @@ export function OTHER_INFO(state, data) {
 export function MATE_ARTICLE_LIST(state, data) {
   state.mateArticleList = data;
 }
+
+export function Place_Search_Info(state, data) {
+  state.placeSearchInfo = data;
+}

@@ -165,7 +165,7 @@ export async function profileChangeImage({ state }, payload) {
       //   memberId: memberId,
       //   jwt: header,
       // });
-      console.log(res)
+      console.log(res);
     })
     .catch((err) => {
       console.log(err);
@@ -187,6 +187,33 @@ export async function mateArticleList({ commit }) {
       console.log(res);
       commit("MATE_ARTICLE_LIST", res.data);
       // commit("OTHER_INFO", res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export async function getPlaceSearchInfo({ commit }, searchFiltersData) {
+  const jwt = localStorage.getItem("jwt");
+  const url = `places/search`;
+  const placeSearchKeyword = searchFiltersData;
+  await $axios
+    .get(url, {
+      headers: {
+        Authorization: "Bearer " + jwt,
+      },
+      params: {
+        page: 0,
+        categoryList: placeSearchKeyword.categoryList,
+        endData: placeSearchKeyword.endData,
+        gugun: placeSearchKeyword.gugun,
+        sido: placeSearchKeyword.sido,
+        startData: placeSearchKeyword.startData,
+      },
+    })
+    .then((res) => {
+      commit("Place_Search_Info", res.data);
+      console.log(res.data, "여기는 actions");
     })
     .catch((err) => {
       console.log(err);
