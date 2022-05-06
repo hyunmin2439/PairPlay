@@ -96,13 +96,14 @@ public class ProfileController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "유저 프로필 이미지 수정에 성공했습니다.", response = BaseResponseBody.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> updateProfileImage(MultipartHttpServletRequest request) {
-        MultipartFile file = request.getFile("profileImage");
-        System.out.println(file.getOriginalFilename());
-        System.out.println(file.getSize());
+    public ResponseEntity<? extends BaseResponseBody> updateProfileImage(
+            @RequestParam(value = "profileImage", required = false) MultipartFile file) {
         if (file != null && file.getSize() != 0) {
+            System.out.println(file.getOriginalFilename());
+            System.out.println(file.getSize());
+
             try {
-                String fileName = s3FileUploadService.upload(request.getFile("profileImage"));
+                String fileName = s3FileUploadService.upload(file);
                 profileService.updateMemberProfileImage(fileName);
             } catch (Exception e) {
                 e.printStackTrace();
