@@ -91,18 +91,19 @@ public class ProfileController {
     }
     
     // Profile Image Update
-    @PutMapping("/profileImage")
+    @PostMapping("/profileImage")
     @ApiOperation(value = "유저 프로필사진 수정", notes = "<string>JWT토큰</string>의 ID에 해당하는 회원 프로필 사진을 수정한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "유저 프로필 이미지 수정에 성공했습니다.", response = BaseResponseBody.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> updateProfileImage(MultipartHttpServletRequest request) {
-        MultipartFile file = request.getFile("profileImage");
-        System.out.println(file.getOriginalFilename());
-        System.out.println(file.getSize());
+    public ResponseEntity<? extends BaseResponseBody> updateProfileImage(
+            @RequestParam(value = "profileImage", required = false) MultipartFile file) {
         if (file != null && file.getSize() != 0) {
+            System.out.println(file.getOriginalFilename());
+            System.out.println(file.getSize());
+
             try {
-                String fileName = s3FileUploadService.upload(request.getFile("profileImage"));
+                String fileName = s3FileUploadService.upload(file);
                 profileService.updateMemberProfileImage(fileName);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -175,16 +176,14 @@ public class ProfileController {
 
 
     // 달력 조회
-    // 일정한 기간 중에서, 내가 참여한 모든 Activity에 대한 정보를 불러오는 것
-    // Mate 테이블에 먼저 조회를 해서 내가 참여한 Activity list를 구한다
-    // 구해진 Activity list를 사용해서 meet_dt 범위가 우리가 미리 정해둔 달력에 표현되는 일정 범위안의 Activity를 조회
+    // 일정한 기간 중에서, 내가 참여한 Activity, 내가 예약한 시설에 대한 count를 조회
     @GetMapping("/calendar")
     @ApiOperation(value = "달력 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>일정기간</string> 내의 활동 목록을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "달력 조회에 성공했습니다.", response = ProfileRes.class),
     })
     public ResponseEntity<? extends CalendarActivityRes> searchCalendar() {
-        List<Activity> list = profileService.searchCalendar();
+        List<CalendarDateRes> list = profileService.searchCalendar();
 
         return ResponseEntity.status(200).body(
                 CalendarActivityRes.of(
@@ -194,6 +193,10 @@ public class ProfileController {
                 )
         );
     }
+
+    
+    //// 개인활동 조회의 경우, 달력에서 하나의 날짜를 선택한 다음, 그 날짜에 해당하는 모든 것을 불러와야 한다
+    //// 예약 + activity  둘 다 있어야 할 것 같다
 
     // 개인 활동 조회
     // 달력 중에서 날짜 하나를 선택해서 해당 날짜에 내가 참여한 Activity를 불러온다
