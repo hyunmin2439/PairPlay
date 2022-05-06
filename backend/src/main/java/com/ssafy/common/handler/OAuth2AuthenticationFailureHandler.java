@@ -31,7 +31,7 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
         if(domain.contains("localhost"))
             domain = "http://" + domain + ":8080";
         else
-            domain = "http://pairplay.site" + ":443";
+            domain = "http://pairplay.site" + ":80";
 
         return UriComponentsBuilder.fromUriString(domain + "/oauth/failure")
                 .build().toUriString();
