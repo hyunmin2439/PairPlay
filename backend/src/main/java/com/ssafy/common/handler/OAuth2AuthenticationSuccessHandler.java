@@ -66,7 +66,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         if(domain.contains("localhost"))
             domain = "http://" + domain + ":8080";
         else
-            domain = "https://pairplay.site" + ":443";
+            domain = "http://pairplay.site" + ":443";
 
         return UriComponentsBuilder.fromUriString(domain + "/oauth/success")
                 .queryParam("accessToken", token)
