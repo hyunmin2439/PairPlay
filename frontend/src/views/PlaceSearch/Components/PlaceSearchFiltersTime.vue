@@ -1,28 +1,42 @@
 <template>
   <div>
-    <Datepicker v-model="date" :enableTimePicker="false" range multiCalendars class="ms-2 datePicker"></Datepicker>
+    <Datepicker v-model="timeData" :format-locale="ko" format="PP" :enableTimePicker="false" range multiCalendars textInput class="ms-2 datePicker"></Datepicker>
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import Datepicker from "@vuepic/vue-datepicker";
+import { ko } from "date-fns/locale";
 import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
   name: "PlaceSearchFiltersTime",
   components: { Datepicker },
-
-  setup() {
-    const date = ref();
-    onMounted(() => {
+  emits: ["timeData"],
+  setup(_, { emit }) {
+    const timeData = ref({});
+    const selectTimeData = () => {
       const startDate = new Date();
       const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
-      date.value = [startDate, endDate];
+      timeData.value = [startDate, endDate];
+    };
+    onMounted(() => {
+      selectTimeData();
+      // console.log(timeData.value, "온마운티드");
     });
+    watch(timeData, () => {
+      // console.log(timeData, "timeData");
+      emit("timeData", timeData.value);
+
+      // console.log(searchFiltersData.value, "searchFiltersData");
+    });
+
     // const picked = ref(new Date());
     return {
-      date,
+      selectTimeData,
+      timeData,
+      ko,
       // picked,
     };
     // const store = userStore();

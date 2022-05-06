@@ -69,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), memberService)) //HTTP 요청에 JWT 토큰 인증 필터를 거치도록 필터를 추가
                 .authorizeRequests()
                 .antMatchers("/oauth2/authorization/google").authenticated() // 인증이 필요한 부분 구글 oauth2Login부분
+//                .antMatchers("/oauth2/authorization/kakao").authenticated() // 인증이 필요한 부분 구글 oauth2Login부분
                 .anyRequest().permitAll() // 인증이 필요 없는 부분
                 .and()
                 .logout()

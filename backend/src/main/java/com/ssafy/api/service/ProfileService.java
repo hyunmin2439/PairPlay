@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.ProfilePasswordPostReq;
 import com.ssafy.api.request.ProfilePutReq;
+import com.ssafy.api.response.CalendarDateRes;
 import com.ssafy.common.handler.CustomException;
 import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.domain.entity.Activity;
@@ -10,6 +11,7 @@ import com.ssafy.domain.entity.Member;
 import com.ssafy.domain.repository.ActivityRepository;
 import com.ssafy.domain.repository.MateRepository;
 import com.ssafy.domain.repository.MemberRepository;
+import com.ssafy.domain.repository.PlaceReservationRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -30,11 +32,13 @@ public class ProfileService {
     private final MemberRepository memberRepository;
     private final ActivityRepository activityRepository;
     private final MateRepository mateRepository;
+    private final PlaceReservationRepository placeReservationRepository;
 
-    public ProfileService(MemberRepository memberRepository, ActivityRepository activityRepository, MateRepository mateRepository) {
+    public ProfileService(MemberRepository memberRepository, ActivityRepository activityRepository, MateRepository mateRepository, PlaceReservationRepository placeReservationRepository) {
         this.memberRepository = memberRepository;
         this.activityRepository = activityRepository;
         this.mateRepository = mateRepository;
+        this.placeReservationRepository = placeReservationRepository;
     }
 
 //    public Member getMemberProfile(Long memberId) {
@@ -108,14 +112,37 @@ public class ProfileService {
     }
 
     // 달력 조회
-    public List<Activity> searchCalendar() {
+    public List<CalendarDateRes> searchCalendar() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
 
-        // memberId와 날짜 범위를 사용해서 Activity를 조회
-        List<Activity> list = activityRepository.findByIdAndMeetDtBetween(memberId, LocalDateTime.now().minusMonths(4), LocalDateTime.now().plusMonths(2));
+        // memberId, 오늘 날짜, 오늘 날짜 - 1year를 통해서 달력에 표시할 각 날짜의 mate의 count를 구한다
+        List<CalendarDateRes> mateList = mateRepository.findByMemberIdAndMeetDtBefore(memberId, LocalDate.now(), LocalDate.now().minusYears(1));
+        System.out.println(mateList.size());
+        if (mateList.size() > 0) System.out.println(mateList.get(0));
 
-        return list;
+        // memberId, 오늘 날짜, 오늘 날짜 - 1year를 통해서 달력에 표시할 각 날짜의 Place Reservation의 count를 구한다
+        List<CalendarDateRes> reservationList = placeReservationRepository.findByMemberIdAndDateBetween(memberId, LocalDate.now(), LocalDate.now().minusYears(1));
+
+        // mateList와 reservationList를 합쳐서 하나로 만든다
+        List<CalendarDateRes> addList = new ArrayList<>();
+
+        reservationList.forEach(date -> {
+            boolean check = false;
+            for (int i = 0; i < mateList.size(); i++) {
+                if (date.getDate().equals(mateList.get(i).getDate())) {
+                    mateList.get(i).setCount(mateList.get(i).getCount() + date.getCount());
+                    check = true;
+                }
+                if (check) break;
+            }
+            if (!check) addList.add(date);
+        });
+
+        // mateList와 addList를 하나로 합친다
+
+
+        return mateList;
     }
 
     // 해당 날짜에 참여한 모든 Activity 조회
@@ -123,8 +150,7 @@ public class ProfileService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
 
-        // memberId와 정확한 Date를 사용하여 Activity를 조회
-        // repo -> List<Activity> findByIdAndMeetDt
+        // memberId와 정확한 Date를 사용하여 Activity를 count
         List<Activity> list = activityRepository.findByIdAndMeetDtBetween(memberId, LocalDateTime.of(date, LocalTime.of(0, 0)), LocalDateTime.of(date, LocalTime.of(23, 59, 59)));
 
         return list;
