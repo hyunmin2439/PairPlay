@@ -3,6 +3,7 @@ package com.ssafy.domain.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.request.PlaceSearchPostReq;
 import com.ssafy.domain.entity.PlaceMongo;
+//import com.ssafy.domain.entity.QPlaceMongo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -18,6 +19,8 @@ public class PlaceMongoRepositorySupport {
 
     private final JPAQueryFactory jpaQueryFactory;
     private final MongoTemplate mongoTemplate;
+
+//    QPlaceMongo qPlaceMongo = QPlaceMongo.placeMongo;
 
     public PlaceMongoRepositorySupport(JPAQueryFactory jpaQueryFactory, MongoTemplate mongoTemplate) {
         this.jpaQueryFactory = jpaQueryFactory;
