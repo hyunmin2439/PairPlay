@@ -47,9 +47,9 @@
         </div>
         <div class="container pt-4" style="max-width: 80%; height: 100%; border-left: 1px solid #c8c9ca;">
           <profile-view v-if="state.sideComponents=='Profile'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-view>
-          <profile-reservation v-else-if="state.sideComponents=='Reservation'"></profile-reservation>
+          <profile-reservation v-else-if="state.sideComponents=='Reservation'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-reservation>
           <profile-schedule v-else-if="state.sideComponents=='Schedule'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-schedule>
-          <profile-mate v-else-if="state.sideComponents=='Mate List'"></profile-mate>
+          <profile-mate v-else-if="state.sideComponents=='Mate List'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-mate>
         </div>
       </div>
     </div>
@@ -108,11 +108,13 @@ export default {
 
     const changeImgFile = async function (event) {
       if( event.target.files && event.target.files.length > 0 ) {
+        console.log(event.target.files, '파일')
         const file = event.target.files[0];
         state.otherInfo.profileImage = file;
-        let data = new FormData()
-        data.append("profileImage", file)
-        await store.dispatch('root/profileChangeImage', data)
+        console.log(state.otherInfo)
+        // let data = new FormData()
+        // data.append("profileImage", file)
+        await store.dispatch('root/profileChangeImage', file)
       }
     }
 

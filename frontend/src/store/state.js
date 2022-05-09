@@ -4,6 +4,9 @@ export default {
   loginStatus: false,
   userInfo: {},
   otherInfo: {},
+  getUserSchedule: [],
+  activityPerDay: {},
+  datePerDay: "",
   mateArticleList: {},
   // placeSearchInfo: null,
   placeSearchInfo: [

@@ -148,13 +148,13 @@ export async function profileChangeInfo({ state, dispatch }, payload) {
 }
 
 export async function profileChangeImage({ state }, payload) {
-  const body = payload;
-  console.log(state);
-  // const memberId = state.userInfo.memberId;
+  let formData = new FormData();
+  formData.append("profileImage", payload)
   const url = "profiles/profileImage";
   const header = localStorage.getItem("jwt");
+  console.log(state)
   await $axios
-    .put(url, body, {
+    .post(url, formData, {
       headers: {
         Authorization: "Bearer " + header,
         "Content-Type": "multipart/form-data",
@@ -170,6 +170,29 @@ export async function profileChangeImage({ state }, payload) {
     .catch((err) => {
       console.log(err);
     });
+}
+
+export async function getUserSchedule({ commit }) {
+  const url = `profiles/calendar`
+  const header = localStorage.getItem("jwt");
+  await $axios
+    .get(url, {
+      headers: {
+        Authorization: "Bearer " + header,
+      },
+    })
+    .then((res) => {
+      console.log(res)
+      commit("GET_USER_SCHEDULE", res.data.list)
+    })
+    .catch((err) => {
+      console.log(err)
+  })
+}
+
+export async function getDateTodo({ commit }, payload) {
+  commit("ACTIVITY_PER_DAY", payload["activity"])
+  commit("DATE_PER_DAY", payload["date"])
 }
 
 export async function mateArticleList({ commit }) {

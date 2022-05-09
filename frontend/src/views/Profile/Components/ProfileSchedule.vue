@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import ProfileScheduleWeed from './ProfileScheduleWeed.vue'
 import ProfileScheduleView from './ProfileScheduleView.vue'
 export default {
@@ -20,12 +21,17 @@ export default {
     otherInfo: Object,
   },
   setup(props) {
+    const store = useStore()
     const state = reactive({
       userInfo: props.userInfo,
       otherInfo: props.otherInfo
     })
 
-    return { state }
+    onMounted (() => {
+      store.dispatch("root/getUserSchedule")
+    })
+
+    return { state, onMounted }
   }
 }
 </script>

@@ -46,6 +46,18 @@ export function OTHER_INFO(state, data) {
   state.otherInfo["profileImage"] = data.profileImage;
 }
 
+export function GET_USER_SCHEDULE(state, data) {
+  state.getUserSchedule = data
+}
+
+export function ACTIVITY_PER_DAY(state, data) {
+  state.activityPerDay = data
+}
+
+export function DATE_PER_DAY(state, data) {
+  state.datePerDay = data
+}
+
 export function MATE_ARTICLE_LIST(state, data) {
   state.mateArticleList = data;
 }
