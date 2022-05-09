@@ -3,13 +3,17 @@ package com.ssafy.api.service;
 import com.ssafy.api.request.MemberSignupPostReq;
 import com.ssafy.api.request.MemberSignupPutReq;
 import com.ssafy.common.handler.CustomException;
+import com.ssafy.domain.document.PlaceMember;
 import com.ssafy.domain.entity.Member;
 import com.ssafy.domain.repository.MemberRepository;
+import com.ssafy.domain.repository.PlaceMemberRepository;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
 
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
 import static com.ssafy.common.statuscode.MemberCode.*;
@@ -18,12 +22,14 @@ import static com.ssafy.common.statuscode.MemberCode.*;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PlaceMemberRepository placeMemberRepository;
 
     private final JavaMailSender javaMailSender;
 
-    public MemberService(MemberRepository memberRepository, JavaMailSender javaMailSender) {
+    public MemberService(MemberRepository memberRepository, JavaMailSender javaMailSender, PlaceMemberRepository placeMemberRepository) {
         this.memberRepository = memberRepository;
         this.javaMailSender = javaMailSender;
+        this.placeMemberRepository = placeMemberRepository;
     }
 
     /**
@@ -38,6 +44,15 @@ public class MemberService {
      */
     public Member getMemberByEmail(String memberEmail) {
         return memberRepository.findByEmail(memberEmail).orElse(null);
+    }
+
+    /**
+     * 인증 정보에서 memberId값을 가져와 MysqlDB에서 유저 정보를 검색
+     */
+    public Member getMemberFromAuthentication() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+        return getMemberById(memberId);
     }
 
     /**+
@@ -90,7 +105,18 @@ public class MemberService {
                 .enable(true)
                 .build();
 
-        return memberRepository.save(member);
+        memberRepository.save(member);
+
+        // MongoDB에 유저
+        PlaceMember placeMember = PlaceMember.builder()
+                .memberId( member.getId() )
+                .likeItems( new LinkedList<>() )
+                .recentItems( new LinkedList<>() )
+                .build();
+
+        placeMemberRepository.save(placeMember);
+
+        return member;
     }
 
     /**

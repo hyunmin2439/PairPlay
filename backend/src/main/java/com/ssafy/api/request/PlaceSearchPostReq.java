@@ -26,6 +26,8 @@ public class PlaceSearchPostReq {
     LocalDate startDate;
     @ApiModelProperty(name="찾는 기간", example="2022-05-03")
     LocalDate endDate;
+    @ApiModelProperty(name="검색 단어", example="체육관")
+    String searchWord;
 //    @ApiModelProperty(name="최소 가격", example="10000")
 //    int minPrice;
 //    @ApiModelProperty(name="최대 가격", example="100000")

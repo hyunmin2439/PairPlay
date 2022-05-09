@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class PlaceRes {
-    String id;
+    Long id;
     String category;
     String address;
     List<String> bizhour;
@@ -23,8 +23,9 @@ public class PlaceRes {
     String transport;
     String near;
     List<String> hashtags;
+    boolean isLike;
 
-    public static PlaceRes of(Place place) {
+    public static PlaceRes of(Place place, boolean isLike) {
         PlaceRes res = new PlaceRes();
         res.setId(place.getAttrId());
         res.setCategory(place.getCategory());
@@ -40,6 +41,7 @@ public class PlaceRes {
         res.setTransport(place.getTransport());
         res.setNear(place.getNear());
         res.setHashtags(place.getHashtags());
+        res.setLike(isLike);
         return res;
     }
 }

@@ -20,7 +20,8 @@ public class PlaceListRes extends BaseResponseBody{
     List<PlaceRes> placeList;
 
     public static PlaceListRes of(Integer statusCode, String message,
-                                  long totalPages, long totalElements, List<Place> list) {
+                                  long totalPages, long totalElements,
+                                  List<Place> list, List<Long> likeList) {
         PlaceListRes res = new PlaceListRes();
         res.setCode(statusCode);
         res.setMessage(message);
@@ -28,7 +29,14 @@ public class PlaceListRes extends BaseResponseBody{
         res.totalElements = totalElements;
 
         res.placeList = new ArrayList<>();
-        list.forEach( place -> res.placeList.add( PlaceRes.of(place)) );
+        list.forEach( place ->
+                res.placeList.add(
+                        PlaceRes.of(
+                                place,
+                                likeList.contains(place.getAttrId())
+                        )
+                )
+        );
 
         return res;
     }
