@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { onMounted, ref, reactive /*computed*/, watch } from "vue";
+import { onMounted, ref, reactive, computed, watch } from "vue";
 import { useStore } from "vuex";
 // import { useRoute } from "vue-router";
 import Header from "../Common/Header.vue";
@@ -58,7 +58,7 @@ export default {
     const store = useStore();
     // const route = useRoute();
     let cards = reactive();
-    let totalPages = ref(5);
+    let totalPages = ref();
     let searchFiltersData = ref({
       // categoryList: [route.params.categoryList],
       categoryList: [store.state.root.selectSportsCategory],
@@ -86,21 +86,21 @@ export default {
     };
     const getCards = async () => {
       console.log(searchFiltersData.value, "요기는요");
-      await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
-      //     // .then(() => console.log(res, "데이터 나오나 get cards"))
-      //     .catch((err) => console.log(err, "error"));
-      //   if (store.state.placeSearchInfo) {
-      //     cards.push(computed(() => store.state.root.placeSearchInfo));
-      //   }
+      let tempdata = await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
+      console.log(tempdata.data);
+      searchFiltersData = tempdata.totalPages;
+      if (store.state.placeSearchInfo) {
+        cards.push(computed(() => store.state.root.placeSearchInfo));
+      }
     };
     onMounted(
       async () => {
         await getCards();
       }
-      // async () => {
-      // console.log("시작");
-      // await getSearchFiltersData();
-      // }
+      //   // async () => {
+      //   // console.log("시작");
+      //   // await getSearchFiltersData();
+      //   // }
     );
     watch(searchFiltersData.value, async () => {
       // await getCards();

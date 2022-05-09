@@ -224,8 +224,6 @@ export async function getPlaceSearchInfo({ commit }, searchFiltersData) {
   const body = searchFiltersData;
   const size = 20;
   const jwt = localStorage.getItem("jwt");
-  // const jwt =
-  //   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1OSIsImlzcyI6InNzYWZ5LmNvbSIsImV4cCI6MTY1MzM2NzY3MiwiaWF0IjoxNjUyMDcxNjcyfQ.gm1BEahKiqJVCneBQr0Z3XiY7DGycXTt6X6LU9G3izeQyuAJu9U4yP1zRQW0_DfT7ZGC6P-8EBFZI0oC_8xYSw";
   const url = `places/search?page=${page}&size=${size}`;
   await $axios
     .post(url, body, {

@@ -3,21 +3,21 @@
     <div class="card my-4">
       <div class="row card-frame">
         <div class="col-6">
-          <img :src="`${card.imgUrl}`" class="img-fluid placeSearchListCardImage rounded" alt="..." />
+          <img :src="`${card.img[0]}`" class="img-fluid placeSearchListCardImage rounded" alt="..." />
         </div>
         <div class="col d-flex flex-row align-items-start">
           <div class="card-body text-start d-flex flex-column justify-content-between text-start">
             <div class="d-flex justify-content-between">
-              <p class="card-region">{{ card.position }}</p>
+              <p class="card-region">{{ card.address }}</p>
               <i class="bi bi-heart pe-3"></i>
             </div>
             <div>
-              <p class="card-title mb-2 me-4">{{ card.title }}</p>
-              <p class="card-facility mt-4 mb-5">{{ card.facility }}</p>
+              <p class="card-title mb-2 me-4">{{ card.name }}</p>
+              <p class="card-facility mt-4 mb-5">{{ card.hashtags }}</p>
             </div>
             <div class="d-flex justify-content-between">
               <p class="card-rate fw-bold"><i class="bi bi-star-fill me-1" style="color: #fe8a01"></i> {{ card.rate }}</p>
-              <p class="card-cost pe-3 fw-bold">{{ card.cost }}</p>
+              <p class="card-cost pe-3 fw-bold">{{ card.menu }}</p>
             </div>
             <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
           </div>
