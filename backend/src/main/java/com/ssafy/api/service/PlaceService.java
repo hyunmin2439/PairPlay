@@ -43,6 +43,17 @@ public class PlaceService {
     }
 
     /**
+     * 체육시설 상세 정보를 조회
+     */
+    public Place getDetailPlace(Long placeId) {
+        Member member = memberService.getMemberFromAuthentication();
+
+
+
+        return null;
+    }
+
+    /**
      * 체육시설 장소를 검색
      */
     public Page<Place> searchPlace(Pageable pageable, PlaceSearchPostReq searchInfo) {
@@ -84,5 +95,4 @@ public class PlaceService {
 
         placeMemberRepository.save(placeMember);
     }
-
 }

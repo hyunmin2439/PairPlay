@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PlaceRes {
+public class PlaceDetailRes {
     Long id;
     String category;
     String address;

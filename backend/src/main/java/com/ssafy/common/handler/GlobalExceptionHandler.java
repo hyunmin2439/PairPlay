@@ -71,6 +71,6 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({ Exception.class })
 	protected ResponseEntity handleServerException(Exception ex) {
 		ex.printStackTrace();
-		return ResponseEntity.status(200).body(BaseResponseBody.of(500, "Server Error."));
+		return ResponseEntity.status(200).body(BaseResponseBody.of(500, ex.getMessage()) );
 	}
 }

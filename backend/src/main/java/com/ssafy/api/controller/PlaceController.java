@@ -68,12 +68,57 @@ public class PlaceController {
     }
 
     @PutMapping("/like/{placeId}")
-    @ApiOperation(value = "체육 시설 찜하기", notes = "<strong> 체육 시설</strong>을 찜 등록/삭제 한다.")
+    @ApiOperation(value = "체육 시설 찜하기", notes = "체육 시설에 대한 <strong>찜 등록/삭제</strong> 한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "찜 등록/삭제에 성공했습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> likePlace (
+            @PathVariable(value = "placeId", required = true) @ApiParam(value = "체육 시설 ID 값", required = true) Long placeId) {
+
+        placeService.likePlace(placeId);
+
+        // 성공 여부만 내려주면 됨.
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_UPDATE_LIKE_PLACE.getCode(), SUCCESS_UPDATE_LIKE_PLACE.getMessage()));
+    }
+
+    @PostMapping("/review")
+    @ApiOperation(value = "체육 시설 리뷰 작성", notes = "체육 시설에 대한 <strong>리뷰를 등록</strong> 한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "찜 등록/삭제에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<? extends BaseResponseBody> postReview (
+            @PathVariable(value = "placeId", required = true) @ApiParam(value = "체육 시설 ID 값", required = true) Long placeId) {
+
+        placeService.likePlace(placeId);
+
+        // 성공 여부만 내려주면 됨.
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_UPDATE_LIKE_PLACE.getCode(), SUCCESS_UPDATE_LIKE_PLACE.getMessage()));
+    }
+
+    @PutMapping("/review")
+    @ApiOperation(value = "체육 시설 리뷰 작성", notes = "체육 시설에 대한 <strong>리뷰를 수정</strong> 한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "찜 등록/삭제에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<? extends BaseResponseBody> modifyReview (
+            @PathVariable(value = "placeId", required = true) @ApiParam(value = "체육 시설 ID 값", required = true) Long placeId) {
+
+        placeService.likePlace(placeId);
+
+        // 성공 여부만 내려주면 됨.
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_UPDATE_LIKE_PLACE.getCode(), SUCCESS_UPDATE_LIKE_PLACE.getMessage()));
+    }
+
+    @DeleteMapping("/review")
+    @ApiOperation(value = "체육 시설 리뷰 작성", notes = "체육 시설에 대한 <strong>리뷰를 삭제</strong> 한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "찜 등록/삭제에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<? extends BaseResponseBody> deleteReview (
             @PathVariable(value = "placeId", required = true) @ApiParam(value = "체육 시설 ID 값", required = true) Long placeId) {
 
         placeService.likePlace(placeId);

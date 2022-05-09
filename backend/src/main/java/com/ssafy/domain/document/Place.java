@@ -15,7 +15,7 @@ public class Place {
     @Id
     String id;
     @Field(name = "id")
-    Long attrId;
+    Long placeId;
     String category;
     String address;
     List<String> bizhour;

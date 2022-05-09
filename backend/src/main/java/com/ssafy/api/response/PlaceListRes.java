@@ -33,7 +33,7 @@ public class PlaceListRes extends BaseResponseBody{
                 res.placeList.add(
                         PlaceRes.of(
                                 place,
-                                likeList.contains(place.getAttrId())
+                                likeList.contains(place.getPlaceId())
                         )
                 )
         );
