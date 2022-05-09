@@ -66,6 +66,7 @@ export default {
       gugun: "",
       page: 0,
       sido: "",
+      searchWord: "",
       startDate: "",
     });
     console.log(store.state.root.selectSportsCategory, "있냥기");
