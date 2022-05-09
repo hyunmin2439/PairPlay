@@ -69,7 +69,7 @@ export default {
       searchWord: "",
       startDate: "",
     });
-    console.log(store.state.root.selectSportsCategory, "있냥기");
+    // console.log(store.state.root.selectSportsCategory, "있냥기");
     const getSearchFiltersData = async (res) => {
       if (res.categoryList.length == 0) {
         searchFiltersData.value.categoryList = store.state.root.selectSportsCategory;
@@ -81,15 +81,15 @@ export default {
       searchFiltersData.value.gugun = res.region.gugun;
       searchFiltersData.value.sido = res.region.sido;
       searchFiltersData.value.startDate = res.startDate;
-      console.log(searchFiltersData.value, "된겨?");
+      // console.log(searchFiltersData.value, "된겨?");
       await getCards();
     };
     const getCards = async () => {
-      console.log(searchFiltersData.value, "요기는요");
+      // console.log(searchFiltersData.value, "요기는요");
       let tempdata = await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
-      console.log(tempdata.data);
+      console.log(tempdata, "tempdata");
       searchFiltersData = tempdata.totalPages;
-      if (store.state.placeSearchInfo) {
+      if (store.state.root.placeSearchInfo) {
         cards.push(computed(() => store.state.root.placeSearchInfo));
       }
     };
