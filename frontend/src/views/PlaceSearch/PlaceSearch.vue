@@ -15,12 +15,12 @@
               <place-search-list v-for="card in cards" :key="card.idx" :card="card" class="placeSearchList me-3 col"> </place-search-list>
             </div>
           </div>
-          <!-- <place-search-maps class="placeSearchMaps col-6" style="height: 800px">아아</place-search-maps> -->
         </div>
-        <!-- <place-search-maps class="col placeSearchMaps">아아</place-search-maps> -->
+        <place-search-maps class="col placeSearchMaps"></place-search-maps>
       </div>
     </div>
-    <nav aria-label="...">
+    <!-- 페이지네이션 시작 -->
+    <nav aria-label="Search results pages">
       <ul class="pagination">
         <li class="page-item">
           <a class="page-link" style="font-family: bootstrap-icons"> &#xF284; </a>
@@ -37,66 +37,88 @@
         </li>
       </ul>
     </nav>
+    <!-- 페이지네이션 끝 -->
     <footer>푸터</footer>
   </div>
 </template>
 
 <script>
-import { onMounted, computed, ref, reactive, watch } from "vue";
+import { onMounted, ref, reactive /*computed*/, watch } from "vue";
 import { useStore } from "vuex";
+// import { useRoute } from "vue-router";
 import Header from "../Common/Header.vue";
 import PlaceSearchFilters from "./Components/PlaceSearchFilters.vue";
 import PlaceSearchList from "./Components/PlaceSearchList.vue";
-// import PlaceSearchMaps from "./Components/PlaceSearchMaps.vue";
+import PlaceSearchMaps from "./Components/PlaceSearchMaps.vue";
 export default {
   name: "PlaceSearch",
-  // PlaceSearchMaps
-  components: { Header, PlaceSearchFilters, PlaceSearchList },
+
+  components: { Header, PlaceSearchFilters, PlaceSearchList, PlaceSearchMaps },
   setup() {
     const store = useStore();
+    // const route = useRoute();
     let cards = reactive();
     let totalPages = ref(5);
     let searchFiltersData = ref({
-      page: 0,
-      size: 6,
-      categoryList: "",
-      endData: "",
+      // categoryList: [route.params.categoryList],
+      categoryList: [store.state.root.selectSportsCategory],
+      endDate: "",
       gugun: "",
+      page: 0,
       sido: "",
-      startData: "",
+      startDate: "",
     });
-    const getSearchFiltersData = (res) => {
-      console.log(res, "불러와지나요 1");
-      searchFiltersData.value = res;
-      console.log(searchFiltersData.value, "맞나");
+    console.log(store.state.root.selectSportsCategory, "있냥기");
+    const getSearchFiltersData = async (res) => {
+      if (res.categoryList.length == 0) {
+        searchFiltersData.value.categoryList = store.state.root.selectSportsCategory;
+        // pass
+      } else {
+        searchFiltersData.value.categoryList = res.categoryList;
+      }
+      searchFiltersData.value.endDate = res.endDate;
+      searchFiltersData.value.gugun = res.region.gugun;
+      searchFiltersData.value.sido = res.region.sido;
+      searchFiltersData.value.startDate = res.startDate;
+      console.log(searchFiltersData.value, "된겨?");
+      await getCards();
     };
     const getCards = async () => {
-      await store
-        .dispatch("root/getPlaceSearchInfo", searchFiltersData.value)
-        .then((res) => console.log(res, "데이터 나오나 get cards"))
-        .catch((err) => console.log(err, "error"));
-      if (store.state.placeSearchInfo) {
-        cards.push(computed(() => store.state.placeSearchInfo));
-      }
+      console.log(searchFiltersData.value, "요기는요");
+      await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
+      //     // .then(() => console.log(res, "데이터 나오나 get cards"))
+      //     .catch((err) => console.log(err, "error"));
+      //   if (store.state.placeSearchInfo) {
+      //     cards.push(computed(() => store.state.root.placeSearchInfo));
+      //   }
     };
-    onMounted(() => {
-      getCards();
-    });
+    onMounted(
+      async () => {
+        await getCards();
+      }
+      // async () => {
+      // console.log("시작");
+      // await getSearchFiltersData();
+      // }
+    );
     watch(searchFiltersData.value, async () => {
-      await getSearchFiltersData();
-      await getCards()
-        .then((res) => {
-          console.log(res, "뭔데이거된건가");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // await getCards();
+      // searchFiltersData.value =
+      // await getSearchFiltersData();
+      //   console.log(searchFiltersData.value, "!!!!!!!!!!");
+      //   await getCards()
+      //     .then(() => {
+      //       // console.log(res, "!!!!!!!!!!!!!!!!!!!!!!");
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //     });
     });
     // const cards = reactive([]);
 
     // const store = userStore();
     // const route = useRoute();
-    return { cards, store, totalPages, onMounted, getCards, getSearchFiltersData };
+    return { cards, store, totalPages, onMounted, getSearchFiltersData, getCards };
   },
 };
 </script>
@@ -131,6 +153,10 @@ export default {
 .placeSearchTitle {
   font-size: 16px;
 }
+.pagination {
+  margin: auto;
+  justify-content: center;
+}
 .page-item > .page-link {
   background: white;
   color: black;
@@ -143,6 +169,7 @@ export default {
   margin: 0rem 0.5rem 0rem 0.5rem;
   // border: 1px solid rgba(1, 1, 1, 0.1);
 }
+
 .active > .page-link {
   background: black;
   color: white;

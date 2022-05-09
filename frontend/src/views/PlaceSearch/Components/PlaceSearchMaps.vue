@@ -37,13 +37,13 @@ export default {
     const onLoadMap = (mapObject) => {
       map.value = mapObject; // map에 반환된 객체 저장
       map.value.setCenter(new window.naver.maps.LatLng(37, 127));
-      console.log(map.value, "map");
+      // console.log(map.value, "map");
       // map.value.setCenter(new window.naver.maps.LatLng(36, 127)); // 지도 중앙 변경
     };
     const onLoadMarker = (markerObject) => {
       // markerObject.marker.setDraggable(true).setCursor("").setClickable(true);
       marker.value = markerObject;
-      console.log(marker.value, "marker");
+      // console.log(marker.value, "marker");
     };
     const onMarkerClicked = (event) => {
       console.log(event, "onMarkerClicked");

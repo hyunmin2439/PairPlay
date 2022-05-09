@@ -49,8 +49,9 @@ export default {
     let searchFiltersData = ref({
       price: "",
       region: { sido: "", gugun: "" },
-      time: { startDate: "", endDate: "" },
-      sportsCategory: "",
+      startDate: "",
+      endDate: "",
+      categoryList: [],
     });
     const selectRegion = (res) => {
       // console.log(res, "나옵니까");
@@ -59,12 +60,12 @@ export default {
     const selectTime = (res) => {
       let startTime = new Date(+res[0] + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
       let endTime = new Date(+res[1] + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
-      searchFiltersData.value.time.startDate = startTime;
-      searchFiltersData.value.time.endDate = endTime;
+      searchFiltersData.value.startDate = startTime;
+      searchFiltersData.value.endDate = endTime;
     };
     const selectSportsCategory = (res) => {
       // console.log(res);
-      searchFiltersData.value.sportsCategory = res;
+      searchFiltersData.value.categoryList = res;
     };
     // searchFiltersData.value.region.sido = regionData.sido;
     // searchFiltersData.value.region.gugun = regionData.gugun;
@@ -77,7 +78,7 @@ export default {
       searchFiltersData.value.price = "";
       searchFiltersData.value.region = { sido: "", gugun: "" };
       searchFiltersData.value.time = { startDate: "", endDate: "" };
-      searchFiltersData.value.sportsCategory = "";
+      searchFiltersData.value.categoryList = "";
     };
     watch(searchFiltersData.value, () => {
       emit("searchFiltersData", searchFiltersData.value);

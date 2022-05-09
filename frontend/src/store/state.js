@@ -48,4 +48,5 @@ export default {
       cost: "시간당 10,000원 ",
     },
   ],
+  selectSportsCategory: "",
 };

@@ -194,28 +194,30 @@ export async function mateArticleList({ commit }) {
 }
 
 export async function getPlaceSearchInfo({ commit }, searchFiltersData) {
+  // console.log(searchFiltersData, "액션 데이터");
+  const page = searchFiltersData.page;
+  const body = searchFiltersData;
+  console.log(body, page, "여기한번보소");
+  // const size = 20;
   const jwt = localStorage.getItem("jwt");
-  const url = `places/search`;
-  const placeSearchKeyword = searchFiltersData;
+  const url = `places/search?page=${page}`;
   await $axios
-    .get(url, {
+    .post(url, body, {
       headers: {
         Authorization: "Bearer " + jwt,
       },
-      params: {
-        page: 0,
-        categoryList: placeSearchKeyword.categoryList,
-        endData: placeSearchKeyword.endData,
-        gugun: placeSearchKeyword.gugun,
-        sido: placeSearchKeyword.sido,
-        startData: placeSearchKeyword.startData,
-      },
     })
     .then((res) => {
-      commit("Place_Search_Info", res.data);
       console.log(res.data, "여기는 actions");
+      commit("Place_Search_Info", res.data);
     })
     .catch((err) => {
       console.log(err);
     });
+}
+
+export async function selectSportsCategory({ commit }, categoryList) {
+  commit("SELECT_SPORTS_CATEGORY", categoryList);
+
+  // console.log(searchFiltersData, "액션 데이터");
 }
