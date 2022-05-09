@@ -139,6 +139,7 @@ public class ProfileService {
 
         // memberId와 정확한 Date를 사용하여 Activity를 count
         List<Activity> activityList = activityRepository.findByCreateIdAndMeetDtBetween(memberId, LocalDateTime.of(date, LocalTime.of(0, 0, 0)), LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0)));
+        System.out.println(memberId + " " + LocalDateTime.of(date, LocalTime.of(0, 0, 0)) + " " + LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0) ));
         System.out.println(activityList.size());
         if (activityList != null) {
             System.out.println("not null");
