@@ -17,11 +17,11 @@ import java.util.List;
 @Builder
 public class PlaceMember {
     @Id
-    String id;
+    private String id;
     @Field(name = "member_id")
-    Long memberId; // 유저 RDB id값
+    private Long memberId; // 유저 RDB id값
     @Field(name = "recent_items")
-    List<Long> recentItems; // 최근 본 목록
+    private List<Long> recentItems; // 최근 본 목록
     @Field(name = "like_items")
-    List<Long> likeItems; // 좋아하는 목록
+    private List<Long> likeItems; // 좋아하는 목록
 }

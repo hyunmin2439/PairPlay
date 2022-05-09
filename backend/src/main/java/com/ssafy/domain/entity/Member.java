@@ -23,26 +23,26 @@ import java.util.StringTokenizer;
 @AllArgsConstructor
 @Builder
 public class Member extends BaseEntity {
-    String email;
-    String nickname;
-    String name;
-    int gender; // 0(남) / 1(여) Converter 사용할지 고민
-    LocalDate birthDt;
+    private String email;
+    private String nickname;
+    private String name;
+    private int gender; // 0(남) / 1(여) Converter 사용할지 고민
+    private LocalDate birthDt;
 
-    String sido;
-    String gugun;
-    String detailAddress;
+    private String sido;
+    private String gugun;
+    private String detailAddress;
 
-    String phone;
-    String profileImage; // 프로필 이미지 주소
-    boolean enable; // 삭제 여부
-    String description;
-    String socialId;
+    private String phone;
+    private String profileImage; // 프로필 이미지 주소
+    private boolean enable; // 삭제 여부
+    private String description;
+    private String socialId;
 
     // Jackson 라이브러리 Annotation
     @JsonIgnoreProperties// 직렬화 시 제외 필드
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // 쓰기 전용
-            String password;
+    private String password;
 
     // 패스워드 랜덤 비밀번호로 초기화
     public void resetPassword(String password) {

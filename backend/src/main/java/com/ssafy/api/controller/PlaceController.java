@@ -1,6 +1,6 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.PlaceSearchPostReq;
+import com.ssafy.api.request.*;
 import com.ssafy.api.response.BaseResponseBody;
 import com.ssafy.api.response.PlaceListRes;
 import com.ssafy.api.service.PlaceService;
@@ -12,8 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.ssafy.common.statuscode.PlaceCode.SUCCESS_SEARCH_PLACE;
-import static com.ssafy.common.statuscode.PlaceCode.SUCCESS_UPDATE_LIKE_PLACE;
+import static com.ssafy.common.statuscode.PlaceCode.*;
 
 /**
  * 체육 시설 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -28,6 +27,10 @@ public class PlaceController {
         this.placeService = placeService;
     }
 
+    /**
+     * 체육시설 조회 API
+     */
+
     @GetMapping("/{placeId}")
     @ApiOperation(value = "체육 시설 상세 정보", notes = "<strong>체육 시설 상세 정보</strong>를 넘겨준다.")
     @ApiResponses({
@@ -37,6 +40,7 @@ public class PlaceController {
     public ResponseEntity<? extends BaseResponseBody> getDetailPlace (
             @PathVariable(value = "placeId", required = true) @ApiParam(value = "체육 시설 ID 값", required = true) Long placeId) {
 
+        // SUCCESS_DETAIL_PLACE
 
         return ResponseEntity.status(200).body(
                 null
@@ -67,10 +71,13 @@ public class PlaceController {
         );
     }
 
+    /**
+     * 찜하기 API Put
+     */
     @PutMapping("/like/{placeId}")
     @ApiOperation(value = "체육 시설 찜하기", notes = "체육 시설에 대한 <strong>찜 등록/삭제</strong> 한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "찜 등록/삭제에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 200, message = "체육 시설 찜 등록/삭제에 성공했습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> likePlace (
@@ -82,48 +89,89 @@ public class PlaceController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_UPDATE_LIKE_PLACE.getCode(), SUCCESS_UPDATE_LIKE_PLACE.getMessage()));
     }
 
+    /**
+     * 리뷰 API Post / Put / Delete
+     */
     @PostMapping("/review")
     @ApiOperation(value = "체육 시설 리뷰 작성", notes = "체육 시설에 대한 <strong>리뷰를 등록</strong> 한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "찜 등록/삭제에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 200, message = "체육 시설 리뷰 등록에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 400, message = "요청 변수 값이 비어 있습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 400, message = "체육 시설 이용 다음 날부터 리뷰를 작성할 수 있습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 401, message = "예약한 유저와 로그인 된 유저 정보가 일치하지 않습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 404, message = "예약 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> postReview (
-            @PathVariable(value = "placeId", required = true) @ApiParam(value = "체육 시설 ID 값", required = true) Long placeId) {
+            @RequestBody @ApiParam(value = "체육 시설 리뷰 정보", required = true) ReviewPostReq reviewInfo) {
 
-        placeService.likePlace(placeId);
+        placeService.postReview(reviewInfo);
 
-        // 성공 여부만 내려주면 됨.
-        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_UPDATE_LIKE_PLACE.getCode(), SUCCESS_UPDATE_LIKE_PLACE.getMessage()));
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_POST_PLACE_REVIEW.getCode(), SUCCESS_POST_PLACE_REVIEW.getMessage()));
     }
 
     @PutMapping("/review")
-    @ApiOperation(value = "체육 시설 리뷰 작성", notes = "체육 시설에 대한 <strong>리뷰를 수정</strong> 한다.")
+    @ApiOperation(value = "체육 시설 리뷰 수정", notes = "체육 시설에 대한 <strong>리뷰를 수정</strong> 한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "찜 등록/삭제에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 200, message = "체육 시설 리뷰 수정에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 404, message = "리뷰 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> modifyReview (
-            @PathVariable(value = "placeId", required = true) @ApiParam(value = "체육 시설 ID 값", required = true) Long placeId) {
+            @RequestBody @ApiParam(value = "체육 시설 리뷰 ID값과 리뷰 정보", required = true) ReviewPutReq reviewInfo) {
 
-        placeService.likePlace(placeId);
+        placeService.modifyReview(reviewInfo);
 
-        // 성공 여부만 내려주면 됨.
-        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_UPDATE_LIKE_PLACE.getCode(), SUCCESS_UPDATE_LIKE_PLACE.getMessage()));
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_MODIFY_PLACE_REVIEW.getCode(), SUCCESS_MODIFY_PLACE_REVIEW.getMessage()));
     }
 
     @DeleteMapping("/review")
-    @ApiOperation(value = "체육 시설 리뷰 작성", notes = "체육 시설에 대한 <strong>리뷰를 삭제</strong> 한다.")
+    @ApiOperation(value = "체육 시설 리뷰 삭제", notes = "체육 시설에 대한 <strong>리뷰를 삭제</strong> 한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "찜 등록/삭제에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 200, message = "체육 시설 리뷰 삭제에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 404, message = "리뷰 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> deleteReview (
-            @PathVariable(value = "placeId", required = true) @ApiParam(value = "체육 시설 ID 값", required = true) Long placeId) {
+            @RequestBody @ApiParam(value = "체육 시설 리뷰 ID값", required = true) ReviewDeleteReq reviewInfo) {
 
-        placeService.likePlace(placeId);
+        placeService.deleteReview(reviewInfo);
 
-        // 성공 여부만 내려주면 됨.
-        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_UPDATE_LIKE_PLACE.getCode(), SUCCESS_UPDATE_LIKE_PLACE.getMessage()));
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_DELETE_PLACE_REVIEW.getCode(), SUCCESS_DELETE_PLACE_REVIEW.getMessage()));
+    }
+
+    /**
+     * 예약 API Post / Delete
+     */
+
+    @PostMapping("/reservation")
+    @ApiOperation(value = "체육 시설 예약 등록", notes = "체육 시설을 <strong>예약 등록</strong>한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "체육 시설 예약 등록에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 400, message = "현재 날짜 보다 이전에는 예약을 등록할 수 없습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<? extends BaseResponseBody> reserve (
+            @RequestBody @ApiParam(value = "체육 시설 예약 정보", required = true) ReservationPostReq reservationInfo) {
+
+        placeService.reserve(reservationInfo);
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_RESERVE_PLACE.getCode(), SUCCESS_RESERVE_PLACE.getMessage()));
+    }
+
+    @DeleteMapping("/reservation")
+    @ApiOperation(value = "체육 시설 예약 취소", notes = "체육 시설을 <strong>예약 취소</strong>한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "체육 시설 예약 취소에 성공했습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 400, message = "체육 시설 이용 날짜 이후에는 예약을 취소할 수 없습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 404, message = "예약 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<? extends BaseResponseBody> cancel (
+            @RequestBody @ApiParam(value = "체육 시설 예약 ID값", required = true) ReservationDeleteReq reservationInfo) {
+
+        placeService.cancel(reservationInfo);
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_CANCEL_PLACE.getCode(), SUCCESS_CANCEL_PLACE.getMessage()));
     }
 }

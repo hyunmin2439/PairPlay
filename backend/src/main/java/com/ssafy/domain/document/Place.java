@@ -13,21 +13,21 @@ import java.util.List;
 @Builder
 public class Place {
     @Id
-    String id;
+    private String id;
     @Field(name = "id")
-    Long placeId;
-    String category;
-    String address;
-    List<String> bizhour;
-    String homepage;
-    List<String> menu;
-    String name;
-    List<String> img;
-    String phone;
-    double longitude;
-    double latitude;
-    String transport;
-    String near;
-    List<String> hashtags;
-    int cnt;
+    private Long placeId;
+    private String category;
+    private String address;
+    private List<String> bizhour;
+    private String homepage;
+    private List<String> menu;
+    private String name;
+    private List<String> img;
+    private String phone;
+    private double longitude;
+    private double latitude;
+    private String transport;
+    private String near;
+    private List<String> hashtags;
+    private int cnt;
 }

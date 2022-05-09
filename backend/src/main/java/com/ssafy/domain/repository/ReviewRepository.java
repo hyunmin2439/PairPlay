@@ -9,4 +9,6 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
     Optional<Review> findByMemberId(Long memberId);
 
     Optional<Review> findByPlaceId(Long placeId);
+
+    Optional<Review> findByReservationId(String reservationId);
 }

@@ -1,5 +1,6 @@
 package com.ssafy.domain.document;
 
+import com.ssafy.api.request.ReviewPutReq;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Document("review")
 @Getter
@@ -17,16 +18,33 @@ import java.time.LocalDate;
 @Builder
 public class Review {
     @Id
-    String id;
+    private String id;
+    @Field(name = "reservation_id")
+    private String reservationId; // 예약 정보
     @Field(name = "member_id")
-    Long memberId; // 유저 Id
+    private Long memberId; // 유저 Id : 예약 정보에 포함하여 가져올 수 있지만 유저가 작성한 리뷰 정보를 가져올 때를 대비 추가
     @Field(name = "place_id")
-    Long placeId; // 시설 Id값
+    private Long placeId; // 시설 Id값 : 예약 정보에 포함하여 가져올 수 있지만 시설에 대한 리뷰 정보를 조회할 때를 대비 추가
     @Field(name = "written_dt")
-    LocalDate writtenDt; // 작성 일자
-    String description; // 한줄 평
-    double cleanness; // 청결 점수 0 ~ 5.0
-    double place; // 시설 점수 0 ~ 5.0
-    double location; // 위치 점수 0 ~ 5.0
-    double price; // 가격 점수 0 ~ 5.0
+    private LocalDateTime writtenDt; // 작성 일자
+    private String description; // 한줄 평
+    private Double cleanness; // 청결 점수 0 ~ 5.0
+    private Double place; // 시설 점수 0 ~ 5.0
+    private Double location; // 위치 점수 0 ~ 5.0
+    private Double price; // 가격 점수 0 ~ 5.0
+
+    public void modifyReview(ReviewPutReq reviewInfo) {
+        System.out.println("**" + reviewInfo.getDescription() + "**");
+        System.out.println(reviewInfo.getDescription().length());
+        if( !"".equals(reviewInfo.getDescription()) )
+            this.description = reviewInfo.getDescription();
+        if(reviewInfo.getCleanness() != null)
+            this.cleanness = reviewInfo.getCleanness();
+        if(reviewInfo.getPlace() != null)
+            this.place = reviewInfo.getPlace();
+        if(reviewInfo.getLocation() != null)
+            this.location = reviewInfo.getLocation();
+        if(reviewInfo.getPrice() != null)
+            this.price = reviewInfo.getPrice();
+    }
 }

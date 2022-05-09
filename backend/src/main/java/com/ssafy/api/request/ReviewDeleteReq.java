@@ -9,8 +9,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@ApiModel("PlaceReviewDeleteRequest")
-public class PlaceReviewDeleteReq {
-    @ApiModelProperty(name="삭제할 리뷰 체육 시설 아이디", example="김싸피")
-    Long placeId;
+@ApiModel("ReviewDeleteRequest")
+public class ReviewDeleteReq {
+    @ApiModelProperty(name="삭제할 리뷰 id", example="62722d8f5c1e32cfbf8eb719")
+    String reviewId;
 }

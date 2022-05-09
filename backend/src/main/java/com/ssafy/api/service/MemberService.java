@@ -47,12 +47,18 @@ public class MemberService {
     }
 
     /**
+     * 인증 정보에서 memberId값을 가져오는 메서드
+     */
+    public Long getMemberIdFromAuthentication() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return Long.parseLong(authentication.getName());
+    }
+
+    /**
      * 인증 정보에서 memberId값을 가져와 MysqlDB에서 유저 정보를 검색
      */
     public Member getMemberFromAuthentication() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long memberId = Long.parseLong(authentication.getName());
-        return getMemberById(memberId);
+        return getMemberById( getMemberIdFromAuthentication() );
     }
 
     /**+
