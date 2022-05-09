@@ -86,22 +86,22 @@ export default {
     };
     const getCards = async () => {
       // console.log(searchFiltersData.value, "요기는요");
-      let tempdata = await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
-      console.log(tempdata, "tempdata");
-      searchFiltersData = tempdata.totalPages;
+      await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value).then((res) => console.log(res));
+      // console.log(tempdata, "tempdata");
       if (store.state.root.placeSearchInfo) {
-        cards.push(computed(() => store.state.root.placeSearchInfo));
+        totalPages = store.state.root.placeSearchInfo.totalPages;
+        cards.push(computed(() => store.state.root.placeSearchInfo.placeList));
       }
     };
-    onMounted(
-      async () => {
-        await getCards();
-      }
-      //   // async () => {
-      //   // console.log("시작");
-      //   // await getSearchFiltersData();
-      //   // }
-    );
+    // onMounted(
+    //   // async () => {
+    //   //   await getCards();
+    //   // }
+    //   //   // async () => {
+    //   //   // console.log("시작");
+    //   //   // await getSearchFiltersData();
+    //   //   // }
+    // );
     watch(searchFiltersData.value, async () => {
       // await getCards();
       // searchFiltersData.value =
