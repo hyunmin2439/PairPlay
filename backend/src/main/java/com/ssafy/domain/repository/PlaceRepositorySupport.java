@@ -2,7 +2,7 @@ package com.ssafy.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.request.PlaceSearchPostReq;
-import com.ssafy.domain.entity.PlaceMongo;
+import com.ssafy.domain.document.Place;
 //import com.ssafy.domain.entity.QPlaceMongo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,19 +15,19 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class PlaceMongoRepositorySupport {
+public class PlaceRepositorySupport {
 
     private final JPAQueryFactory jpaQueryFactory;
     private final MongoTemplate mongoTemplate;
 
 //    QPlaceMongo qPlaceMongo = QPlaceMongo.placeMongo;
 
-    public PlaceMongoRepositorySupport(JPAQueryFactory jpaQueryFactory, MongoTemplate mongoTemplate) {
+    public PlaceRepositorySupport(JPAQueryFactory jpaQueryFactory, MongoTemplate mongoTemplate) {
         this.jpaQueryFactory = jpaQueryFactory;
         this.mongoTemplate = mongoTemplate;
     }
 
-    public Page<PlaceMongo> searchPlace(Pageable pageable, PlaceSearchPostReq searchInfo) {
+    public Page<Place> searchPlace(Pageable pageable, PlaceSearchPostReq searchInfo) {
         Query query = new Query();
 
         /**
@@ -42,7 +42,7 @@ public class PlaceMongoRepositorySupport {
                         )
         ).limit(pageable.getPageSize()).skip(pageable.getOffset());
 
-        List<PlaceMongo> placeList = mongoTemplate.find(query, PlaceMongo.class);
+        List<Place> placeList = mongoTemplate.find(query, Place.class);
 
         // PageableExecutionUtils 정확한 내용은 조금 더 조사해서 정리해놓을 것
         return PageableExecutionUtils.getPage(
@@ -52,7 +52,7 @@ public class PlaceMongoRepositorySupport {
                         Query.of(query)
                                 .limit(-1)
                                 .skip(-1),
-                        PlaceMongo.class
+                        Place.class
                 )
         );
     }

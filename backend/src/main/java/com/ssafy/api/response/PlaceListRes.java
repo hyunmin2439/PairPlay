@@ -1,6 +1,6 @@
 package com.ssafy.api.response;
 
-import com.ssafy.domain.entity.PlaceMongo;
+import com.ssafy.domain.document.Place;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ public class PlaceListRes extends BaseResponseBody{
     List<PlaceRes> placeList;
 
     public static PlaceListRes of(Integer statusCode, String message,
-                                  long totalPages, long totalElements, List<PlaceMongo> list) {
+                                  long totalPages, long totalElements, List<Place> list) {
         PlaceListRes res = new PlaceListRes();
         res.setCode(statusCode);
         res.setMessage(message);

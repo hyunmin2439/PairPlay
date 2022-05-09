@@ -1,6 +1,6 @@
 package com.ssafy.api.response;
 
-import com.ssafy.domain.entity.PlaceMongo;
+import com.ssafy.domain.document.Place;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +24,7 @@ public class PlaceRes {
     String near;
     List<String> hashtags;
 
-    public static PlaceRes of(PlaceMongo place) {
+    public static PlaceRes of(Place place) {
         PlaceRes res = new PlaceRes();
         res.setId(place.getAttrId());
         res.setCategory(place.getCategory());

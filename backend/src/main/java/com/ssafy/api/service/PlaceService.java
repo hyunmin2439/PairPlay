@@ -2,8 +2,8 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.PlaceSearchPostReq;
 import com.ssafy.domain.entity.Member;
-import com.ssafy.domain.entity.PlaceMongo;
-import com.ssafy.domain.repository.PlaceMongoRepositorySupport;
+import com.ssafy.domain.document.Place;
+import com.ssafy.domain.repository.PlaceRepositorySupport;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -14,15 +14,15 @@ import org.springframework.stereotype.Service;
 public class PlaceService {
 
     private final MemberService memberService;
-    private final PlaceMongoRepositorySupport placeMongoRepositorSupport;
+    private final PlaceRepositorySupport placeMongoRepositorSupport;
 
     public PlaceService(MemberService memberService,
-                        PlaceMongoRepositorySupport placeMongoRepositorSupport) {
+                        PlaceRepositorySupport placeMongoRepositorSupport) {
         this.memberService = memberService;
         this.placeMongoRepositorSupport = placeMongoRepositorSupport;
     }
 
-    public Page<PlaceMongo> placeSearch(Pageable pageable, PlaceSearchPostReq searchInfo) {
+    public Page<Place> placeSearch(Pageable pageable, PlaceSearchPostReq searchInfo) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
         Member member = memberService.getMemberById(memberId);
@@ -32,7 +32,7 @@ public class PlaceService {
             searchInfo.setSido(member.getSido());
             searchInfo.setGugun(member.getGugun());
         }
-        
+
         // 검색 운동 카테고리 정규식을 문자열로 바꾸기 ex) 축구|배드민턴|격투기
         String regexStr = searchInfo.getCategoryList().get(0);
         for(int i = 1; i < searchInfo.getCategoryList().size(); i++) {

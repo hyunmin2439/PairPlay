@@ -1,4 +1,4 @@
-package com.ssafy.domain.entity;
+package com.ssafy.domain.document;
 
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PlaceMongo {
+public class Place {
     @Id
     String id;
     @Field(name = "id")
