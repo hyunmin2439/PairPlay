@@ -199,10 +199,8 @@ export async function getPlaceSearchInfo({ commit }, searchFiltersData) {
   // console.log(searchFiltersData, "액션 데이터");
   const page = searchFiltersData.page;
   const body = searchFiltersData;
-  // console.log(body, page, "여기한번보소");
   const size = 20;
   const jwt = localStorage.getItem("jwt");
-  // console.log(jwt, "jwtjwtjwtjwt");
   // const jwt =
   //   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1OSIsImlzcyI6InNzYWZ5LmNvbSIsImV4cCI6MTY1MzM2NzY3MiwiaWF0IjoxNjUyMDcxNjcyfQ.gm1BEahKiqJVCneBQr0Z3XiY7DGycXTt6X6LU9G3izeQyuAJu9U4yP1zRQW0_DfT7ZGC6P-8EBFZI0oC_8xYSw";
   const url = `places/search?page=${page}&size=${size}`;
