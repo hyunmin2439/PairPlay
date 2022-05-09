@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,14 +175,17 @@ public class ProfileController {
 
 
     // 달력 조회
-    // 일정한 기간 중에서, 내가 참여한 Activity, 내가 예약한 시설에 대한 count를 조회
+    // 일정한 기간 중에서, 내가 참여한 Activity의 count를 조회
     @GetMapping("/calendar")
-    @ApiOperation(value = "달력 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>일정기간</string> 내의 활동 목록을 조회한다.")
+    @ApiOperation(value = "달력 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>일정기간</string> 내의 달력을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "달력 조회에 성공했습니다.", response = ProfileRes.class),
     })
-    public ResponseEntity<? extends CalendarActivityRes> searchCalendar() {
-        List<CalendarDateRes> list = profileService.searchCalendar();
+    public ResponseEntity<? extends BaseResponseBody> searchCalendar() {
+
+        List<CalendarDate> list = profileService.searchCalendar();
+        if (list != null) list.forEach(a -> System.out.println(a));
+        else System.out.println("null");
 
         return ResponseEntity.status(200).body(
                 CalendarActivityRes.of(
@@ -196,41 +198,22 @@ public class ProfileController {
 
     
     //// 개인활동 조회의 경우, 달력에서 하나의 날짜를 선택한 다음, 그 날짜에 해당하는 모든 것을 불러와야 한다
-    //// 예약 + activity  둘 다 있어야 할 것 같다
-
     // 개인 활동 조회
     // 달력 중에서 날짜 하나를 선택해서 해당 날짜에 내가 참여한 Activity를 불러온다
-    // Activity정보와 해당 Activity에 참여한 mate에 대한 유저 아이디, 유저 프로필사진이 필요하다
-    // 날짜 정보를 받아서, 해당 날짜에 있는 Activity를 보여줘야하는건가?
-    // Activity List를 받아서, 해당 Activity에 대한 정보를 보여줘야 하는건가?
-    // Date를 보내주기로 되어있다
-    // Date를 사용해서 Activity를 새롭게 Search하고, 각 Activity에 대해서 mate를 찾고, 해당 mate 중에
-    // 본인이 아닌 사람에 대해서(?), 아니면 본인도 포함해서
-    // mate list를 같이 보내준다
-    // mate를 긁어오면 그 안에 있는 member나 Activity가 같이 긁혀올 것 -> Activity에 대한건 상관없을듯, member를 주는 것도 좋다
-    // 하지만, 정보를 적당히 가공해서 of 함수를 만들어서 보낼 수 있을 것
     @PostMapping("/calendar/activity")
     @ApiOperation(value = "개인활동 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>특정 날자</string>의 활동 목록을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "개인활동 조회에 성공했습니다.", response = ProfileRes.class),
     })
-    public ResponseEntity<? extends CalendarDetailRes> searchCalendarDetail(@RequestBody @ApiParam(value = "날짜", required = true)CalendarDateReq calendarDateReq) {
-        List<Activity> activityList = profileService.searchCalendarDetail(calendarDateReq.getDate());
-        List<Mate> mateList = new ArrayList<>();
+    public ResponseEntity<? extends CalendarDetailDateRes> searchCalendarDetail(@RequestBody @ApiParam(value = "날짜", required = true) CalendarDateReq calendarDateReq) {
 
-        // 하나의 mateList에 여러 Activity의 모든 Mate를 넣는다
-        // 구분을 위해서 각 Mate에 Activity Id를 추가적으로 달아주었음
-        activityList.forEach(activity -> {
-            List<Mate> list = profileService.searchActivityMate(activity.getId());
-            mateList.addAll(list);
-        });
+        List<CalendarDetailActivityRes> calendarDetailActivityResList = profileService.searchCalendarDetail(calendarDateReq.getDate());
 
         return ResponseEntity.status(200).body(
-                CalendarDetailRes.of(
+                CalendarDetailDateRes.of(
                         SUCCESS_SEARCH_CALENDAR_DATE.getCode(),
                         SUCCESS_SEARCH_CALENDAR_DATE.getMessage(),
-                        activityList,
-                        mateList
+                        calendarDetailActivityResList
                 )
         );
     }

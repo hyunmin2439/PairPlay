@@ -13,9 +13,9 @@ import java.util.List;
 public class CalendarActivityRes extends BaseResponseBody{
 
     @ApiModelProperty(name = "Calendar Date List")
-    List<CalendarDateRes> list;
+    List<CalendarDate> list;
 
-    public static CalendarActivityRes of (Integer statusCode, String message, List<CalendarDateRes> dateList) {
+    public static CalendarActivityRes of (Integer statusCode, String message, List<CalendarDate> dateList) {
         CalendarActivityRes res = new CalendarActivityRes();
 
         res.setCode(statusCode);

@@ -4,19 +4,21 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@ToString
 @ApiModel("Calendar Date Response")
 public class CalendarDateRes {
     @ApiModelProperty(name = "Calendar Date")
-    LocalDate date;
+    String date;
     @ApiModelProperty(name = "Activity Count")
     int count;
 
-    public static CalendarDateRes of (LocalDate date, int count) {
+    public static CalendarDateRes of (String date, int count) {
         CalendarDateRes res = new CalendarDateRes();
 
         res.setDate(date);

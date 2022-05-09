@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
         Optional<Activity> findById(Long id);
-        List<Activity> findByIdAndMeetDtBetween(Long id, LocalDateTime start, LocalDateTime end);
+        List<Activity> findByCreateIdAndMeetDtBetween(Long id, LocalDateTime start, LocalDateTime end);
 }
