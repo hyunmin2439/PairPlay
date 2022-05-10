@@ -64,6 +64,7 @@ export function MATE_ARTICLE_LIST(state, data) {
 
 export function Place_Search_Info(state, data) {
   state.placeSearchInfo = data;
+  console.log(data, "여기는 mutations");
 }
 
 export function SELECT_SPORTS_CATEGORY(state, data) {

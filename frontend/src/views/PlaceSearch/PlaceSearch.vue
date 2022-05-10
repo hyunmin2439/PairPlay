@@ -90,7 +90,7 @@ export default {
       // console.log(tempdata, "tempdata");
       if (store.state.root.placeSearchInfo) {
         totalPages = store.state.root.placeSearchInfo.totalPages;
-        cards.push(computed(() => store.state.root.placeSearchInfo.placeList));
+        cards.value.push(computed(() => store.state.root.placeSearchInfo.placeList));
       }
     };
     // onMounted(
