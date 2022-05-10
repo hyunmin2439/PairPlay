@@ -15,7 +15,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@ApiModel("Mate List Response")
+@ApiModel("activity List Response")
 public class ActivityListRes extends BaseResponseBody{
 
     @ApiModelProperty(name = "activity List")

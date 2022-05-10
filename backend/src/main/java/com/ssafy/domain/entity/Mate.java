@@ -26,6 +26,8 @@ public class Mate{
     @ManyToOne(fetch = FetchType.LAZY)
     Activity activityId;
 
+    int accept;
+
 
 
 }

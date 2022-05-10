@@ -4,9 +4,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.ActivityCategoryReq;
 import com.ssafy.api.request.ActivityPostReq;
 import com.ssafy.api.request.ActivityRegisterReq;
-import com.ssafy.api.response.ActivityDetailRes;
-import com.ssafy.api.response.BaseResponseBody;
-import com.ssafy.api.response.ActivityListRes;
+import com.ssafy.api.response.*;
 import com.ssafy.api.service.ActivityService;
 import com.ssafy.domain.entity.Activity;
 import io.swagger.annotations.*;
@@ -105,9 +103,9 @@ public class ActivityController {
      * 공고 신청
      */
     @PostMapping("/register")
-    @ApiOperation(value = "공고 신청", notes = "공고를 <strong>신청</strong>한다")
+    @ApiOperation(value = "메이트 신청", notes = "메이트를 <strong>신청</strong>한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "공고 신청 성공하였습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 200, message = "메이트 신청 성공하였습니다.", response = BaseResponseBody.class),
     })
     public ResponseEntity<BaseResponseBody> registeActivity(@RequestBody @ApiParam(value = "공고 정보", required = true) ActivityRegisterReq req) {
 
@@ -115,9 +113,4 @@ public class ActivityController {
         
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_ACTIVITY_REGISTER.getCode(), SUCCESS_ACTIVITY_REGISTER.getMessage()));
     }
-
-
-
-
-
 }

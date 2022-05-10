@@ -48,8 +48,6 @@ public class ActivityService {
                 return activityRepositorySupport.findAllByLocation(pageable, location);
             }
         }
-        System.out.println("3");
-
 
         return activityRepositorySupport.findAll(pageable);
 
@@ -70,19 +68,21 @@ public class ActivityService {
         sido = member.getSido();
         gugun = member.getGugun();
 
-        if(activityCategoryReq.getSido() != null || activityCategoryReq.getGungu() != null){
+        if(!activityCategoryReq.getSido().equals("") || !activityCategoryReq.getGungu().equals("")){
+
             sido = activityCategoryReq.getSido();
             gugun = activityCategoryReq.getGungu();
         }
 
         location = sido + " " + gugun;
 
-        System.out.println(location);
+
 
         /*
          * 운동 카테고리, 검색어
          */
         if(activityCategoryReq.getCategoryId()!=0 && !activityCategoryReq.getSearch().equals("")){
+
             activities = activityRepositorySupport.findByCategorySearch(pageable, location, activityCategoryReq.getCategoryId(), activityCategoryReq.getSearch());
 
         }
@@ -91,6 +91,7 @@ public class ActivityService {
          * 운동 카테고리
          */
         else if(activityCategoryReq.getCategoryId()!=0){
+
             activities = activityRepositorySupport.findByCategory(pageable, location, activityCategoryReq.getCategoryId());
 
         }
@@ -99,12 +100,14 @@ public class ActivityService {
          * 검색어
          */
         else if(!activityCategoryReq.getSearch().equals("")) {
+
             activities = activityRepositorySupport.findByCategorySearch(pageable, location, activityCategoryReq.getSearch());
         }
         /*
          * 지역만 검색
          */
         else{
+
             activities = activityRepositorySupport.findByCategorySearch(pageable, location);
         }
 
@@ -150,13 +153,13 @@ public class ActivityService {
         Long memberId = Long.parseLong(authentication.getName());
 
         Member member = memberRepository.findById(memberId).orElse(null);
-
+        Activity activity = activityRepository.findById(req.getActivityId()).orElse(null);
         if(req.getActivityId() == null || member == null){
             throw new CustomException(EMPTY_REQUEST_VALUE);
         }
 
         Mate mate = Mate.builder()
-                .activityId(req.getActivityId())
+                .activityId(activity)
                 .memberId(member)
                 .build();
 
