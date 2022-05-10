@@ -147,7 +147,7 @@ public class PlaceService {
             reviewPutInfo.setLocation(reviewInfo.getLocation());
             reviewPutInfo.setPrice(reviewInfo.getPrice());
             
-            modifyReview(new ReviewPutReq());
+            modifyReview(reviewPutInfo);
             return;
         }
 

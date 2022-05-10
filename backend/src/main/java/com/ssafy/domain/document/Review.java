@@ -34,8 +34,6 @@ public class Review {
     private Double price; // 가격 점수 0 ~ 5.0
 
     public void modifyReview(ReviewPutReq reviewInfo) {
-        System.out.println("**" + reviewInfo.getDescription() + "**");
-        System.out.println(reviewInfo.getDescription().length());
         if( !"".equals(reviewInfo.getDescription()) )
             this.description = reviewInfo.getDescription();
         if(reviewInfo.getCleanness() != null)
