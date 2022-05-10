@@ -11,28 +11,29 @@
         <div class="mt-4 col">
           <div class="placeSearchTitle mb-3 ps-2">부산 {{}} 운동시설</div>
           <div class="py-2">
-            <div class="placeSearchList">
+            <div v-if="cards" class="placeSearchList">
               <place-search-list v-for="(card, idx) in cards" :key="idx" :card="card" :cardId="card.id" class="placeSearchList me-3 col"> </place-search-list>
               <!-- 페이지네이션 시작 -->
               <nav aria-label="Search results pages">
                 <ul class="pagination">
-                  <li class="page-item" @click="prevPages">
+                  <li class="page-item-left" @click="prevPages">
                     <a class="page-link" style="font-family: bootstrap-icons"> &#xF284; </a>
                   </li>
                   <!-- aria-current="page" -->
-                  <li v-for="(page, idx) in totalPages" :key="idx" class="page-item">
-                    <a class="page-link" href="#">{{ idx + 1 }}</a>
+                  <li v-for="(page, idx) in totalPages" @click="changePage($event)" :key="idx" class="page-item">
+                    <a class="page-link">{{ idx + 1 }}</a>
                   </li>
                   <!-- <li class="page-item"> -->
                   <!-- <a class="page-link" href="#">{{ nowpage }}</a> -->
                   <!-- </li> -->
-                  <li class="page-item" @click="nextPages">
-                    <a class="page-link" style="font-family: bootstrap-icons" href="#">&#xF285;</a>
+                  <li class="page-item-right" @click="nextPages">
+                    <a class="page-link" style="font-family: bootstrap-icons">&#xF285;</a>
                   </li>
                 </ul>
               </nav>
               <!-- 페이지네이션 끝 -->
             </div>
+            <div v-else><h1>아아아</h1></div>
           </div>
         </div>
         <place-search-maps class="col placeSearchMaps"></place-search-maps>
@@ -60,6 +61,7 @@ export default {
     let cards = reactive(computed(() => store.state.root.placeSearchInfo.placeList));
     // let cards = reactive(computed(() => store.getters["root/getPlaceInfo"]));
     let totalPages = ref(computed(() => store.state.root.placeSearchInfo.totalPages));
+    let nowPage = ref(computed(() => searchFiltersData.value["page"]));
     let searchFiltersData = reactive(
       computed(() => store.state.root.addPlaceFilters)
       // categoryList: [route.params.categoryList],
@@ -71,66 +73,85 @@ export default {
       // searchWord: "",
       // startDate: "",
     );
-    // console.log(store.state.root.selectSportsCategory, "있냥기");
-    // const getSearchFiltersData = async (res) => {
-    //   // 만약에 선택한 필터가 없다면
-    //   if (res.categoryList.length == 0) {
-    //     searchFiltersData.value.categoryList = store.state.root.selectSportsCategory;
-    //     console.log(searchFiltersData.value.categoryList, "searchFiltersData.value.categoryList");
-    //     // pass
-    //   } else {
-    //     searchFiltersData.value.categoryList = res.categoryList;
-    //     console.log(res.categoryList, "잉");
-    //   }
-    //   searchFiltersData.value.endDate = res.endDate;
-    //   searchFiltersData.value.gugun = res.region.gugun;
-    //   searchFiltersData.value.sido = res.region.sido;
-    //   searchFiltersData.value.startDate = res.startDate;
-    //   // console.log(searchFiltersData.value, "된겨?");
-    //   searchFiltersData.value.page = 0;
-    //   await getCards();
-    //   // return searchFiltersData.value;
-    // };
     const getCards = async () => {
-      // console.log(searchFiltersData.value, "요기는요");
       await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
-      // console.log(tempdata, "tempdata");
-      // console.log(store.state.root.placeSearchInfo, "1번");
-      // await console.log(store.state.root.placeSearchInfo, "2번");
       if (store.state.root.placeSearchInfo) {
         totalPages = store.state.root.placeSearchInfo.totalPages;
-        // console.log(store.state.root.placeSearchInfo.placeList, "있나요?!");
-        // cards.value = computed(() => store.state.root.placeSearchInfo.placeList);
       }
-      // console.log(cards.value, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     };
-    const prevPages = () => {
-      searchFiltersData.value.page -= 1;
+    const prevPages = async () => {
+      for (var i = 0; i < totalPages.value; i++) {
+        var Btn = document.getElementsByClassName("page-item")[searchFiltersData.value["page"]];
+        Btn.classList.remove("active");
+      }
+      if (searchFiltersData.value["page"] == 0) {
+        searchFiltersData.value["page"] = 0;
+        var activeBtn = document.getElementsByClassName("page-item")[searchFiltersData.value["page"]];
+      } else {
+        searchFiltersData.value["page"] -= 1;
+        activeBtn = document.getElementsByClassName("page-item")[searchFiltersData.value["page"]];
+      }
+
+      activeBtn.classList.add("active");
+      searchFiltersData.value["page"];
+      await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
+      console.log(nowPage.value);
     };
-    const nextPages = () => {
-      searchFiltersData.value.page += 1;
+    const nextPages = async () => {
+      for (var i = 0; i < totalPages.value; i++) {
+        var Btn = document.getElementsByClassName("page-item")[i];
+        Btn.classList.remove("active");
+        activeBtn = document.getElementsByClassName("page-item")[searchFiltersData.value["page"]];
+      }
+      if (searchFiltersData.value["page"] == totalPages.value - 1) {
+        searchFiltersData.value["page"] == totalPages.value - 1;
+        var activeBtn = document.getElementsByClassName("page-item")[searchFiltersData.value["page"]];
+      } else {
+        searchFiltersData.value["page"] += 1;
+        activeBtn = document.getElementsByClassName("page-item")[searchFiltersData.value["page"]];
+      }
+
+      activeBtn.classList.add("active");
+      searchFiltersData.value["page"];
+      await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
+      console.log(nowPage.value);
+    };
+    const changePage = async (event) => {
+      console.log(event.target.textContent);
+      if (Number(event.target.textContent) <= 1) {
+        var activeBtn = document.getElementsByClassName("page-item")[0];
+      } else if (Number(event.target.textContent) >= totalPages.value) {
+        activeBtn = document.getElementsByClassName("page-item")[Number(event.target.textContent) - 1];
+      } else {
+        activeBtn = document.getElementsByClassName("page-item")[Number(event.target.textContent) - 1];
+      }
+      for (var i = 0; i < totalPages.value; i++) {
+        var Btn = document.getElementsByClassName("page-item")[i];
+        Btn.classList.remove("active");
+      }
+      // console.log(Number(event.target.textContent));
+      activeBtn.classList.add("active");
+      searchFiltersData.value["page"] = Number(event.target.textContent) - 1;
+      await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
     };
     onMounted(async () => {
-      await getCards();
-    });
-    // watch(searchFiltersData.value, async () => {
-    //   await getCards();
-    //   // searchFiltersData.value =
-    //   // await getSearchFiltersData();
-    //   //   console.log(searchFiltersData.value, "!!!!!!!!!!");
-    //   //   await getCards()
-    //   //     .then(() => {
-    //   //       // console.log(res, "!!!!!!!!!!!!!!!!!!!!!!");
-    //   //     })
-    //   //     .catch((err) => {
-    //   //       console.log(err);
-    // });
-    // });
-    // const cards = reactive([]);
+      nowPage.value = computed(() => store.state.root.placeSearchInfo.page);
 
-    // const store = userStore();
-    // const route = useRoute();
-    return { cards, store, totalPages, onMounted, /*getSearchFiltersData*/ getCards, prevPages, nextPages };
+      // nowPage = computed(() => store.state.root.placeSearchInfo.page);
+      // console.log(store.state.root.placeSearchInfo.page, "지금페이지");
+
+      // if (nowPage.value == undefined) {
+      //   nowPage.value = 0;
+      // }
+      var activeBtn = document.getElementsByClassName("page-item")[nowPage.value];
+      activeBtn.classList.add("active");
+      // if (store.state.root.searchFiltersData.categoryList == []) {
+      //   store.state.root.placeSearchInfo.categoryList = store.state.root.selectSportsCategory;
+      // }
+      // await getCards();
+    });
+
+    return { cards, store, totalPages, nowPage, onMounted, changePage, /*getSearchFiltersData*/ getCards, prevPages, nextPages };
   },
 };
 </script>
@@ -176,12 +197,33 @@ export default {
   font-weight: bold;
   border: #fafafa;
   border-radius: 50%;
-
+  cursor: pointer;
   box-shadow: (0 0 8px rgba(24, 24, 24, 0.05));
   margin: 0rem 0.5rem 0rem 0.5rem;
   // border: 1px solid rgba(1, 1, 1, 0.1);
 }
-
+.page-item-left > .page-link {
+  background: white;
+  color: black;
+  line-height: 2rem;
+  font-weight: bold;
+  border: #fafafa;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: (0 0 8px rgba(24, 24, 24, 0.05));
+  margin: 0rem 0.5rem 0rem 0.5rem;
+}
+.page-item-right > .page-link {
+  background: white;
+  color: black;
+  line-height: 2rem;
+  font-weight: bold;
+  border: #fafafa;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: (0 0 8px rgba(24, 24, 24, 0.05));
+  margin: 0rem 0.5rem 0rem 0.5rem;
+}
 .active > .page-link {
   background: black;
   color: white;

@@ -81,22 +81,24 @@
 <script>
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { ref } from "vue";
 
 export default {
   name: "PlaceCategory",
   setup() {
     const router = useRouter();
     const store = useStore();
-    let categoryList = [];
+    let categoryList = ref({});
     // const store = userStore();
     // const route = useRoute();
     const selecCategory = async (res) => {
+      // console.log(res.target.innerText, "텍스트 변화전");
       var text = res.target.innerText;
       text = text.replace(/\s/gi, "");
-      categoryList = [text];
-      // console.log(categoryList, "text");
-      await store.dispatch("root/selectSportsCategory", categoryList);
-      router.push({ name: "PlaceSearch" });
+      categoryList.value = [text];
+      // console.log(categoryList, "텍스트 변화후");
+      await store.dispatch("root/selectSportsCategory", categoryList.value);
+      await router.push({ name: "PlaceSearch" });
     };
     return {
       categoryList,

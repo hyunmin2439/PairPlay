@@ -11,7 +11,7 @@ export default {
   mateArticleListTotalPage: 0,
   matePage: 0,
   changeList: {},
-  placeSearchInfo: "",
+  placeSearchInfo: { page: 0 },
   selectSportsCategory: "",
   placeLike: "",
   addPlaceFilters: "",

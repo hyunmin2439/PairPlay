@@ -234,13 +234,19 @@ export async function change({ commit }, payload) {
 }
 
 export async function getPlaceSearchInfo({ commit }, searchFiltersData) {
-  // console.log(searchFiltersData, "액션 데이터");
   const page = searchFiltersData.page;
-  const body = searchFiltersData;
+  // console.log(page, "페이지");
+  let body = searchFiltersData;
+  // console.log(body, "바디");
+
+  if (body.categoryList.length === 0) {
+    body.categoryList = [store.state.root.selectSportsCategory];
+  } else {
+    body = searchFiltersData;
+  }
   const size = 20;
   const jwt = localStorage.getItem("jwt");
   const url = `places/search?page=${page}&size=${size}`;
-  console.log(body, "바디");
   await $axios
     .post(url, body, {
       headers: {
@@ -248,7 +254,6 @@ export async function getPlaceSearchInfo({ commit }, searchFiltersData) {
       },
     })
     .then((res) => {
-      console.log(res.data, "여기는 actions");
       commit("PLACE_SEARCH_INFO", res.data);
     })
     .catch((err) => {
@@ -257,12 +262,11 @@ export async function getPlaceSearchInfo({ commit }, searchFiltersData) {
 }
 
 export async function selectSportsCategory({ commit }, categoryList) {
-  await commit("SELECT_SPORTS_CATEGORY", categoryList);
+  const selectSportsCategory = Object.values(categoryList)[0];
+  await commit("SELECT_SPORTS_CATEGORY", selectSportsCategory);
 }
 
 export async function addPlaceFilters({ commit }, data) {
   await commit("ADD_PLACE_FILTERS", data);
   await store.dispatch("root/getPlaceSearchInfo", data);
-
-  // await this.dispatch("getPlaceSearchInfo");
 }

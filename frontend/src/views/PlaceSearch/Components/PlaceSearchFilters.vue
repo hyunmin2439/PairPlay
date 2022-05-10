@@ -55,6 +55,7 @@ export default {
       startDate: "",
       endDate: "",
       categoryList: [],
+      page: 0,
     });
     // console.log(store.state.root.addPlaceFilters, "store.state.root.addPlaceFilters");
     const selectRegion = (res) => {
@@ -70,8 +71,13 @@ export default {
       searchFiltersData.value.endDate = endTime;
     };
     const selectSportsCategory = (res) => {
+      if (res) {
+        //   console.log(res, "고른 스포츠");
+        searchFiltersData.value.categoryList = res;
+      } else {
+        searchFiltersData.value.categoryList = store.state.root.selectSportsCategory;
+      }
       // console.log(res);
-      searchFiltersData.value.categoryList = res;
     };
     // searchFiltersData.value.region.sido = regionData.sido;
     // searchFiltersData.value.region.gugun = regionData.gugun;
@@ -84,17 +90,16 @@ export default {
       searchFiltersData.value.price = "";
       searchFiltersData.value.sido = "";
       searchFiltersData.value.gugun = "";
-      searchFiltersData.value.time = { startDate: "", endDate: "" };
-      searchFiltersData.value.categoryList = "";
+      searchFiltersData.value.startDate = "";
+      searchFiltersData.value.endDate = "";
+      searchFiltersData.value.categoryList = [];
+      searchFiltersData.value.page = 0;
     };
-    watch(searchFiltersData.value, async (res) => {
-      console.log(res, "맞나이거");
+    watch(searchFiltersData.value, async () => {
+      // console.log(res, "맞나이거");
       // console.log(searchFiltersData.value, "searchFiltersData.value");
       // emit("searchFiltersData", searchFiltersData.value);
       await store.dispatch("root/addPlaceFilters", searchFiltersData.value);
-
-      // console.log(res);
-      // console.log(searchFiltersData.value, "searchFiltersData");
     });
     // const refresh = () =>
     return { searchFiltersData, selectRegion, selectTime, selectSportsCategory, cancelFilters };
