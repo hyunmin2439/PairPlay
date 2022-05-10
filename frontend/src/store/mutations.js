@@ -47,7 +47,13 @@ export function OTHER_INFO(state, data) {
 }
 
 export function GET_USER_SCHEDULE(state, data) {
-  state.getUserSchedule = data
+  state.userSchedule = []
+  for (var i in data) {
+    var sub = {}
+    sub['date'] = String(data[i].date[0]) + '-' + String(data[i].date[1]) + '-' + String(data[i].date[2])
+    sub['count'] = data[i].count
+    state.userSchedule.push(sub)
+  }
 }
 
 export function ACTIVITY_PER_DAY(state, data) {
@@ -58,8 +64,25 @@ export function DATE_PER_DAY(state, data) {
   state.datePerDay = data
 }
 
-export function MATE_ARTICLE_LIST(state, data) {
-  state.mateArticleList = data;
+export async function MATE_ARTICLE_LIST(state, data) {
+  state.mateArticleListTotalPage = 0
+  state.mateArticleListTotalPage = data.totalPages
+  state.mateArticleList = [];
+  for (var i in data.content) {
+    var sub = {}
+    sub['activityId'] = data.content[i]['activityId']
+    sub['categoryId'] = data.content[i]['categoryId']
+    sub['description'] = data.content[i]['description']
+    sub['location'] = data.content[i]['location']
+    sub['title'] = data.content[i]['title']
+    var startDate = new Date(data.content[i]['createdDate'][0], data.content[i]['createdDate'][1]-1, data.content[i]['createdDate'][2])
+    var today = new Date
+    var diff = today.getTime() - startDate.getTime()
+    sub['timeDiff'] = Math.floor(diff / (1000*60*60*24))
+    // console.log(new Date(k.getTimezoneOffset() * 60000).toISOString())
+      // String(data[i].date[0]) + '-' + String(data[i].date[1]) + '-' + String(data[i].date[2])
+    state.mateArticleList.push(sub)
+  }
 }
 
 export function Place_Search_Info(state, data) {
@@ -68,4 +91,9 @@ export function Place_Search_Info(state, data) {
 
 export function SELECT_SPORTS_CATEGORY(state, data) {
   state.selectSportsCategory = data;
+}
+
+export async function CHANGE(state, data) {
+  state.changeList = {}
+  state.changeList = data
 }

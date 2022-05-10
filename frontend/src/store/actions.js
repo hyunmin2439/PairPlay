@@ -182,7 +182,7 @@ export async function getUserSchedule({ commit }) {
       },
     })
     .then((res) => {
-      console.log(res)
+      console.log(typeof(res.data.list[0].date[0]))
       commit("GET_USER_SCHEDULE", res.data.list)
     })
     .catch((err) => {
@@ -195,27 +195,27 @@ export async function getDateTodo({ commit }, payload) {
   commit("DATE_PER_DAY", payload["date"])
 }
 
-export async function mateArticleList({ commit }) {
-  // const memberId = payload.memberId;
+export async function mateArticleList({ commit }, payload) {
+  const page = payload["page"]
+  const size = payload["size"]
   const jwt = localStorage.getItem("jwt");
-  const url = `mates`;
-  console.log(commit);
+  const url = `mates?page=${page}&size=${size}`;
   await $axios
     .get(url, {
       headers: {
         Authorization: "Bearer " + jwt,
-        page: 0,
-        size: 8,
       },
     })
     .then((res) => {
-      console.log(res);
-      commit("MATE_ARTICLE_LIST", res.data);
-      // commit("OTHER_INFO", res.data);
+      commit("MATE_ARTICLE_LIST", res.data.list);
     })
     .catch((err) => {
       console.log(err);
     });
+}
+
+export async function change({ commit }, payload) {
+  await commit("CHANGE", payload)
 }
 
 export async function getPlaceSearchInfo({ commit }, searchFiltersData) {

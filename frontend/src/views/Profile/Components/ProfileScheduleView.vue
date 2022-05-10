@@ -71,7 +71,6 @@ export default {
 
 <style scoped lang="scss">
 .card {
-  // border: 1px solid black;
   border-radius: 10pt;
   box-shadow: 2px 2px 1px 1px rgba(0,0,0,0.5);
   flex-direction: row

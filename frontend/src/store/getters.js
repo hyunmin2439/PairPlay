@@ -20,8 +20,8 @@ export function otherInfo(state) {
   return state.otherInfo;
 }
 
-export function getUserSchedule(state) {
-  return state.getUserSchedule
+export function userSchedule(state) {
+  return state.userSchedule
 }
 
 export function activityPerDay(state) {
@@ -34,4 +34,12 @@ export function datePerDay(state) {
 
 export function mateArticleList(state) {
   return state.mateArticleList;
+}
+
+export function mateArticleListTotalPage(state) {
+  return state.mateArticleListTotalPage;
+}
+
+export function changeList(state) {
+  return state.changeList
 }

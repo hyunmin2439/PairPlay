@@ -6,7 +6,7 @@
   <!-- { date: '2021-9-27', count: 6 },
     { date: '2021-9-21', count: 6 } -->
   <calendar-heatmap
-    :values="state.calenderInfo"
+    :values="state.userSchedule"
     :end-date="state.end"
     :range-color="[
       '#ebedf0',
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { reactive, onMounted } from 'vue'
+import { reactive, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 export default {
   name: "ProfileScheduleWeed",
@@ -39,16 +39,7 @@ export default {
       userInfo: props.userInfo,
       otherInfo: props.otherInfo,
       end: new Date,
-      calenderInfo: [
-        { date: '2021-09-21', count: 1 },
-        { date: '2021-09-28', count: 2 },
-        { date: '2021-10-05', count: 3 },
-        { date: '2021-10-12', count: 4 },
-        { date: '2021-10-19', count: 5 },
-        { date: '2021-10-26', count: 6 },
-        { date: '2021-11-02', count: 16 },
-        { date: '2022-04-05', count: 4},
-      ],
+      userSchedule: computed(() => store.getters["root/userSchedule"]),
       monthInfo: {
         "Jan": 1, "Feb": 2, "Mar": 3,
         "Apr": 4, "May": 5, "Jun": 6,

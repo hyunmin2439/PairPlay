@@ -4,21 +4,23 @@
       <Header></Header>
     </div>
     <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7;">
-    <div class="PlaceBackgroundImage">
-      <div class="PlaceBackgroundImageCover">
-        <div class="PlaceBackground-Content ms-5 ps-5">
-          <p class="ps-5 ms-4">
-            당신에게 적합한 <br />
-            운동메이트를 찾아보세요.
-          </p>
+    <div style="max-width: 1255px; margin: auto;">
+      <div class="PlaceBackgroundImage">
+        <div class="PlaceBackgroundImageCover">
+          <div class="PlaceBackground-Content ms-5 ps-5">
+            <p class="ps-5 ms-4">
+              당신에게 적합한 <br />
+              운동메이트를 찾아보세요.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="container" style="max-width: 1280px">
-      <mate-filter></mate-filter>
+    <div style="max-width: 1280px; margin: auto; margin-bottom: 5%;">
+      <mate-filters></mate-filters>
       <mate-view></mate-view>
-      <nav aria-label="...">
-        <ul class="pagination">
+      <!-- <nav aria-label="...">
+        <ul class="pagination justify-content-center my-5">
           <li class="page-item disabled">
             <a class="page-link">Previous</a>
           </li>
@@ -33,20 +35,35 @@
             <a class="page-link" href="#">Next</a>
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from "../Common/Header.vue";
-import MateFilter from "./Components/MateFilter.vue";
+import Footer from "../Common/Footer.vue";
+import MateFilters from "./Components/MateFilters.vue";
 import MateView from "./Components/MateView.vue";
+
+import { onMounted, reactive } from 'vue'
+import { useStore } from 'vuex'
 export default {
-  components: { MateFilter, MateView, Header },
+  components: { MateFilters, MateView, Header, Footer },
   name: "Mate",
   setup() {
-    return { }
+    const store = useStore()
+    const state = reactive({
+      // cards: computed(() => store.getters["root/mateArticleList"])
+    })
+    onMounted(() => {
+      store.dispatch("root/mateArticleList", {
+        "page": 0,
+        "size": 8,
+      })
+    })
+    return { state, onMounted }
   }
 }
 </script>
@@ -67,7 +84,7 @@ export default {
 }
 .PlaceBackgroundImageCover {
   position: absolute;
-  width: 100%;
+  width: 1255px;
   height: 330px;
   background: linear-gradient(30deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
   /* background-color: rgba(0, 0, 0, 0.3); */
@@ -86,7 +103,7 @@ export default {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .container {
-    width: 100%;
+    width: 1255px;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -98,6 +115,3 @@ export default {
     // margin-right: 0;
   }
 </style>
-  components: { Header, MateFilter, MateView },
-  setup() {},
-};
