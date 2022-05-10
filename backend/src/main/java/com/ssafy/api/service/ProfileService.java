@@ -137,8 +137,19 @@ public class ProfileService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
 
-        // memberId와 정확한 Date를 사용하여 Activity를 count
-        List<Activity> activityList = activityRepository.findByCreateIdAndMeetDtBetween(memberId, LocalDateTime.of(date, LocalTime.of(0, 0, 0)), LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0)));
+//        // memberId와 정확한 Date를 사용하여 Activity를 count
+//        List<Activity> activityList = activityRepository.findByCreateIdAndMeetDtBetween(memberId, LocalDateTime.of(date, LocalTime.of(0, 0, 0)), LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0)));
+//        System.out.println(memberId + " " + LocalDateTime.of(date, LocalTime.of(0, 0, 0)) + " " + LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0) ));
+//        System.out.println(activityList.size());
+//        if (activityList != null) {
+//            System.out.println("not null");
+//            activityList.forEach(a -> System.out.println(a.getId()));
+//        }
+//        else System.out.println("null");
+
+
+        // memberId와 정확한 Date를 사용하여 Activity를 조회
+        List<Activity> activityList = activityRepository.findByMateMemberIdAndMeetDtBetween(memberId, LocalDateTime.of(date, LocalTime.of(0, 0, 0)), LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0)));
         System.out.println(memberId + " " + LocalDateTime.of(date, LocalTime.of(0, 0, 0)) + " " + LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0) ));
         System.out.println(activityList.size());
         if (activityList != null) {
@@ -146,6 +157,7 @@ public class ProfileService {
             activityList.forEach(a -> System.out.println(a.getId()));
         }
         else System.out.println("null");
+
 
         // CalendarRetailActivityRes에 종합적으로 저장해서
         // 그것을 또 리스트로 만들어서 리턴한다
