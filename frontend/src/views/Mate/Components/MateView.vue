@@ -1,12 +1,13 @@
 <template>
   <div class="container">
+    {{ state.page }}
     <p class="total-cards col-12">총 00 건의 검색결과</p>
     <div class="d-flex row" style="width: 100%;">
       <div
         v-for="(card, i) in state.cards" :key="i"
-        class="col-3 my-4"
+        class="col-3 mt-4 mb-5"
       >
-        <a class="card d-flex justify-content-between" href="#" style="flex-direction: column;">
+        <a class="card d-flex justify-content-between" style="flex-direction: column;">
           <div class="mx-4 mt-4">
             <h3>{{ card.title }}</h3>
             <div class="d-flex justify-content-between align-items-center pt-4">
@@ -60,7 +61,7 @@
 </template>
 
 <script>
-import { reactive, computed, onMounted } from 'vue';
+import { reactive, computed, onMounted, watch, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
@@ -77,9 +78,11 @@ export default {
         9: "헬스", 10:	"필라테스", 11:	"격투기", 12:	"수영"
       },
       totalPages: computed(() => store.getters["root/mateArticleListTotalPage"]),
-      page: 1,
+      // page: computed(() => store.getters["root/matePage"]),
       size: 8,
+      page: computed(() => store.getters["root/matePage"])
     })
+
     onMounted(async () => {
       await store.dispatch("root/mateArticleList", {
         "page": 0,
@@ -89,6 +92,20 @@ export default {
       activeBtn.classList.add("active")
     })
 
+    watch(state), () => {
+      console.log('gk')
+      // for (var i=0; i < state.totalPages; i++) {
+      //   var Btn = document.getElementsByClassName("page-item")[i]
+      //   Btn.classList.remove("active")
+      // }
+      // var activeBtn = document.getElementsByClassName("page-item")[Number(event.target.textContent)-1]
+      // activeBtn.classList.add("active")
+    }
+
+    watchEffect(() => {
+      console.log('we')
+    })
+
     const changePage = async function (event) {
       for (var i=0; i < state.totalPages; i++) {
         var Btn = document.getElementsByClassName("page-item")[i]
@@ -96,20 +113,11 @@ export default {
       }
       var activeBtn = document.getElementsByClassName("page-item")[Number(event.target.textContent)-1]
       activeBtn.classList.add("active")
-      state.page = Number(event.target.textContent)-1
       await store.dispatch("root/mateArticleList", {
-        "page": state.page,
+        "page": Number(event.target.textContent)-1,
         "size": 8,
       })
     }
-    // let expand = false;
-    // const refresh = () =>
-    // const changedExpand = () => {
-    //   expand = !expand;
-    //   console.log(expand, "expand");
-    //   console.log(value, "value");
-    //   return;
-    // };
 
     return { state, onMounted, changePage };
   }

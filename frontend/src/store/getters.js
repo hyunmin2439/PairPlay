@@ -36,6 +36,10 @@ export function mateArticleList(state) {
   return state.mateArticleList;
 }
 
+export function matePage(state) {
+  return state.matePage
+}
+
 export function mateArticleListTotalPage(state) {
   return state.mateArticleListTotalPage;
 }

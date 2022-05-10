@@ -64,6 +64,11 @@ export function DATE_PER_DAY(state, data) {
   state.datePerDay = data
 }
 
+export function MATE_ARTICLE_PAGE(state, data) {
+  state.matePage = 0
+  state.matePage = data + 1
+}
+
 export async function MATE_ARTICLE_LIST(state, data) {
   state.mateArticleListTotalPage = 0
   state.mateArticleListTotalPage = data.totalPages

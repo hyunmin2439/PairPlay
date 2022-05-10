@@ -9,6 +9,7 @@ export default {
   datePerDay: "",
   mateArticleList: {},
   mateArticleListTotalPage: 0,
+  matePage: 0,
   changeList: {},
   // placeSearchInfo: null,
   placeSearchInfo: "",

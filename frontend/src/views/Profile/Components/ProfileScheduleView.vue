@@ -1,6 +1,6 @@
 <template>
   <h4 class="mt-5">
-    <b>{{ state.datePerDay }} 활동 기록</b>
+    <b>{{ state.datePerDay.substr(0,4) }}년 {{ state.datePerDay.substr(5, 2) }}월 {{ state.datePerDay.substr(8, 10)}}일 활동 기록</b>
     <hr>
   </h4>
   <div 
@@ -10,10 +10,10 @@
     <div class="col-2 category">
     </div>
     <div class="col-6 my-4">
-      <h3 class="mb-3"><b>{{ data.activity.title }}</b></h3>
-      <p>{{ data.activity.description }}</p>
-      <h5>종목 : <b>{{ data.activity.category }}</b></h5>
-      <h5>지역 : <b>{{ data.activity.location }}</b></h5>
+      <h3 class="mb-3"><b>{{ data.title }}</b></h3>
+      <p>{{ data.description }}</p>
+      <h5>종목 : <b>{{ state.category[data.categoryId] }}</b></h5>
+      <h5>지역 : <b>{{ data.location }}</b></h5>
     </div>
     <div class="col-4 my-4">
       <div>
@@ -21,29 +21,30 @@
       </div>
       <div class="d-flex mt-5">
         <!-- {{ Object.keys(data.mateList).length }} -->
-        <div v-if="Object.keys(data.mateList).length >= 1">
-          <img :src="data.mateList[0].profileImage" alt="" class="mate-image">
+        <div v-if="Object.keys(data.mateResList).length >= 1">
+          <img :src="data.mateResList[0].profileImage" alt="" class="mate-image">
         </div>
-        <div v-if="Object.keys(data.mateList).length >= 2" style="position: relative; right: 5%;">
-          <img :src="data.mateList[1].profileImage" alt="" class="mate-image">
+        <div v-if="Object.keys(data.mateResList).length >= 2" style="position: relative; right: 5%;">
+          <img :src="data.mateResList[1].profileImage" alt="" class="mate-image">
         </div>
-        <div v-if="Object.keys(data.mateList).length >= 3" style="position: relative; right: 10%;">
-          <img :src="data.mateList[2].profileImage" alt="" class="mate-image">
+        <div v-if="Object.keys(data.mateResList).length >= 3" style="position: relative; right: 10%;">
+          <img :src="data.mateResList[2].profileImage" alt="" class="mate-image">
         </div>
-        <div v-if="Object.keys(data.mateList).length >= 4" style="position: relative; right: 15%;">
-          <img :src="data.mateList[3].profileImage" alt="" class="mate-image">
+        <div v-if="Object.keys(data.mateResList).length >= 4" style="position: relative; right: 15%;">
+          <img :src="data.mateResList[3].profileImage" alt="" class="mate-image">
         </div>
-        <div v-if="Object.keys(data.mateList).length >= 5" style="position: relative; right: 20%;">
-          <img :src="data.mateList[4].profileImage" alt="" class="mate-image">
+        <div v-if="Object.keys(data.mateResList).length >= 5" style="position: relative; right: 20%;">
+          <img :src="data.mateResList[4].profileImage" alt="" class="mate-image">
         </div>
-        <div v-if="Object.keys(data.mateList).length >= 6" style="position: relative; right: 20%;"
+        <div v-if="Object.keys(data.mateResList).length >= 6" style="position: relative; right: 20%;"
           class="mate-last d-flex justify-content-center align-items-center"
         >
-          <h5><b>+{{ Object.keys(data.mateList).length - 4 }}</b></h5>
+          <h5><b>+{{ Object.keys(data.mateResList).length - 4 }}</b></h5>
         </div>
       </div>
     </div>
   </div>
+  <br><br>
 </template>
 
 <script>
@@ -61,7 +62,12 @@ export default {
       userInfo: props.userInfo,
       otherInfo: props.otherInfo,
       activityPerDay: computed(() => store.getters["root/activityPerDay"]),
-      datePerDay: computed(() => store.getters["root/datePerDay"])
+      datePerDay: computed(() => store.getters["root/datePerDay"]),
+      category: {
+        1: "축구", 2: "풋살", 3: "농구", 4: "야구",
+        5: "볼링", 6: "골프", 7: "테니스", 8: "배드민턴",
+        9: "헬스", 10:	"필라테스", 11:	"격투기", 12:	"수영"
+      },
     })
 
     return { state }

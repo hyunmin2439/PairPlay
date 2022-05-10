@@ -41,10 +41,10 @@ export default {
       end: new Date,
       userSchedule: computed(() => store.getters["root/userSchedule"]),
       monthInfo: {
-        "Jan": 1, "Feb": 2, "Mar": 3,
-        "Apr": 4, "May": 5, "Jun": 6,
-        "Jul": 7, "Aug": 8, "Sep": 9,
-        "Oct": 10, "Nov": 11, "Dec": 12,
+        "Jan": "01", "Feb": "02", "Mar": "03",
+        "Apr": "04", "May": "05", "Jun": "06",
+        "Jul": "07", "Aug": "08", "Sep": "09",
+        "Oct": "10", "Nov": "11", "Dec": "12",
       }
     })
 
@@ -54,65 +54,14 @@ export default {
 
     const getDateTodo = async function (event) {
       let dateList = event.target.dataset.tippyContent.split(' ')
-      let date = dateList[6] + '-' + String(state.monthInfo[dateList[4]]) + "-" + dateList[5]
-      console.log(dateList)
-
+      let date = ""
+      if (dateList[5].length==2) {
+        date = dateList[6] + '-' + state.monthInfo[dateList[4]] + "-0" + String(dateList[5]).substr(0, 1)
+      } else {
+        date = dateList[6] + '-' + state.monthInfo[dateList[4]] + "-" + String(dateList[5]).substr(0, 2)
+      }
       let payload = {
         'date': date,
-        'activity': {
-          0: {
-            "activity": {
-              "title": '메이트2',
-              "description": '메이트구해여메이트구해여메이트구해여메이트구해여',
-              "category": "축구",
-              "location": "부산 강서구"
-            },
-            "mateList": {
-              0: {
-                'id': 6,
-                'profileImage': "https://lh3.googleusercontent.com/a/AATXAJwq7oX0_n7_NTK89Zgi1_sCNqoQX9YeYLbeezsY=s96-c"
-              },
-              1: {
-                'id': 25,
-                'profileImage': "http://k.kakaocdn.net/dn/cjJL37/btrr1I0eYLX/m4k6rwytjL3MCGLA4hrfi0/img_640x640.jpg"
-              },
-              2: {
-                'id': 25,
-                'profileImage': "http://k.kakaocdn.net/dn/cjJL37/btrr1I0eYLX/m4k6rwytjL3MCGLA4hrfi0/img_640x640.jpg"
-              },
-              3: {
-                'id': 6,
-                'profileImage': "https://lh3.googleusercontent.com/a/AATXAJwq7oX0_n7_NTK89Zgi1_sCNqoQX9YeYLbeezsY=s96-c"
-              },
-              4: {
-                'id': 6,
-                'profileImage': "https://lh3.googleusercontent.com/a/AATXAJwq7oX0_n7_NTK89Zgi1_sCNqoQX9YeYLbeezsY=s96-c"
-              },
-            }
-          },
-          1: {
-            "activity": {
-              "title": '메이트2223',
-              "description": '메이트구해여123123',
-              "category": "배구",
-              "location": "부산 금정구"
-            },
-            "mateList": {
-              0: {
-                'id': 66,
-                'profileImage': "https://lh3.googleusercontent.com/a/AATXAJwq7oX0_n7_NTK89Zgi1_sCNqoQX9YeYLbeezsY=s96-c"
-              },
-              1: {
-                'id': 255,
-                'profileImage': "http://k.kakaocdn.net/dn/cjJL37/btrr1I0eYLX/m4k6rwytjL3MCGLA4hrfi0/img_640x640.jpg"
-              },
-              2: {
-                'id': 25,
-                'profileImage': "http://k.kakaocdn.net/dn/cjJL37/btrr1I0eYLX/m4k6rwytjL3MCGLA4hrfi0/img_640x640.jpg"
-              }
-            }
-          },
-        }
       }
       await store.dispatch("root/getDateTodo", payload)
     }

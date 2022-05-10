@@ -191,8 +191,23 @@ export async function getUserSchedule({ commit }) {
 }
 
 export async function getDateTodo({ commit }, payload) {
-  commit("ACTIVITY_PER_DAY", payload["activity"])
-  commit("DATE_PER_DAY", payload["date"])
+  const url = `profiles/calendar/activity`
+  const jwt = localStorage.getItem("jwt")
+  const body = payload
+  await $axios
+    .post(url, body, {
+      headers: {
+        Authorization: "Bearer " + jwt
+      },
+    })
+    .then((res) => {
+      commit("ACTIVITY_PER_DAY", res.data.calendarDetailActivityResList)
+      commit("DATE_PER_DAY", body.date)
+    })
+    .catch((err) => {
+      console.log(err)
+  })
+  
 }
 
 export async function mateArticleList({ commit }, payload) {
@@ -208,6 +223,7 @@ export async function mateArticleList({ commit }, payload) {
     })
     .then((res) => {
       commit("MATE_ARTICLE_LIST", res.data.list);
+      commit("MATE_ARTICLE_PAGE", page)
     })
     .catch((err) => {
       console.log(err);
