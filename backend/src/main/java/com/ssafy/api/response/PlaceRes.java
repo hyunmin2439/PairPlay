@@ -3,6 +3,7 @@ package com.ssafy.api.response;
 import com.ssafy.domain.document.Place;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -24,6 +25,10 @@ public class PlaceRes {
     String near;
     List<String> hashtags;
     boolean isLike;
+    int viewCnt;
+    int likeCnt;
+    int reviewCnt;
+    double score;
 
     public static PlaceRes of(Place place, boolean isLike) {
         PlaceRes res = new PlaceRes();
@@ -42,6 +47,10 @@ public class PlaceRes {
         res.setNear(place.getNear());
         res.setHashtags(place.getHashtags());
         res.setLike(isLike);
+        res.setViewCnt(place.getViewCnt());
+        res.setLikeCnt(place.getLikeCnt());
+        res.setReviewCnt(place.getReviewCnt());
+        res.setScore(place.getScore());
         return res;
     }
 }

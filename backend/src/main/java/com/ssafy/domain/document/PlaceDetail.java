@@ -1,17 +1,17 @@
 package com.ssafy.domain.document;
 
 import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+
 import javax.persistence.Id;
 import java.util.List;
 
-@Document("region")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Place {
+@ToString
+public class PlaceDetail {
     @Id
     private String id;
     @Field(name = "id")
@@ -29,20 +29,24 @@ public class Place {
     private String transport;
     private String near;
     private List<String> hashtags;
+    private int cnt;
     @Field(name = "view_cnt")
     private int viewCnt;
     @Field(name = "like_cnt")
     private int likeCnt;
     @Field(name = "review_cnt")
     private int reviewCnt;
+    private double cleanness;
+    private double place;
+    private double location;
+    private double price;
     private double score;
+    private List<Review> reviewList;
 
-    public void increaseViewCnt() { this.viewCnt++; }
-
-    public void modifyLikeCnt(long likeCnt){ this.likeCnt = (int)likeCnt; }
-
-    public void modifyReviewScore(int reviewCnt, double score) {
-        this.reviewCnt = reviewCnt;
-        this.score = score;
+    public void setScore(double[] detailScore) {
+        this.cleanness = detailScore[0];
+        this.place = detailScore[1];
+        this.location = detailScore[2];
+        this.price = detailScore[3];
     }
 }

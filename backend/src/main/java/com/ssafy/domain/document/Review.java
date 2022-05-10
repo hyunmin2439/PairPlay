@@ -1,10 +1,7 @@
 package com.ssafy.domain.document;
 
 import com.ssafy.api.request.ReviewPutReq;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -28,10 +25,10 @@ public class Review {
     @Field(name = "written_dt")
     private LocalDateTime writtenDt; // 작성 일자
     private String description; // 한줄 평
-    private Double cleanness; // 청결 점수 0 ~ 5.0
-    private Double place; // 시설 점수 0 ~ 5.0
-    private Double location; // 위치 점수 0 ~ 5.0
-    private Double price; // 가격 점수 0 ~ 5.0
+    private double cleanness; // 청결 점수 0 ~ 5.0
+    private double place; // 시설 점수 0 ~ 5.0
+    private double location; // 위치 점수 0 ~ 5.0
+    private double price; // 가격 점수 0 ~ 5.0
 
     public void modifyReview(ReviewPutReq reviewInfo) {
         if( !"".equals(reviewInfo.getDescription()) )

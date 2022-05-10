@@ -3,15 +3,21 @@ package com.ssafy.domain.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.api.request.PlaceSearchPostReq;
 import com.ssafy.domain.document.Place;
+import com.ssafy.domain.document.PlaceDetail;
 import com.ssafy.domain.document.QPlace;
+import org.bson.Document;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -27,7 +33,57 @@ public class PlaceRepositorySupport {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public Page<Place> searchPlace(Pageable pageable, PlaceSearchPostReq searchInfo) {
+    public PlaceDetail detailPlace(Long placeId) {
+        /**
+         * lookup - 일반 RDB에서 사용하는 join의 역할
+         *
+         * lookup은 mongoDB에서 지양하라는 방식이며 embedded 방식을 권장하고 있다.
+         * 또한 embedded방식을 사용하면 복잡한 문제를 단순히 해결 가능하다.
+         * $lookup은 성능상에도 문제가 있고 noSQL 특성상 어울리지 않는 방식이다.
+         * 그럼에도 lookup을 사용해서 두 Collection을 합쳐서 사용하는 이유는
+         * 1. Aggregation은 lookup 뿐만 아니라 복잡한 쿼리문을 다룰 때도 사용하는 방식
+         * 2. 배우면서 프로젝트를 진행하는 과정이기에 $lookup을 사용해보고자 한다.
+         */
+
+
+        /** 컬렉션을 JOIN하는 LookupOperation 3가지 방법 */
+//        LookupOperation lookupOperation = Aggregation.lookup("review", "id", "place_id", "review");
+
+//        LookupOperation lookupOperation = LookupOperation.newLookup().from("review").localField("id").foreignField("place_id").as("review");
+
+        /**
+         * from : 조인시킬 컬렉션 명
+         * let : 파이프라인에서 사용할 필드명: 변수명
+         * pipeline : 실제 조건
+         * $$(달러 2개)는 조인 대상 컬렉션의 필드
+         * $(달러 1개)는 현재 조회 대상 컬렉션의 필드
+         * 뽑아낸 값을 as를 통해 담기
+         */
+        AggregationOperation lookupOperation = context -> new Document(
+                "$lookup",
+                new Document("from", "review")
+                        .append("let", new Document("id",  "$id"))
+                        .append("pipeline",
+                                Collections.singletonList(
+                                        new Document("$match", new Document("$expr", new Document("$and",
+                                                Arrays.asList(
+                                                        new Document("$eq", Arrays.asList("$place_id", "$$id"))
+                                                )))
+                                        )
+                                )
+                        )
+                        .append("as","reviewList")
+        );
+
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("id").is(placeId)), // 조건을 통해 먼저 lookup할 목록을 줄임
+                lookupOperation // 추후 lookup을 수행하는 것이 성능이 더 뛰어남
+        );
+
+        return mongoTemplate.aggregate(aggregation, "region", PlaceDetail.class).getUniqueMappedResult();
+    }
+
+    public Page<Place> searchPlaces(Pageable pageable, PlaceSearchPostReq searchInfo) {
         Query query = new Query();
 
         /**

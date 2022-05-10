@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface PlaceMemberRepository extends MongoRepository<PlaceMember, String> {
     Optional<PlaceMember> findByMemberId(Long memberId);
+    Long countByLikeItems(Long likeItems);
 }
