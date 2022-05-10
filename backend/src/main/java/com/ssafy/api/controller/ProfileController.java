@@ -8,10 +8,10 @@ import com.ssafy.api.service.MemberService;
 import com.ssafy.api.service.ProfileService;
 import com.ssafy.api.service.S3FileUploadService;
 import com.ssafy.common.handler.CustomException;
-import com.ssafy.domain.entity.Activity;
-import com.ssafy.domain.entity.Mate;
 import com.ssafy.domain.entity.Member;
 import io.swagger.annotations.*;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -218,7 +218,10 @@ public class ProfileController {
         );
     }
 
-    
+
+
+
+
     
     // 체육시설 조회와 같은 시설을 보여주어야 할 것 같다
     // 비슷한 방식 + Reservation 정보를 담은 res가 필요할 것이다
@@ -296,18 +299,65 @@ public class ProfileController {
 
 
 
-    // 내가 만든 Activity라는 것
-    // Activity에서 memberId로 search
-    // 또한, 해당 Activity에 신청을 한 신청자들에 대한 정보를 같이 넘겨준다
-    // 신청자들을 수락/거절 할 수 있도록 할 수 있는 기능 존재
-    // 현재 수락된 사람을 강퇴할 수 있는 기능 존재
 
 
-    // 남이 만든 Activity라는 것
-    // Mate에서 memberId로 search 한 다음, 내가 만든 것이 아닌 Activity를 의미할 것
-    // 남이 만든 Activity에는 2가지 상태가 있을 수 있다
-    // 현재 신청 수락 완료된 상태, 아니면 신청을 넣어만 놓은 상태
-    // 해당 상태를 구분해서 볼 수 있어야 할 것
+//    내가 보낸 메이트 + 메이트 공고가 내꺼가 아닌것
+//    메이트 공고 주인의 프로필 이미지 전달
+//      1. 신청 취소 => active: 0
+//      2. 메이트 주인 => 거절 => active: 0
+//    내가 받은 메이트 + 메이트 공고 주인 == 나
+//    신청자의 프로필 이미지 전달
+//      1. 신청 수락 => active: 1
+//      2. 신청 거절 => active: 0
+//      3. 상대가 신청 취소 => active: 0
+//    모든 경우에서 결과가 나오면 메이트 목록에서 제거
+//    페이지네이션 (Page: 1, Size: 3~4)
 
+    // 내가 만든 Activity
+    // 신청 수신한 것들에 대한 정보를 조회한다
+    //// Activity 중에서 createId가 자신인 Activity를 찾고,
+    //// 그 Activity에 넣은 mate 신청을 조회한다
+    //// 자신에 대한 정보는 뺴야할 것이다
+    //// 시간이 이미 지나간 Activity에 대한 정보는 뺴야할 것이다
+    //// response -> [ Activity + Mate들의 상세 Member정보 ] 의 List -> Mate List
+    @GetMapping("/mates/received")
+    @ApiOperation(value = "Mate신청 수신 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>Activity CreateId</string>가 같은 Activity에 신청한 Mate목록을 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "메이트 신청 수신 조회에 성공하였습니다.", response = ProfileRes.class),
+    })
+    public ResponseEntity<? extends BaseResponseBody> searchMateReceived(@PageableDefault(page = 0, size = 4) Pageable pageable) {
+
+        ProfileMateRes res = profileService.searchMateReceived(pageable);
+
+        res.setCode(SUCCESS_SEARCH_MATE_RECEIVED.getCode());
+        res.setMessage(SUCCESS_SEARCH_MATE_RECEIVED.getMessage());
+        return ResponseEntity.status(200).body(res);
+    }
+
+    // 남이 만든 Activity
+    // 신청 발신한 것들에 대한 정보를 조회한다
+    //// Mate 중에서 나의 Mate를 찾는다
+    //// 그 중에서 Activity createId가 자신이 아닌 것을 찾는다
+    //// 또한, Activity createId를 사용해서, 공고 주인에 대한 정보를 추가적으로 전달해야한다
+    //// 시간이 이미 지나간 Activity에 대한 정보는 뺴야할 것이다
+    //// response -> [ Activity + Mate들의 상세 Member정보 ] 의 List -> Mate List
+    @GetMapping("/mates/send")
+    @ApiOperation(value = "Mate신청 발신 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>Mate MemberId</string>가 Activity에 신청한 Mate목록을 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "메이트 신청 발신 조회에 성공하였습니다.", response = ProfileRes.class),
+    })
+    public ResponseEntity<? extends BaseResponseBody> searchMateSend(@PageableDefault(page = 0, size = 4) Pageable pageable) {
+
+        ProfileMateRes res = profileService.searchMateSend(pageable);
+
+        res.setCode(SUCCESS_SEARCH_MATE_RECEIVED.getCode());
+        res.setMessage(SUCCESS_SEARCH_MATE_RECEIVED.getMessage());
+        return ResponseEntity.status(200).body(res);
+    }
+    
+    // 신청 허가/거절
+    //// 거절하면 그냥 mate테이블에서 삭제
+    //// 허가하면 accept를 1로 변경
+    //// accept 2로 변경하는 경우는 어떤 경우였지?
 
 }

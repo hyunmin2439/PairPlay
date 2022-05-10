@@ -3,12 +3,15 @@ package com.ssafy.domain.repository;
 import com.ssafy.api.response.CalendarDate;
 import com.ssafy.api.response.CalendarDateRes;
 import com.ssafy.domain.entity.Mate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -21,4 +24,10 @@ public interface MateRepository extends JpaRepository<Mate, Long> {
                     "where mate.member_id_id = ? and meet_dt between ? and ? " +
                     "GROUP BY date_format(meet_dt, '%Y-%m-%d') ORDER BY date ASC" , nativeQuery = true)
     List<CalendarDate> findByMemberIdAndMeetDtBefore(Long memberId, LocalDate from, LocalDate to);
+
+//    List<Mate> findByActivityId_CreateIdAndMemberId_IdNotAndActivityId_MeetDtAfterOrderById(Long createId, Long memberId, LocalDateTime now);
+//    List<Mate> findByMemberId_IdAndActivityId_CreateIdNotAndActivityId_MeetDtAfterOrderById(Long memberId, Long createId, LocalDateTime now);
+
+    Page<Mate> findByActivityId_CreateIdAndMemberId_IdNotAndActivityId_MeetDtAfterOrderById(Long createId, Long memberId, LocalDateTime now, Pageable pageable);
+    Page<Mate> findByMemberId_IdAndActivityId_CreateIdNotAndActivityId_MeetDtAfterOrderById(Long memberId, Long createId, LocalDateTime now, Pageable pageable);
 }

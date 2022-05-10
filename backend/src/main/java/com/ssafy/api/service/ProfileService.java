@@ -2,12 +2,8 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.ProfilePasswordPostReq;
 import com.ssafy.api.request.ProfilePutReq;
-import com.ssafy.api.response.CalendarDate;
-import com.ssafy.api.response.CalendarDateRes;
-import com.ssafy.api.response.CalendarDetailActivityRes;
-import com.ssafy.api.response.CalendarDetailMateRes;
+import com.ssafy.api.response.*;
 import com.ssafy.common.handler.CustomException;
-import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.domain.entity.Activity;
 import com.ssafy.domain.entity.Mate;
 import com.ssafy.domain.entity.Member;
@@ -15,20 +11,19 @@ import com.ssafy.domain.repository.ActivityRepository;
 import com.ssafy.domain.repository.MateRepository;
 import com.ssafy.domain.repository.MemberRepository;
 import com.ssafy.domain.repository.PlaceReservationRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static com.ssafy.common.statuscode.MemberCode.FAIL_INVALID_PASSWORD;
 import static com.ssafy.common.statuscode.ProfileCode.FAIL_MEMBER_NOT_FOUND;
 
 @Service("profileService")
@@ -185,5 +180,50 @@ public class ProfileService {
 
         return list;
     }
+
+
+
+    // 내가 만든 Activity의 Mate 신청 수신
+    @Transactional
+    public ProfileMateRes searchMateReceived(Pageable pageable) {
+        // search의 결과는 Mate List
+        // return 은 ProfileMateReceived의 List
+        // 해당 값을 변환할 수 있어야 한다
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        Page<Mate> mateList = mateRepository.findByActivityId_CreateIdAndMemberId_IdNotAndActivityId_MeetDtAfterOrderById(memberId, memberId, LocalDateTime.now(), pageable);
+        System.out.println(memberId + " " + LocalDateTime.now());
+        System.out.println(mateList.getTotalPages());
+        System.out.println(mateList.getTotalElements());
+
+        List<ProfileMate> profileMateList = new ArrayList<>();
+        mateList.forEach(mate -> {
+            profileMateList.add(ProfileMate.of(mate));
+        });
+
+        return ProfileMateRes.of(mateList.getTotalPages(), mateList.getTotalElements(), profileMateList);
+    }
+
+    // 내가 발송한 Activity의 Mate 신청
+    @Transactional
+    public ProfileMateRes searchMateSend(Pageable pageable) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        Page<Mate> mateList = mateRepository.findByMemberId_IdAndActivityId_CreateIdNotAndActivityId_MeetDtAfterOrderById(memberId, memberId, LocalDateTime.now(), pageable);
+        System.out.println(memberId + " " + LocalDateTime.now());
+        System.out.println(mateList.getTotalPages());
+        System.out.println(mateList.getTotalElements());
+
+        List<ProfileMate> profileMateList = new ArrayList<>();
+        mateList.forEach(mate -> {
+            profileMateList.add(ProfileMate.of(mate, memberRepository.findById(mate.getActivityId().getCreateId()).get() ));
+        });
+
+
+        return ProfileMateRes.of(mateList.getTotalPages(), mateList.getTotalElements(), profileMateList);
+    }
+
 
 }
