@@ -60,16 +60,30 @@ public class PlaceService {
      */
     public Place getDetailPlace(Long placeId) {
         Member member = memberService.getMemberFromAuthentication();
-
-
-
         return null;
     }
 
     /**
+     * 체육시설 최근 본 리스트
+     */
+    public Place getRecentPlaces() {
+        Member member = memberService.getMemberFromAuthentication();
+        return null;
+    }
+
+    /**
+     * 체육시설 인기 있는 리스트
+     */
+    public Place getPopularPlaces() {
+        Member member = memberService.getMemberFromAuthentication();
+        return null;
+    }
+
+
+    /**
      * 체육시설 장소를 검색
      */
-    public Page<Place> searchPlace(Pageable pageable, PlaceSearchPostReq searchInfo) {
+    public Page<Place> searchPlaces(Pageable pageable, PlaceSearchPostReq searchInfo) {
         Member member = memberService.getMemberFromAuthentication();
 
         // 검색 조건으로 추가된게 아니면 유저의 기본 주소를 통해 검색
@@ -216,7 +230,7 @@ public class PlaceService {
     /**
      * 체육시설 예약 등록
      */
-    public void reserve (ReservationPostReq reservationInfo) {
+    public void reservePlace(ReservationPostReq reservationInfo) {
         // 예약 하려는 날짜가 현재 날짜보다 이전이면 ( 테스트의 편의를 위해 잠시 막아둠 )
 //        if( reservationInfo.getReservationDt().isBefore(LocalDate.now()) )
 //            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
@@ -241,7 +255,7 @@ public class PlaceService {
     /**
      * 체육시설 예약 취소
      */
-    public void cancel(ReservationDeleteReq reservationInfo) {
+    public void cancelPlace(ReservationDeleteReq reservationInfo) {
         Reservation reservation = reservationRepository.findById(reservationInfo.getReservationId()).orElse(null);
 
         // 예약된 정보가 없으면 리뷰 작성 불가

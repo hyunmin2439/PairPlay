@@ -46,6 +46,12 @@ public class PlaceController {
                 null
         );
     }
+
+    public void getRecentPlaces() {
+    }
+
+    public void getPopularPlaces() {
+    }
     
     @PostMapping("/search")
     @ApiOperation(value = "체육 시설 목록 정보", notes = "<strong>전체 체육 시설 목록</strong>을 넘겨준다.")
@@ -53,11 +59,11 @@ public class PlaceController {
             @ApiResponse(code = 200, message = "체육 시설 목록 검색에 성공했습니다.", response = PlaceListRes.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
-    public ResponseEntity<? extends BaseResponseBody> searchPlace(
+    public ResponseEntity<? extends BaseResponseBody> searchPlaces(
             @PageableDefault(page = 0, size = 20) Pageable pageable,
             @RequestBody @ApiParam(value = "체육 시설 검색 정보", required = true) PlaceSearchPostReq searchInfo) {
 
-        Page<Place> page = placeService.searchPlace(pageable, searchInfo);
+        Page<Place> page = placeService.searchPlaces(pageable, searchInfo);
 
         return ResponseEntity.status(200).body(
                 PlaceListRes.of(
@@ -151,10 +157,10 @@ public class PlaceController {
             @ApiResponse(code = 400, message = "현재 날짜 보다 이전에는 예약을 등록할 수 없습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
-    public ResponseEntity<? extends BaseResponseBody> reserve (
+    public ResponseEntity<? extends BaseResponseBody> reservePlace (
             @RequestBody @ApiParam(value = "체육 시설 예약 정보", required = true) ReservationPostReq reservationInfo) {
 
-        placeService.reserve(reservationInfo);
+        placeService.reservePlace(reservationInfo);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_RESERVE_PLACE.getCode(), SUCCESS_RESERVE_PLACE.getMessage()));
     }
@@ -167,10 +173,10 @@ public class PlaceController {
             @ApiResponse(code = 404, message = "예약 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
-    public ResponseEntity<? extends BaseResponseBody> cancel (
+    public ResponseEntity<? extends BaseResponseBody> cancelPlace (
             @RequestBody @ApiParam(value = "체육 시설 예약 ID값", required = true) ReservationDeleteReq reservationInfo) {
 
-        placeService.cancel(reservationInfo);
+        placeService.cancelPlace(reservationInfo);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_CANCEL_PLACE.getCode(), SUCCESS_CANCEL_PLACE.getMessage()));
     }
