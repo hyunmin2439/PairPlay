@@ -52,12 +52,11 @@ import PlaceSearchList from "./Components/PlaceSearchList.vue";
 import PlaceSearchMaps from "./Components/PlaceSearchMaps.vue";
 export default {
   name: "PlaceSearch",
-
   components: { Header, PlaceSearchFilters, PlaceSearchList, PlaceSearchMaps },
   setup() {
     const store = useStore();
     // const route = useRoute();
-    let cards = reactive();
+    let cards = reactive({});
     let totalPages = ref();
     let searchFiltersData = ref({
       // categoryList: [route.params.categoryList],
@@ -90,11 +89,12 @@ export default {
       // console.log(tempdata, "tempdata");
       if (store.state.root.placeSearchInfo) {
         totalPages = store.state.root.placeSearchInfo.totalPages;
-        cards.value.push(computed(() => store.state.root.placeSearchInfo.placeList));
+        cards.value = computed(() => store.state.root.placeSearchInfo.placeList);
       }
     };
+
     // onMounted(
-    //   // async () => {
+    // async () => {
     //   //   await getCards();
     //   // }
     //   //   // async () => {
