@@ -174,7 +174,7 @@ export async function profileChangeImage({ state }, payload) {
 }
 
 export async function getUserSchedule({ commit }) {
-  const url = `profiles/calendar`
+  const url = `profiles/calendar`;
   const header = localStorage.getItem("jwt");
   await $axios
     .get(url, {
@@ -183,40 +183,38 @@ export async function getUserSchedule({ commit }) {
       },
     })
     .then((res) => {
-      console.log(typeof(res.data.list[0].date[0]))
-      commit("GET_USER_SCHEDULE", res.data.list)
+      console.log(typeof res.data.list[0].date[0]);
+      commit("GET_USER_SCHEDULE", res.data.list);
     })
     .catch((err) => {
-      console.log(err)
-  })
+      console.log(err);
+    });
 }
 
 export async function getDateTodo({ commit }, payload) {
-  const url = `profiles/calendar/activity`
-  const jwt = localStorage.getItem("jwt")
-  const body = payload
+  const url = `profiles/calendar/activity`;
+  const jwt = localStorage.getItem("jwt");
+  const body = payload;
   await $axios
     .post(url, body, {
       headers: {
-        Authorization: "Bearer " + jwt
+        Authorization: "Bearer " + jwt,
       },
     })
     .then((res) => {
-      commit("ACTIVITY_PER_DAY", res.data.calendarDetailActivityResList)
-      commit("DATE_PER_DAY", body.date)
+      commit("ACTIVITY_PER_DAY", res.data.calendarDetailActivityResList);
+      commit("DATE_PER_DAY", body.date);
     })
     .catch((err) => {
-      console.log(err)
-  })
-  
+      console.log(err);
+    });
 }
 
 export async function mateArticleList({ commit }, payload) {
-  const page = payload["page"]
-  const size = payload["size"]
+  const page = payload["page"];
+  const size = payload["size"];
   const jwt = localStorage.getItem("jwt");
-  const url = `mates`;
-  console.log(commit);
+  const url = `mates?page=${page}&size=${size}`;
   await $axios
     .get(url, {
       headers: {
@@ -224,14 +222,8 @@ export async function mateArticleList({ commit }, payload) {
       },
     })
     .then((res) => {
-<<<<<<< HEAD
-      console.log(res);
-      commit("MATE_ARTICLE_LIST", res.data);
-      // commit("OTHER_INFO", res.data);
-=======
       commit("MATE_ARTICLE_LIST", res.data.list);
-      commit("MATE_ARTICLE_PAGE", page)
->>>>>>> 68f3872fb06f5f254f8350b447c88ea65d14153e
+      commit("MATE_ARTICLE_PAGE", page);
     })
     .catch((err) => {
       console.log(err);
