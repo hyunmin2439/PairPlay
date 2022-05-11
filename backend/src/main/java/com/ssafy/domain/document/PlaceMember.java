@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
+import java.util.LinkedList;
 import java.util.List;
 
 @Document("member")
@@ -21,7 +22,7 @@ public class PlaceMember {
     @Field(name = "member_id")
     private Long memberId; // 유저 RDB id값
     @Field(name = "recent_items")
-    private List<Long> recentItems; // 최근 본 목록
+    private LinkedList<Long> recentItems; // 최근 본 목록
     @Field(name = "like_items")
-    private List<Long> likeItems; // 좋아하는 목록
+    private LinkedList<Long> likeItems; // 좋아하는 목록
 }

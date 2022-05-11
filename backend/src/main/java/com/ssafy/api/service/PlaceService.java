@@ -11,10 +11,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
 import static com.ssafy.common.statuscode.PlaceCode.*;
@@ -43,32 +45,35 @@ public class PlaceService {
         this.placeMemberRepository = placeMemberRepository;
     }
 
+    /** 체육 시설 */
     public Place getPlace(Long placeId) {
         return placeRepository.findByPlaceId(placeId).orElse(null);
     }
 
-    public Reservation getReservation(String reservationId) {
-        return reservationRepository.findById(reservationId).orElse(null);
-    }
+    /** 예약 내역 */
+    public Reservation getReservation(String reservationId) { return reservationRepository.findById(reservationId).orElse(null); }
 
+    /** 리뷰 */
     public Review getReview(String reviewId) {
         return reviewRepository.findById(reviewId).orElse(null);
     }
 
+    /** 체육 시설 리뷰 리스트 */
     public List<Review> getReviewList(Long placeId) {
         return reviewRepository.findByPlaceId(placeId);
     }
 
-    /**
-     * 해당 시설 좋아요 개수
-     */
+    /** 체육 시설 좋아요 개수 */
     public long getTotalLikeCnt(Long placeId) {
         return placeMemberRepository.countByLikeItems(placeId);
     }
 
-    /**
-     * 전체 합산 점수
-     */
+    /** 유저가 체육 시설 좋아요를 눌렀는지 */
+    public long getMemberLike(Long memberId, Long placeId) {
+        return placeMemberRepository.countByMemberIdAndLikeItems(memberId, placeId);
+    }
+
+    /** 전체 합산 점수 */
     public double getTotalScore(List<Review> list) {
         double total = 0.0;
 
@@ -76,13 +81,10 @@ public class PlaceService {
             total += list.get(i).getCleanness() + list.get(i).getPlace() + list.get(i).getLocation() + list.get(i).getPrice();
         }
 
-        // 소수점 둘째 자리까지
-        return ( Math.round( total / (list.size() * 4) ) * 100.0 ) / 100.0;
+        return Math.round( ( total / (list.size() * 4) ) * 100.0 ) / 100.0;
     }
 
-    /**
-     * 세부 항목의 총 점수와 전체 합산 점수
-     */
+    /** 세부 항목의 총 점수와 전체 합산 점수 */
     public double[] getDetailScore(List<Review> list) {
         double[] score = new double[5];
 
@@ -96,46 +98,62 @@ public class PlaceService {
         score[4] = score[0] + score[1] + score[2] + score[3];
         score[4] = ( Math.round( score[4] / (list.size() * 4) ) * 100.0 ) / 100.0;
 
-        score[0] = ( Math.round( score[0] / list.size() ) * 100.0 ) / 100.0;
-        score[1] = ( Math.round( score[1] / list.size() ) * 100.0 ) / 100.0;
-        score[2] = ( Math.round( score[2] / list.size() ) * 100.0 ) / 100.0;
-        score[3] = ( Math.round( score[3] / list.size() ) * 100.0 ) / 100.0;
+        score[0] = Math.round( ( score[0] / list.size() ) * 100.0 ) / 100.0;
+        score[1] = Math.round( ( score[1] / list.size() ) * 100.0 ) / 100.0;
+        score[2] = Math.round( ( score[2] / list.size() ) * 100.0 ) / 100.0;
+        score[3] = Math.round( ( score[3] / list.size() ) * 100.0 ) / 100.0;
 
         return score;
     }
 
-    /**
-     * 인증 정보에서 memberId값을 가져와 MongoDB에서 유저 정보를 검색
-     */
+    /** 인증 정보에서 memberId값을 가져와 MongoDB에서 유저 정보를 검색 */
     public PlaceMember getPlaceMemberFromAuthentication() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
         return placeMemberRepository.findByMemberId(memberId).orElse(null);
     }
 
-    /**
-     * 체육시설 상세 정보를 조회
-     */
-    public Place getDetailPlace(Long placeId) {
-        Member member = memberService.getMemberFromAuthentication();
+    /** 체육시설 상세 정보를 조회 */
+    // 문제가 발생하더라도 rollback할 필요성이 없는 메서드라 Transactional 제외
+    public PlaceDetail getDetailPlace(Long placeId) {
+        PlaceMember placeMember = getPlaceMemberFromAuthentication();
+
+        Place place = getPlace(placeId);
+        if(place == null)
+            throw new CustomException(FAIL_PLACE_NOT_FOUND);
+
+        // viewCnt 증가
+        place.increaseViewCnt();
+        placeRepository.save(place);
+
+        // 유저 최근 본 리스트에 저장 ( 10개 제한 둬야 함 )
+        Queue<Long> queue = placeMember.getRecentItems();
+        if( !queue.contains(placeId) ) {
+            queue.offer(placeId);
+            if(queue.size() > 10) queue.poll();
+        }
+
+        placeMemberRepository.save(placeMember);
+        
+        // 세부 평균 점수 담기
         PlaceDetail placeDetail = placeRepositorySupport.detailPlace(placeId);
+        if( ! ( placeDetail.getReviewList() == null || placeDetail.getReviewList().isEmpty() ) )
+            placeDetail.setDetailScore( getDetailScore(placeDetail.getReviewList()) );
 
-        // 유저 최근 본 리스트에 저장, viewCnt 증가, detailScore 담기
+        // 찜을 눌렀으면
+        if( getMemberLike(placeMember.getMemberId(), placeId) > 0 )
+            placeDetail.setLike();
 
-        return null;
+        return placeDetail;
     }
 
-    /**
-     * 체육시설 최근 본 리스트
-     */
+    /** 체육시설 최근 본 리스트 */
     public Place getRecentPlaces() {
         Member member = memberService.getMemberFromAuthentication();
         return null;
     }
 
-    /**
-     * 체육시설 인기 있는 리스트
-     */
+    /** 체육시설 인기 있는 리스트 */
     public Place getPopularPlaces() {
         Member member = memberService.getMemberFromAuthentication();
         return null;
@@ -148,9 +166,7 @@ public class PlaceService {
 //    public void allPlaces() {
 //    }
 
-    /**
-     * 체육시설 장소를 검색
-     */
+    /** 체육시설 장소를 검색 */
     public Page<Place> searchPlaces(Pageable pageable, PlaceSearchPostReq searchInfo) {
         Member member = memberService.getMemberFromAuthentication();
 
@@ -183,9 +199,8 @@ public class PlaceService {
         return placeRepositorySupport.searchPlaces(pageable, searchInfo);
     }
 
-    /**
-     * 체육시설 찜 등록/삭제
-     */
+    /** 체육시설 찜 등록/삭제 */
+    @Transactional(rollbackOn = Exception.class)
     public void likePlace(Long placeId) {
         Place place = getPlace(placeId);
         PlaceMember placeMember = getPlaceMemberFromAuthentication();
@@ -202,31 +217,28 @@ public class PlaceService {
         placeRepository.save(place);
     }
 
-    /**
-     * 체육시설 리뷰 등록
-     */
+    /** 체육시설 리뷰 등록 */
+    @Transactional(rollbackOn = Exception.class)
     public void postReview(ReviewPostReq reviewInfo) {
-        Reservation reservation = getReservation(reviewInfo.getReservationId());
+        Long memberId = memberService.getMemberIdFromAuthentication();
 
         // 예약된 정보가 없으면 리뷰 작성 불가
-        if(reservation == null) 
+        Reservation reservation = getReservation(reviewInfo.getReservationId());
+        if(reservation == null)
             throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
-        
+
         // 체육 시설 이용 이후가 아니라면 리뷰 작성 불가
         if( ! LocalDate.now().isAfter(reservation.getReservationDt()) )
             throw new CustomException(FAIL_NOT_YET_POST_REVIEW);
 
-        Long memberId = memberService.getMemberIdFromAuthentication();
-
         // 예약 정보의 유저와 현재 로그인한 유저 정보가 다를 때 리뷰 작성 불가
         if(reservation.getMemberId() != memberId)
             throw new CustomException(FAIL_NOT_EQUAL_MEMBER);
-        
-        Place place = getPlace(reservation.getPlaceId());
 
         // 체육 시설이 조회가 안되면 예약 정보가 잘못 된 것
+        Place place = getPlace(reservation.getPlaceId());
         if(place == null)
-            throw new CustomException(FAIL_RESERVATION_PLACE_NOT_FOUND);
+            throw new CustomException(FAIL_PLACE_NOT_FOUND);
 
         // 만약 시설에 대한 리뷰를 작성했는데 다시 리뷰 작성 요청으로 온다면 수정으로 보내기
         Review review = reviewRepository.findById(reservation.getReviewId()).orElse(null);
@@ -271,16 +283,17 @@ public class PlaceService {
         reservationRepository.save(reservation);
 
         // place의 리뷰 개수와 점수 수정
-        List<Review> reviewList = getReviewList(review.getPlaceId());
+        List<Review> reviewList = getReviewList(newReview.getPlaceId());
         if( !(reviewList == null || reviewList.isEmpty()) )
             place.modifyReviewScore(reviewList.size(), getTotalScore(reviewList));
+        else
+            place.modifyReviewScore(0, 0);
 
         placeRepository.save(place);
     }
 
-    /**
-     * 체육시설 리뷰 수정
-     */
+    /** 체육시설 리뷰 수정 */
+    @Transactional(rollbackOn = Exception.class)
     public void modifyReview(ReviewPutReq reviewInfo) {
         Review review = getReview(reviewInfo.getReviewId());
 
@@ -288,13 +301,26 @@ public class PlaceService {
         if(review == null)
             throw new CustomException(FAIL_REVIEW_NOT_FOUND);
 
+        // 체육 시설이 조회가 안되면 잘못된 리뷰
+        Place place = getPlace(review.getPlaceId());
+        if(place == null)
+            throw new CustomException(FAIL_PLACE_NOT_FOUND);
+
         review.modifyReview(reviewInfo);
         reviewRepository.save(review);
+
+        // place의 리뷰 개수와 점수 수정
+        List<Review> reviewList = getReviewList(review.getPlaceId());
+        if( !(reviewList == null || reviewList.isEmpty()) )
+            place.modifyReviewScore(reviewList.size(), getTotalScore(reviewList));
+        else
+            place.modifyReviewScore(0, 0);
+
+        placeRepository.save(place);
     }
 
-    /**
-     * 체육시설 리뷰 삭제
-     */
+    /** 체육시설 리뷰 삭제 */
+    @Transactional(rollbackOn = Exception.class)
     public void deleteReview(ReviewDeleteReq reviewInfo) {
         // 리뷰가 존재하지 않으면
         Review review = getReview(reviewInfo.getReviewId());
@@ -304,7 +330,7 @@ public class PlaceService {
         // 체육 시설이 조회가 안되면 예약 정보가 잘못 된 것
         Place place = getPlace(review.getPlaceId());
         if(place == null)
-            throw new CustomException(FAIL_RESERVATION_PLACE_NOT_FOUND);
+            throw new CustomException(FAIL_PLACE_NOT_FOUND);
 
         // 예약 정보가 존재하지 않으면
         Reservation reservation = getReservation(review.getReservationId());
@@ -317,6 +343,8 @@ public class PlaceService {
         List<Review> reviewList = getReviewList(review.getPlaceId());
         if( !(reviewList == null || reviewList.isEmpty()) )
             place.modifyReviewScore(reviewList.size(), getTotalScore(reviewList));
+        else
+            place.modifyReviewScore(0, 0);
 
         placeRepository.save(place);
 
@@ -324,9 +352,7 @@ public class PlaceService {
         reservationRepository.save(reservation);
     }
 
-    /**
-     * 체육시설 예약 등록
-     */
+    /** 체육시설 예약 등록 */
     public void reservePlace(ReservationPostReq reservationInfo) {
         // 예약 하려는 날짜가 현재 날짜보다 이전이면 ( 테스트의 편의를 위해 잠시 막아둠 )
 //        if( reservationInfo.getReservationDt().isBefore(LocalDate.now()) )
@@ -335,7 +361,7 @@ public class PlaceService {
         // 예약 정보에 담긴 시설 정보가 잘못되면
         Place place = getPlace(reservationInfo.getPlaceId());
         if(place == null)
-            throw new CustomException(FAIL_RESERVATION_PLACE_NOT_FOUND);
+            throw new CustomException(FAIL_PLACE_NOT_FOUND);
 
         Long memberId = memberService.getMemberIdFromAuthentication();
 
@@ -354,9 +380,7 @@ public class PlaceService {
         reservationRepository.save(reservation);
     }
 
-    /**
-     * 체육시설 예약 취소
-     */
+    /** 체육시설 예약 취소 */
     public void cancelPlace(ReservationDeleteReq reservationInfo) {
         Reservation reservation = getReservation(reservationInfo.getReservationId());
 

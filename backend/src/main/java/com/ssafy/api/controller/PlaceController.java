@@ -2,9 +2,11 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.*;
 import com.ssafy.api.response.BaseResponseBody;
+import com.ssafy.api.response.PlaceDetailRes;
 import com.ssafy.api.response.PlaceListRes;
 import com.ssafy.api.service.PlaceService;
 import com.ssafy.domain.document.Place;
+import com.ssafy.domain.document.PlaceDetail;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,19 +35,16 @@ public class PlaceController {
     @GetMapping("/{placeId}")
     @ApiOperation(value = "체육 시설 상세 정보", notes = "<strong>체육 시설 상세 정보</strong>를 넘겨준다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "체육 시설 목록 검색에 성공했습니다.", response = PlaceListRes.class),
+            @ApiResponse(code = 200, message = "체육 시설 상세 조회에 성공했습니다.", response = PlaceListRes.class),
+            @ApiResponse(code = 404, message = "체육시설의 정보를 찾을 수 없습니다.", response = PlaceListRes.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> getDetailPlace (
             @PathVariable(value = "placeId", required = true) @ApiParam(value = "체육 시설 ID 값", required = true) Long placeId) {
 
-        placeService.getDetailPlace(placeId);
+        PlaceDetail placeDetail = placeService.getDetailPlace(placeId);
 
-        // SUCCESS_DETAIL_PLACE
-
-        return ResponseEntity.status(200).body(
-                null
-        );
+        return ResponseEntity.status(200).body(PlaceDetailRes.of(SUCCESS_DETAIL_PLACE.getCode(), SUCCESS_DETAIL_PLACE.getMessage(), placeDetail));
     }
 
     public void getRecentPlaces() {
@@ -137,6 +136,7 @@ public class PlaceController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "체육 시설 리뷰 수정에 성공했습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 404, message = "리뷰 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 404, message = "체육시설의 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> modifyReview (

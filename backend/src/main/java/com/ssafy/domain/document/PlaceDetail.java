@@ -29,7 +29,7 @@ public class PlaceDetail {
     private String transport;
     private String near;
     private List<String> hashtags;
-    private int cnt;
+    private boolean isLike;
     @Field(name = "view_cnt")
     private int viewCnt;
     @Field(name = "like_cnt")
@@ -43,7 +43,11 @@ public class PlaceDetail {
     private double score;
     private List<Review> reviewList;
 
-    public void setScore(double[] detailScore) {
+    public void setLike() {
+       this.isLike = true;
+    }
+
+    public void setDetailScore(double[] detailScore) {
         this.cleanness = detailScore[0];
         this.place = detailScore[1];
         this.location = detailScore[2];
