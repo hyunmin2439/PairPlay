@@ -15,9 +15,9 @@ public enum PlaceCode implements StatusCode {
     SUCCESS_CANCEL_PLACE(200, "체육 시설 예약 취소에 성공했습니다."),
 
     //400 BAD_REQUEST 잘못된 요청
-    FAIL_NOT_YET_POST_REVIEW(400, "체육 시설 이용 다음 날부터 리뷰를 작성할 수 있습니다."),
+    FAIL_NOT_YET_POST_REVIEW(400, "체육 시설 이용 이후부터 리뷰를 작성할 수 있습니다."),
     FAIL_RESERVE_BEFORE_NOW_DATE(400, "현재 날짜 보다 이전에는 예약을 등록할 수 없습니다."),
-    FAIL_CANCEL_AFTER_RESERVATION_DATE(400, "체육 시설 이용 날짜 이후에는 예약을 취소할 수 없습니다."),
+    FAIL_CANCEL_AFTER_RESERVATION_TIME(400, "체육 시설 이용 시작 이후에는 예약을 취소할 수 없습니다."),
 
     // 401 Access Dinied 접근 권한 없음
     FAIL_NOT_EQUAL_MEMBER(401, "예약한 유저와 로그인 된 유저 정보가 일치하지 않습니다."),

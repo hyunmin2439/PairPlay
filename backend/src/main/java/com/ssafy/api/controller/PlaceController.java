@@ -57,18 +57,34 @@ public class PlaceController {
     }
 
     /**
-     * 전체를 조회하여 내부 필드값을 수정이 필요하여 사용
+     * 유저의 예약 정보를 조회하기 위한 api
      */
-    @GetMapping
-    @ApiOperation(value = "전체 체육 시설 목록 정보", notes = "<strong>전체 체육 시설 목록</strong>을 넘겨준다.")
+    @GetMapping("reservation/test/{memberId}/{sw}")
+    @ApiOperation(value = "예약 정보", notes = "<strong>유저의 예약 정보</strong>를 넘겨준다. (테스트용: 추후 없어질 API)")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "전체 체육 시설 목록 검색에 성공했습니다.", response = PlaceListRes.class),
+            @ApiResponse(code = 200, message = "유저의 예약 정보 검색에 성공했습니다.", response = PlaceListRes.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
-    public List<MyReservation> allPlaces() {
-        List<MyReservation> list = placeService.allPlaces(60L);
+    public List<MyReservation> testGetReservation(
+            @PathVariable(value = "memberId", required = true) @ApiParam(value = "member ID 값", required = true) Long memberId,
+            @PathVariable(value = "sw", required = true) @ApiParam(value = "시설 이용 종료 시각 기준 0: 전체, 1:사용완료, 2:예약중(사용전이나 사용중)", required = true) int sw
+    ) {
+        List<MyReservation> list = placeService.testGetReservation(memberId, sw);
         return list;
     }
+
+    /**
+     * 전체를 조회하여 내부 필드값을 수정이 필요하여 사용
+     */
+//    @GetMapping
+//    @ApiOperation(value = "전체 체육 시설 목록 정보", notes = "<strong>전체 체육 시설 목록</strong>을 넘겨준다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "전체 체육 시설 목록 검색에 성공했습니다.", response = PlaceListRes.class),
+//            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+//    })
+//    public List<MyReservation> allPlaces() {
+//        return null;
+//    }
 
     @PostMapping("/search")
     @ApiOperation(value = "체육 시설 목록 정보", notes = "<strong>검색한 체육 시설 목록</strong>을 페이지로 넘겨준다.")
@@ -120,7 +136,7 @@ public class PlaceController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "체육 시설 리뷰 등록에 성공했습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 400, message = "요청 변수 값이 비어 있습니다.", response = BaseResponseBody.class),
-            @ApiResponse(code = 400, message = "체육 시설 이용 다음 날부터 리뷰를 작성할 수 있습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 400, message = "체육 시설 이용 이후부터 리뷰를 작성할 수 있습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 401, message = "예약한 유저와 로그인 된 유저 정보가 일치하지 않습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 404, message = "체육시설의 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 404, message = "예약 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
@@ -191,7 +207,7 @@ public class PlaceController {
     @ApiOperation(value = "체육 시설 예약 취소", notes = "체육 시설을 <strong>예약 취소</strong>한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "체육 시설 예약 취소에 성공했습니다.", response = BaseResponseBody.class),
-            @ApiResponse(code = 400, message = "체육 시설 이용 날짜 이후에는 예약을 취소할 수 없습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 400, message = "체육 시설 이용 시작 이후에는 예약을 취소할 수 없습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 404, message = "예약 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })

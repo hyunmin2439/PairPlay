@@ -164,11 +164,10 @@ public class PlaceService {
     }
 
     /**
-     * 체육시설 전체 목록
-     * 전체를 조회하여 내부 필드값을 수정이 필요하여 사용
+     * 유저의 예약정보를 조회하기 위해 사용
      */
-    public List<MyReservation> allPlaces(Long memberId) {
-        return reservationRepositorySupport.getMyReservation(memberId, 2);
+    public List<MyReservation> testGetReservation(Long memberId, int sw) {
+        return reservationRepositorySupport.getMyReservation(memberId, sw);
     }
 
     /** 체육시설 장소를 검색 */
@@ -232,10 +231,6 @@ public class PlaceService {
         if(reservation == null)
             throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
 
-        // 체육 시설 이용 이후가 아니라면 리뷰 작성 불가
-        if( ! LocalDate.now().isAfter(reservation.getReservationDt()) )
-            throw new CustomException(FAIL_NOT_YET_POST_REVIEW);
-
         // 예약 정보의 유저와 현재 로그인한 유저 정보가 다를 때 리뷰 작성 불가
         if(reservation.getMemberId() != memberId)
             throw new CustomException(FAIL_NOT_EQUAL_MEMBER);
@@ -244,6 +239,11 @@ public class PlaceService {
         Place place = getPlace(reservation.getPlaceId());
         if(place == null)
             throw new CustomException(FAIL_PLACE_NOT_FOUND);
+
+        // 체육 시설 이용 이후가 아니라면 리뷰 작성 불가
+        if( ! LocalDateTime.now().isAfter(reservation.getReserveEndDt()) )
+            throw new CustomException(FAIL_NOT_YET_POST_REVIEW);
+
 
         // 만약 시설에 대한 리뷰를 작성했는데 다시 리뷰 작성 요청으로 온다면 수정으로 보내기
         Review review = reviewRepository.findById(reservation.getReviewId()).orElse(null);
@@ -359,16 +359,23 @@ public class PlaceService {
 
     /** 체육시설 예약 등록 */
     public void reservePlace(ReservationPostReq reservationInfo) {
-        // 예약 하려는 날짜가 현재 날짜보다 이전이면 ( 테스트의 편의를 위해 잠시 막아둠 )
-//        if( reservationInfo.getReservationDt().isBefore(LocalDate.now()) )
-//            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
-        
+        Long memberId = memberService.getMemberIdFromAuthentication();
+
         // 예약 정보에 담긴 시설 정보가 잘못되면
         Place place = getPlace(reservationInfo.getPlaceId());
         if(place == null)
             throw new CustomException(FAIL_PLACE_NOT_FOUND);
 
-        Long memberId = memberService.getMemberIdFromAuthentication();
+        List<Integer> times = reservationInfo.getTime();
+        int startTime = times.get(0);
+        int lastTime = times.get( times.size() - 1 ) + 1;
+        LocalDate reserveDt = reservationInfo.getReservationDt();
+        LocalDateTime reserveStartDt = reserveDt.atTime(startTime, 0);
+        LocalDateTime reserveEndDt = lastTime != 24 ? reserveDt.atTime(lastTime, 0) : reserveDt.plusDays(1).atTime(0, 0);
+
+//        // 예약 하려는 시간이 현재 시간보다 이전이면 ( 테스트의 편의를 위해 잠시 막아둠 )
+//        if( reserveStartDt.isBefore(LocalDateTime.now()) )
+//            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
 
         Reservation reservation = Reservation.builder()
                 .memberId(memberId)
@@ -377,7 +384,8 @@ public class PlaceService {
                 .reviewId("111111111111111111111111")
 //                .createDt(LocalDateTime.now()) // throw Exception 주석 풀면서 같이 풀고 아래 메서드 지울 것!
                 .createDt(reservationInfo.getReservationDt().atTime(0, 0))
-                .reservationDt(reservationInfo.getReservationDt())
+                .reserveStartDt(reserveStartDt)
+                .reserveEndDt(reserveEndDt)
                 .time(reservationInfo.getTime())
                 .price(reservationInfo.getPrice())
                 .build();
@@ -390,12 +398,12 @@ public class PlaceService {
         Reservation reservation = getReservation(reservationInfo.getReservationId());
 
         // 예약된 정보가 없으면 리뷰 작성 불가
-        if(reservation == null)
+        if( reservation == null )
             throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
         
-        // 시설을 이용한 이후면
-        if( LocalDate.now().isAfter(reservation.getReservationDt()) )
-            throw new CustomException(FAIL_CANCEL_AFTER_RESERVATION_DATE);
+        // 시설을 이용하기 시작했으면 취소 불가
+        if( LocalDateTime.now().isAfter(reservation.getReserveStartDt()) )
+            throw new CustomException(FAIL_CANCEL_AFTER_RESERVATION_TIME);
 
         reservationRepository.delete(reservation);
     }

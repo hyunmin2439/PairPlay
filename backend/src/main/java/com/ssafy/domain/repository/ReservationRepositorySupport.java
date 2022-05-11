@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -64,17 +64,17 @@ public class ReservationRepositorySupport {
                 Criteria.where("member_id").is(memberId)
         );
 
-        // 현재 날짜 포함 이하인 것을 가져옴 : 1
+        // 예약 사용 시작 시간이 현재 시각 이전 것을 가져옴 : 1 => 사용 완료
         MatchOperation matchOperation2 = Aggregation.match(
                 Criteria.where("member_id").is(memberId).andOperator(
-                        Criteria.where("reservation_dt").lte(LocalDate.now())
+                        Criteria.where("reserve_end_dt").lt(LocalDateTime.now())
                 )
         );
 
-        // 현재 날짜 포함 이상인 것을 가져옴 : 2
+        // 예약 사용 종료 시간이 현재 시각 이후인 것을 가져옴 : 2 => 예약 중
         MatchOperation matchOperation3 = Aggregation.match(
                 Criteria.where("member_id").is(memberId).andOperator(
-                        Criteria.where("reservation_dt").gte(LocalDate.now())
+                        Criteria.where("reserve_end_dt").gt(LocalDateTime.now())
                 )
         );
 

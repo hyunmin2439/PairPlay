@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,8 +24,10 @@ public class MyReservation {
     private String reviewId; // 리뷰 아이디
     @Field(name = "create_dt")
     private LocalDateTime createDt; // 예약 요청한 날짜
-    @Field(name = "reservation_dt")
-    private LocalDate reservationDt; // 예약 날짜
+    @Field(name = "reserve_start_dt")
+    private LocalDateTime reserveStartDt; // 예약 사용 시작 시간
+    @Field(name = "reserve_end_dt")
+    private LocalDateTime reserveEndDt; // 예약 사용 종료 시간
     private List<Integer> time; // 시간
     private int price; // 가격
 
