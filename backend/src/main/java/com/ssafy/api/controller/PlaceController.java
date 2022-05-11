@@ -5,6 +5,7 @@ import com.ssafy.api.response.BaseResponseBody;
 import com.ssafy.api.response.PlaceDetailRes;
 import com.ssafy.api.response.PlaceListRes;
 import com.ssafy.api.service.PlaceService;
+import com.ssafy.domain.document.MyReservation;
 import com.ssafy.domain.document.Place;
 import com.ssafy.domain.document.PlaceDetail;
 import io.swagger.annotations.*;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.ssafy.common.statuscode.PlaceCode.*;
 
@@ -56,16 +59,16 @@ public class PlaceController {
     /**
      * 전체를 조회하여 내부 필드값을 수정이 필요하여 사용
      */
-//    @GetMapping
-//    @ApiOperation(value = "전체 체육 시설 목록 정보", notes = "<strong>전체 체육 시설 목록</strong>을 넘겨준다.")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "전체 체육 시설 목록 검색에 성공했습니다.", response = PlaceListRes.class),
-//            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
-//    })
-//    public ResponseEntity<? extends BaseResponseBody> allPlaces() {
-//        placeService.allPlaces();
-//        return ResponseEntity.status(200).body(null);
-//    }
+    @GetMapping
+    @ApiOperation(value = "전체 체육 시설 목록 정보", notes = "<strong>전체 체육 시설 목록</strong>을 넘겨준다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "전체 체육 시설 목록 검색에 성공했습니다.", response = PlaceListRes.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public List<MyReservation> allPlaces() {
+        List<MyReservation> list = placeService.allPlaces(60L);
+        return list;
+    }
 
     @PostMapping("/search")
     @ApiOperation(value = "체육 시설 목록 정보", notes = "<strong>검색한 체육 시설 목록</strong>을 페이지로 넘겨준다.")

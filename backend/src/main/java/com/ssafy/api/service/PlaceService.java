@@ -31,18 +31,22 @@ public class PlaceService {
     private final PlaceRepositorySupport placeRepositorySupport;
     private final PlaceMemberRepository placeMemberRepository;
 
+    private final ReservationRepositorySupport reservationRepositorySupport;
+
     public PlaceService(MemberService memberService,
                         PlaceRepository placeRepository,
                         ReviewRepository reviewRepository,
                         ReservationRepository reservationRepository,
                         PlaceRepositorySupport placeRepositorySupport,
-                        PlaceMemberRepository placeMemberRepository) {
+                        PlaceMemberRepository placeMemberRepository,
+                        ReservationRepositorySupport reservationRepositorySupport) {
         this.memberService = memberService;
         this.placeRepository = placeRepository;
         this.reviewRepository = reviewRepository;
         this.reservationRepository = reservationRepository;
         this.placeRepositorySupport = placeRepositorySupport;
         this.placeMemberRepository = placeMemberRepository;
+        this.reservationRepositorySupport = reservationRepositorySupport;
     }
 
     /** 체육 시설 */
@@ -148,7 +152,7 @@ public class PlaceService {
     }
 
     /** 체육시설 최근 본 리스트 */
-    public Place getRecentPlaces() {
+    public Place getRecentViewPlaces() {
         Member member = memberService.getMemberFromAuthentication();
         return null;
     }
@@ -163,8 +167,9 @@ public class PlaceService {
      * 체육시설 전체 목록
      * 전체를 조회하여 내부 필드값을 수정이 필요하여 사용
      */
-//    public void allPlaces() {
-//    }
+    public List<MyReservation> allPlaces(Long memberId) {
+        return reservationRepositorySupport.getMyReservation(memberId, 2);
+    }
 
     /** 체육시설 장소를 검색 */
     public Page<Place> searchPlaces(Pageable pageable, PlaceSearchPostReq searchInfo) {
@@ -369,7 +374,7 @@ public class PlaceService {
                 .memberId(memberId)
                 .placeId(reservationInfo.getPlaceId())
                 .isWrittenReview(false)
-                .reviewId("")
+                .reviewId("111111111111111111111111")
 //                .createDt(LocalDateTime.now()) // throw Exception 주석 풀면서 같이 풀고 아래 메서드 지울 것!
                 .createDt(reservationInfo.getReservationDt().atTime(0, 0))
                 .reservationDt(reservationInfo.getReservationDt())

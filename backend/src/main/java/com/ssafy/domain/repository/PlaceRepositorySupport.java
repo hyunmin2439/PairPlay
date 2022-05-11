@@ -33,6 +33,16 @@ public class PlaceRepositorySupport {
         this.mongoTemplate = mongoTemplate;
     }
 
+    public List<Place> getRecentViewPlaces() {
+
+        return null;
+    }
+
+    public List<Place> getPopularPlaces() {
+
+        return null;
+    }
+
     public PlaceDetail detailPlace(Long placeId) {
         /**
          * lookup - 일반 RDB에서 사용하는 join의 역할
@@ -58,10 +68,22 @@ public class PlaceRepositorySupport {
          * $$(달러 2개)는 조인 대상 컬렉션의 필드
          * $(달러 1개)는 현재 조회 대상 컬렉션의 필드
          * 뽑아낸 값을 as를 통해 담기
+         *
+         * '$lookup': {
+         *  'from': 'review',
+         *  'let' : { 'id' : 'id' },
+         *  'pipeline': [
+         *      {'$match': {'$expr':[ {'$and':[
+         *          {"$place_id": "$$id"},
+         *          // 추가 조건도 가능
+         *      ]} ]} }
+         *  ],
+         *  'as' : 'reviewList'
+         * }
          */
         AggregationOperation lookupOperation = context -> new Document(
                 "$lookup",
-                new Document("from", "review")
+                new Document("from", "review") // Document가 {}와 같은 역할을 하는 것.
                         .append("let", new Document("id",  "$id"))
                         .append("pipeline",
                                 Collections.singletonList(
