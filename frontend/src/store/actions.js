@@ -259,9 +259,9 @@ export async function mateArticleList({ commit }, payload) {
         Authorization: "Bearer " + jwt,
       },
     })
-    .then((res) => {
-      commit("MATE_ARTICLE_LIST", res.data.list);
-      commit("MATE_ARTICLE_PAGE", page);
+    .then(async (res) => {
+      await commit("MATE_ARTICLE_LIST", res.data.list);
+      await commit("MATE_ARTICLE_PAGE", page);
     })
     .catch((err) => {
       console.log(err);

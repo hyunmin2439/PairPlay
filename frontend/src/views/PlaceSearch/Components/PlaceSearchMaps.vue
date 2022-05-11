@@ -30,10 +30,21 @@ export default {
     const marker = ref();
     const mapOptions = reactive({
       // 요부분이 맨 첫 리스트의경도 위도 일듯
-      longitude: computed(() => store.state.root.placeSearchInfo.placeList[0].longitude),
-      latitude: computed(() => store.state.root.placeSearchInfo.placeList[0].latitude),
-      // zoom: 13,
-      zoom: 11,
+      longitude: computed(() => {
+        if (store.state.root.placeSearchInfo.placeList) {
+          return store.state.root.placeSearchInfo.placeList[0].longitude;
+        } else {
+          return 6;
+        }
+      }),
+      latitude: computed(() => {
+        if (store.state.root.placeSearchInfo.placeList) {
+          return store.state.root.placeSearchInfo.placeList[0].latitude;
+        } else {
+          return 127;
+        }
+      }),
+      zoom: 13,
       zoomControl: true,
       zoomControlOptions: { position: "TOP_RIGHT" },
     });
