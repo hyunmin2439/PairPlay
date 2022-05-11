@@ -73,7 +73,7 @@ public class OAuthAttributes {
                 .nickname(nickname)
                 .email(email)
                 .socialId(socialId)
-                .profileImage(picture != "" ? picture : "")
+                .profileImage(picture != "" ? picture : "default_profile.jpeg")
                 .enable(true)
                 .build();
     }

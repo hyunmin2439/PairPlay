@@ -108,6 +108,7 @@ public class MemberService {
                 .email(email)
                 .nickname(nickname)
                 .password(memberInfo.getPassword())
+                .profileImage("default_profile.jpeg") // defaultImage
                 .enable(true)
                 .build();
 
