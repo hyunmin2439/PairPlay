@@ -21,7 +21,7 @@ public interface MateRepository extends JpaRepository<Mate, Long> {
 
     @Query(value =  "SELECT date_format(meet_dt, '%Y-%m-%d') as date, count(*) as count " +
                     "FROM mate JOIN activity ON mate.activity_id_id = activity.id " +
-                    "where mate.member_id_id = ? and meet_dt between ? and ? " +
+                    "where mate.member_id_id = ? and meet_dt between ? and ? and mate.accept = 1 " +
                     "GROUP BY date_format(meet_dt, '%Y-%m-%d') ORDER BY date ASC" , nativeQuery = true)
     List<CalendarDate> findByMemberIdAndMeetDtBefore(Long memberId, LocalDate from, LocalDate to);
 

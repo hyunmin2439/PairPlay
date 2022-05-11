@@ -7,10 +7,7 @@ import com.ssafy.common.handler.CustomException;
 import com.ssafy.domain.entity.Activity;
 import com.ssafy.domain.entity.Mate;
 import com.ssafy.domain.entity.Member;
-import com.ssafy.domain.repository.ActivityRepository;
-import com.ssafy.domain.repository.MateRepository;
-import com.ssafy.domain.repository.MemberRepository;
-import com.ssafy.domain.repository.PlaceReservationRepository;
+import com.ssafy.domain.repository.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -24,7 +21,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ssafy.common.statuscode.ProfileCode.FAIL_MEMBER_NOT_FOUND;
+import static com.ssafy.common.statuscode.ProfileCode.*;
 
 @Service("profileService")
 public class ProfileService {
@@ -33,12 +30,14 @@ public class ProfileService {
     private final ActivityRepository activityRepository;
     private final MateRepository mateRepository;
     private final PlaceReservationRepository placeReservationRepository;
+    private final ReservationRepository reservationRepository;
 
-    public ProfileService(MemberRepository memberRepository, ActivityRepository activityRepository, MateRepository mateRepository, PlaceReservationRepository placeReservationRepository) {
+    public ProfileService(MemberRepository memberRepository, ActivityRepository activityRepository, MateRepository mateRepository, PlaceReservationRepository placeReservationRepository, ReservationRepository reservationRepository) {
         this.memberRepository = memberRepository;
         this.activityRepository = activityRepository;
         this.mateRepository = mateRepository;
         this.placeReservationRepository = placeReservationRepository;
+        this.reservationRepository = reservationRepository;
     }
 
 //    public Member getMemberProfile(Long memberId) {
@@ -120,8 +119,8 @@ public class ProfileService {
         List<CalendarDate> mateList = mateRepository.findByMemberIdAndMeetDtBefore(memberId, LocalDate.now().minusYears(1), LocalDate.now().plusDays(1));
         System.out.println(memberId + " " + LocalDate.now().minusYears(1) + " " + LocalDate.now());
         System.out.println(mateList.size());
-        if (mateList != null) mateList.forEach(a -> System.out.println(a.getDate() + " " + a.getCount()));
-        else System.out.println("null");
+        if (mateList.size() != 0) mateList.forEach(a -> System.out.println(a.getDate() + " " + a.getCount()));
+        else System.out.println("empty");
 
         return mateList;
     }
@@ -147,11 +146,11 @@ public class ProfileService {
         List<Activity> activityList = activityRepository.findByMateMemberIdAndMeetDtBetween(memberId, LocalDateTime.of(date, LocalTime.of(0, 0, 0)), LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0)));
         System.out.println(memberId + " " + LocalDateTime.of(date, LocalTime.of(0, 0, 0)) + " " + LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0) ));
         System.out.println(activityList.size());
-        if (activityList != null) {
-            System.out.println("not null");
+        if (activityList.size() != 0) {
+            System.out.println("not empty");
             activityList.forEach(a -> System.out.println(a.getId()));
         }
-        else System.out.println("null");
+        else System.out.println("empty");
 
 
         // CalendarRetailActivityRes에 종합적으로 저장해서
@@ -180,6 +179,8 @@ public class ProfileService {
 
         return list;
     }
+
+
 
 
 
@@ -225,5 +226,47 @@ public class ProfileService {
         return ProfileMateRes.of(mateList.getTotalPages(), mateList.getTotalElements(), profileMateList);
     }
 
+    // 메이트 신청 수락
+    //// 현재 Activity는 나의 Activity일 것이고, 메이트를 보내서 해당 메이트를 수정하는 동작을 할 것
+    //// 내가 이 Mate가 속한 Activity의 createId인 것을 확인을 해야하는가?
+    @Transactional
+    public void acceptMate(Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        Mate mate = mateRepository.findById(id).orElse(null);
+        System.out.println("memberId : " + memberId + " " + "req mateId : " + id);
+
+        if (mate == null)
+            throw new CustomException(FAIL_MATE_NOT_FOUND);
+        System.out.println("createId : " + mate.getActivityId().getCreateId());
+
+        if (mate.getActivityId().getCreateId() != memberId)
+            throw new CustomException(FAIL_NOT_ACTIVITY_OWNER);
+
+        mate.acceptMate();
+        mateRepository.save(mate);
+    }
+
+    // 메이트 신청 거절
+    //// 메이트 신청을 거절하면, Mate 테이블에서 해당 기록이 삭제된다
+    //// ID를 받아서 Delete 하는 동작
+    @Transactional
+    public void rejectMate(Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        Mate mate = mateRepository.findById(id).orElse(null);
+        System.out.println("memberId : " + memberId + " " + "req mateId : " + id);
+
+        if (mate == null)
+            throw new CustomException(FAIL_MATE_NOT_FOUND);
+        System.out.println("createId : " + mate.getActivityId().getCreateId());
+
+        if (mate.getActivityId().getCreateId() != memberId)
+            throw new CustomException(FAIL_NOT_ACTIVITY_OWNER);
+
+        mateRepository.delete(mate);
+    }
 
 }

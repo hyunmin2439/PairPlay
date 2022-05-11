@@ -28,6 +28,9 @@ public class Mate{
 
     int accept;
 
-
+    // 메이트 신청 수락
+    public void acceptMate() {
+        this.accept = 1;
+    }
 
 }

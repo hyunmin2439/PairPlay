@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.CalendarDateReq;
+import com.ssafy.api.request.ProfileMateApplyReq;
 import com.ssafy.api.request.ProfilePasswordPostReq;
 import com.ssafy.api.request.ProfilePutReq;
 import com.ssafy.api.response.*;
@@ -222,6 +223,7 @@ public class ProfileController {
 
 
 
+
     
     // 체육시설 조회와 같은 시설을 보여주어야 할 것 같다
     // 비슷한 방식 + Reservation 정보를 담은 res가 필요할 것이다
@@ -237,7 +239,8 @@ public class ProfileController {
     // 예약, 사용, 찜한
     // pageable
 
-    
+
+
     // 예약 중인 상품
     //// place_reservation 테이블에서 기록을 읽어올 수 있을 것
     //// 읽어진 기록을 통해서 현재 예약 중인 상품을 알 수 있을 것이고, 해당 데이터를 MongoDB에 접근하여 시설정보를 알아온다
@@ -301,6 +304,10 @@ public class ProfileController {
 
 
 
+
+
+
+
 //    내가 보낸 메이트 + 메이트 공고가 내꺼가 아닌것
 //    메이트 공고 주인의 프로필 이미지 전달
 //      1. 신청 취소 => active: 0
@@ -344,20 +351,39 @@ public class ProfileController {
     @GetMapping("/mates/send")
     @ApiOperation(value = "Mate신청 발신 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>Mate MemberId</string>가 Activity에 신청한 Mate목록을 조회한다.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "메이트 신청 발신 조회에 성공하였습니다.", response = ProfileRes.class),
+            @ApiResponse(code = 200, message = "메이트 신청 발신 조회에 성공하였습니다.", response = ProfileMateRes.class),
     })
     public ResponseEntity<? extends BaseResponseBody> searchMateSend(@PageableDefault(page = 0, size = 4) Pageable pageable) {
 
         ProfileMateRes res = profileService.searchMateSend(pageable);
 
-        res.setCode(SUCCESS_SEARCH_MATE_RECEIVED.getCode());
-        res.setMessage(SUCCESS_SEARCH_MATE_RECEIVED.getMessage());
+        res.setCode(SUCCESS_SEARCH_MATE_SEND.getCode());
+        res.setMessage(SUCCESS_SEARCH_MATE_SEND.getMessage());
         return ResponseEntity.status(200).body(res);
     }
     
-    // 신청 허가/거절
-    //// 거절하면 그냥 mate테이블에서 삭제
-    //// 허가하면 accept를 1로 변경
-    //// accept 2로 변경하는 경우는 어떤 경우였지?
+    // 신청 수락
+    //// accept 2로 변경하는 경우는 어떤 경우?
+    @PutMapping("/mates/accept")
+    @ApiOperation(value = "메이트 신청 수락", notes = "<string>Mate ID</string>를 사용하여 <string>Mate테이블의 ACCEPT</string>를 1로 변경한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "메이트 신청을 수락하였습니다.", response = BaseResponseBody.class),
+    })
+    public ResponseEntity<? extends BaseResponseBody> acceptMate(@RequestBody ProfileMateApplyReq profileMateApplyReq) {
 
+        profileService.acceptMate(profileMateApplyReq.getId());
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_MATE_ACCEPT.getCode(), SUCCESS_MATE_ACCEPT.getMessage()));
+    }
+
+    // 신청 거절
+    @DeleteMapping("/mates/reject/{id}")
+    @ApiOperation(value = "메이트 신청 거절", notes = "<string>Mate ID</string>를 사용하여 해당 Mate를 <string>삭제</string>한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "메이트 신청을 거절하였습니다.", response = BaseResponseBody.class),
+    })
+    public ResponseEntity<? extends BaseResponseBody> rejectMate(@PathVariable("id") Long mateId) {
+
+        profileService.rejectMate(mateId);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_MATE_REJECT.getCode(), SUCCESS_MATE_REJECT.getMessage()));
+    }
 }
