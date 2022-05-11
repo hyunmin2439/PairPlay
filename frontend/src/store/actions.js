@@ -255,6 +255,7 @@ export async function getPlaceSearchInfo({ commit }, searchFiltersData) {
     })
     .then((res) => {
       commit("PLACE_SEARCH_INFO", res.data);
+      commit("CHANGE_POSITION", res.data);
     })
     .catch((err) => {
       console.log(err);
@@ -269,4 +270,8 @@ export async function selectSportsCategory({ commit }, categoryList) {
 export async function addPlaceFilters({ commit }, data) {
   await commit("ADD_PLACE_FILTERS", data);
   await store.dispatch("root/getPlaceSearchInfo", data);
+}
+
+export async function changePosition({ commit }, data) {
+  await commit("CHANGE_POSITION", data);
 }

@@ -127,6 +127,7 @@ export default {
   border-radius: 10px;
   object-fit: cover;
 }
+
 .card-img-cover {
   position: absolute;
   top: 0%;
@@ -137,7 +138,12 @@ export default {
 
   // background-color: rgba(0, 0, 0, 0.3);
   background: linear-gradient(20deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
-
+  &:hover {
+    box-shadow: 1px solid black;
+    // border: 1px solid black;
+    // border-radius: 4px;
+    border-radius: 10px;
+  }
   // z-index: 1;
   // color: white;
 }

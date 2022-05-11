@@ -11,10 +11,10 @@
         <div class="mt-4 col">
           <div class="placeSearchTitle mb-3 ps-2">부산 {{}} 운동시설</div>
           <div class="py-2">
-            <div v-if="cards" class="placeSearchList">
+            <div class="placeSearchList">
               <place-search-list v-for="(card, idx) in cards" :key="idx" :card="card" :cardId="card.id" class="placeSearchList me-3 col"> </place-search-list>
               <!-- 페이지네이션 시작 -->
-              <nav aria-label="Search results pages">
+              <nav aria-label="Search results pages" class="paginationFrame">
                 <ul class="pagination">
                   <li class="page-item-left" @click="prevPages">
                     <a class="page-link" style="font-family: bootstrap-icons"> &#xF284; </a>
@@ -33,7 +33,6 @@
               </nav>
               <!-- 페이지네이션 끝 -->
             </div>
-            <div v-else><h1>아아아</h1></div>
           </div>
         </div>
         <place-search-maps class="col placeSearchMaps"></place-search-maps>
@@ -143,7 +142,7 @@ export default {
       // if (nowPage.value == undefined) {
       //   nowPage.value = 0;
       // }
-      var activeBtn = document.getElementsByClassName("page-item")[nowPage.value];
+      var activeBtn = document.getElementsByClassName("page-item")[0];
       activeBtn.classList.add("active");
       // if (store.state.root.searchFiltersData.categoryList == []) {
       //   store.state.root.placeSearchInfo.categoryList = store.state.root.selectSportsCategory;
@@ -186,8 +185,11 @@ export default {
 .placeSearchTitle {
   font-size: 16px;
 }
+.paginationFrame {
+  max-width: 70%;
+  margin: 1rem auto 0rem auto;
+}
 .pagination {
-  margin: auto;
   justify-content: center;
 }
 .page-item > .page-link {

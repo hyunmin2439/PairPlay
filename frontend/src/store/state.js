@@ -15,4 +15,5 @@ export default {
   selectSportsCategory: "",
   placeLike: "",
   addPlaceFilters: "",
+  mapPosition: [],
 };

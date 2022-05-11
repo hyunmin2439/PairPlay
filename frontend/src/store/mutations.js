@@ -112,3 +112,19 @@ export async function ADD_PLACE_FILTERS(state, data) {
   state.addPlaceFilters = {};
   state.addPlaceFilters = data;
 }
+
+export async function CHANGE_POSITION(state, data) {
+  state.mapPosition = [];
+  let longitude;
+  let latitude;
+  console.log(data);
+  const markers = [];
+  for (let i = 0; i < data.placeList.length; i++) {
+    longitude = data.placeList[i].longitude;
+    latitude = data.placeList[i].latitude;
+    // console.log(tempLat);
+    let tempList = { longitude, latitude };
+    markers.push(tempList);
+  }
+  state.mapPosition = markers;
+}
