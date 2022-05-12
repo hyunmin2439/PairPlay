@@ -4,6 +4,7 @@ import com.ssafy.api.request.ProfilePasswordPostReq;
 import com.ssafy.api.request.ProfilePutReq;
 import com.ssafy.api.response.*;
 import com.ssafy.common.handler.CustomException;
+import com.ssafy.domain.document.MyReservation;
 import com.ssafy.domain.entity.Activity;
 import com.ssafy.domain.entity.Mate;
 import com.ssafy.domain.entity.Member;
@@ -30,14 +31,20 @@ public class ProfileService {
     private final ActivityRepository activityRepository;
     private final MateRepository mateRepository;
     private final PlaceReservationRepository placeReservationRepository;
+    private final S3FileUploadService s3FileUploadService;
     private final ReservationRepository reservationRepository;
+    private final ReservationRepositorySupport reservationRepositorySupport;
 
-    public ProfileService(MemberRepository memberRepository, ActivityRepository activityRepository, MateRepository mateRepository, PlaceReservationRepository placeReservationRepository, ReservationRepository reservationRepository) {
+    public ProfileService(MemberRepository memberRepository, ActivityRepository activityRepository, MateRepository mateRepository,
+                          PlaceReservationRepository placeReservationRepository, S3FileUploadService s3FileUploadService,
+                          ReservationRepository reservationRepository, ReservationRepositorySupport reservationRepositorySupport ) {
         this.memberRepository = memberRepository;
         this.activityRepository = activityRepository;
         this.mateRepository = mateRepository;
         this.placeReservationRepository = placeReservationRepository;
+        this.s3FileUploadService = s3FileUploadService;
         this.reservationRepository = reservationRepository;
+        this.reservationRepositorySupport = reservationRepositorySupport;
     }
 
 //    public Member getMemberProfile(Long memberId) {
@@ -111,9 +118,9 @@ public class ProfileService {
     }
 
     // 달력 조회
-    public List<CalendarDate> searchCalendar() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long memberId = Long.parseLong(authentication.getName());
+    public List<CalendarDate> searchCalendar(Long memberId) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Long memberId = Long.parseLong(authentication.getName());
 
         // memberId, 오늘 날짜, 오늘 날짜 - 1year를 통해서 달력에 표시할 각 날짜의 mate의 count를 구한다
         List<CalendarDate> mateList = mateRepository.findByMemberIdAndMeetDtBefore(memberId, LocalDate.now().minusYears(1), LocalDate.now().plusDays(1));
@@ -127,9 +134,9 @@ public class ProfileService {
 
     // 해당 날짜에 참여한 모든 Activity 조회
     @Transactional
-    public List<CalendarDetailActivityRes> searchCalendarDetail(LocalDate date) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long memberId = Long.parseLong(authentication.getName());
+    public List<CalendarDetailActivityRes> searchCalendarDetail(LocalDate date, Long memberId) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Long memberId = Long.parseLong(authentication.getName());
 
 //        // memberId와 정확한 Date를 사용하여 Activity를 count
 //        List<Activity> activityList = activityRepository.findByCreateIdAndMeetDtBetween(memberId, LocalDateTime.of(date, LocalTime.of(0, 0, 0)), LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0)));
@@ -169,7 +176,8 @@ public class ProfileService {
             List<CalendarDetailMateRes> detailMateResList = new ArrayList<>();
             for (Mate mate : mateResList) {
                 System.out.println(mate.getMemberId().getProfileImage());
-                detailMateResList.add(CalendarDetailMateRes.of(mate));
+                detailMateResList.add(CalendarDetailMateRes.of(mate.getMemberId().getId(),
+                        s3FileUploadService.findImg(mate.getMemberId().getProfileImage())));
             }
             System.out.println(detailMateResList.size());
 
@@ -200,7 +208,7 @@ public class ProfileService {
 
         List<ProfileMate> profileMateList = new ArrayList<>();
         mateList.forEach(mate -> {
-            profileMateList.add(ProfileMate.of(mate));
+            profileMateList.add(ProfileMate.of(mate, s3FileUploadService.findImg(mate.getMemberId().getProfileImage())));
         });
 
         return ProfileMateRes.of(mateList.getTotalPages(), mateList.getTotalElements(), profileMateList);
@@ -219,7 +227,8 @@ public class ProfileService {
 
         List<ProfileMate> profileMateList = new ArrayList<>();
         mateList.forEach(mate -> {
-            profileMateList.add(ProfileMate.of(mate, memberRepository.findById(mate.getActivityId().getCreateId()).get() ));
+            Member member = memberRepository.findById(mate.getActivityId().getCreateId()).get();
+            profileMateList.add(ProfileMate.of(mate, member, s3FileUploadService.findImg(member.getProfileImage()) ));
         });
 
 
@@ -267,6 +276,107 @@ public class ProfileService {
             throw new CustomException(FAIL_NOT_ACTIVITY_OWNER);
 
         mateRepository.delete(mate);
+    }
+
+    // 메이트 신청 취소
+    //// 메이트 신청을 취소하면, Mate 테이블에서 해당 기록이 삭제된다
+    //// ID를 받아서 해당 Mate의 memberId가 JWT 토큰의 memberId와 같다면 삭제하는 동작
+    @Transactional
+    public void cancelMate(Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        Mate mate = mateRepository.findById(id).orElse(null);
+        System.out.println("memberId : " + memberId + " " + "req mateId : " + id);
+
+        if (mate == null)
+            throw new CustomException(FAIL_MATE_NOT_FOUND);
+        System.out.println("Mate member_Id : " + mate.getMemberId().getId());
+
+        if (mate.getMemberId().getId() != memberId)
+            throw new CustomException(FAIL_NOT_MATE_OWNER);
+
+        mateRepository.delete(mate);
+    }
+
+
+    // 모든 체육시설 예약 정보 조회
+    public List<ReservationRes> searchReservationTotal() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        List<MyReservation> list = reservationRepositorySupport.getMyReservation(memberId, 0);
+        System.out.println(list.size());
+        System.out.println(LocalDateTime.now());
+        List<ReservationRes> reservationResList = new ArrayList<>();
+
+        list.forEach(myReservation -> {
+            if (LocalDateTime.now().compareTo(myReservation.getReserveEndDt()) >= 0)
+                reservationResList.add(ReservationRes.of(myReservation, true));
+            else
+                reservationResList.add(ReservationRes.of(myReservation, false));
+
+            System.out.println("==========================");
+            System.out.println(myReservation.getPrice());
+            System.out.println(myReservation.getReserveStartDt());
+            System.out.println(myReservation.getReserveEndDt());
+            System.out.println("==========================");
+        });
+
+        return reservationResList;
+    }
+
+    // 예약 중인 체육시설 조회
+    public List<ReservationRes> searchReservation() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        List<MyReservation> list = reservationRepositorySupport.getMyReservation(memberId, 2);
+        System.out.println(list.size());
+        System.out.println(LocalDateTime.now());
+        List<ReservationRes> reservationResList = new ArrayList<>();
+
+        list.forEach(myReservation -> {
+            if (LocalDateTime.now().compareTo(myReservation.getReserveEndDt()) >= 0)
+                reservationResList.add(ReservationRes.of(myReservation, true));
+            else
+                reservationResList.add(ReservationRes.of(myReservation, false));
+
+            System.out.println("==========================");
+            System.out.println(myReservation.getPrice());
+            System.out.println(myReservation.getReserveStartDt());
+            System.out.println(myReservation.getReserveEndDt());
+            System.out.println("==========================");
+        });
+
+        return reservationResList;
+    }
+
+    // 사용 완료한 체육시설 조회
+    public List<ReservationRes> searchReservationUsed() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = Long.parseLong(authentication.getName());
+
+        List<MyReservation> list = reservationRepositorySupport.getMyReservation(memberId, 1);
+        System.out.println(list.size());
+        System.out.println(LocalDateTime.now());
+        List<ReservationRes> reservationResList = new ArrayList<>();
+
+
+        list.forEach(myReservation -> {
+            if (LocalDateTime.now().compareTo(myReservation.getReserveEndDt()) >= 0)
+                reservationResList.add(ReservationRes.of(myReservation, true));
+            else
+                reservationResList.add(ReservationRes.of(myReservation, false));
+
+            System.out.println("==========================");
+            System.out.println(myReservation.getPrice());
+            System.out.println(myReservation.getReserveStartDt());
+            System.out.println(myReservation.getReserveEndDt());
+            System.out.println("==========================");
+        });
+
+        return reservationResList;
     }
 
 }

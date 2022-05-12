@@ -41,7 +41,7 @@ public class ProfileMate {
     String profileImage; // 프로필 이미지 주소
 
 
-    public static ProfileMate of (Mate mate) {
+    public static ProfileMate of (Mate mate, String profileImage) {
         ProfileMate dto = new ProfileMate();
 
         dto.setCategoryId(mate.getActivityId().getCategoryId());
@@ -50,6 +50,7 @@ public class ProfileMate {
         dto.setDescription(mate.getActivityId().getDescription());
         dto.setMeetDt(mate.getActivityId().getMeetDt());
         dto.setCloseDt(mate.getActivityId().getCloseDt());
+        dto.setLocation(mate.getActivityId().getLocation());
 
         dto.setIsEnd(mate.getActivityId().getIsEnd());
 
@@ -60,12 +61,13 @@ public class ProfileMate {
         dto.setEmail(mate.getMemberId().getEmail());
         dto.setNickname(mate.getMemberId().getNickname());
         dto.setName(mate.getMemberId().getName());
-        dto.setProfileImage(mate.getMemberId().getProfileImage());
+
+        dto.setProfileImage(profileImage);
 
         return dto;
     }
 
-    public static ProfileMate of (Mate mate, Member member) {
+    public static ProfileMate of (Mate mate, Member member, String profileImage) {
         ProfileMate dto = new ProfileMate();
 
         dto.setCategoryId(mate.getActivityId().getCategoryId());
@@ -74,6 +76,7 @@ public class ProfileMate {
         dto.setDescription(mate.getActivityId().getDescription());
         dto.setMeetDt(mate.getActivityId().getMeetDt());
         dto.setCloseDt(mate.getActivityId().getCloseDt());
+        dto.setLocation(mate.getActivityId().getLocation());
 
         dto.setIsEnd(mate.getActivityId().getIsEnd());
 
@@ -84,7 +87,8 @@ public class ProfileMate {
         dto.setEmail(member.getEmail());
         dto.setNickname(member.getNickname());
         dto.setName(member.getName());
-        dto.setProfileImage(member.getProfileImage());
+
+        dto.setProfileImage(profileImage);
 
         return dto;
     }

@@ -177,14 +177,14 @@ public class ProfileController {
 
     // 달력 조회
     // 일정한 기간 중에서, 내가 참여한 Activity의 count를 조회
-    @GetMapping("/calendar")
+    @GetMapping("/calendar/{memberId}")
     @ApiOperation(value = "달력 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>일정기간</string> 내의 달력을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "달력 조회에 성공했습니다.", response = ProfileRes.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> searchCalendar() {
+    public ResponseEntity<? extends BaseResponseBody> searchCalendar(@PathVariable("memberId") Long memberId) {
 
-        List<CalendarDate> list = profileService.searchCalendar();
+        List<CalendarDate> list = profileService.searchCalendar(memberId);
         if (list != null) list.forEach(a -> System.out.println(a));
         else System.out.println("null");
 
@@ -208,7 +208,7 @@ public class ProfileController {
     })
     public ResponseEntity<? extends CalendarDetailDateRes> searchCalendarDetail(@RequestBody @ApiParam(value = "날짜", required = true) CalendarDateReq calendarDateReq) {
 
-        List<CalendarDetailActivityRes> calendarDetailActivityResList = profileService.searchCalendarDetail(calendarDateReq.getDate());
+        List<CalendarDetailActivityRes> calendarDetailActivityResList = profileService.searchCalendarDetail(calendarDateReq.getDate(), calendarDateReq.getMemberId());
 
         return ResponseEntity.status(200).body(
                 CalendarDetailDateRes.of(
@@ -250,12 +250,12 @@ public class ProfileController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "예약된 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
     })
-    public ResponseEntity<? extends ProfilePlaceRes> searchPlaceReservation() {
+    public ResponseEntity<? extends BaseResponseBody> searchReservation() {
 
-        List<ProfileReservationRes> list = new ArrayList<>();
+        List<ReservationRes> list = profileService.searchReservation();
 
         return ResponseEntity.status(200).body(
-                ProfilePlaceRes.of(
+                ReservationListRes.of(
                         SUCCESS_SEARCH_PLACE_RESERVATION.getCode(),
                         SUCCESS_SEARCH_PLACE_RESERVATION.getMessage(),
                         list
@@ -270,37 +270,52 @@ public class ProfileController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "사용 완료한 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
     })
-    public ResponseEntity<? extends ProfilePlaceRes> searchPlaceUsed() {
+    public ResponseEntity<? extends BaseResponseBody> searchReservationUsed() {
 
-        List<ProfileReservationRes> list = new ArrayList<>();
+        List<ReservationRes> list = profileService.searchReservationUsed();
 
         return ResponseEntity.status(200).body(
-                ProfilePlaceRes.of(
-                        SUCCESS_SEARCH_PLACE_RESERVATION.getCode(),
-                        SUCCESS_SEARCH_PLACE_RESERVATION.getMessage(),
+                ReservationListRes.of(
+                        SUCCESS_SEARCH_PLACE_USED.getCode(),
+                        SUCCESS_SEARCH_PLACE_USED.getMessage(),
                         list
                 )
         );
     }
 
+    // 예약 중인 상품 + 사용 완료 상품
+    //// 예약을 한 정보가 존재하는 모든 상품을 조회한다
+    //// 그렇지만 예약에 대한 기록은 남겨두어야 할 것 -> 예약인지 사용중인지 구분하는 로직은 똑같이 존재해야함
+    @GetMapping("/places")
+    @ApiOperation(value = "예약 정보가 있는 체육시설 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>예약한 정보가 있는 체육시설</string>목록을 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "예약 정보가 있는 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
+    })
+    public ResponseEntity<? extends BaseResponseBody> searchReservationTotal() {
+        List<ReservationRes> list = profileService.searchReservationTotal();
 
-//    // 찜한 상품
-//    //// like 테이블을 활용하여, 시설 아이디를 얻어내고, 해당 아이디로 시설 조회
-//    //// 찜한 시설의 경우는 조금 다르다
-//    //// 찜한 시선은 그냥 내가 선택한 시설만 가져온다
-//    //// 그렇지만, like 테이블을 조회한 다음, 해당 정보를 사용해서 시설정보를 가져올 것
-//    //// 다른 DTO 하나를 추가로 만들어야 할 것
-//    //// 그냥 시설 정보에 대한 것만 가져오면 되기 때문
+        return ResponseEntity.status(200).body(
+                ReservationListRes.of(
+                        SUCCESS_SEARCH_PLACE_RESERVATION_TOTAL.getCode(),
+                        SUCCESS_SEARCH_PLACE_RESERVATION_TOTAL.getMessage(),
+                        list
+                )
+        );
+    }
+    
+    
+
+//    // 찜한 체육시설
 //    @GetMapping("/places/like")
 //    @ApiOperation(value = "찜한 체육시설 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>찜한 체육시설</string>목록을 조회한다.")
 //    @ApiResponses({
 //            @ApiResponse(code = 200, message = "찜한 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
 //    })
-//    public ResponseEntity<? extends ProfilePlaceRes> searchPlaceLike() {
+//    public ResponseEntity<? extends BaseResponseBody> searchPlaceLike() {
 //
 //    }
 
-
+    // 찜한 메이트 공고
 
 
 
@@ -332,7 +347,7 @@ public class ProfileController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "메이트 신청 수신 조회에 성공하였습니다.", response = ProfileRes.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> searchMateReceived(@PageableDefault(page = 0, size = 4) Pageable pageable) {
+    public ResponseEntity<? extends BaseResponseBody> searchMateReceived(@PageableDefault(page = 0, size = 3) Pageable pageable) {
 
         ProfileMateRes res = profileService.searchMateReceived(pageable);
 
@@ -353,7 +368,7 @@ public class ProfileController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "메이트 신청 발신 조회에 성공하였습니다.", response = ProfileMateRes.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> searchMateSend(@PageableDefault(page = 0, size = 4) Pageable pageable) {
+    public ResponseEntity<? extends BaseResponseBody> searchMateSend(@PageableDefault(page = 0, size = 3) Pageable pageable) {
 
         ProfileMateRes res = profileService.searchMateSend(pageable);
 
@@ -363,7 +378,6 @@ public class ProfileController {
     }
     
     // 신청 수락
-    //// accept 2로 변경하는 경우는 어떤 경우?
     @PutMapping("/mates/accept")
     @ApiOperation(value = "메이트 신청 수락", notes = "<string>Mate ID</string>를 사용하여 <string>Mate테이블의 ACCEPT</string>를 1로 변경한다.")
     @ApiResponses({
@@ -386,4 +400,17 @@ public class ProfileController {
         profileService.rejectMate(mateId);
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_MATE_REJECT.getCode(), SUCCESS_MATE_REJECT.getMessage()));
     }
+
+    // 신청 취소
+    @DeleteMapping("/mates/cancel/{id}")
+    @ApiOperation(value = "메이트 신청 취소", notes = "<string>Mate ID와 JWT토큰</string>를 사용하여 해당 Mate를 <string>취소</string>한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "메이트 신청을 취소하였습니다.", response = BaseResponseBody.class),
+    })
+    public ResponseEntity<? extends BaseResponseBody> cancelMate(@PathVariable("id") Long mateId) {
+
+        profileService.cancelMate(mateId);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_MATE_CANCEL.getCode(), SUCCESS_MATE_CANCEL.getMessage()));
+    }
+
 }
