@@ -1,14 +1,12 @@
 package com.ssafy.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
@@ -20,7 +18,9 @@ public class Mate{
     @Id
     Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_id_id")
     Member memberId;
 
     @ManyToOne(fetch = FetchType.LAZY)

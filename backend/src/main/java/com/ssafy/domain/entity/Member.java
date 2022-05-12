@@ -1,6 +1,7 @@
 package com.ssafy.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.api.request.MemberSignupPutReq;
 import com.ssafy.api.request.ProfilePutReq;
@@ -11,7 +12,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -43,6 +47,11 @@ public class Member extends BaseEntity {
     @JsonIgnoreProperties// 직렬화 시 제외 필드
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // 쓰기 전용
     private String password;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "memberId") //참조를 당하는 쪽에서 읽기만 가능!
+    @Builder.Default
+    private List<Mate> mateList = new LinkedList<>();
 
     // 패스워드 랜덤 비밀번호로 초기화
     public void resetPassword(String password) {
