@@ -5,6 +5,8 @@ import com.ssafy.api.request.ProfilePutReq;
 import com.ssafy.api.response.*;
 import com.ssafy.common.handler.CustomException;
 import com.ssafy.domain.document.MyReservation;
+import com.ssafy.domain.document.Place;
+import com.ssafy.domain.document.PlaceMember;
 import com.ssafy.domain.entity.Activity;
 import com.ssafy.domain.entity.Mate;
 import com.ssafy.domain.entity.Member;
@@ -31,17 +33,19 @@ public class ProfileService {
     private final ActivityRepository activityRepository;
     private final MateRepository mateRepository;
     private final PlaceReservationRepository placeReservationRepository;
+    private final PlaceRepository placeRepository;
     private final S3FileUploadService s3FileUploadService;
     private final ReservationRepository reservationRepository;
     private final ReservationRepositorySupport reservationRepositorySupport;
 
     public ProfileService(MemberRepository memberRepository, ActivityRepository activityRepository, MateRepository mateRepository,
-                          PlaceReservationRepository placeReservationRepository, S3FileUploadService s3FileUploadService,
+                          PlaceReservationRepository placeReservationRepository, PlaceRepository placeRepository, S3FileUploadService s3FileUploadService,
                           ReservationRepository reservationRepository, ReservationRepositorySupport reservationRepositorySupport ) {
         this.memberRepository = memberRepository;
         this.activityRepository = activityRepository;
         this.mateRepository = mateRepository;
         this.placeReservationRepository = placeReservationRepository;
+        this.placeRepository = placeRepository;
         this.s3FileUploadService = s3FileUploadService;
         this.reservationRepository = reservationRepository;
         this.reservationRepositorySupport = reservationRepositorySupport;
@@ -192,6 +196,11 @@ public class ProfileService {
 
 
 
+
+
+
+
+
     // 내가 만든 Activity의 Mate 신청 수신
     @Transactional
     public ProfileMateRes searchMateReceived(Pageable pageable) {
@@ -300,16 +309,37 @@ public class ProfileService {
     }
 
 
-    // 모든 체육시설 예약 정보 조회
-    public List<ReservationRes> searchReservationTotal() {
+
+
+
+
+
+    // 예약 체육시설 조회
+    //// 0 -> 전체
+    //// 1 -> 사용 완료
+    //// 2 -> 예약 중
+    public ReservationListRes searchReservation(int page, int sw) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
 
-        List<MyReservation> list = reservationRepositorySupport.getMyReservation(memberId, 0);
-        System.out.println(list.size());
-        System.out.println(LocalDateTime.now());
+        List<MyReservation> list = reservationRepositorySupport.getMyReservation(memberId, sw);
+
+        Long totalPages = Long.valueOf( list.size()/10 );
+        Long totalElements = Long.valueOf( list.size() );
+        System.out.println("TotalPages : " + totalPages + " || TotalElements : " + totalElements);
+
+        int fromIdx = page * 10;
+        int toIdx = fromIdx + 10;
+
+        if (totalElements < toIdx) toIdx = Math.toIntExact(totalElements);
+        if (page > totalPages) fromIdx = toIdx;
+        System.out.println("fromIdx : " + fromIdx + " || toIdx : " + toIdx);
+
+        list = list.subList(fromIdx, toIdx);
+
         List<ReservationRes> reservationResList = new ArrayList<>();
 
+        System.out.println(LocalDateTime.now());
         list.forEach(myReservation -> {
             if (LocalDateTime.now().compareTo(myReservation.getReserveEndDt()) >= 0)
                 reservationResList.add(ReservationRes.of(myReservation, true));
@@ -323,60 +353,15 @@ public class ProfileService {
             System.out.println("==========================");
         });
 
-        return reservationResList;
+        return ReservationListRes.of(totalPages, totalElements, reservationResList);
     }
 
-    // 예약 중인 체육시설 조회
-    public List<ReservationRes> searchReservation() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long memberId = Long.parseLong(authentication.getName());
 
-        List<MyReservation> list = reservationRepositorySupport.getMyReservation(memberId, 2);
-        System.out.println(list.size());
-        System.out.println(LocalDateTime.now());
-        List<ReservationRes> reservationResList = new ArrayList<>();
 
-        list.forEach(myReservation -> {
-            if (LocalDateTime.now().compareTo(myReservation.getReserveEndDt()) >= 0)
-                reservationResList.add(ReservationRes.of(myReservation, true));
-            else
-                reservationResList.add(ReservationRes.of(myReservation, false));
-
-            System.out.println("==========================");
-            System.out.println(myReservation.getPrice());
-            System.out.println(myReservation.getReserveStartDt());
-            System.out.println(myReservation.getReserveEndDt());
-            System.out.println("==========================");
-        });
-
-        return reservationResList;
+    // 찜한 체육시설 찾기
+    public List<Place> searchPlaceLike(PlaceMember placeMember) {
+        System.out.println(placeMember.getMemberId());
+        System.out.println(placeMember.getLikeItems().size());
+        return placeRepository.findByPlaceIdIn(placeMember.getLikeItems());
     }
-
-    // 사용 완료한 체육시설 조회
-    public List<ReservationRes> searchReservationUsed() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long memberId = Long.parseLong(authentication.getName());
-
-        List<MyReservation> list = reservationRepositorySupport.getMyReservation(memberId, 1);
-        System.out.println(list.size());
-        System.out.println(LocalDateTime.now());
-        List<ReservationRes> reservationResList = new ArrayList<>();
-
-
-        list.forEach(myReservation -> {
-            if (LocalDateTime.now().compareTo(myReservation.getReserveEndDt()) >= 0)
-                reservationResList.add(ReservationRes.of(myReservation, true));
-            else
-                reservationResList.add(ReservationRes.of(myReservation, false));
-
-            System.out.println("==========================");
-            System.out.println(myReservation.getPrice());
-            System.out.println(myReservation.getReserveStartDt());
-            System.out.println(myReservation.getReserveEndDt());
-            System.out.println("==========================");
-        });
-
-        return reservationResList;
-    }
-
 }

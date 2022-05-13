@@ -16,6 +16,7 @@ public enum ProfileCode implements StatusCode{
     SUCCESS_SEARCH_PLACE_USED(200, "사용 완료한 체육시설 조회에 성공하였습니다."),
     SUCCESS_SEARCH_PLACE_RESERVATION_TOTAL(200, "예약 정보가 있는 체육시설 조회에 성공하였습니다."),
     SUCCESS_SEARCH_PLACE_LIKE(200, "찜한 체육시설 조회에 성공하였습니다."),
+    SUCCESS_SEARCH_MATE_LIKE(200, "찜한 공고 조회에 성공하였습니다."),
     SUCCESS_SEARCH_MATE_RECEIVED(200, "메이트 신청 수신 조회에 성공하였습니다."),
     SUCCESS_SEARCH_MATE_SEND(200, "메이트 신청 발신 조회에 성공하였습니다."),
     SUCCESS_MATE_ACCEPT(200, "메이트 신청을 수락하였습니다."),

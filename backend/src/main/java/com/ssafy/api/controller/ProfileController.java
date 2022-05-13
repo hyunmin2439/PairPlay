@@ -6,9 +6,12 @@ import com.ssafy.api.request.ProfilePasswordPostReq;
 import com.ssafy.api.request.ProfilePutReq;
 import com.ssafy.api.response.*;
 import com.ssafy.api.service.MemberService;
+import com.ssafy.api.service.PlaceService;
 import com.ssafy.api.service.ProfileService;
 import com.ssafy.api.service.S3FileUploadService;
 import com.ssafy.common.handler.CustomException;
+import com.ssafy.domain.document.Place;
+import com.ssafy.domain.document.PlaceMember;
 import com.ssafy.domain.entity.Member;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Pageable;
@@ -34,12 +37,14 @@ public class ProfileController {
     private final MemberService memberService;
     private final ProfileService profileService;
     private final S3FileUploadService s3FileUploadService;
+    private final PlaceService placeService;
     private final PasswordEncoder passwordEncoder;
 
-    public ProfileController (MemberService memberService, ProfileService profileService, S3FileUploadService s3FileUploadService, PasswordEncoder passwordEncoder) {
+    public ProfileController (MemberService memberService, ProfileService profileService, S3FileUploadService s3FileUploadService, PlaceService placeService, PasswordEncoder passwordEncoder) {
         this.memberService = memberService;
         this.profileService = profileService;
         this.s3FileUploadService = s3FileUploadService;
+        this.placeService = placeService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -245,77 +250,102 @@ public class ProfileController {
     //// place_reservation 테이블에서 기록을 읽어올 수 있을 것
     //// 읽어진 기록을 통해서 현재 예약 중인 상품을 알 수 있을 것이고, 해당 데이터를 MongoDB에 접근하여 시설정보를 알아온다
     //// 예약중 -> 시설예약날짜+시간이 아직 오지 않은 상품
-    @GetMapping("/places/reservation")
+    @GetMapping("/places/reservation/{page}")
     @ApiOperation(value = "예약 체육시설 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>예약한 체육시설</string>목록을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "예약된 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> searchReservation() {
+    public ResponseEntity<? extends BaseResponseBody> searchReservation(@PathVariable("page") int page) {
 
-        List<ReservationRes> list = profileService.searchReservation();
+        ReservationListRes res = profileService.searchReservation(page, 2);
 
-        return ResponseEntity.status(200).body(
-                ReservationListRes.of(
-                        SUCCESS_SEARCH_PLACE_RESERVATION.getCode(),
-                        SUCCESS_SEARCH_PLACE_RESERVATION.getMessage(),
-                        list
-                )
-        );
+        res.setCode(SUCCESS_SEARCH_PLACE_RESERVATION.getCode());
+        res.setMessage(SUCCESS_SEARCH_PLACE_RESERVATION.getMessage());
+        return ResponseEntity.status(200).body(res);
     }
 
     // 사용 완료 상품
     //// 예약 중인 상품과 다르게, 시설예약날짜+시간이 이미 지나간 상품
-    @GetMapping("/places/used")
+    @GetMapping("/places/used/{page}")
     @ApiOperation(value = "사용 완료한 체육시설 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>사용 완료한 체육시설</string>목록을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "사용 완료한 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> searchReservationUsed() {
+    public ResponseEntity<? extends BaseResponseBody> searchReservationUsed(@PathVariable("page") int page) {
 
-        List<ReservationRes> list = profileService.searchReservationUsed();
+        ReservationListRes res = profileService.searchReservation(page, 1);
 
-        return ResponseEntity.status(200).body(
-                ReservationListRes.of(
-                        SUCCESS_SEARCH_PLACE_USED.getCode(),
-                        SUCCESS_SEARCH_PLACE_USED.getMessage(),
-                        list
-                )
-        );
+        res.setCode(SUCCESS_SEARCH_PLACE_USED.getCode());
+        res.setMessage(SUCCESS_SEARCH_PLACE_USED.getMessage());
+        return ResponseEntity.status(200).body(res);
     }
 
     // 예약 중인 상품 + 사용 완료 상품
     //// 예약을 한 정보가 존재하는 모든 상품을 조회한다
     //// 그렇지만 예약에 대한 기록은 남겨두어야 할 것 -> 예약인지 사용중인지 구분하는 로직은 똑같이 존재해야함
-    @GetMapping("/places")
+    @GetMapping("/places/{page}")
     @ApiOperation(value = "예약 정보가 있는 체육시설 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>예약한 정보가 있는 체육시설</string>목록을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "예약 정보가 있는 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> searchReservationTotal() {
-        List<ReservationRes> list = profileService.searchReservationTotal();
+    public ResponseEntity<? extends BaseResponseBody> searchReservationTotal(@PathVariable("page") int page) {
+
+        ReservationListRes res = profileService.searchReservation(page, 0);
+
+        res.setCode(SUCCESS_SEARCH_PLACE_RESERVATION_TOTAL.getCode());
+        res.setMessage(SUCCESS_SEARCH_PLACE_RESERVATION_TOTAL.getMessage());
+        return ResponseEntity.status(200).body(res);
+    }
+    
+
+
+
+    // 찜한 체육시설
+    //// 찜한 체육시설의 정보는 몽고DB의 member 테이블 안의 자신의 멤버를 보면 알 수 있다
+    @GetMapping("/places/like")
+    @ApiOperation(value = "찜한 체육시설 조회", notes = "JWT토큰의 ID를 사용하여 찜한 체육시설목록을 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "찜한 체육시설 조회에 성공하였습니다.", response = ProfilePlaceLikeListRes.class),
+    })
+    public ResponseEntity<? extends BaseResponseBody> searchPlaceLike() {
+
+        PlaceMember placeMember = placeService.getPlaceMemberFromAuthentication();
+        List<Place> list = profileService.searchPlaceLike(placeMember);
 
         return ResponseEntity.status(200).body(
-                ReservationListRes.of(
-                        SUCCESS_SEARCH_PLACE_RESERVATION_TOTAL.getCode(),
-                        SUCCESS_SEARCH_PLACE_RESERVATION_TOTAL.getMessage(),
+                ProfilePlaceLikeListRes.of(
+                        SUCCESS_SEARCH_PLACE_LIKE.getCode(),
+                        SUCCESS_SEARCH_PLACE_LIKE.getMessage(),
                         list
                 )
         );
     }
-    
-    
-
-//    // 찜한 체육시설
-//    @GetMapping("/places/like")
-//    @ApiOperation(value = "찜한 체육시설 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>찜한 체육시설</string>목록을 조회한다.")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "찜한 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
-//    })
-//    public ResponseEntity<? extends BaseResponseBody> searchPlaceLike() {
-//
-//    }
 
     // 찜한 메이트 공고
+    @GetMapping("/mates/like")
+    @ApiOperation(value = "찜한 메이트 공고 조회", notes = "JWT토큰의 ID를 사용하여 찜한 메이트 공고목록을 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "예약 정보가 있는 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
+    })
+    public ResponseEntity<? extends BaseResponseBody> searchMateLike() {
+        List<ReservationRes> list= null;
+
+//        return ResponseEntity.status(200).body(
+//                ReservationListRes.of(
+//                        SUCCESS_SEARCH_PLACE_RESERVATION_TOTAL.getCode(),
+//                        SUCCESS_SEARCH_PLACE_RESERVATION_TOTAL.getMessage(),
+//                        list
+//                )
+//        );
+        return null;
+    }
+
+
+
+
+
+
+
 
 
 
@@ -343,7 +373,7 @@ public class ProfileController {
     //// 시간이 이미 지나간 Activity에 대한 정보는 뺴야할 것이다
     //// response -> [ Activity + Mate들의 상세 Member정보 ] 의 List -> Mate List
     @GetMapping("/mates/received")
-    @ApiOperation(value = "Mate신청 수신 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>Activity CreateId</string>가 같은 Activity에 신청한 Mate목록을 조회한다.")
+    @ApiOperation(value = "메이트 신청 수신 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>Activity CreateId</string>가 같은 Activity에 신청한 Mate목록을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "메이트 신청 수신 조회에 성공하였습니다.", response = ProfileRes.class),
     })
@@ -364,7 +394,7 @@ public class ProfileController {
     //// 시간이 이미 지나간 Activity에 대한 정보는 뺴야할 것이다
     //// response -> [ Activity + Mate들의 상세 Member정보 ] 의 List -> Mate List
     @GetMapping("/mates/send")
-    @ApiOperation(value = "Mate신청 발신 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>Mate MemberId</string>가 Activity에 신청한 Mate목록을 조회한다.")
+    @ApiOperation(value = "메이트 신청 발신 조회", notes = "<string>JWT토큰</string>의 ID를 사용하여 <string>Mate MemberId</string>가 Activity에 신청한 Mate목록을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "메이트 신청 발신 조회에 성공하였습니다.", response = ProfileMateRes.class),
     })
