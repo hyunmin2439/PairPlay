@@ -5,7 +5,7 @@ import com.ssafy.domain.document.Place;
 import com.ssafy.domain.document.PlaceDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.CodecRegistryProvider;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.LookupOperation;
@@ -23,10 +23,14 @@ public class PlaceRepositorySupport {
 
     public PlaceRepositorySupport(MongoTemplate mongoTemplate) { this.mongoTemplate = mongoTemplate; }
 
-    public List<Place> getPopularPlaces() {
+    public List<Place> getPopularPlaces(String address) {
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("address").regex(".*" + address + ".*")),
+                Aggregation.sort(Sort.Direction.DESC, "view_cnt").and(Sort.Direction.DESC, "review_cnt").and(Sort.Direction.DESC, "like_cnt"),
+                Aggregation.limit(10)
+        );
 
-
-        return null;
+        return mongoTemplate.aggregate(aggregation, "region", Place.class).getMappedResults();
     }
 
     public PlaceDetail detailPlace(Long placeId) {

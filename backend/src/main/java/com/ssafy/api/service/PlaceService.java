@@ -30,7 +30,6 @@ public class PlaceService {
     private final ReservationRepository reservationRepository;
     private final PlaceRepositorySupport placeRepositorySupport;
     private final PlaceMemberRepository placeMemberRepository;
-
     private final ReservationRepositorySupport reservationRepositorySupport;
 
     public PlaceService(MemberService memberService,
@@ -209,9 +208,12 @@ public class PlaceService {
     }
 
     /** 체육시설 인기 있는 리스트 */
-    public Place getPopularPlaces() {
+    public List<Place> getPopularPlaces() {
         Member member = memberService.getMemberFromAuthentication();
-        return null;
+
+        String address = member.getSido() + " " + member.getGugun();
+
+        return placeRepositorySupport.getPopularPlaces(address);
     }
 
     /** 체육시설 장소를 검색 */

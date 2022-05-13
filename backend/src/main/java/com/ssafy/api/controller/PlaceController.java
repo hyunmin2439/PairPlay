@@ -87,7 +87,26 @@ public class PlaceController {
         );
     }
 
-    public void getPopularPlaces() {
+    @GetMapping("/popular")
+    @ApiOperation(value = "유저 주소 근처 인기 있는 체육 시설", notes = "유저의 주소 근처의 <strong>인기 있는 체육 시설 목록</strong>을 넘겨준다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "체육 시설 목록 검색에 성공했습니다.", response = PlaceListRes.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<? extends BaseResponseBody> getPopularPlaces() {
+
+        List<Place> places = placeService.getPopularPlaces();
+
+        return ResponseEntity.status(200).body(
+                PlaceListRes.of(
+                        SUCCESS_SEARCH_PLACE.getCode(),
+                        SUCCESS_SEARCH_PLACE.getMessage(),
+                        1,
+                        places.size(),
+                        places,
+                        placeService.getPlaceMemberFromAuthentication().getLikeItems() // 유저가 찜한 체육시설 목록
+                )
+        );
     }
 
     @PostMapping("/search")
