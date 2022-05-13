@@ -15,8 +15,8 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Queue;
 
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
 import static com.ssafy.common.statuscode.PlaceCode.*;
@@ -131,10 +131,14 @@ public class PlaceService {
         placeRepository.save(place);
 
         // 유저 최근 본 리스트에 저장 ( 10개 제한 둬야 함 )
-        Queue<Long> queue = placeMember.getRecentItems();
-        if( !queue.contains(placeId) ) {
-            queue.offer(placeId);
-            if(queue.size() > 10) queue.poll();
+        Deque<Long> deque = placeMember.getRecentItems();
+        if( !deque.contains(placeId) ) {
+            deque.addFirst(placeId);
+            if(deque.size() > 10) deque.pollLast();
+        }
+        else { // 같은게 있으면 제일 처음으로
+            deque.remove(placeId);
+            deque.addFirst(placeId);
         }
 
         placeMemberRepository.save(placeMember);
@@ -152,22 +156,62 @@ public class PlaceService {
     }
 
     /** 체육시설 최근 본 리스트 */
-    public Place getRecentViewPlaces() {
-        Member member = memberService.getMemberFromAuthentication();
-        return null;
+    public List<Place> getRecentViewPlaces() {
+        PlaceMember placeMember = getPlaceMemberFromAuthentication();
+        List<Long> recentList= placeMember.getRecentItems();
+        
+        // 체육시설을 하나도 본게 없다면
+        if(recentList == null || recentList.isEmpty())
+            throw new CustomException(FAIL_RECENT_NOT_FOUND);
+
+        List<Place> list = placeRepository.findByPlaceIdIn(recentList);
+        
+        // DB에 들어가 있는 순대로 정렬되어 나와 다시 최근 본 목록 순으로 정렬
+        List<Place> sortedList = new ArrayList<>();
+        recentList.forEach( findId -> {
+            Place place = recentBinarySearch(list, findId, 0, recentList.size() - 1);
+            sortedList.add(place);
+        });
+
+        for(int i = 0; i < recentList.size(); i++) {
+            long findId = recentList.get(i);
+            Place place = recentBinarySearch(list, findId, 0, recentList.size() - 1);
+
+            if(place != null) {
+                sortedList.add(place);
+                continue;
+            }
+
+            // 각 번호에 해당하는 Place를 못 찾을 수 없지만 못 찾는다면 정렬 코드가 잘못 됐거나
+            // 유저 최근 본 목록 리스트에 이상이 생긴 것, 따라서 에러가 아닌 것처럼 그냥 불러온 목록을 리턴
+            sortedList.clear();
+            sortedList.addAll(list);
+            break;
+        }
+
+        return sortedList;
+    }
+
+    private Place recentBinarySearch(List<Place> findList, long findId, int low, int high) {
+        if(low > high)
+            return null;
+
+        int mid = (low + high) / 2;
+
+        Place place = findList.get(mid);
+        long placeId = place.getPlaceId();
+        if( placeId == findId )
+            return place;
+        else if( placeId < findId )
+            return recentBinarySearch(findList, findId, mid + 1, high);
+        else
+            return recentBinarySearch(findList, findId, low, mid - 1);
     }
 
     /** 체육시설 인기 있는 리스트 */
     public Place getPopularPlaces() {
         Member member = memberService.getMemberFromAuthentication();
         return null;
-    }
-
-    /**
-     * 유저의 예약정보를 조회하기 위해 사용
-     */
-    public List<MyReservation> testGetReservation(Long memberId, int sw) {
-        return reservationRepositorySupport.getMyReservation(memberId, sw);
     }
 
     /** 체육시설 장소를 검색 */
@@ -406,5 +450,12 @@ public class PlaceService {
             throw new CustomException(FAIL_CANCEL_AFTER_RESERVATION_TIME);
 
         reservationRepository.delete(reservation);
+    }
+
+    /**
+     * 테스트용 : 유저의 예약정보를 조회하기 위해 사용
+     */
+    public List<MyReservation> testGetReservation(Long memberId, int sw) {
+        return reservationRepositorySupport.getMyReservation(memberId, sw);
     }
 }

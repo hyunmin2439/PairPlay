@@ -23,6 +23,7 @@ public enum PlaceCode implements StatusCode {
     FAIL_NOT_EQUAL_MEMBER(401, "예약한 유저와 로그인 된 유저 정보가 일치하지 않습니다."),
 
     // 404 NOT_FOUND 잘못된 리소스 접근
+    FAIL_RECENT_NOT_FOUND(404, "유저가 최근 본 체육시설 정보가 없습니다."),
     FAIL_PLACE_NOT_FOUND(404, "체육시설의 정보를 찾을 수 없습니다."),
     FAIL_RESERVATION_NOT_FOUND(404, "예약 정보를 찾을 수 없습니다."),
     FAIL_REVIEW_NOT_FOUND(404, "리뷰 정보를 찾을 수 없습니다.");
