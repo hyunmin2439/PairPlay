@@ -2,6 +2,7 @@ package com.ssafy.domain.repository;
 
 import com.ssafy.domain.document.MyReservation;
 import org.bson.Document;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
@@ -81,7 +82,8 @@ public class ReservationRepositorySupport {
         Aggregation aggregation = Aggregation.newAggregation(
                 sw == 0 ? matchOperation1 : ( sw == 1 ? matchOperation2 : matchOperation3 ), // 조건을 통해 먼저 lookup할 목록을 줄임
                 lookupOperation, // 추후 lookup을 수행하는 것이 성능이 더 뛰어남
-                lookupOperation2
+                lookupOperation2,
+                Aggregation.sort(Sort.Direction.DESC, "reserve_start_dt")
         );
 
         return mongoTemplate.aggregate(aggregation, "reservation", MyReservation.class).getMappedResults();
