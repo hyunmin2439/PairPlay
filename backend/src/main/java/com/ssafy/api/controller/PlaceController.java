@@ -33,6 +33,20 @@ public class PlaceController {
     }
 
     /**
+     * 전체를 조회하여 내부 필드값을 수정이 필요하여 사용
+     */
+//    @GetMapping
+//    @ApiOperation(value = "전체 체육 시설 목록 정보", notes = "<strong>전체 체육 시설 목록</strong>을 넘겨준다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "전체 체육 시설 목록 검색에 성공했습니다.", response = PlaceListRes.class),
+//            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+//    })
+//    public List<MyReservation> allPlaces() {
+//        return null;
+//    }
+//
+
+    /**
      * 체육시설 조회 API
      */
     @GetMapping("/{placeId}")
@@ -50,41 +64,31 @@ public class PlaceController {
         return ResponseEntity.status(200).body(PlaceDetailRes.of(SUCCESS_DETAIL_PLACE.getCode(), SUCCESS_DETAIL_PLACE.getMessage(), placeDetail));
     }
 
-    public void getRecentPlaces() {
+    @GetMapping("/recent")
+    @ApiOperation(value = "유저가 최근 본 체육 시설 목록 정보", notes = "유저가 <strong>최근 본 체육 시설 목록 정보</strong>를 넘겨준다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "체육 시설 목록 검색에 성공했습니다.", response = PlaceListRes.class),
+            @ApiResponse(code = 404, message = "유저가 최근 본 체육시설 정보가 없습니다.", response = PlaceListRes.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<? extends BaseResponseBody> getRecentPlaces() {
+
+        List<Place> places = placeService.getRecentViewPlaces();
+
+        return ResponseEntity.status(200).body(
+                PlaceListRes.of(
+                        SUCCESS_SEARCH_PLACE.getCode(),
+                        SUCCESS_SEARCH_PLACE.getMessage(),
+                        1,
+                        places.size(),
+                        places,
+                        placeService.getPlaceMemberFromAuthentication().getLikeItems() // 유저가 찜한 체육시설 목록
+                )
+        );
     }
 
     public void getPopularPlaces() {
     }
-
-    /**
-     * 유저의 예약 정보를 조회하기 위한 api
-     */
-    @GetMapping("reservation/test/{memberId}/{sw}")
-    @ApiOperation(value = "예약 정보", notes = "<strong>유저의 예약 정보</strong>를 넘겨준다. (테스트용: 추후 없어질 API)")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "유저의 예약 정보 검색에 성공했습니다.", response = PlaceListRes.class),
-            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
-    })
-    public List<MyReservation> testGetReservation(
-            @PathVariable(value = "memberId", required = true) @ApiParam(value = "member ID 값", required = true) Long memberId,
-            @PathVariable(value = "sw", required = true) @ApiParam(value = "시설 이용 종료 시각 기준 0: 전체, 1:사용완료, 2:예약중(사용전이나 사용중)", required = true) int sw
-    ) {
-        List<MyReservation> list = placeService.testGetReservation(memberId, sw);
-        return list;
-    }
-
-    /**
-     * 전체를 조회하여 내부 필드값을 수정이 필요하여 사용
-     */
-//    @GetMapping
-//    @ApiOperation(value = "전체 체육 시설 목록 정보", notes = "<strong>전체 체육 시설 목록</strong>을 넘겨준다.")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "전체 체육 시설 목록 검색에 성공했습니다.", response = PlaceListRes.class),
-//            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
-//    })
-//    public List<MyReservation> allPlaces() {
-//        return null;
-//    }
 
     @PostMapping("/search")
     @ApiOperation(value = "체육 시설 목록 정보", notes = "<strong>검색한 체육 시설 목록</strong>을 페이지로 넘겨준다.")
@@ -217,5 +221,22 @@ public class PlaceController {
         placeService.cancelPlace(reservationInfo);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_CANCEL_PLACE.getCode(), SUCCESS_CANCEL_PLACE.getMessage()));
+    }
+
+    /**
+     * 유저의 예약 정보를 조회하기 위한 api
+     */
+    @GetMapping("reservation/test/{memberId}/{sw}")
+    @ApiOperation(value = "예약 정보", notes = "<strong>유저의 예약 정보</strong>를 넘겨준다. (테스트용: 추후 없어질 API)")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "유저의 예약 정보 검색에 성공했습니다.", response = PlaceListRes.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public List<MyReservation> testGetReservation(
+            @PathVariable(value = "memberId", required = true) @ApiParam(value = "member ID 값", required = true) Long memberId,
+            @PathVariable(value = "sw", required = true) @ApiParam(value = "시설 이용 종료 시각 기준 0: 전체, 1:사용완료, 2:예약중(사용전이나 사용중)", required = true) int sw
+    ) {
+        List<MyReservation> list = placeService.testGetReservation(memberId, sw);
+        return list;
     }
 }
