@@ -1,12 +1,15 @@
 package com.ssafy.api.controller;
 
 
+import com.querydsl.core.Tuple;
 import com.ssafy.api.request.ActivityCategoryReq;
 import com.ssafy.api.request.ActivityPostReq;
 import com.ssafy.api.request.ActivityRegisterReq;
 import com.ssafy.api.response.*;
 import com.ssafy.api.service.ActivityService;
+import com.ssafy.domain.document.ActivityDto;
 import com.ssafy.domain.entity.Activity;
+import com.ssafy.domain.entity.Mate;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +42,7 @@ public class ActivityController {
     })
     public ResponseEntity<? extends ActivityListRes> getActivityList(@PageableDefault(page = 0, size = 8) Pageable pageable){
 
-        Page<Activity> activities = activityService.getActivityList(pageable);
+        Page<Mate> activities = activityService.getActivityList(pageable);
 
         return ResponseEntity.status(200).body(ActivityListRes.of(activities, SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage()));
 
@@ -49,18 +52,18 @@ public class ActivityController {
     /**
      * 공고 카테고리별조회
      */
-    @PostMapping()
-    @ApiOperation(value = "공고 카테고리 조회", notes = "공고를 <strong>카테고리별로 조회</strong>한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
-    })
-    public ResponseEntity<? extends ActivityListRes> getCategoryList(@RequestBody @ApiParam(value = "카테고리") ActivityCategoryReq activityCategoryReq, @PageableDefault(page = 0, size = 8) Pageable pageable){
-
-
-        Page<Activity> activities = activityService.getCategoryList(activityCategoryReq, pageable);
-
-        return ResponseEntity.status(200).body(ActivityListRes.of(activities, SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage()));
-    }
+//    @PostMapping()
+//    @ApiOperation(value = "공고 카테고리 조회", notes = "공고를 <strong>카테고리별로 조회</strong>한다")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
+//    })
+//    public ResponseEntity<? extends ActivityListRes> getCategoryList(@RequestBody @ApiParam(value = "카테고리") ActivityCategoryReq activityCategoryReq, @PageableDefault(page = 0, size = 8) Pageable pageable){
+//
+//
+//        Page<Activity> activities = activityService.getCategoryList(activityCategoryReq, pageable);
+//
+//        return ResponseEntity.status(200).body(ActivityListRes.of(activities, SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage()));
+//    }
 
 
     /**
@@ -77,8 +80,6 @@ public class ActivityController {
 
         return ResponseEntity.status(200).body(ActivityDetailRes.of(activity, SUCCESS_GET_DETAIL.getCode(), SUCCESS_GET_DETAIL.getMessage()));
     }
-
-
 
 
     /**
@@ -107,10 +108,33 @@ public class ActivityController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "메이트 신청 성공하였습니다.", response = BaseResponseBody.class),
     })
-    public ResponseEntity<BaseResponseBody> registeActivity(@RequestBody @ApiParam(value = "공고 정보", required = true) ActivityRegisterReq req) {
+    public ResponseEntity<BaseResponseBody> registerActivity(@RequestBody @ApiParam(value = "공고 정보", required = true) ActivityRegisterReq req) {
 
-        activityService. registerActivity(req);
-        
+        activityService.registerActivity(req);
+
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_ACTIVITY_REGISTER.getCode(), SUCCESS_ACTIVITY_REGISTER.getMessage()));
     }
+
+    /**
+     * 공고 좋아요/실싫어요
+     */
+//    @PutMapping("/like/{activityId}")
+//    @ApiOperation(value = "찜하기", notes = "메이트 <strong>공고 찜하기</strong>")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "메이트 찜하기/취소 성공하였습니다.", response = BaseResponseBody.class),
+//    })
+//    public ResponseEntity<BaseResponseBody> likeActivity(@PathVariable(name = "activityId") @ApiParam(value="메이트 공고 상세번호", required = true)Long activityId){
+//
+//
+//        activityService.likeActivity(activityId);
+//
+//
+//        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_ACTIVITY_LIKE.getCode(), SUCCESS_ACTIVITY_LIKE.getMessage()));
+//    }
+
+
+
+
+
+
 }

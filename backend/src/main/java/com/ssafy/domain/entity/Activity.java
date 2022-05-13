@@ -38,4 +38,8 @@ public class Activity extends BaseEntity{
     @Builder.Default
     private List<Mate> mateList = new LinkedList<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "activityId") //참조를 당하는 쪽에서 읽기만 가능!
+    @Builder.Default
+    private List<ActivityLike> activityLikeList = new LinkedList<>();
 }

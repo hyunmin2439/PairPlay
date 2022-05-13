@@ -2,6 +2,7 @@ package com.ssafy.domain.repository;
 
 import com.ssafy.api.response.CalendarDate;
 import com.ssafy.api.response.CalendarDateRes;
+import com.ssafy.domain.entity.Activity;
 import com.ssafy.domain.entity.Mate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,4 +31,9 @@ public interface MateRepository extends JpaRepository<Mate, Long> {
 
     Page<Mate> findByActivityId_CreateIdAndMemberId_IdNotAndActivityId_MeetDtAfterOrderById(Long createId, Long memberId, LocalDateTime now, Pageable pageable);
     Page<Mate> findByMemberId_IdAndActivityId_CreateIdNotAndActivityId_MeetDtAfterOrderById(Long memberId, Long createId, LocalDateTime now, Pageable pageable);
+
+
+    @Query(value = "SELECT * from mate JOIN activity On mate.activity_id_id = activity.id " +
+                    "where mate.activity_id_id = activity.id and mate.member_id_id = activity.create_id",nativeQuery = true)
+    Page<Mate> findAllByActivityId_CreateIdEqualsMemberId_Id(Pageable pageable);
 }

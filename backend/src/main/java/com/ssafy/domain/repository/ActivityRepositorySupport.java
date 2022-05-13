@@ -1,9 +1,13 @@
 package com.ssafy.domain.repository;
 
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.domain.entity.Activity;
 import com.ssafy.domain.entity.QActivity;
+
+import com.ssafy.domain.entity.QActivityLike;
+import com.ssafy.domain.entity.QMember;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +23,8 @@ public class ActivityRepositorySupport {
     }
 
     QActivity qActivity = QActivity.activity;
+    QActivityLike qActivityLike = QActivityLike.activityLike;
+    QMember qMember = QMember.member;
 
     /**
      * 멤버 저장된 주소 없으면 공고 전체 검색
@@ -38,6 +44,28 @@ public class ActivityRepositorySupport {
         return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
 
     }
+
+//    public Page<Tuple> findAll(Pageable pageable){
+//
+//        QueryResults<Tuple> activities = jpaQueryFactory
+//                .select(qActivity, qMember)
+//                .from(qActivity)
+//                .leftJoin(QMember.member, qMember).on(qActivity.createId.eq(qMember.id))
+//                .where(qActivity.isEnd.isFalse())
+//                .orderBy(qActivity.id.desc())
+//                .limit(pageable.getPageSize())
+//                .offset(pageable.getOffset())
+//                .fetchResults();
+//        if(activities == null) return Page.empty();
+//
+//        activities.getResults().forEach(res -> {
+//            System.out.println("확인" + res.get(qActivity.id));
+//            System.out.println("확인2" + res.get(qMember.profileImage));
+//        });
+//
+//        return new PageImpl<Tuple>(activities.getResults(), pageable, activities.getTotal());
+//
+//    }
 
     /**
      * 멤버 저장된 주소 있으면 주소 기반 검색
@@ -139,9 +167,5 @@ public class ActivityRepositorySupport {
 
         return new PageImpl<Activity>(activities.getResults(), pageable, activities.getTotal());
     }
-
-
-
-
 
 }

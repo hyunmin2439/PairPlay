@@ -53,6 +53,11 @@ public class Member extends BaseEntity {
     @Builder.Default
     private List<Mate> mateList = new LinkedList<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "memberId") //참조를 당하는 쪽에서 읽기만 가능!
+    @Builder.Default
+    private List<ActivityLike> activityLikeList = new LinkedList<>();
+
     // 패스워드 랜덤 비밀번호로 초기화
     public void resetPassword(String password) {
         this.password = password;

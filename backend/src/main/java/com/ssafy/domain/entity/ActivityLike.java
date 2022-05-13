@@ -6,33 +6,25 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-@Getter
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Getter
 @Builder
-public class Mate{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+public class ActivityLike extends BaseEntity{
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id_id")
     Member memberId;
 
-
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     Activity activityId;
-
-    int accept;
-
-    // 메이트 신청 수락
-    public void acceptMate() {
-        this.accept = 1;
-    }
 
 }

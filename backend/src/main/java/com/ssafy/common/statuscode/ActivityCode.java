@@ -9,7 +9,8 @@ public enum ActivityCode implements StatusCode{
     SUCCESS_MATE_LIST(200, "메이트 리스트 조회 성공했습니다."),
     SUCCESS_GET_DETAIL(200, "메이트 공고 상세 조회 성공했습니다."),
     SUCCESS_ACTIVITY_CREATE(200, "메이트 공고 등록 성공했습니다."),
-    SUCCESS_ACTIVITY_REGISTER(200, "메이트 신청 성공했습니다.")
+    SUCCESS_ACTIVITY_REGISTER(200, "메이트 신청 성공했습니다."),
+    SUCCESS_ACTIVITY_LIKE(200,"메이트 찜하기 성공했습니다.")
     ;
 
 
