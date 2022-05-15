@@ -42,9 +42,11 @@ public class ActivityController {
     })
     public ResponseEntity<? extends ActivityListRes> getActivityList(@PageableDefault(page = 0, size = 8) Pageable pageable){
 
-        Page<Mate> activities = activityService.getActivityList(pageable);
+//        Page<Mate> activities = activityService.getActivityList(pageable);
 
-        return ResponseEntity.status(200).body(ActivityListRes.of(activities, SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage()));
+        ActivityListRes res = activityService.getActivityList(pageable);
+
+        return ResponseEntity.status(200).body(res);
 
     }
 
@@ -52,18 +54,18 @@ public class ActivityController {
     /**
      * 공고 카테고리별조회
      */
-//    @PostMapping()
-//    @ApiOperation(value = "공고 카테고리 조회", notes = "공고를 <strong>카테고리별로 조회</strong>한다")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
-//    })
-//    public ResponseEntity<? extends ActivityListRes> getCategoryList(@RequestBody @ApiParam(value = "카테고리") ActivityCategoryReq activityCategoryReq, @PageableDefault(page = 0, size = 8) Pageable pageable){
-//
-//
-//        Page<Activity> activities = activityService.getCategoryList(activityCategoryReq, pageable);
-//
-//        return ResponseEntity.status(200).body(ActivityListRes.of(activities, SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage()));
-//    }
+    @PostMapping()
+    @ApiOperation(value = "공고 카테고리 조회", notes = "공고를 <strong>카테고리별로 조회</strong>한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
+    })
+    public ResponseEntity<? extends ActivityListRes> getCategoryList(@RequestBody @ApiParam(value = "카테고리") ActivityCategoryReq activityCategoryReq, @PageableDefault(page = 0, size = 8) Pageable pageable){
+
+
+        ActivityListRes activities = activityService.getCategoryList(activityCategoryReq, pageable);
+
+        return ResponseEntity.status(200).body(activities);
+    }
 
 
     /**
