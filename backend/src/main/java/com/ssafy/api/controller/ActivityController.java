@@ -1,17 +1,14 @@
 package com.ssafy.api.controller;
 
 
-import com.querydsl.core.Tuple;
+
 import com.ssafy.api.request.ActivityCategoryReq;
 import com.ssafy.api.request.ActivityPostReq;
 import com.ssafy.api.request.ActivityRegisterReq;
 import com.ssafy.api.response.*;
 import com.ssafy.api.service.ActivityService;
-import com.ssafy.domain.document.ActivityDto;
 import com.ssafy.domain.entity.Activity;
-import com.ssafy.domain.entity.Mate;
 import io.swagger.annotations.*;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +38,6 @@ public class ActivityController {
             @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
     })
     public ResponseEntity<? extends ActivityListRes> getActivityList(@PageableDefault(page = 0, size = 8) Pageable pageable){
-
-//        Page<Mate> activities = activityService.getActivityList(pageable);
 
         ActivityListRes res = activityService.getActivityList(pageable);
 
@@ -120,19 +115,19 @@ public class ActivityController {
     /**
      * 공고 좋아요/실싫어요
      */
-//    @PutMapping("/like/{activityId}")
-//    @ApiOperation(value = "찜하기", notes = "메이트 <strong>공고 찜하기</strong>")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "메이트 찜하기/취소 성공하였습니다.", response = BaseResponseBody.class),
-//    })
-//    public ResponseEntity<BaseResponseBody> likeActivity(@PathVariable(name = "activityId") @ApiParam(value="메이트 공고 상세번호", required = true)Long activityId){
-//
-//
-//        activityService.likeActivity(activityId);
-//
-//
-//        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_ACTIVITY_LIKE.getCode(), SUCCESS_ACTIVITY_LIKE.getMessage()));
-//    }
+    @PutMapping("/like/{activityId}")
+    @ApiOperation(value = "찜하기", notes = "메이트 <strong>공고 찜하기</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "메이트 찜하기/취소 성공하였습니다.", response = BaseResponseBody.class),
+    })
+    public ResponseEntity<BaseResponseBody> likeActivity(@PathVariable(name = "activityId") @ApiParam(value="메이트 공고 상세번호", required = true)Long activityId){
+
+
+        activityService.likeActivity(activityId);
+
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_ACTIVITY_LIKE.getCode(), SUCCESS_ACTIVITY_LIKE.getMessage()));
+    }
 
 
 

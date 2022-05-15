@@ -1,15 +1,10 @@
 package com.ssafy.api.response;
 
-import com.querydsl.core.Tuple;
-import com.ssafy.domain.document.ActivityDto;
-import com.ssafy.domain.entity.Activity;
 import com.ssafy.domain.entity.Mate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 
@@ -68,19 +63,4 @@ public class ActivityRes{
         return res;
     }
 
-//    public static ActivityRes of(ActivityDto activity) {
-//        System.out.println(activity);
-//
-//        ActivityRes res = new ActivityRes();
-////        res.setActivityId(activity.getId());
-////        res.setCreatedDate(activity.getCreatedDate());
-////        res.setCategoryId(activity.getCategoryId());
-////        res.setTitle(activity.getTitle());
-////        res.setDescription(activity.getDescription());
-////        res.setLocation(activity.getLocation());
-////        res.setNickname(activity.getNickname());
-////        res.setProfileImage(activity.getProfileImage());
-////        System.out.println(activity.getActivityIdId());
-//        return res;
-//    }
 }

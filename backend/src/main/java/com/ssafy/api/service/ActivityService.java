@@ -1,13 +1,13 @@
 package com.ssafy.api.service;
 
-import com.querydsl.core.Tuple;
+
 import com.ssafy.api.request.ActivityCategoryReq;
 import com.ssafy.api.request.ActivityPostReq;
 import com.ssafy.api.request.ActivityRegisterReq;
 import com.ssafy.api.response.ActivityListRes;
 import com.ssafy.common.handler.CustomException;
-import com.ssafy.domain.document.ActivityDto;
 import com.ssafy.domain.entity.Activity;
+import com.ssafy.domain.entity.ActivityLike;
 import com.ssafy.domain.entity.Mate;
 import com.ssafy.domain.entity.Member;
 import com.ssafy.domain.repository.*;
@@ -18,6 +18,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.ssafy.common.statuscode.ActivityCode.SUCCESS_MATE_LIST;
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
@@ -189,17 +192,35 @@ public class ActivityService {
 
 
 
-//    //메이트 공고 등록/삭제
-//    public void likeActivity(Long activityId) {
-//
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Long memberId = Long.parseLong(authentication.getName());
-//        Member member = memberRepository.findById(memberId).orElse(null);
-//        List<ActivityLikeList> activityLikelist = activityLikeRepository.findActivityIdByMemberId(memberId);
-//
-//
-//
-//    }
+    //메이트 공고 등록/삭제
+    @Transactional
+    public void likeActivity(Long activityId) {
+
+
+        Member member = findId();
+
+        Activity activity = activityRepository.findById(activityId).orElse(null);
+
+        Long id = null;
+        for (ActivityLike like : member.getActivityLikeList()) {
+            if (like.getActivityId().getId().equals(activityId)) {
+                id = like.getId();
+            }
+        }
+       
+        if(id != null){
+            activityLikeRepository.deleteById(id);
+        }else{
+           ActivityLike activityLike = ActivityLike.builder()
+                   .activityId(activity)
+                   .memberId(member)
+                   .build();
+
+           activityLikeRepository.save(activityLike);
+        }
+
+
+    }
 
 
 }
