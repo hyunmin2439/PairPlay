@@ -53,8 +53,8 @@ export default {
     }
     const moveToProfile = function () {
       router.push({
-        name: "Profile",
-        params: {
+        name: "ProfileTemp",
+        query: {
           memberId: state.userInfo.memberId,
         }
       })

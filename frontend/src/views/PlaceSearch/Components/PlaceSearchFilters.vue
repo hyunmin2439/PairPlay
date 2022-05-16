@@ -38,33 +38,48 @@ import PlaceSearchFiltersPrice from "./PlaceSearchFiltersPrice.vue";
 import PlaceSearchFiltersRegion from "./PlaceSearchFiltersRegion.vue";
 import PlaceSearchFiltersTime from "./PlaceSearchFiltersTime.vue";
 import PlaceSearchFilterSportsCategory from "./PlaceSearchFilterSportsCategory.vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 // import Slider from "@vueform/slider";
 
 export default {
   name: "PlaceSearchFilters",
-  emits: ["searchFiltersData"],
+  // emits: ["searchFiltersData"],
   components: { PlaceSearchFiltersRegion, PlaceSearchFiltersPrice, PlaceSearchFiltersTime, PlaceSearchFilterSportsCategory },
-  setup(_, { emit }) {
+  setup(/*_, { emit }*/) {
+    const store = useStore();
+    const router = useRouter();
     let searchFiltersData = ref({
       price: "",
-      region: { sido: "", gugun: "" },
-      time: { startDate: "", endDate: "" },
-      sportsCategory: "",
+      sido: "",
+      gugun: "",
+      startDate: "",
+      endDate: "",
+      categoryList: [],
+      page: 0,
     });
+    // console.log(store.state.root.addPlaceFilters, "store.state.root.addPlaceFilters");
     const selectRegion = (res) => {
+      console.log(res, "지역나오나");
       // console.log(res, "나옵니까");
-      searchFiltersData.value.region = res;
+      searchFiltersData.value.sido = res.sido;
+      searchFiltersData.value.gugun = res.gugun;
     };
     const selectTime = (res) => {
       let startTime = new Date(+res[0] + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
       let endTime = new Date(+res[1] + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
-      searchFiltersData.value.time.startDate = startTime;
-      searchFiltersData.value.time.endDate = endTime;
+      searchFiltersData.value.startDate = startTime;
+      searchFiltersData.value.endDate = endTime;
     };
     const selectSportsCategory = (res) => {
+      if (res) {
+        //   console.log(res, "고른 스포츠");
+        searchFiltersData.value.categoryList = res;
+      } else {
+        searchFiltersData.value.categoryList = store.state.root.selectSportsCategory;
+      }
       // console.log(res);
-      searchFiltersData.value.sportsCategory = res;
     };
     // searchFiltersData.value.region.sido = regionData.sido;
     // searchFiltersData.value.region.gugun = regionData.gugun;
@@ -75,14 +90,19 @@ export default {
     // console.log(searchFiltersData, "아아");
     const cancelFilters = () => {
       searchFiltersData.value.price = "";
-      searchFiltersData.value.region = { sido: "", gugun: "" };
-      searchFiltersData.value.time = { startDate: "", endDate: "" };
-      searchFiltersData.value.sportsCategory = "";
+      searchFiltersData.value.sido = "";
+      searchFiltersData.value.gugun = "";
+      searchFiltersData.value.startDate = "";
+      searchFiltersData.value.endDate = "";
+      searchFiltersData.value.categoryList = [];
+      searchFiltersData.value.page = 0;
+      router.go(0);
     };
-    watch(searchFiltersData.value, () => {
-      emit("searchFiltersData", searchFiltersData.value);
-      // console.log(res);
-      // console.log(searchFiltersData.value, "searchFiltersData");
+    watch(searchFiltersData.value, async () => {
+      // console.log(res, "맞나이거");
+      // console.log(searchFiltersData.value, "searchFiltersData.value");
+      // emit("searchFiltersData", searchFiltersData.value);
+      await store.dispatch("root/addPlaceFilters", searchFiltersData.value);
     });
     // const refresh = () =>
     return { searchFiltersData, selectRegion, selectTime, selectSportsCategory, cancelFilters };

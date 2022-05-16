@@ -3,67 +3,6 @@
     <div class="dropdown">
       <div class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">지역</div>
       <ul class="dropdown-menu mt-2" aria-labelledby="dropdownMenuButton">
-        <!-- 서울시작 -->
-        <li class="sido">
-          <a class="dropdown-item d-flex justify-content-between px-4">
-            <div>서울</div>
-          </a>
-          <ul class="dropdown-menu dropdown-submenu px-2 text-align" @click="selectSeoulGugun">
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="강남구" />
-              <input type="button" class="dropdown-item" value="강동구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="강북구" />
-              <input type="button" class="dropdown-item" value="강서구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="관악구" />
-              <input type="button" class="dropdown-item" value="광진구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="구로구" />
-              <input type="button" class="dropdown-item" value="금천구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="노원구" />
-              <input type="button" class="dropdown-item" value="도봉구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="동대문구" />
-              <input type="button" class="dropdown-item" value="동작구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="마포구" />
-              <input type="button" class="dropdown-item" value="서대문구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="서초구" />
-              <input type="button" class="dropdown-item" value="성동구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="성북구" />
-              <input type="button" class="dropdown-item" value="송파구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="양천구" />
-              <input type="button" class="dropdown-item" value="영등포구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="용산구" />
-              <input type="button" class="dropdown-item" value="은평구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="종로구" />
-              <input type="button" class="dropdown-item" value="중구" />
-            </li>
-            <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="중랑구" />
-            </li>
-          </ul>
-        </li>
-        <!-- 서울끝 -->
-        <!-- 부산 처음-->
         <li class="sido">
           <a class="dropdown-item d-flex justify-content-between px-4">
             <div>부산</div>
@@ -102,9 +41,9 @@
               <input type="button" class="dropdown-item ps-4" value="해운대구" />
               <input type="button" class="dropdown-item" value="기장군" />
             </li>
+            <li class="d-flex"></li>
           </ul>
         </li>
-        <!-- 부산끝 -->
         <!-- <li class="sido">
           <a class="dropdown-item d-flex justify-content-between px-4"><span>서울</span> <span>&gt;</span></a>
           <ul class="dropdown-menu dropdown-submenu">
@@ -134,34 +73,18 @@ import { ref } from "vue";
 // import {mapState, useStore} from "vuex"
 
 export default {
-  name: "PlaceSearchFiltersRegion",
+  name: "MateFiltersRegion",
   emits: ["regionData"],
   setup(props, { emit }) {
     const regionData = ref({ sido: "", gugun: "" });
     // const store = userStore();
     // const route = useRoute();
-    const selectSeoulGugun = (res) => {
-      // console.log(res, "res!!!!");
-      regionData.value.sido = "서울";
-      if (res.target.value == null) {
-        // pass
-      } else {
-        regionData.value.gugun = res.target.value;
-      }
-      emit("regionData", regionData.value);
-    };
     const selectBusanGugun = (res) => {
-      // console.log(res, "res!!!!");
       regionData.value.sido = "부산";
-      if (res.target.value == null) {
-        // pass
-      } else {
-        regionData.value.gugun = res.target.value;
-      }
+      regionData.value.gugun = res.target.value;
       emit("regionData", regionData.value);
     };
-
-    return { regionData, selectSeoulGugun, selectBusanGugun };
+    return { regionData, selectBusanGugun };
   },
 };
 // let getDropdownItemsData = document.querySelectorAll(".dropdown-item");
@@ -200,7 +123,7 @@ export default {
   position: relative;
 }
 .dropdown-menu {
-  // min-height: 350px;
+  height: 350px;
   display: none;
   position: relative;
   left: 100%;

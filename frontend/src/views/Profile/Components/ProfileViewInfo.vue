@@ -161,7 +161,7 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 export default {
   name: "ProfileViewInfo",
@@ -172,8 +172,8 @@ export default {
   setup (props) {
     const store = useStore()
     const state = reactive({
-      userInfo: props.userInfo,
-      otherInfo: props.otherInfo,
+      userInfo: computed(() => props.userInfo),
+      otherInfo: computed(() => props.otherInfo),
       password: '',
       newPassword: '',
       newPasswordConfirm: '',

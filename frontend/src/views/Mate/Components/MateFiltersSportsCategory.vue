@@ -74,11 +74,14 @@
 
 <script>
 import { ref } from "vue";
+import { useStore } from 'vuex'
 
 export default {
-  name: "PlaceSearchFilterSportsCategory",
+  name: "MateFilterSportsCategory",
   emits: ["sportsCategoryData"],
-  setup(_, { emit }) {
+  // setup(_, { emit }) {
+  setup () {
+    const store = useStore()
     let sportsCategoryData = ref([]);
     const checkingClicked = {
       축구: 0,
@@ -102,15 +105,17 @@ export default {
       }
       // console.log(checkingClicked, "확인용");
     };
-    const submitSportsCategory = () => {
-      let temp = ref([]);
-      for (let i = 0; i < Object.keys(checkingClicked).length; i++) {
-        if (checkingClicked[Object.keys(checkingClicked)[i]]) {
-          temp.value.push(Object.keys(checkingClicked)[i]);
-        }
-      }
-      sportsCategoryData = temp;
-      emit("sportsCategoryData", sportsCategoryData.value);
+    const submitSportsCategory = async function() {
+      console.log(checkingClicked)
+      await store.dispatch("root/change", checkingClicked)
+      // let temp = ref([]);
+      // for (let i = 0; i < Object.keys(checkingClicked).length; i++) {
+      //   if (checkingClicked[Object.keys(checkingClicked)[i]]) {
+      //     temp.value.push(Object.keys(checkingClicked)[i]);
+      //   }
+      // }
+      // sportsCategoryData = temp;
+      // emit("sportsCategoryData", sportsCategoryData.value);
     };
 
     return { sportsCategoryData, checkingClicked, inputCategory, submitSportsCategory };
