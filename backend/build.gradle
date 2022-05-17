@@ -43,6 +43,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 
+	implementation('commons-io:commons-io:2.6')
+	implementation("org.apache.commons:commons-collections4:4.4")
+	implementation("org.apache.commons:commons-lang3:3.9")
+
 	implementation 'com.google.guava:guava:29.0-jre'
 	annotationProcessor("jakarta.persistence:jakarta.persistence-api")
 
