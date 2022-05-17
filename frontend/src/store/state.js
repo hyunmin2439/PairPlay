@@ -22,4 +22,6 @@ export default {
   addPlaceFilters: "",
   mapPosition: [],
   placeDetailInfo: "",
+  placeRecommend: [],
+  placeRecent: [],
 };

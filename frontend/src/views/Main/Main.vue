@@ -1,26 +1,24 @@
 <template>
   <div>
-    <div style="max-width: 1255px; margin: auto;">
+    <div style="max-width: 1255px; margin: auto">
       <Header></Header>
     </div>
-    <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7;">
-    <div style="max-width: 1255px; margin: auto;">
+    <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" />
+    <div style="max-width: 1255px; margin: auto">
       <div class="PlaceBackgroundImage">
         <div class="PlaceBackgroundImageCover">
           <div class="PlaceBackground-Content ms-5 ps-2">
-            <p>
-              PAIR PLAY
-            </p>
+            <p>PAIR PLAY</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="container mb-5 pb-5" style="max-width: 1280px; padding: 0px;">
-      <div class="category container" style="padding: 0px;">
+    <div class="container mb-5 pb-5" style="max-width: 1280px; padding: 0px">
+      <div class="category container" style="padding: 0px">
         <div class="ps-3 mb-4">
           <div class="fs-2 fw-bold">주요 서비스</div>
           <div class="container-in mt-4 mb-5">
-            <div class="thumbex">    
+            <div class="thumbex">
               <div class="thumbnail one">
                 <a href="javascript:void(0)">
                   <span>장소</span>
@@ -59,7 +57,7 @@
             </div>
           </div>
         </div>
-        <place-category></place-category>
+        <!-- <place-category></place-category> -->
       </div>
     </div>
     <Footer></Footer>
@@ -68,7 +66,7 @@
 
 <script>
 import Header from "../Common/Header.vue";
-import Footer from '../Common/Footer.vue';
+import Footer from "../Common/Footer.vue";
 export default {
   name: "Main",
   components: {
@@ -100,7 +98,7 @@ export default {
 .PlaceBackground-Content {
   position: relative;
   top: 60%;
-  
+
   left: -1%;
   /* max-width: 968px; */
   font-size: calc(1em + 2vw);
@@ -119,13 +117,13 @@ export default {
   padding: 1rem 2rem;
 }
 
-.container-in{
+.container-in {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
-  
-  .thumbex{
+
+  .thumbex {
     margin: 10px 0px 30px;
     width: 100%;
     min-width: 250px;
@@ -139,11 +137,11 @@ export default {
     border-radius: 15px;
     transition: all 0.4s ease-out;
     // box-shadow: 5px 10px 40px 5px rgba(0,0,0,0.5);
-    &:hover{
-      box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.5);
-    }  
-    
-    .thumbnail{
+    &:hover {
+      box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .thumbnail {
       overflow: hidden;
       // min-width: 250px;
       width: 100%;
@@ -151,8 +149,8 @@ export default {
       position: relative;
       backface-visibility: hidden;
       transition: all 0.4s ease-out;
-      
-      span{
+
+      span {
         position: absolute;
         z-index: 2;
         top: calc(150px - 110px);
@@ -166,7 +164,7 @@ export default {
         // transition: all 0.3s ease-out;
       }
 
-      button{
+      button {
         position: absolute;
         z-index: 2;
         top: calc(150px - 30px);
@@ -185,17 +183,17 @@ export default {
         letter-spacing: 0.2px;
         transition: all 0.3s ease-out;
       }
-      
-      &:hover{
+
+      &:hover {
         backface-visibility: hidden;
         // transform: scale(1.15, 1.15);
         opacity: 0.8;
-        box-shadow: 5px 10px 40px 5px rgba(0,0,0,0.5);        
+        box-shadow: 5px 10px 40px 5px rgba(0, 0, 0, 0.5);
       }
     }
   }
 
-  .box{
+  .box {
     margin: 10px 0px 30px;
     width: 100%;
     min-width: 250px;
@@ -209,11 +207,11 @@ export default {
     border-radius: 15px;
     transition: all 0.4s ease-out;
     // box-shadow: 5px 10px 40px 5px rgba(0,0,0,0.5);
-    &:hover{
-      box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.5);
-    }  
-    
-    .thumbnail{
+    &:hover {
+      box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .thumbnail {
       overflow: hidden;
       // min-width: 250px;
       width: 100%;
@@ -221,8 +219,8 @@ export default {
       position: relative;
       backface-visibility: hidden;
       transition: all 0.4s ease-out;
-      
-      span{
+
+      span {
         position: absolute;
         z-index: 2;
         padding: 0px 10px;
@@ -233,12 +231,12 @@ export default {
         letter-spacing: 0.2px;
         // transition: all 0.3s ease-out;
       }
-      
-      &:hover{
+
+      &:hover {
         backface-visibility: hidden;
         // transform: scale(1.15, 1.15);
         opacity: 0.8;
-        box-shadow: 5px 10px 40px 5px rgba(0,0,0,0.5);        
+        box-shadow: 5px 10px 40px 5px rgba(0, 0, 0, 0.5);
       }
     }
   }
@@ -264,5 +262,4 @@ export default {
   background-image: url("@/assets/images/Main/Mate.jpeg");
   background-size: cover;
 }
-
 </style>

@@ -27,15 +27,20 @@
       <div class="placeRecommend container">
         <div class="category-title ps-3 mt-3 mb-2 d-flex justify-content-between">
           <!-- <div class="fs-3 fw-bold">{{}}</div> -->
-          <div class="fs-5 fw-bold">부산 강서구에서 인기있는 운동장소</div>
-          <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p>
+          <div class="fs-5 fw-bold mb-4 d-flex align-items-center">
+            <p>{{ address.split(" ")[0] }} {{ address.split(" ")[1] }}에서 <img src="@/assets/images/Place/flame.svg" class="placeFlame" alt="" /></p>
+            <p class="text-danger">Hot한</p>
+            <p>&nbsp;시설</p>
+          </div>
+
+          <!-- <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p> -->
         </div>
         <place-recommend></place-recommend>
       </div>
       <div class="placeRecentView container my-5">
         <div class="category-title ps-3 mt-3 mb-2 d-flex justify-content-between">
-          <div class="fs-5 fw-bold">최근 조회 시설</div>
-          <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p>
+          <div class="fs-5 fw-bold mb-4">최근 조회한 시설</div>
+          <!-- <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p> -->
         </div>
         <place-recent-view></place-recent-view>
       </div>
@@ -49,12 +54,17 @@ import PlaceCategory from "./Components/PlaceCategory.vue";
 import PlaceRecentView from "./Components/PlaceRecentView.vue";
 import PlaceRecommend from "./Components/PlaceRecommend.vue";
 import Header from "../Common/Header.vue";
+import { computed, reactive } from "vue";
+import { useStore } from "vuex";
+
 export default {
   name: "Place",
   components: { Header, PlaceCategory, PlaceRecommend, PlaceRecentView },
   setup() {
-    // const store = userStore();
+    const store = useStore();
+    const address = reactive(computed(() => store.state.root.userInfo.address));
     // const route = useRoute();
+    return { address };
   },
 };
 </script>
@@ -118,6 +128,10 @@ export default {
   padding: 1rem 2.5rem;
 
   /* background-color: wheat; */
+}
+.placeFlame {
+  width: 20px;
+  vertical-align: 0;
 }
 footer {
   /* background-color: wheat; */

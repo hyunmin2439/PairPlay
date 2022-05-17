@@ -25,7 +25,7 @@
       <div class="col-lg-2">
         <div class="input-group flex-nowrap">
           <!-- <span class="input-group-text" id="addon-wrapping">@</span> -->
-          <input type="text" class="form-control serachbar" placeholder="&#xf52a; search" aria-label="Username" aria-describedby="addon-wrapping" />
+          <input type="text" class="form-control serachbar" placeholder="&#xf52a;  시설명, 해시태그 입력" aria-label="Username" aria-describedby="addon-wrapping" />
         </div>
       </div>
     </div>

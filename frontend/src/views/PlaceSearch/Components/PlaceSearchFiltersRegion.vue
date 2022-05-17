@@ -10,7 +10,7 @@
           </a>
           <ul class="dropdown-menu dropdown-submenu px-2 text-align" @click="selectSeoulGugun">
             <li class="d-flex justify-content-around text-start my-2">
-              <input type="button" class="dropdown-item ps-4" value="강남구" />
+              <input type="button" @click="selectSeoulGugun" class="dropdown-item ps-4" value="강남구" />
               <input type="button" class="dropdown-item" value="강동구" />
             </li>
             <li class="d-flex justify-content-around text-start my-2">
@@ -148,6 +148,12 @@ export default {
       } else {
         regionData.value.gugun = res.target.value;
       }
+      // var menus = document.getElementsByClassName("dropdown-menu");
+      // for (var i = 0; i < menus.length; i++) {
+      // menus[0].classList.remove("show");
+      // menus[0].classList.add("show");
+
+      // }
       emit("regionData", regionData.value);
     };
     const selectBusanGugun = (res) => {
@@ -235,6 +241,14 @@ export default {
   display: block;
   border-left: 1px solid rgba(1, 1, 1, 0.1);
 }
+.dropdown-menu > li:hover > .dropdown-submenu::after > .dropdown-menu {
+  display: none;
+  // border-left: 1px solid rgba(1, 1, 1, 0.1);
+}
+
+// .dropdown-menu > li:hover > .dropdown-submenu:visited > .dropdown-menu {
+//   display: none;
+// }
 // .dropdown-item {
 // &:hover {
 // box-shadow: 0 0 8px rgba(24, 24, 24, 0.1);

@@ -55,8 +55,8 @@
       </div>
       <div class="d-flex justify-content-start m-3 ms-4">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="checkbox11" id="checkbox11" value="피트니스" @click="inputCategory" />
-          <label class="form-check-label" for="checkbox11"> 피트니스 </label>
+          <input class="form-check-input" type="checkbox" name="checkbox11" id="checkbox11" value="헬스" @click="inputCategory" />
+          <label class="form-check-label" for="checkbox11"> 헬 스 </label>
         </div>
         <div class="form-check ms-4">
           <input class="form-check-input" type="checkbox" name="checkbox12" id="checkbox12" value="필라테스" @click="inputCategory" />
@@ -74,14 +74,14 @@
 
 <script>
 import { ref } from "vue";
-import { useStore } from 'vuex'
+import { useStore } from "vuex";
 
 export default {
   name: "MateFilterSportsCategory",
   emits: ["sportsCategoryData"],
   // setup(_, { emit }) {
-  setup () {
-    const store = useStore()
+  setup() {
+    const store = useStore();
     let sportsCategoryData = ref([]);
     const checkingClicked = {
       축구: 0,
@@ -94,7 +94,7 @@ export default {
       격투기: 0,
       배드민턴: 0,
       테니스: 0,
-      피트니스: 0,
+      헬스: 0,
       필라테스: 0,
     };
     const inputCategory = (res) => {
@@ -105,9 +105,9 @@ export default {
       }
       // console.log(checkingClicked, "확인용");
     };
-    const submitSportsCategory = async function() {
-      console.log(checkingClicked)
-      await store.dispatch("root/change", checkingClicked)
+    const submitSportsCategory = async function () {
+      console.log(checkingClicked);
+      await store.dispatch("root/change", checkingClicked);
       // let temp = ref([]);
       // for (let i = 0; i < Object.keys(checkingClicked).length; i++) {
       //   if (checkingClicked[Object.keys(checkingClicked)[i]]) {

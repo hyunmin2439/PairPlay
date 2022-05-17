@@ -55,8 +55,8 @@
       </div>
       <div class="d-flex justify-content-start m-3 ms-4">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="checkbox11" id="checkbox11" value="피트니스" @click="inputCategory" />
-          <label class="form-check-label" for="checkbox11"> 피트니스 </label>
+          <input class="form-check-input" type="checkbox" name="checkbox11" id="checkbox11" value="헬스" @click="inputCategory" />
+          <label class="form-check-label" for="checkbox11"> 헬 스 </label>
         </div>
         <div class="form-check ms-4">
           <input class="form-check-input" type="checkbox" name="checkbox12" id="checkbox12" value="필라테스" @click="inputCategory" />

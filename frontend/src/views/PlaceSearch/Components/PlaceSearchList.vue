@@ -1,5 +1,5 @@
 <template>
-  <div class="cardTotalFrame">
+  <div class="cardTotalFrame" @mouseover="changeMark">
     <div class="card my-4">
       <div class="row card-frame">
         <div class="col-6">
@@ -42,7 +42,7 @@ const BASE_URL = "https://pairplay.site/api/v1/";
 export default {
   name: "PlaceSearchList",
   // emits: ["clickLike"],
-  props: ["card", "cardId"],
+  props: ["card"],
   setup() {
     const router = useRouter();
     // console.log(props.card, "props.card");
@@ -67,12 +67,14 @@ export default {
         },
       });
     };
+    const changeMark = () => {};
     return {
       // placeSearchData,
       clickLike,
       moveToPlaceDetail,
       // getCards,
       // like,
+      changeMark,
     };
   },
 };
@@ -86,12 +88,12 @@ export default {
   border-top: 1px solid rgba(1, 1, 1, 0.1);
   border-bottom: 1px solid rgba(1, 1, 1, 0.05);
 }
-.card-frame {
-  // border-top: 1px solid rgba(1, 1, 1, 0.1);
-  // border-bottom: 1px solid #ffff;
-}
-.row {
-}
+// .card-frame {
+//   // border-top: 1px solid rgba(1, 1, 1, 0.1);
+//   // border-bottom: 1px solid #ffff;
+// }
+// .row {
+// }
 .placeSearchListCardImage {
   height: 100%;
   max-height: 250px;

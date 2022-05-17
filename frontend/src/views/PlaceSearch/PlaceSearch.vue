@@ -8,9 +8,9 @@
     <place-search-filters></place-search-filters>
     <div class="container PlaceSearchContentFrame">
       <div class="placeSearchContent container d-flex justify-content-around align-items-start">
-        <div class="mt-4 col">
-          <div v-if="cards" class="placeSearchTitle mb-3 ps-2">
-            <strong>{{ cards[0].address.split(" ")[0] }} {{ cards[0].address.split(" ")[1] }}</strong
+        <div class="place-search-list-frame mt-4">
+          <div class="placeSearchTitle mb-3 ps-2" v-if="store.state.root.placeSearchInfo.placeList">
+            <strong>{{ store.state.root.placeSearchInfo.placeList[0].address.split(" ")[0] }} {{ store.state.root.placeSearchInfo.placeList[0].address.split(" ")[1] }}</strong
             >에 위치한 <strong>{{ totalElements }}개</strong>의 시설
           </div>
           <div class="py-2">
@@ -38,7 +38,7 @@
             </div>
           </div>
         </div>
-        <place-search-maps class="col placeSearchMaps"></place-search-maps>
+        <place-search-maps :cards="cards" class="col placeSearchMaps"></place-search-maps>
       </div>
     </div>
     <footer>푸터</footer>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { onMounted, ref, reactive, computed } from "vue";
+import { onMounted, reactive, computed } from "vue";
 import { useStore } from "vuex";
 // import { useRoute } from "vue-router";
 import Header from "../Common/Header.vue";
@@ -61,9 +61,25 @@ export default {
     // console.log(store.state.root.addPlaceFilters);
     // const route = useRoute();
     let cards = reactive(computed(() => store.state.root.placeSearchInfo.placeList));
-    let totalPages = ref(computed(() => store.state.root.placeSearchInfo.totalPages));
-    let totalElements = ref(computed(() => store.state.root.placeSearchInfo.totalElements));
-    let nowPage = ref(computed(() => searchFiltersData.value["page"]));
+    let totalPages = reactive(computed(() => store.state.root.placeSearchInfo.totalPages));
+    let totalElements = reactive(computed(() => store.state.root.placeSearchInfo.totalElements));
+    // let address = reactive({
+    //   sido: computed(() => {
+    //     if (store.state.root.placeSearchInfo.placeList[0].address) {
+    //       return store.state.root.placeSearchInfo.placeList[0].address.split(" ")[0];
+    //     } else {
+    //       return store.state.root.userInfo.address.split(" ")[0];
+    //     }
+    //   }),
+    //   gugun: computed(() => {
+    //     if (store.state.root.placeSearchInfo.placeList) {
+    //       return store.state.root.placeSearchInfo.placeList[0].address.split(" ")[1];
+    //     } else {
+    //       return store.state.root.userInfo.address.split(" ")[1];
+    //     }
+    //   }),
+    // });
+    let nowPage = reactive(computed(() => searchFiltersData.value["page"]));
     let searchFiltersData = reactive(
       computed(() => store.state.root.addPlaceFilters)
       // categoryList: [route.params.categoryList],
@@ -174,7 +190,7 @@ export default {
 
   // width: 50%;
   // background-color: wheat;
-  max-height: 70vh;
+  max-height: 66vh;
   overflow-y: overlay;
   // overflow-x: overlay;
   // scrollbar-width: 0px;
@@ -186,6 +202,9 @@ export default {
 //   // display: none;
 //   // width: 0px;
 // }
+.place-search-list-frame {
+  width: 45%;
+}
 .placeSearchContent {
   max-width: 1400px;
 }
@@ -200,6 +219,8 @@ export default {
   justify-content: center;
 }
 .page-item > .page-link {
+  width: 2.5rem;
+  text-align: center;
   background: white;
   color: black;
   line-height: 2rem;
