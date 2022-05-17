@@ -17,25 +17,8 @@
       </div>
     </div>
     <div style="max-width: 1280px; margin: auto; margin-bottom: 5%;">
-      <mate-filters></mate-filters>
+      <mate-filter></mate-filter>
       <mate-view></mate-view>
-      <!-- <nav aria-label="...">
-        <ul class="pagination justify-content-center my-5">
-          <li class="page-item disabled">
-            <a class="page-link">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">4</a></li>
-          <li class="page-item"><a class="page-link" href="#">5</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav> -->
     </div>
     <Footer></Footer>
   </div>
@@ -44,13 +27,13 @@
 <script>
 import Header from "../Common/Header.vue";
 import Footer from "../Common/Footer.vue";
-import MateFilters from "./Components/MateFilters.vue";
+import MateFilter from "./Components/MateFilter.vue";
 import MateView from "./Components/MateView.vue";
 
 import { onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
 export default {
-  components: { MateFilters, MateView, Header, Footer },
+  components: { MateFilter, MateView, Header, Footer },
   name: "Mate",
   setup() {
     const store = useStore()

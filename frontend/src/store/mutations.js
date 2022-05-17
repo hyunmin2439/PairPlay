@@ -101,9 +101,18 @@ export function PROFILE_RESERVATION_LIST_MORE(state, data) {
   }
 }
 
-export function MATE_ARTICLE_PAGE(state, data) {
-  state.mateArticlePage = 0;
-  state.mateArticlePage = data + 1;
+export function PROFILE_LIKE_PLACE(state, data) {
+  state.profileLikePlaceTotalPages = -1
+  state.profileLikePlaceTotalPages = data.totalPages
+  state.profileLikePlaceList = []
+  state.profileLikePlaceList = data.list
+}
+
+export function PROFILE_LIKE_MATE(state, data) {
+  state.profileLikeMateTotalPages = -1
+  state.profileLikeMateTotalPages = data.totalPages
+  state.profileLikeMateList = []
+  state.profileLikeMateList = data.list
 }
 
 export async function MATE_ARTICLE_LIST(state, data) {
@@ -119,6 +128,7 @@ export async function MATE_ARTICLE_LIST(state, data) {
     sub["description"] = data.content[i]["description"];
     sub["location"] = data.content[i]["location"];
     sub["title"] = data.content[i]["title"];
+    sub["like"] = data.content[i]["like"];
     var startDate = new Date(data.content[i]["createdDate"][0], data.content[i]["createdDate"][1] - 1, data.content[i]["createdDate"][2]);
     var today = new Date();
     var diff = today.getTime() - startDate.getTime();
@@ -128,6 +138,11 @@ export async function MATE_ARTICLE_LIST(state, data) {
     // String(data[i].date[0]) + '-' + String(data[i].date[1]) + '-' + String(data[i].date[2])
     state.mateArticleList.push(sub);
   }
+}
+
+export async function MATE_ARTICLE_FILTER(state, data) {
+  state.mateArticleFilter = {}
+  state.mateArticleFilter = data
 }
 
 export async function PLACE_SEARCH_INFO(state, data) {

@@ -19,11 +19,32 @@
 import ProfileLikePlace from './ProfileLikePlace.vue'
 import ProfileLikeMate from './ProfileLikeMate.vue'
 
+import { reactive, onMounted } from 'vue'
+import { useStore } from 'vuex'
 export default {
   name: "ProfileLike",
   components: {
     ProfileLikePlace,
     ProfileLikeMate
+  },
+  props: {
+    userInfo: Object,
+    otherInfo: Object,
+  },
+  setup(props) {
+    const store = useStore()
+    const state = reactive({
+      userInfo: props.userInfo,
+      otherInfo: props.otherInfo,
+      page: 0,
+    })
+
+    onMounted(async () => {
+      await store.dispatch("root/profileLikePlace", state.page)
+      await store.dispatch("root/profileLikeMate", state.page)
+    })
+
+    return { state, onMounted }
   }
 }
 </script>

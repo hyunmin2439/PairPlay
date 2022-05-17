@@ -52,6 +52,22 @@ export function profileReservationList(state) {
   return state.profileReservationList
 }
 
+export function profileLikePlaceTotalPages(state) {
+  return state.profileLikePlaceTotalPages
+}
+
+export function profileLikePlaceList(state) {
+  return state.profileLikePlaceList
+}
+
+export function profileLikeMateTotalPages(state) {
+  return state.profileLikeMateTotalPages
+}
+
+export function profileLikeMateList(state) {
+  return state.profileLikeMateList
+}
+
 export function mateArticleList(state) {
   return state.mateArticleList;
 }
@@ -59,8 +75,9 @@ export function mateArticleList(state) {
 export function matePage(state) {
   return state.matePage;
 }
-export function mateArticlePage(state) {
-  return state.mateArticlePage;
+
+export function mateArticleFilter(state) {
+  return state.mateArticleFilter;
 }
 
 export function getPlaceInfo(state) {

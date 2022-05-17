@@ -107,6 +107,7 @@ export default {
     const state = reactive({
       userInfo: computed(() => store.getters["root/userInfo"]),
       otherInfo: computed(() => store.getters["root/otherInfo"]),
+      profileImg: null,
       sideComponents: "Profile",
       isDescript: false,
       isActivePro: true,
@@ -134,9 +135,8 @@ export default {
       if( event.target.files && event.target.files.length > 0 ) {
         const file = event.target.files[0];
         state.otherInfo.profileImage = URL.createObjectURL(file);
-        // let data = new FormData()
-        // data.append("profileImage", file)
-        await store.dispatch('root/profileChangeImage', { 'file': file })
+        state.profileImg = file
+        await store.dispatch('root/profileChangeImage', { 'file': state.profileImg })
       }
     }
 

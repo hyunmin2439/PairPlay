@@ -26,8 +26,12 @@
           <div
             class="d-flex justify-content-between align-items-center"
           >
-            <label class="like">
-              <input type="checkbox" checked>
+            <label v-if="card.like==true" class="like">
+              <input type="checkbox" checked @click="mateLikeChange(card.activityId)">
+              <div class="hearth" />
+            </label>
+            <label v-else class="like">
+              <input type="checkbox" @click="mateLikeChange(card.activityId)">
               <div class="hearth" />
             </label>
             <div class="me-4" style="color: rgb(174 174 174); font-size: small;">
@@ -75,12 +79,12 @@
                 </div>
                 <div class="row mt-5">
                   <div class="col-1"></div>
-                  <button class="col-3 mate-apply">신청하기</button>
+                  <button class="col-3 mate-apply" @click="mateApplyFor(mateDetail.activityId)">신청하기</button>
                 </div>
                 <br>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+                <button type="button" class="btn btn-secondary" id="modal-check" data-bs-dismiss="modal">확인</button>
               </div>
             </div>
           </div>
@@ -128,9 +132,9 @@ export default {
       },
       totalPages: computed(() => store.getters["root/mateArticleListTotalPage"]),
       totalElements: computed(() => store.getters["root/mateArticleListTotalElements"]),
-      // page: computed(() => store.getters["root/matePage"]),
       size: 8,
-      page: computed(() => store.getters["root/mateArticlePage"])
+      page: 0,
+      mateArticleFilter: computed(() => store.getters["root/mateArticleFilter"]),
     })
 
     const mateDetail = ref({});
@@ -140,13 +144,12 @@ export default {
         "page": 0,
         "size": 8,
       })
-      var activeBtn = document.getElementsByClassName("page-item")[state.page-1]
+      var activeBtn = document.getElementsByClassName("page-item")[state.page]
       activeBtn.classList.add("active")
     })
 
     const changeMateDetail = async function (idx) {
       mateDetail.value = state.cards[idx]
-      console.log(mateDetail.value)
     }
 
     const changePage = async function (event) {
@@ -156,13 +159,44 @@ export default {
       }
       var activeBtn = document.getElementsByClassName("page-item")[Number(event.target.textContent)-1]
       activeBtn.classList.add("active")
-      await store.dispatch("root/mateArticleList", {
-        "page": Number(event.target.textContent)-1,
-        "size": 8,
+      if (state.mateArticleFilter.categoryId==0 & state.mateArticleFilter.sido=="" & state.mateArticleFilter.search=="") {
+        state.page = Number(event.target.textContent)-1
+        await store.dispatch("root/mateArticleList", {
+          "page": Number(event.target.textContent)-1,
+        })
+      } else {
+        const body = {
+          "categoryId": state.mateArticleFilter.categoryId,
+          "gungu": state.mateArticleFilter.gungu,
+          "search": state.mateArticleFilter.search,
+          "sido": state.mateArticleFilter.sido,
+          "page": Number(event.target.textContent)-1,
+        }
+        state.page = Number(event.target.textContent)-1
+        await store.dispatch("root/mateFilterChange", body)
+      }
+    }
+
+    const mateApplyFor = async function (activityId) {
+      await store.dispatch("root/mateApplyFor", {
+        'activityId': activityId
+      })
+      var button = document.getElementById("modal-check")
+      button.click()
+    }
+
+    const mateLikeChange = async function (activityId) {
+      await store.dispatch("root/mateLikeChange", {
+        'activityId': activityId,
+        "categoryId": state.mateArticleFilter.categoryId,
+        "gungu": state.mateArticleFilter.gungu,
+        "search": state.mateArticleFilter.search,
+        "sido": state.mateArticleFilter.sido,
+        "page": state.page,
       })
     }
 
-    return { state, mateDetail, onMounted, changeMateDetail, changePage };
+    return { state, mateDetail, onMounted, changeMateDetail, changePage, mateApplyFor, mateLikeChange };
   }
 }
 </script>

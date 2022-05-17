@@ -90,7 +90,7 @@ export default {
 }
 
 .category {
-  background-image: url("@/assets/images/Profile/Category/축구.png");
+  background-image: url("@/assets/images/Profile/Category/1.png");
   background-size: 70%;
   background-repeat: no-repeat;
   background-position-y: center;
