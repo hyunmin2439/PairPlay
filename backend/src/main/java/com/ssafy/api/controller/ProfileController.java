@@ -18,6 +18,7 @@ import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -100,7 +101,7 @@ public class ProfileController {
     }
     
     // Profile Image Update
-    @PostMapping("/profileImage")
+    @PostMapping(value = "/profileImage", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     @ApiOperation(value = "유저 프로필사진 수정", notes = "<string>JWT토큰</string>의 ID에 해당하는 회원 프로필 사진을 수정한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "유저 프로필 이미지 수정에 성공했습니다.", response = BaseResponseBody.class),
