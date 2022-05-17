@@ -158,8 +158,8 @@ public class ProfileService {
 
         // memberId와 정확한 Date를 사용하여 Activity를 조회
         List<Activity> activityList = activityRepository.findByMateMemberIdAndMeetDtBetween(memberId, LocalDateTime.of(date, LocalTime.of(0, 0, 0)), LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0)));
-        System.out.println(memberId + " " + LocalDateTime.of(date, LocalTime.of(0, 0, 0)) + " " + LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0) ));
-        System.out.println(activityList.size());
+        System.out.println("Variable : " + memberId + " " + LocalDateTime.of(date, LocalTime.of(0, 0, 0)) + " " + LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0) ));
+        System.out.println("Return Size : " + activityList.size());
         if (activityList.size() != 0) {
             System.out.println("not empty");
             activityList.forEach(a -> System.out.println(a.getId()));
@@ -175,18 +175,17 @@ public class ProfileService {
             // activityId를 사용하여 MateList 구한다
             List<Mate> mateResList = mateRepository.findByActivityId_Id(activity.getId());
             for (Mate mate : mateResList) {
-                System.out.println(mate.getMemberId().getId());
-                System.out.println(mate.getActivityId().getId());
+                System.out.println("Mate Info : " + mate.getMemberId().getId() + "\nActivity Info : " + mate.getActivityId().getId());
             }
 
             // CalendarDetailMateRes를 만들어서 그 안에 MateList를 사용하여 가져온 member_id, profile_image를 저장한다
             List<CalendarDetailMateRes> detailMateResList = new ArrayList<>();
             for (Mate mate : mateResList) {
-                System.out.println(mate.getMemberId().getProfileImage());
+                System.out.println("Mate ProfileImage : " + mate.getMemberId().getProfileImage());
                 detailMateResList.add(CalendarDetailMateRes.of(mate.getMemberId().getId(),
                         s3FileUploadService.findImg(mate.getMemberId().getProfileImage())));
             }
-            System.out.println(detailMateResList.size());
+            System.out.println("Mate List Size : " + detailMateResList.size());
 
             // 임의의 CalendarDetailAvticityRes를 만들어서 그 안에 Activity정보와 MateList를 저장후 list에 더한다
             list.add(CalendarDetailActivityRes.of(activity, detailMateResList));
