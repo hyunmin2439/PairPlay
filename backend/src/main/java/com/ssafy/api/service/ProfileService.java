@@ -157,8 +157,8 @@ public class ProfileService {
 
 
         // memberId와 정확한 Date를 사용하여 Activity를 조회
-        List<Activity> activityList = activityRepository.findByMateMemberIdAndMeetDtBetween(memberId, LocalDateTime.of(date, LocalTime.of(0, 0, 0)), LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0)));
-        System.out.println("Variable : " + memberId + " " + LocalDateTime.of(date, LocalTime.of(0, 0, 0)) + " " + LocalDateTime.of(date.plusDays(1), LocalTime.of(0, 0, 0) ));
+        List<Activity> activityList = activityRepository.findByMateMemberIdAndMeetDtBetween(memberId, LocalDateTime.of(date, LocalTime.of(0, 0, 0)), LocalDateTime.of(date, LocalTime.of(23, 59, 59) ));
+        System.out.println("Variable : " + memberId + " " + LocalDateTime.of(date, LocalTime.of(0, 0, 0)) + " " + LocalDateTime.of(date, LocalTime.of(23, 59, 59) ));
         System.out.println("Return Size : " + activityList.size());
         if (activityList.size() != 0) {
             System.out.println("not empty");
