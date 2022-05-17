@@ -24,8 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.ssafy.common.statuscode.ActivityCode.FAIL_MEMBER_NOT_FOUND;
-import static com.ssafy.common.statuscode.ActivityCode.SUCCESS_MATE_LIST;
+import static com.ssafy.common.statuscode.ActivityCode.*;
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
 
 @Service
@@ -156,6 +155,8 @@ public class ActivityService {
 
         System.out.println("확인" + fileNameArr);
 
+
+
         Activity activity = Activity.builder()
                 .categoryId(activityInfo.getCategoryId())
                 .createId(memberId)
@@ -164,6 +165,8 @@ public class ActivityService {
                 .description(activityInfo.getDescription())
                 .location(activityInfo.getLocation())
                 .mateImage(fileNameArr)
+                .age(activityInfo.getAge())
+                .gender(activityInfo.getGender())
                 .isEnd(false)
                 .build();
         activityRepository.save(activity);
@@ -182,7 +185,7 @@ public class ActivityService {
 
     //메이트 상세 조회
     public Activity getActivityDetail(Long activityId) {
-        return activityRepository.findById(activityId).orElseThrow(() -> new CustomException(FAIL_MEMBER_NOT_FOUND));
+        return activityRepository.findById(activityId).orElseThrow(() -> new CustomException(FAIL_ACTIVITY_NOT_FOUND));
     }
 
 
@@ -191,7 +194,7 @@ public class ActivityService {
     public void registerActivity(ActivityRegisterReq req) {
 
         Member member = findId();
-        Activity activity = activityRepository.findById(req.getActivityId()).orElseThrow(() -> new CustomException(FAIL_MEMBER_NOT_FOUND));
+        Activity activity = activityRepository.findById(req.getActivityId()).orElseThrow(() -> new CustomException(FAIL_ACTIVITY_NOT_FOUND));
         if(req.getActivityId() == null || member == null){
             throw new CustomException(EMPTY_REQUEST_VALUE);
         }
@@ -213,7 +216,7 @@ public class ActivityService {
 
         Member member = findId();
 
-        Activity activity = activityRepository.findById(activityId).orElseThrow(() -> new CustomException(FAIL_MEMBER_NOT_FOUND));
+        Activity activity = activityRepository.findById(activityId).orElseThrow(() -> new CustomException(FAIL_ACTIVITY_NOT_FOUND));
 
         Long id = null;
         for (ActivityLike like : member.getActivityLikeList()) {
@@ -236,5 +239,10 @@ public class ActivityService {
 
     }
 
+    public void endActivity() {
 
+//        Activity activity = activityRepository.findByCreateId();
+
+
+    }
 }

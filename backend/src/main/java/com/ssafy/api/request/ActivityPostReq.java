@@ -33,5 +33,10 @@ public class ActivityPostReq {
     @ApiModelProperty(name = "내용")
     String description;
 
+    @ApiModelProperty(name = "연령대")
+    int age;
+
+    @ApiModelProperty(name = "성별")
+    int gender;
 
 }

@@ -33,7 +33,5 @@ public interface MateRepository extends JpaRepository<Mate, Long> {
     Page<Mate> findByMemberId_IdAndActivityId_CreateIdNotAndActivityId_MeetDtAfterOrderById(Long memberId, Long createId, LocalDateTime now, Pageable pageable);
 
 
-    @Query(value = "SELECT * from mate JOIN activity On mate.activity_id_id = activity.id " +
-                    "where mate.activity_id_id = activity.id and mate.member_id_id = activity.create_id",nativeQuery = true)
-    Page<Mate> findAllByActivityId_CreateIdEqualsMemberId_Id(Pageable pageable);
+    void deleteByActivityId_Id(Long activityId);
 }

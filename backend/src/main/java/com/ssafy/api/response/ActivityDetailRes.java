@@ -38,6 +38,13 @@ public class ActivityDetailRes extends BaseResponseBody{
     @ApiModelProperty(name = "이미지 목록")
     List<String> multipartFile;
 
+    @ApiModelProperty(name = "성별")
+    int gender;
+
+    @ApiModelProperty(name = "연령대")
+    int age;
+
+
     private static S3FileUploadService s3FileUploadService;
 
 
@@ -68,6 +75,8 @@ public class ActivityDetailRes extends BaseResponseBody{
         res.setDescription(activity.getDescription());
         res.setLocation(activity.getLocation());
         res.setMultipartFile(imageList);
+        res.setGender(activity.getGender());
+        res.setAge(activity.getAge());
         res.setCode(statusCode);
         res.setMessage(message);
         return res;

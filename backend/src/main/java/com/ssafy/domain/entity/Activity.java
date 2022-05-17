@@ -30,6 +30,8 @@ public class Activity extends BaseEntity{
     private LocalDateTime closeDt;
     private String location;
     private String mateImage;
+    private int gender;
+    private int age;
 
     @Column(name = "is_end", columnDefinition = "BOOLEAN")
     private Boolean isEnd;
