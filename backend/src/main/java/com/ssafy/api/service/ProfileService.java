@@ -130,9 +130,15 @@ public class ProfileService {
 //        Long memberId = Long.parseLong(authentication.getName());
 
         // memberId, 오늘 날짜, 오늘 날짜 - 1year를 통해서 달력에 표시할 각 날짜의 mate의 count를 구한다
-        List<CalendarDate> mateList = mateRepository.findByMemberIdAndMeetDtBefore(memberId, LocalDate.now().minusYears(1), LocalDate.now().plusDays(1));
-        System.out.println(memberId + " " + LocalDate.now().minusYears(1) + " " + LocalDate.now());
-        System.out.println(mateList.size());
+        // List<CalendarDate> mateList = mateRepository.findByMemberIdAndMeetDtBefore(memberId, LocalDate.now().minusYears(1), LocalDate.now().plusDays(1));
+        // LocalDate.now()를 사용하면, 현재 시간이 출력되지 않고, 9시간 부족한 값, UTC가 출력되므로, 9시간을 더해서 사용한다
+        // 그런데 왜, Repository를 사용하면서 Date를 GroupBy로 묶을 때는 9시간의 영향을 받지 않는가 -> 시간 값이 변환되는 타이밍이 DB에서 SpringBoot로 넘어오는 타이밍이라서 그런 것인가?
+        LocalDate currentTime = LocalDate.of(LocalDateTime.now().plusHours(9).getYear(), LocalDateTime.now().plusHours(9).getMonth(), LocalDateTime.now().plusHours(9).getDayOfMonth());
+        List<CalendarDate> mateList = mateRepository.findByMemberIdAndMeetDtBefore(memberId, currentTime.minusYears(1), currentTime.plusDays(1));
+        
+        System.out.println("Variable : " + memberId + " " + LocalDate.now().minusYears(1) + " " + LocalDate.now());
+        System.out.println("LocalDateTime.now() : " + LocalDateTime.now());
+        System.out.println("MateList Size : " + mateList.size());
         if (mateList.size() != 0) mateList.forEach(a -> System.out.println(a.getDate() + " " + a.getCount()));
         else System.out.println("empty");
 
@@ -382,6 +388,7 @@ public class ProfileService {
         return ProfilePlaceLikeListRes.of(totalPages, totalElements, list);
     }
 
+    // 찜한 메이트 공고 찾기
     public Page<ActivityLike> searchActivityLike(Pageable pageable) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
