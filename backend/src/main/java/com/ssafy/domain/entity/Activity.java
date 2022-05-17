@@ -22,16 +22,17 @@ import java.util.List;
 @Builder
 public class Activity extends BaseEntity{
 
-    Long categoryId;
-    Long createId;
-    String title;
-    String description;
-    LocalDateTime meetDt;
-    LocalDateTime closeDt;
-    String location;
+    private Long categoryId;
+    private Long createId;
+    private String title;
+    private String description;
+    private LocalDateTime meetDt;
+    private LocalDateTime closeDt;
+    private String location;
+    private String mateImage;
 
     @Column(name = "is_end", columnDefinition = "BOOLEAN")
-    Boolean isEnd;
+    private Boolean isEnd;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "activityId") //참조를 당하는 쪽에서 읽기만 가능!
@@ -42,4 +43,5 @@ public class Activity extends BaseEntity{
     @OneToMany(mappedBy = "activityId") //참조를 당하는 쪽에서 읽기만 가능!
     @Builder.Default
     private List<ActivityLike> activityLikeList = new LinkedList<>();
+
 }

@@ -19,9 +19,12 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.ssafy.common.statuscode.ActivityCode.FAIL_MEMBER_NOT_FOUND;
 import static com.ssafy.common.statuscode.ActivityCode.SUCCESS_MATE_LIST;
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
 
@@ -50,7 +53,7 @@ public class ActivityService {
     public Member findId(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
-        return memberRepository.findById(memberId).orElse(null);
+        return memberRepository.findById(memberId).orElseThrow(() -> new CustomException(FAIL_MEMBER_NOT_FOUND));
     }
 
     @Transactional
@@ -134,13 +137,24 @@ public class ActivityService {
     
     
     //메이트 등록
-    public void createActivity(ActivityPostReq activityInfo) {
+    public void createActivity(ActivityPostReq activityInfo, List<String> fileName) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
 
-        Member member = memberRepository.findById(memberId).orElse(null);
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new CustomException(FAIL_MEMBER_NOT_FOUND));
 
+
+        String fileNameArr = "";
+
+        if(fileName.size() != 0){
+            for (String file : fileName) {
+                fileNameArr = fileNameArr + " " + file + " ";
+            }
+        }
+
+
+        System.out.println("확인" + fileNameArr);
 
         Activity activity = Activity.builder()
                 .categoryId(activityInfo.getCategoryId())
@@ -149,6 +163,7 @@ public class ActivityService {
                 .title(activityInfo.getTitle())
                 .description(activityInfo.getDescription())
                 .location(activityInfo.getLocation())
+                .mateImage(fileNameArr)
                 .isEnd(false)
                 .build();
         activityRepository.save(activity);
@@ -167,8 +182,7 @@ public class ActivityService {
 
     //메이트 상세 조회
     public Activity getActivityDetail(Long activityId) {
-
-        return activityRepository.findById(activityId).orElse(null);
+        return activityRepository.findById(activityId).orElseThrow(() -> new CustomException(FAIL_MEMBER_NOT_FOUND));
     }
 
 
@@ -177,7 +191,7 @@ public class ActivityService {
     public void registerActivity(ActivityRegisterReq req) {
 
         Member member = findId();
-        Activity activity = activityRepository.findById(req.getActivityId()).orElse(null);
+        Activity activity = activityRepository.findById(req.getActivityId()).orElseThrow(() -> new CustomException(FAIL_MEMBER_NOT_FOUND));
         if(req.getActivityId() == null || member == null){
             throw new CustomException(EMPTY_REQUEST_VALUE);
         }
@@ -192,14 +206,14 @@ public class ActivityService {
 
 
 
-    //메이트 공고 등록/삭제
+    //메이트 찜하기/취소
     @Transactional
     public void likeActivity(Long activityId) {
 
 
         Member member = findId();
 
-        Activity activity = activityRepository.findById(activityId).orElse(null);
+        Activity activity = activityRepository.findById(activityId).orElseThrow(() -> new CustomException(FAIL_MEMBER_NOT_FOUND));
 
         Long id = null;
         for (ActivityLike like : member.getActivityLikeList()) {
