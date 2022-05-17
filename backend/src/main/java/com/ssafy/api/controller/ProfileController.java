@@ -108,11 +108,13 @@ public class ProfileController {
             @RequestParam(value = "profileImage", required = false) MultipartFile file) {
 
         if (file != null) {
+            System.out.println("여기로 들어옴" + file.getName());
             System.out.println(file.getOriginalFilename());
             System.out.println(file.getSize());
 
             try {
                 String fileName = s3FileUploadService.upload(file);
+                System.out.println(fileName == null ? "파일이름 null" : fileName);
                 profileService.updateMemberProfileImage(fileName);
             } catch (Exception e) {
                 e.printStackTrace();
