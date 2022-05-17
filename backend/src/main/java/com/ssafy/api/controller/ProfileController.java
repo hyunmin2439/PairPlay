@@ -12,14 +12,17 @@ import com.ssafy.api.service.S3FileUploadService;
 import com.ssafy.common.handler.CustomException;
 import com.ssafy.domain.document.Place;
 import com.ssafy.domain.document.PlaceMember;
+import com.ssafy.domain.entity.ActivityLike;
 import com.ssafy.domain.entity.Member;
 import io.swagger.annotations.*;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -319,15 +322,24 @@ public class ProfileController {
     }
 
     // 찜한 메이트 공고
+    @Transactional
     @GetMapping("/mates/like")
     @ApiOperation(value = "찜한 메이트 공고 조회", notes = "JWT토큰의 ID를 사용하여 찜한 메이트 공고목록을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "예약 정보가 있는 체육시설 조회에 성공하였습니다.", response = ProfileRes.class),
     })
     public ResponseEntity<? extends BaseResponseBody> searchMateLike(@PageableDefault(page = 0, size = 3) Pageable pageable) {
-        List<ReservationRes> list= null;
+        Page<ActivityLike> page= profileService.searchActivityLike(pageable);
 
-        return null;
+        return ResponseEntity.status(200).body(
+                ProfileActivityLikeRes.of(
+                        SUCCESS_SEARCH_MATE_LIKE.getCode(),
+                        SUCCESS_SEARCH_MATE_LIKE.getMessage(),
+                        page.getTotalPages(),
+                        page.getTotalElements(),
+                        page
+                )
+        );
     }
 
 

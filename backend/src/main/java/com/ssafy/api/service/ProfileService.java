@@ -383,19 +383,15 @@ public class ProfileService {
         return ProfilePlaceLikeListRes.of(totalPages, totalElements, list);
     }
 
-    public List<CalendarDetailActivityRes> searchActivityLike(Pageable pageable) {
-        // Activity_Like 테이블을 Pageable을 사용해서 들고오고
-        // list에 들어있는 Activity 정보를 꺼내어 리스트를 만들고
-        // 이것을 return 한다
+    public Page<ActivityLike> searchActivityLike(Pageable pageable) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
+        System.out.println(memberId);
 
         Page<ActivityLike> activityLikeList = activityLikeRepository.findByMemberId_Id(memberId, pageable);
         System.out.println(activityLikeList.getTotalPages());
         System.out.println(activityLikeList.getTotalElements());
 
-        return null;
-
-
+        return activityLikeList;
     }
 }
