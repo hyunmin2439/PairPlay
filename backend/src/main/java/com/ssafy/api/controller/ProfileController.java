@@ -25,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,9 @@ public class ProfileController {
             @ApiResponse(code = 200, message = "유저 프로필 이미지 수정에 성공했습니다.", response = BaseResponseBody.class),
     })
     public ResponseEntity<? extends BaseResponseBody> updateProfileImage(
-            @RequestParam(value = "profileImage", required = false) MultipartFile file) {
+            @RequestParam(value = "profileImage", required = false) MultipartHttpServletRequest request) {
+
+        MultipartFile file = request.getFile("profileImage");
 
         if (file != null) {
             System.out.println("여기로 들어옴" + file.getName());
