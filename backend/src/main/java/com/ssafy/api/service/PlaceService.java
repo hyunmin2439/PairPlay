@@ -27,6 +27,7 @@ public class PlaceService {
     private final MemberService memberService;
     private final PlaceRepository placeRepository;
     private final ReviewRepository reviewRepository;
+    private final S3FileUploadService s3FileUploadService;
     private final ReservationRepository reservationRepository;
     private final PlaceRepositorySupport placeRepositorySupport;
     private final PlaceMemberRepository placeMemberRepository;
@@ -35,6 +36,7 @@ public class PlaceService {
     public PlaceService(MemberService memberService,
                         PlaceRepository placeRepository,
                         ReviewRepository reviewRepository,
+                        S3FileUploadService s3FileUploadService,
                         ReservationRepository reservationRepository,
                         PlaceRepositorySupport placeRepositorySupport,
                         PlaceMemberRepository placeMemberRepository,
@@ -42,6 +44,7 @@ public class PlaceService {
         this.memberService = memberService;
         this.placeRepository = placeRepository;
         this.reviewRepository = reviewRepository;
+        this.s3FileUploadService = s3FileUploadService;
         this.reservationRepository = reservationRepository;
         this.placeRepositorySupport = placeRepositorySupport;
         this.placeMemberRepository = placeMemberRepository;
@@ -270,7 +273,7 @@ public class PlaceService {
     /** 체육시설 리뷰 등록 */
     @Transactional(rollbackOn = Exception.class)
     public void postReview(ReviewPostReq reviewInfo) {
-        Long memberId = memberService.getMemberIdFromAuthentication();
+        Member member = memberService.getMemberFromAuthentication();
 
         // 예약된 정보가 없으면 리뷰 작성 불가
         Reservation reservation = getReservation(reviewInfo.getReservationId());
@@ -278,7 +281,7 @@ public class PlaceService {
             throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
 
         // 예약 정보의 유저와 현재 로그인한 유저 정보가 다를 때 리뷰 작성 불가
-        if(reservation.getMemberId() != memberId)
+        if(reservation.getMemberId() != member.getId())
             throw new CustomException(FAIL_NOT_EQUAL_MEMBER);
 
         // 체육 시설이 조회가 안되면 예약 정보가 잘못 된 것
@@ -317,7 +320,9 @@ public class PlaceService {
 
         Review newReview = Review.builder()
                 .reservationId(reviewInfo.getReservationId())
-                .memberId(memberId)
+                .memberId(member.getId())
+                .nickname(member.getNickname())
+                .profileImage(s3FileUploadService.findImg(member.getProfileImage()))
                 .placeId(reservation.getPlaceId())
                 .writtenDt(LocalDateTime.now()) // MongoDB UTC로 저장됨
                 .description(reviewInfo.getDescription())

@@ -20,6 +20,8 @@ public class Review {
     private String reservationId; // 예약 정보
     @Field(name = "member_id")
     private Long memberId; // 유저 Id : 예약 정보에 포함하여 가져올 수 있지만 유저가 작성한 리뷰 정보를 가져올 때를 대비 추가
+    private String nickname;
+    private String profileImage;
     @Field(name = "place_id")
     private Long placeId; // 시설 Id값 : 예약 정보에 포함하여 가져올 수 있지만 시설에 대한 리뷰 정보를 조회할 때를 대비 추가
     @Field(name = "written_dt")
