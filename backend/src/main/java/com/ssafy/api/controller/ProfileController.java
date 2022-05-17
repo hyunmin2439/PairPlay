@@ -105,10 +105,9 @@ public class ProfileController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "유저 프로필 이미지 수정에 성공했습니다.", response = BaseResponseBody.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> updateProfileImage(MultipartHttpServletRequest request) {
-
-        MultipartFile file = request.getFile("profileImage");
-
+    public ResponseEntity<? extends BaseResponseBody> updateProfileImage(
+            @RequestParam("profileImage") @ApiParam(value = "프로파일 이미지", required = true) MultipartFile file
+    ) {
         if (file != null) {
             System.out.println("여기로 들어옴" + file.getName());
             System.out.println(file.getOriginalFilename());
