@@ -31,6 +31,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // configuration.addAllowedOrigin("*");
+        configuration.addAllowedOrigin("https://pairplay.site");
+        configuration.addAllowedOrigin("http://localhost:8080");
         configuration.addAllowedOriginPattern("*");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
@@ -53,26 +55,25 @@ public class WebMvcConfig implements WebMvcConfigurer {
     		registry.addResourceHandler("/webjars/**")
     				.addResourceLocations("classpath:/META-INF/resources/webjars/");
 
-        registry.addResourceHandler("/api/**")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
     		/*
     		 * 
     		 * Front-end에서 참조하는 URL을 /dist로 매핑
     		 * 
     		 */
-//        registry.addResourceHandler("/css/**")
-//        			.addResourceLocations("classpath:/dist/css/");
-//        	registry.addResourceHandler("/fonts/**")
-//        			.addResourceLocations("classpath:/dist/fonts/");
-//        registry.addResourceHandler("/icons/**")
-//				.addResourceLocations("classpath:/dist/icons/");
-//        registry.addResourceHandler("/img/**")
-//			.addResourceLocations("classpath:/dist/img/");
-//        registry.addResourceHandler("/js/**")
-//				.addResourceLocations("classpath:/dist/js/");
-//        registry.addResourceHandler("/profile/image/**")
-//                .addResourceLocations("classpath:/static/profileImage/**");
+        registry.addResourceHandler("/css/**")
+        			.addResourceLocations("classpath:/dist/css/");
+        	registry.addResourceHandler("/fonts/**")
+        			.addResourceLocations("classpath:/dist/fonts/");
+        registry.addResourceHandler("/icons/**")
+				.addResourceLocations("classpath:/dist/icons/");
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("classpath:/dist/img/");
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/dist/");
+        registry.addResourceHandler("/js/**")
+				.addResourceLocations("classpath:/dist/js/");
+        registry.addResourceHandler("/profile/image/**")
+                .addResourceLocations("classpath:/static/profileImage/**");
     }
 
     public Filter requestLoggingFilter() {
