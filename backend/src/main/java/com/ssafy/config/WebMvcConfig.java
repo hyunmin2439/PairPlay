@@ -47,12 +47,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     		registry.addResourceHandler("/resources/**")
     				.addResourceLocations("/WEB-INF/resources/");
 
-//    		registry.addResourceHandler("/swagger-ui/index.html/")
-//    				.addResourceLocations("classpath:/META-INF/resources/");
+    		registry.addResourceHandler("/swagger-ui/index.html/")
+    				.addResourceLocations("classpath:/META-INF/resources/");
 
     		registry.addResourceHandler("/webjars/**")
     				.addResourceLocations("classpath:/META-INF/resources/webjars/");
-    		
+
+        registry.addResourceHandler("/api/**")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
     		/*
     		 * 
     		 * Front-end에서 참조하는 URL을 /dist로 매핑
@@ -69,7 +72,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //        registry.addResourceHandler("/js/**")
 //				.addResourceLocations("classpath:/dist/js/");
 //        registry.addResourceHandler("/profile/image/**")
-//                .addResourceLocations("classpath:/static/profile_img/**");
+//                .addResourceLocations("classpath:/static/profileImage/**");
     }
 
     public Filter requestLoggingFilter() {
