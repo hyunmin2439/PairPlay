@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="checkJwt()">
     <!-- 헤더 -->
     <div style="max-width: 1255px; margin: auto">
       <Header></Header>
@@ -27,10 +27,13 @@
       <div class="placeRecommend container">
         <div class="category-title ps-3 mt-3 mb-2 d-flex justify-content-between">
           <!-- <div class="fs-3 fw-bold">{{}}</div> -->
-          <div class="fs-5 fw-bold mb-4 d-flex align-items-center">
-            <p>{{ address.split(" ")[0] }} {{ address.split(" ")[1] }}에서 <img src="@/assets/images/Place/flame.svg" class="placeFlame" alt="" /></p>
-            <p class="text-danger">Hot한</p>
-            <p>&nbsp;시설</p>
+          <div class="fs-5 mb-4 d-flex align-items-center">
+            <p>
+              <strong>{{ address.split(" ")[0] }} {{ address.split(" ")[1] }}</strong
+              >에서 <img src="@/assets/images/Place/flame.svg" class="placeFlame" alt="" />
+            </p>
+            <p class="text-danger"><strong> Hot한</strong></p>
+            <p>&nbsp;<strong>시설</strong></p>
           </div>
 
           <!-- <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p> -->
@@ -45,7 +48,7 @@
         <place-recent-view></place-recent-view>
       </div>
     </div>
-    <footer>푸터</footer>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -54,17 +57,33 @@ import PlaceCategory from "./Components/PlaceCategory.vue";
 import PlaceRecentView from "./Components/PlaceRecentView.vue";
 import PlaceRecommend from "./Components/PlaceRecommend.vue";
 import Header from "../Common/Header.vue";
-import { computed, reactive } from "vue";
-import { useStore } from "vuex";
+import Footer from "../Common/Footer.vue";
 
+import { computed, onMounted, reactive } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 export default {
   name: "Place",
-  components: { Header, PlaceCategory, PlaceRecommend, PlaceRecentView },
+  components: { Header, Footer, PlaceCategory, PlaceRecommend, PlaceRecentView },
   setup() {
     const store = useStore();
+    const router = useRouter();
     const address = reactive(computed(() => store.state.root.userInfo.address));
     // const route = useRoute();
-    return { address };
+    const checkJwt = () => {
+      if (localStorage.getItem("jwt")) {
+        // pass
+        return true;
+      } else {
+        router.push({
+          name: "Login",
+        });
+      }
+    };
+    onMounted(() => {
+      checkJwt();
+    });
+    return { address, onMounted, checkJwt };
   },
 };
 </script>

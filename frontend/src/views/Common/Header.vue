@@ -48,27 +48,27 @@ export default {
     };
     const moveToMate = function () {
       router.push({
-        name: "Mate"
-      })
-    }
+        name: "Mate",
+      });
+    };
     const moveToProfile = function () {
       router.push({
         name: "ProfileTemp",
         query: {
           memberId: state.userInfo.memberId,
-        }
-      })
-    }
+        },
+      });
+    };
     const logout = async function () {
       localStorage.removeItem("jwt");
       localStorage.removeItem("vuex");
       if (router.currentRoute.value.name == "Main") {
-        router.go()
+        router.go();
       } else {
         await router.push({
-          name: "Main"
-        })
-        router.go()
+          name: "Main",
+        });
+        router.go();
       }
     };
     return { state, moveToHome, moveToLogin, moveToSignUp, moveToPlace, moveToMate, moveToProfile, logout };

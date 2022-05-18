@@ -6,10 +6,10 @@
       <div class="col d-flex flex-row align-items-start">
         <div class="card-body px-0 me-5 text-start">
           <div class="d-flex align-items-center">
-            <div><img src="https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="profile-image" alt="" /></div>
+            <div><img :src="`${review.profileImage}`" class="profile-image" alt="" /></div>
             <div class="ms-3 d-flex col justify-content-between">
               <div>
-                <p class="mb-0 fw-bold">글쓴이</p>
+                <p class="mb-0 fw-bold">{{ review.nickname }}</p>
                 <p class="review-date mb-0">{{ review.writtenDt[0] }}년 {{ review.writtenDt[1] }}월</p>
               </div>
               <p class="card-rate mb-0 fw-bold d-flex align-items-center">

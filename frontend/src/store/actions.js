@@ -650,12 +650,11 @@ export async function getPlaceSearchInfo({ commit }, searchFiltersData) {
       },
     })
     .then((res) => {
-      // console.log(res, "없나?");
       if (res.data.placeList.length >= 1) {
         commit("PLACE_SEARCH_INFO", res.data);
         commit("CHANGE_POSITION", res.data);
       } else {
-        alert("데이터가없습니다.");
+        // alert("데이터가없습니다.");
       }
     })
     .catch((err) => {
@@ -719,6 +718,25 @@ export async function getPlaceRecent({ commit }) {
     .then((res) => {
       // console.log(res.data.placeList);
       commit("PLACE_RECENT", res.data.placeList.splice(0, 5));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export async function checkReservation({ commit }, temp) {
+  const jwt = localStorage.getItem("jwt");
+  const url = "places/reservation/check";
+  let body = temp;
+  await $axios
+    .post(url, body, {
+      headers: {
+        Authorization: "Bearer " + jwt,
+      },
+    })
+    .then((res) => {
+      console.log(res.data.times);
+      commit("CHECK_RESERVATION", res.data.times);
     })
     .catch((err) => {
       console.log(err);

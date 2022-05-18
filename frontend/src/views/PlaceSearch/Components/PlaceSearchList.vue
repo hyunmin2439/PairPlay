@@ -1,5 +1,5 @@
 <template>
-  <div class="cardTotalFrame" @mouseover="changeMark">
+  <div class="cardTotalFrame">
     <div class="card my-4">
       <div class="row card-frame">
         <div class="col-6">
@@ -67,14 +67,14 @@ export default {
         },
       });
     };
-    const changeMark = () => {};
+    // const changeMark = () => {};
     return {
       // placeSearchData,
       clickLike,
       moveToPlaceDetail,
       // getCards,
       // like,
-      changeMark,
+      // changeMark,
     };
   },
 };
@@ -83,6 +83,10 @@ export default {
 <style lang="scss" scoped>
 .card {
   border: 0px;
+  &:hover {
+    box-shadow: 0.8px 0.8px 0.8px 0.8px rgba(0.1, 0.1, 0.1, 0.1);
+  }
+  cursor: pointer;
 }
 .cardTotalFrame {
   border-top: 1px solid rgba(1, 1, 1, 0.1);

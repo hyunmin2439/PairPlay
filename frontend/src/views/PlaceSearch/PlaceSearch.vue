@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div v-if="checkJwt()">
     <!-- 헤더 -->
     <div style="max-width: 1400px; margin: auto">
-      <Header></Header>
+      <Header style="position: sticky; top: 0px"></Header>
     </div>
     <!-- <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" /> -->
-    <place-search-filters></place-search-filters>
+    <place-search-filters style="position: sticky; top: 0px; z-index: 5; background-color: #ffffff"></place-search-filters>
     <div class="container PlaceSearchContentFrame">
       <div class="placeSearchContent container d-flex justify-content-around align-items-start">
         <div class="place-search-list-frame mt-4">
@@ -41,25 +41,25 @@
         <place-search-maps :cards="cards" class="col placeSearchMaps"></place-search-maps>
       </div>
     </div>
-    <footer>푸터</footer>
+    <Footer>푸터</Footer>
   </div>
 </template>
 
 <script>
 import { onMounted, reactive, computed } from "vue";
 import { useStore } from "vuex";
-// import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import Header from "../Common/Header.vue";
+import Footer from "../Common/Footer.vue";
 import PlaceSearchFilters from "./Components/PlaceSearchFilters.vue";
 import PlaceSearchList from "./Components/PlaceSearchList.vue";
 import PlaceSearchMaps from "./Components/PlaceSearchMaps.vue";
 export default {
   name: "PlaceSearch",
-  components: { Header, PlaceSearchFilters, PlaceSearchList, PlaceSearchMaps },
+  components: { Header, Footer, PlaceSearchFilters, PlaceSearchList, PlaceSearchMaps },
   setup() {
     const store = useStore();
-    // console.log(store.state.root.addPlaceFilters);
-    // const route = useRoute();
+    const router = useRouter();
     let cards = reactive(computed(() => store.state.root.placeSearchInfo.placeList));
     let totalPages = reactive(computed(() => store.state.root.placeSearchInfo.totalPages));
     let totalElements = reactive(computed(() => store.state.root.placeSearchInfo.totalElements));
@@ -153,7 +153,18 @@ export default {
       searchFiltersData.value["page"] = Number(event.target.textContent) - 1;
       await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
     };
+    const checkJwt = () => {
+      if (localStorage.getItem("jwt")) {
+        // pass
+        return true;
+      } else {
+        router.push({
+          name: "Login",
+        });
+      }
+    };
     onMounted(async () => {
+      checkJwt();
       // await getCards();
       nowPage.value = computed(() => store.state.root.placeSearchInfo.page);
       // console.log(cards, "카드들");
@@ -173,7 +184,7 @@ export default {
       // await getCards();
     });
 
-    return { cards, store, totalPages, totalElements, nowPage, onMounted, changePage, /*getSearchFiltersData*/ getCards, prevPages, nextPages };
+    return { cards, store, totalPages, totalElements, nowPage, onMounted, checkJwt, changePage, /*getSearchFiltersData*/ getCards, prevPages, nextPages };
   },
 };
 </script>
@@ -190,8 +201,8 @@ export default {
 
   // width: 50%;
   // background-color: wheat;
-  max-height: 66vh;
-  overflow-y: overlay;
+  // max-height: 66vh;
+  // overflow-y: overlay;
   // overflow-x: overlay;
   // scrollbar-width: 0px;
   max-width: 100vw;
