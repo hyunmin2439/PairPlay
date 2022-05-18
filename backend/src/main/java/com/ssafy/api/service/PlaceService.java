@@ -288,7 +288,7 @@ public class PlaceService {
             throw new CustomException(FAIL_PLACE_NOT_FOUND);
 
         // 체육 시설 이용 이후가 아니라면 리뷰 작성 불가
-        if( ! LocalDateTime.now().isAfter(reservation.getReserveEndDt()) )
+        if( ! LocalDateTime.now().plusHours(9).isAfter(reservation.getReserveEndDt()) )
             throw new CustomException(FAIL_NOT_YET_POST_REVIEW);
 
 
@@ -322,7 +322,7 @@ public class PlaceService {
                 .nickname(member.getNickname())
                 .profileImage(s3FileUploadService.findImg(member.getProfileImage()))
                 .placeId(reservation.getPlaceId())
-                .writtenDt(LocalDateTime.now()) // MongoDB UTC로 저장됨
+                .writtenDt(LocalDateTime.now().plusHours(9))
                 .description(reviewInfo.getDescription())
                 .cleanness(reviewInfo.getCleanness())
                 .place(reviewInfo.getPlace())
@@ -441,9 +441,6 @@ public class PlaceService {
 
     /** 체육시설 예약 등록 */
     public void reservePlace(ReservationPostReq reservationInfo) {
-
-        System.out.println("서비스 들어옴");
-
         Long memberId = memberService.getMemberIdFromAuthentication();
 
         // 예약 정보에 담긴 시설 정보가 잘못되면
@@ -451,19 +448,15 @@ public class PlaceService {
         if(place == null)
             throw new CustomException(FAIL_PLACE_NOT_FOUND);
 
-        System.out.println("플레이스 문제없음");
-
         List<Integer> times = reservationInfo.getTime();
         int startTime = times.get(0);
         int lastTime = times.get( times.size() - 1 ) + 1;
         LocalDate reserveDt = reservationInfo.getReservationDt();
         LocalDateTime reserveStartDt = reserveDt.atTime(startTime, 0);
         LocalDateTime reserveEndDt = lastTime != 24 ? reserveDt.atTime(lastTime, 0) : reserveDt.plusDays(1).atTime(0, 0);
-
-        System.out.println("시간값 문제");
         
 //        // 예약 하려는 시간이 현재 시간보다 이전이면 ( 테스트의 편의를 위해 잠시 막아둠 )
-//        if( reserveStartDt.isBefore(LocalDateTime.now()) )
+//        if( reserveStartDt.isBefore(LocalDateTime.now().plusHours(9)) )
 //            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
 
         Reservation reservation = Reservation.builder()
@@ -471,15 +464,13 @@ public class PlaceService {
                 .placeId(reservationInfo.getPlaceId())
                 .isWrittenReview(false)
                 .reviewId("111111111111111111111111")
-//                .createDt(LocalDateTime.now()) // throw Exception 주석 풀면서 같이 풀고 아래 메서드 지울 것!
+//                .createDt(LocalDateTime.now().plusHours(9)) // throw Exception 주석 풀면서 같이 풀고 아래 메서드 지울 것!
                 .createDt(reservationInfo.getReservationDt().atTime(0, 0))
                 .reserveStartDt(reserveStartDt)
                 .reserveEndDt(reserveEndDt)
                 .time(reservationInfo.getTime())
                 .price(reservationInfo.getPrice())
                 .build();
-
-        System.out.println("예약저장");
         
         reservationRepository.save(reservation);
     }
@@ -492,14 +483,20 @@ public class PlaceService {
         if( reservation == null )
             throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
 
+        /**
+         * 로컬에서 now() 현재 시각
+         * 서버에서 now() UTC(-9)
+         * 로컬 -> mongoDB -9시간 되서 들어감
+         * 서버 -> mongoDB 시간 그대로 들어감
+         */
         System.out.println("---------------------------시간 테스트-----------------------------------");
-        System.out.println("지금 시각" + LocalDateTime.now());
+        System.out.println("지금 시각" + LocalDateTime.now().plusHours(9));
         System.out.println("예약 시작 시간" + reservation.getReserveStartDt());
-        System.out.println( LocalDateTime.now().isAfter(reservation.getReserveStartDt()) );
+        System.out.println( LocalDateTime.now().plusHours(9).isAfter(reservation.getReserveStartDt()) );
         System.out.println("---------------------------시간 테스트-----------------------------------");
 
         // 시설을 이용하기 시작했으면 취소 불가
-        if( LocalDateTime.now().isAfter(reservation.getReserveStartDt()) )
+        if( LocalDateTime.now().plusHours(9).isAfter(reservation.getReserveStartDt()) )
             throw new CustomException(FAIL_CANCEL_AFTER_RESERVATION_TIME);
 
         reservationRepository.delete(reservation);

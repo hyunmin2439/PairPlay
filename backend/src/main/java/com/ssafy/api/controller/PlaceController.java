@@ -245,8 +245,6 @@ public class PlaceController {
     public ResponseEntity<? extends BaseResponseBody> reservePlace (
             @RequestBody @ApiParam(value = "체육 시설 예약 정보", required = true) ReservationPostReq reservationInfo) {
 
-        System.out.println("컨트롤러 들어옴");
-
         placeService.reservePlace(reservationInfo);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_RESERVE_PLACE.getCode(), SUCCESS_RESERVE_PLACE.getMessage()));
