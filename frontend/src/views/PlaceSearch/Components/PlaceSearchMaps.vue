@@ -5,14 +5,32 @@
         <div class="marker d-flex">
           <i class="bi bi-geo-alt-fill"></i>
           {{ card.name }}
-          <div class="show">
-            <div class="show-box d-flex flex-column">
+          <!-- <div class="show"> -->
+          <!-- <div class="show-box d-flex flex-column">
               <div>{{ card.name }}</div>
               <img :src="`${card.img[0]}`" class="card-image" alt="" />
-            </div>
-          </div>
+            </div> -->
+          <!-- </div> -->
         </div>
       </naver-marker>
+      <naver-marker v-if="changemarker.name" :latitude="showmarker.latitude" :longitude="showmarker.longitude">
+        <div class="show-marker d-flex">
+          <i class="bi bi-geo-alt-fill"></i>
+          {{ changemarker.name }}
+        </div>
+      </naver-marker>
+
+      <!-- {{ showmarker.name }} -->
+      <!-- {{ this.store.state.root.showMapMarker }} -->
+      <!-- {{ card.name }} -->
+      <!-- <div class="show"> -->
+      <!-- <div class="show-box"> -->
+
+      <!-- <div>{{ card.name }}</div> -->
+      <!-- <img :src="`${card.img[0]}`" class="card-image" alt="" /> -->
+      <!-- </div> -->
+      <!-- </div> -->
+
       <!-- <naver-marker :latitude="markers[0].latitude" :longitude="markers[0].longitude" /@click="onMarkerClicked" @onLoad="onLoadMarker($markerObject)" -->
       <!-- ><div class="marker"><i class="bi bi-geo-alt-fill"></i> {{ markers[0].placeName }}</div></naver-marker -->
     </naver-maps>
@@ -20,7 +38,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted } from "vue";
+import { ref, reactive, computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
@@ -33,6 +51,11 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+    const showmarker = reactive({
+      longitude: computed(() => store.state.root.showMapMarker.longitude),
+      latitude: computed(() => store.state.root.showMapMarker.latitude),
+    });
+    const changemarker = reactive({ name: computed(() => store.state.root.showMapMarker) });
     let markers = reactive(computed(() => store.state.root.placeSearchInfo.placeList));
     // const markers = reactive();
     // watch(markers, () => console.log(markers.value));
@@ -40,7 +63,7 @@ export default {
     // { latitude: 36.5759477, longitude: 128.5056462 },
     // ];
     // let cards = reactive(computed(() => store.state.root.placeSearchInfo.placeList));
-    console.log(markers.value, "markers");
+    console.log(showmarker);
     const positionYX = ref({});
     const map = ref();
     const marker = ref();
@@ -57,10 +80,11 @@ export default {
         // return temp;
       }),
 
-      zoom: 14,
+      zoom: 13,
       zoomControl: true,
       zoomControlOptions: { position: "RIGHT_TOP" },
     });
+    // console.log(showmarker, "showmarker");
     const initLayers = ["BACKGROUND", "BACKGROUND_DETAIL", "POI_KOREAN", "TRANSIT", "ENGLISH"];
     let checkLatitude = () => {
       if (store.state.root.placeSearchInfo.placeList) {
@@ -104,15 +128,16 @@ export default {
       // showElement.style.display = target;
     };
 
-    // watch(markers, () => {
-    //   markers = reactive(computed(() => store.state.root.placeSearchInfo.placeList));
-    //   // console.log(timeData, "timeData");
-    //   // console.log(searchFiltersData.value, "searchFiltersData");
-    // });
-    // const LatLng = new window.naver.maps.LatLng(37, 127);
-    // onMounted(async () => {
-    // changeMarkers();
-    // });
+    watch(showmarker, () => {
+      // console.log(showmarker.name, "showmarker");
+      //   markers = reactive(computed(() => store.state.root.placeSearchInfo.placeList));
+      //   // console.log(timeData, "timeData");
+      //   // console.log(searchFiltersData.value, "searchFiltersData");
+      // });
+      // const LatLng = new window.naver.maps.LatLng(37, 127);
+      // onMounted(async () => {
+      // changeMarkers();
+    });
 
     const onLoadMap = (mapObject) => {
       map.value = mapObject; // map에 반환된 객체 저장
@@ -141,13 +166,16 @@ export default {
     return {
       // cards,
       map,
+      // name,
       marker,
       mapOptions,
       initLayers,
       positionYX,
       markers,
+      changemarker,
       tempLatitude,
       tempLongitude,
+      showmarker,
       onMounted,
       moveToDetail,
       onLoadMap,
@@ -163,6 +191,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.show-marker {
+  padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+  min-height: 30px;
+  min-width: 10px;
+  max-width: 10rem;
+  border-radius: 0.5rem;
+  font-size: 0.81rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+  box-shadow: (0 0 8px rgba(24, 24, 24, 0.05));
+  z-index: 10;
+  background: black;
+  color: white;
+  position: relative;
+  cursor: pointer;
+}
 .marker {
   padding: 0.25rem 0.25rem 0.25rem 0.25rem;
   min-height: 30px;
@@ -199,28 +245,28 @@ export default {
   width: 100px;
   z-index: 10;
 }
-.show.active {
-  display: block;
-  // margin: 0.5rem 0rem 0rem 0rem;
-  flex-direction: row;
-  align-items: stretch;
-  text-align: center;
-  background-color: white;
-  height: 200px;
-  width: 100px;
-  z-index: 11;
-  position: relative;
+// .show.active {
+//   display: block;
+//   // margin: 0.5rem 0rem 0rem 0rem;
+//   flex-direction: row;
+//   align-items: stretch;
+//   text-align: center;
+//   background-color: white;
+//   height: 200px;
+//   width: 100px;
+//   z-index: 11;
+//   position: relative;
 
-  &:hover {
-    z-index: 10;
-    background: black;
-    color: white;
-    position: relative;
-  }
-}
-.show-box.show.active {
-  background: white;
-}
+//   &:hover {
+//     z-index: 10;
+//     background: black;
+//     color: white;
+//     position: relative;
+//   }
+// }
+// .show-box.show.active {
+//   background: white;
+// }
 .card-image {
   width: 100%;
   // object-fit: cover;

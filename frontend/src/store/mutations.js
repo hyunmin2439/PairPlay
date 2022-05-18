@@ -32,7 +32,7 @@ export function USER_INFO(state, data) {
 export function OTHER_INFO(state, data) {
   state.otherInfo = [];
   state.otherInfo["address"] = data.address;
-  state.otherInfo["birthDt"] = String(data.birthDt[0])+"년 " + String(data.birthDt[1])+"월 "+String(data.birthDt[2])+"일"
+  state.otherInfo["birthDt"] = String(data.birthDt[0]) + "년 " + String(data.birthDt[1]) + "월 " + String(data.birthDt[2]) + "일";
   state.otherInfo["description"] = data.description;
   state.otherInfo["email"] = data.email;
   if (data.gender == 0) {
@@ -73,46 +73,46 @@ export function PROFILE_MATE_LIST_FROM(state, data) {
 }
 
 export function PROFILE_MATE_LIST_TO(state, data) {
-  state.profileMateListToTotalPage = 0
-  state.profileMateListToTotalPage = data.totalPages
-  state.profileMateListTo = []
-  state.profileMateListTo = data.list
+  state.profileMateListToTotalPage = 0;
+  state.profileMateListToTotalPage = data.totalPages;
+  state.profileMateListTo = [];
+  state.profileMateListTo = data.list;
 }
 
 export function PROFILE_RESERVATION_LIST(state, data) {
-  state.profileReservationList = []
-  state.profileReservationList = data.list
+  state.profileReservationList = [];
+  state.profileReservationList = data.list;
 }
 
 export function PROFILE_RESERVATION_LIST_MORE(state, data) {
-  console.log(data.dataList)
-  const dataList = data.dataList
-  var page = data.page
-  var totalPages = dataList.totalPages
-  var totalElements = dataList.totalElements
+  console.log(data.dataList);
+  const dataList = data.dataList;
+  var page = data.page;
+  var totalPages = dataList.totalPages;
+  var totalElements = dataList.totalElements;
   if (page < totalPages) {
     for (var i = 0; i < 10; i++) {
-      state.profileReservationList.push(dataList.list[i])
+      state.profileReservationList.push(dataList.list[i]);
     }
   } else {
     for (var j = totalPages * 10; j < totalElements; j++) {
-      state.profileReservationList.push(dataList.list[j-(10*totalPages)])
+      state.profileReservationList.push(dataList.list[j - 10 * totalPages]);
     }
   }
 }
 
 export function PROFILE_LIKE_PLACE(state, data) {
-  state.profileLikePlaceTotalPages = -1
-  state.profileLikePlaceTotalPages = data.totalPages
-  state.profileLikePlaceList = []
-  state.profileLikePlaceList = data.list
+  state.profileLikePlaceTotalPages = -1;
+  state.profileLikePlaceTotalPages = data.totalPages;
+  state.profileLikePlaceList = [];
+  state.profileLikePlaceList = data.list;
 }
 
 export function PROFILE_LIKE_MATE(state, data) {
-  state.profileLikeMateTotalPages = -1
-  state.profileLikeMateTotalPages = data.totalPages
-  state.profileLikeMateList = []
-  state.profileLikeMateList = data.list
+  state.profileLikeMateTotalPages = -1;
+  state.profileLikeMateTotalPages = data.totalPages;
+  state.profileLikeMateList = [];
+  state.profileLikeMateList = data.list;
 }
 
 export async function MATE_ARTICLE_LIST(state, data) {
@@ -141,8 +141,8 @@ export async function MATE_ARTICLE_LIST(state, data) {
 }
 
 export async function MATE_ARTICLE_FILTER(state, data) {
-  state.mateArticleFilter = {}
-  state.mateArticleFilter = data
+  state.mateArticleFilter = {};
+  state.mateArticleFilter = data;
 }
 
 export async function PLACE_SEARCH_INFO(state, data) {
@@ -197,4 +197,7 @@ export async function PLACE_RECENT(state, data) {
 }
 export async function CHECK_RESERVATION(state, data) {
   state.reservationCheck = data;
+}
+export async function SHOW_MAP_MARKER(state, data) {
+  state.showMapMarker = data;
 }

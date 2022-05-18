@@ -30,4 +30,5 @@ export default {
   placeRecommend: [],
   placeRecent: [],
   reservationCheck: [],
+  showMapMarker: "",
 };
