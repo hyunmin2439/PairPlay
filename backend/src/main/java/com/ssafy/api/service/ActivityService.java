@@ -5,6 +5,7 @@ import com.ssafy.api.request.ActivityCategoryReq;
 import com.ssafy.api.request.ActivityPostReq;
 import com.ssafy.api.request.ActivityRegisterReq;
 import com.ssafy.api.response.ActivityListRes;
+import com.ssafy.api.response.ActivityRes;
 import com.ssafy.common.handler.CustomException;
 import com.ssafy.domain.entity.Activity;
 import com.ssafy.domain.entity.ActivityLike;
@@ -21,6 +22,7 @@ import javax.transaction.Transactional;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.ssafy.common.statuscode.ActivityCode.*;
@@ -35,17 +37,19 @@ public class ActivityService {
     private final MemberRepository memberRepository;
     private final MateRepository mateRepository;
     private final ActivityLikeRepository activityLikeRepository;
-
+    private final S3FileUploadService s3FileUploadService;
     public ActivityService(ActivityRepository activityRepository,
                            ActivityRepositorySupport activityRepositorySupport,
                            MemberRepository memberRepository,
                            MateRepository mateRepository,
-                           ActivityLikeRepository activityLikeRepository){
+                           ActivityLikeRepository activityLikeRepository,
+                           S3FileUploadService s3FileUploadService){
         this.activityRepository = activityRepository;
         this.activityRepositorySupport = activityRepositorySupport;
         this.memberRepository = memberRepository;
         this.mateRepository = mateRepository;
         this.activityLikeRepository = activityLikeRepository;
+        this.s3FileUploadService = s3FileUploadService;
     }
 
     public Member findId(){
@@ -58,18 +62,23 @@ public class ActivityService {
     public ActivityListRes getActivityList(Pageable pageable) {
 
         Member member = findId();
+        Long memberId = member.getId();
         Page<Mate> mates = null;
-        if(member != null) {
-            if (member.getSido() != null || member.getGugun() != null) {
-                String location = member.getSido() + " " + member.getGugun();
-                System.out.println(location);
-                mates = activityRepositorySupport.findAllByLocation(pageable, location);
-            }
-        }else{
-            mates = activityRepositorySupport.findAllByActivityId_CreateIdEqualsMemberId_Id(pageable);
+
+        if (member.getSido() != null || member.getGugun() != null) {
+            String location = member.getSido() + " " + member.getGugun();
+            System.out.println(location);
+            mates = activityRepositorySupport.findAllByLocation(pageable, location);
         }
 
-        return ActivityListRes.of(mates, SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage());
+        List<ActivityRes> activityRes = new ArrayList<>();
+
+        mates.forEach(mate -> {
+            activityRes.add(ActivityRes.of(mate, memberId, s3FileUploadService.findImg(mate.getMemberId().getProfileImage())));
+        });
+
+
+        return ActivityListRes.of(mates.getTotalPages(), mates.getTotalElements(), activityRes);
     }
 
     @Transactional
@@ -101,23 +110,19 @@ public class ActivityService {
 //         */
         if(activityCategoryReq.getCategoryId()!=0 && !activityCategoryReq.getSearch().equals("")){
             activities = activityRepositorySupport.findByCategorySearch(pageable, location, activityCategoryReq.getCategoryId(), activityCategoryReq.getSearch());
-
         }
 
         /*
          * 운동 카테고리
          */
         else if(activityCategoryReq.getCategoryId()!=0 && !isSearchLocation){
-
             activities = activityRepositorySupport.findByCategoryAndLocation(pageable, activityCategoryReq.getCategoryId(), location);
-
         }
 
         /*
          * 검색어 + 지역 안들어옴
          */
         else if(!activityCategoryReq.getSearch().equals("") && !isSearchLocation) {
-            System.out.println("에?");
             activities = activityRepositorySupport.findBySearchAndLocation(pageable, activityCategoryReq.getSearch(), location);
         }
 
@@ -126,16 +131,13 @@ public class ActivityService {
          * 운동 카테고리
          */
         else if(activityCategoryReq.getCategoryId()!=0){
-
             activities = activityRepositorySupport.findByCategory(pageable, activityCategoryReq.getCategoryId());
-
         }
 
         /*
          * 검색어
          */
         else if(!activityCategoryReq.getSearch().equals("")) {
-
             activities = activityRepositorySupport.findBySearch(pageable, activityCategoryReq.getSearch());
         }
 
@@ -143,13 +145,19 @@ public class ActivityService {
          * 지역만 검색
          */
         else{
-
             activities = activityRepositorySupport.findAllByLocation(pageable, location);
         }
 
+        List<ActivityRes> activityRes = new ArrayList<>();
 
-        return ActivityListRes.of(activities, SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage());
+        activities.forEach(mate -> {
+            activityRes.add(ActivityRes.of(mate, member.getId() ,s3FileUploadService.findImg(mate.getMemberId().getProfileImage())));
+        });
+
+
+        return ActivityListRes.of(activities.getTotalPages(), activities.getTotalElements(), activityRes);
     }
+
     
     
     //메이트 등록

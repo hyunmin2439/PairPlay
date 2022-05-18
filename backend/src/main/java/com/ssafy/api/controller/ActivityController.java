@@ -51,6 +51,9 @@ public class ActivityController {
 
         ActivityListRes res = activityService.getActivityList(pageable);
 
+        res.setCode(SUCCESS_MATE_LIST.getCode());
+        res.setMessage(SUCCESS_MATE_LIST.getMessage());
+
         return ResponseEntity.status(200).body(res);
 
     }

@@ -43,9 +43,11 @@ public class ActivityRes{
 
     private static S3FileUploadService s3FileUploadService;
 
+    public ActivityRes(){}
 
 
-    public static ActivityRes of(Mate mate, Long memberId) {
+
+    public static ActivityRes of(Mate mate, Long memberId, String profileImage) {
 
 
         ActivityRes res = new ActivityRes();
@@ -58,15 +60,7 @@ public class ActivityRes{
         res.setLocation(mate.getActivityId().getLocation());
         res.setNickname(mate.getMemberId().getNickname());
 
-        System.out.println(mate.getMemberId().getProfileImage());
-
-//        if(mate.getMemberId().getProfileImage() != null || !mate.getMemberId().getProfileImage().equals("")) {
-//            String profile = s3FileUploadService.findImg(mate.getMemberId().getProfileImage());
-//            res.setProfileImage(profile);
-//        }else{
-            res.setProfileImage(mate.getMemberId().getProfileImage());
-//        }
-
+        res.setProfileImage(profileImage);
 
         mate.getActivityId().getActivityLikeList().forEach( like -> {
             if(like.getMemberId().getId().equals(memberId)){

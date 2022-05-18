@@ -21,31 +21,22 @@ import java.util.List;
 public class ActivityListRes extends BaseResponseBody{
 
     @ApiModelProperty(name = "activity List")
-    Page<ActivityRes> list;
+    List<ActivityRes> list;
+
+    long totalPages;
+    long totalElements;
+
+    public static ActivityListRes of(long totalPages, long totalElements, List<ActivityRes> mates){
 
 
-    public static ActivityListRes of(Page<Mate> activityList, Integer statusCode, String message){
-
-
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long memberId = Long.parseLong(authentication.getName());
 
         ActivityListRes activityListRes = new ActivityListRes();
-        activityListRes.setCode(statusCode);
-        activityListRes.setMessage(message);
 
-        List<ActivityRes> list = new ArrayList<>();
-
-        Pageable pageable = activityList.getPageable();
-        long total = activityList.getTotalElements();
-
-        activityList.forEach(activity -> {
-            list.add(ActivityRes.of(activity, memberId));
-        });
+        activityListRes.setTotalPages( totalPages );
+        activityListRes.setTotalElements( totalElements );
 
 
-        activityListRes.setList(new PageImpl<ActivityRes>(list, pageable, total));
+        activityListRes.setList(mates);
 
         return activityListRes;
     }
