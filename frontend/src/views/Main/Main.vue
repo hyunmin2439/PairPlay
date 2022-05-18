@@ -4,7 +4,7 @@
       <Header></Header>
     </div>
     <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" />
-    <div style="max-width: 1255px; margin: auto">
+    <div style="max-width: 1200px; margin: auto">
       <div class="PlaceBackgroundImage">
         <div class="PlaceBackgroundImageCover">
           <div class="PlaceBackground-Content ms-5 ps-2">
@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div class="container mb-5 pb-5" style="max-width: 1280px; padding: 0px">
+    <div class="container mb-5 pb-5" style="max-width: 1200px; padding: 0px">
       <div class="category container" style="padding: 0px">
         <div class="ps-3 mb-4">
           <div class="fs-2 fw-bold">주요 서비스</div>
@@ -22,7 +22,7 @@
               <div class="thumbnail one">
                 <a href="javascript:void(0)">
                   <span>장소</span>
-                  <button>참가하기</button>
+                  <button @click="moveToPlace" class="py-1">참가하기</button>
                 </a>
               </div>
             </div>
@@ -30,7 +30,7 @@
               <div class="thumbnail two">
                 <a href="javascript:void(0)">
                   <span>메이트</span>
-                  <button>참가하기</button>
+                  <button @click="moveToMate" class="py-1">참가하기</button>
                 </a>
               </div>
             </div>
@@ -67,12 +67,32 @@
 <script>
 import Header from "../Common/Header.vue";
 import Footer from "../Common/Footer.vue";
+import { useRouter } from "vue-router"
 export default {
   name: "Main",
   components: {
     Header,
     Footer,
   },
+  setup () {
+    const router = useRouter()
+
+    const moveToPlace = function () {
+      router.push({
+        name: "Place"
+      })
+      .then(() => window.scrollTo(0, 0))
+    }
+
+    const moveToMate = function () {
+      router.push({
+        name: "Mate"
+      })
+      .then(() => window.scrollTo(0, 0))
+    }
+
+    return { moveToPlace, moveToMate }
+  }
 };
 </script>
 
@@ -88,7 +108,7 @@ export default {
 }
 .PlaceBackgroundImageCover {
   position: absolute;
-  width: 1255px;
+  width: 1200px;
   height: 300px;
   background: linear-gradient(30deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
   /* background-color: rgba(0, 0, 0, 0.3); */
@@ -182,6 +202,13 @@ export default {
         font-weight: bold;
         letter-spacing: 0.2px;
         transition: all 0.3s ease-out;
+
+        &:hover {
+          width: 22%;
+          padding-top: 2px;
+          padding-bottom: 2px;
+          border: 2px solid black;
+        }
       }
 
       &:hover {

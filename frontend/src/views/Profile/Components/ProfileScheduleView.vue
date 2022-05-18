@@ -8,9 +8,11 @@
       v-for="(data, idx) in state.activityPerDay" :key=idx
       class="container card my-5 d-flex row"
     >
-      <div class="col-2 category">
+      <div class="col-2">
+        <img :src="data.categoryImage" alt="" class="category">
       </div>
-      <div class="col-6 my-3">
+      <div class="col-1"></div>
+      <div class="col-5 my-3">
         <h4 class="my-3"><b>{{ data.title }}</b></h4>
         <p>{{ data.description }}</p>
         <p style="font-size: large;">종목 : <b>{{ state.category[data.categoryId] }}</b></p>
@@ -18,24 +20,24 @@
       </div>
       <div class="col-4 mt-4">
         <div class="my-3">
-          <h4><b>함께한 메이트</b></h4>
+          <h4><b>참가한 메이트</b></h4>
         </div>
         <div class="d-flex mt-5">
           <!-- {{ Object.keys(data.mateList).length }} -->
           <div v-if="Object.keys(data.mateResList).length >= 1">
-            <img :src="data.mateResList[0].profileImage" alt="" class="mate-image">
+            <img :src="data.mateResList[0].profileImage" alt="" class="mate-image" @click="moveToProfile(data.mateResList[0].memberId)">
           </div>
           <div v-if="Object.keys(data.mateResList).length >= 2" style="position: relative; right: 5%;">
-            <img :src="data.mateResList[1].profileImage" alt="" class="mate-image">
+            <img :src="data.mateResList[1].profileImage" alt="" class="mate-image" @click="moveToProfile(data.mateResList[1].memberId)">
           </div>
           <div v-if="Object.keys(data.mateResList).length >= 3" style="position: relative; right: 10%;">
-            <img :src="data.mateResList[2].profileImage" alt="" class="mate-image">
+            <img :src="data.mateResList[2].profileImage" alt="" class="mate-image" @click="moveToProfile(data.mateResList[2].memberId)">
           </div>
           <div v-if="Object.keys(data.mateResList).length >= 4" style="position: relative; right: 15%;">
-            <img :src="data.mateResList[3].profileImage" alt="" class="mate-image">
+            <img :src="data.mateResList[3].profileImage" alt="" class="mate-image" @click="moveToProfile(data.mateResList[3].memberId)">
           </div>
           <div v-if="Object.keys(data.mateResList).length >= 5" style="position: relative; right: 20%;">
-            <img :src="data.mateResList[4].profileImage" alt="" class="mate-image">
+            <img :src="data.mateResList[4].profileImage" alt="" class="mate-image" @click="moveToProfile(data.mateResList[4].memberId)">
           </div>
           <div v-if="Object.keys(data.mateResList).length >= 6" style="position: relative; right: 20%;"
             class="mate-last d-flex justify-content-center align-items-center"
@@ -57,6 +59,7 @@
 <script>
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 export default {
   name: "ProfileScheduleView",
   props: {
@@ -65,6 +68,7 @@ export default {
   },
   setup(props) {
     const store = useStore()
+    const router = useRouter()
     const state = reactive({
       userInfo: props.userInfo,
       otherInfo: props.otherInfo,
@@ -77,7 +81,16 @@ export default {
       },
     })
 
-    return { state }
+    const moveToProfile = function(id) {
+      router.push({
+        name: "ProfileTemp",
+        query: {
+          memberId: id,
+        }
+      })
+    }
+
+    return { state, moveToProfile }
   }
 }
 </script>
@@ -90,10 +103,10 @@ export default {
 }
 
 .category {
-  background-image: url("@/assets/images/Profile/Category/1.png");
-  background-size: 70%;
-  background-repeat: no-repeat;
-  background-position-y: center;
+  position: relative;
+  width: 100%;
+  left: -10%;
+  top: 18%;
 }
 
 .mate-image {

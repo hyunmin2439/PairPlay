@@ -136,7 +136,7 @@ export default {
         const file = event.target.files[0];
         state.otherInfo.profileImage = URL.createObjectURL(file);
         state.profileImg = file
-        await store.dispatch('root/profileChangeImage', { 'file': state.profileImg })
+        await store.dispatch('root/profileChangeImage', { file: state.profileImg })
       }
     }
 

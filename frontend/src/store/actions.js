@@ -108,6 +108,21 @@ export async function getUserInfo({ commit }, payload) {
     });
 }
 
+export async function loginResetPassword({ state }, payload) {
+  const url = `members/password`
+  const body = payload
+  console.log(state)
+  await $axios
+    .post(url, body)
+    .then(() => {
+      alert('해당 이메일로 임시 비밀번호가 발급되었습니다.')
+    })
+    .catch((err) => {
+      console.log(err)
+      alert('임시 비밀번호 발급이 실패했습니다.')
+    })
+}
+
 export async function profileOtherInfo({ commit }, payload) {
   const memberId = payload.memberId;
   const jwt = payload.jwt;
@@ -149,18 +164,19 @@ export async function profileChangeInfo({ state, dispatch }, payload) {
 }
 
 export async function profileChangeImage({ state }, payload) {
-  let formData = new FormData()
+  const formData = new FormData()
   formData.append("profileImage", payload.file)
   console.log(state);
   const url = "profiles/profileImage";
-  const header = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("jwt");
+  const header = {
+    headers: {
+      Authorization: "Bearer " + jwt,
+      "Content-Type": "multipart/form-data",
+    }
+  }
   await $axios
-    .post(url, formData, {
-      headers: {
-        Authorization: "Bearer " + header,
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    .post(url, formData, header)
     .then((res) => {
       // dispatch("getOtherInfo", {
       //   memberId: memberId,
@@ -171,6 +187,24 @@ export async function profileChangeImage({ state }, payload) {
     .catch((err) => {
       console.log(err);
     });
+}
+
+export async function profileChangePassword({ state }) {
+  console.log(state)
+  // const url = `profiles`
+  // const header = localStorage.getItem("jwt");
+  // await $axios
+  //   .post(url, {
+  //     headers: {
+  //       Authorization: "Bearer " + header,
+  //     },
+  //   })
+  //   .then((res) => {
+  //     console.log(res)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
 }
 
 export async function profileUserSchedule({ commit }, payload) {

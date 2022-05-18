@@ -6,7 +6,7 @@
       class="col-4"
     >
       <div class="container">
-        <img :src="data.img[0]" alt="" class="like-img">
+        <img :src="data.img[0]" alt="" class="like-img" style="cursor: pointer;" @click="moveToPlace(data.placeId)">
       </div>
       <div class="container d-flex justify-content-between">
         <div>
@@ -46,11 +46,13 @@
 <script>
 import { reactive, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
   name: "ProfileLikePlace",
   setup () {
     const store = useStore()
+    const router = useRouter()
     const state = reactive({
       page: 0,
       profileLikePlaceTotalPages: computed(() => store.getters["root/profileLikePlaceTotalPages"]),
@@ -80,7 +82,16 @@ export default {
       })
     }
 
-    return { state, onMounted, changePage, profileLikePlaceCancle }
+    const moveToPlace = function(placeId) {
+      router.push({
+        name: "PlaceDetail",
+        params: {
+          id: placeId
+        }
+      })
+    }
+
+    return { state, onMounted, changePage, profileLikePlaceCancle, moveToPlace }
   }
 }
 </script>

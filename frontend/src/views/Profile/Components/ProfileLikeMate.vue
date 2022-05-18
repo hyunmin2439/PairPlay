@@ -1,13 +1,12 @@
 <template>
-  {{ state.profileLikeMateList }}
   <div class="d-flex" style="width: 100%;">
     <div
       v-for="(data, idx) in state.profileLikeMateList"
       :key="idx"
       class="col-4"
     >
-      <div class="container">
-        <!-- <img :src="data.img[0]" alt="" class="like-img"> -->
+      <div class="container my-4 ms-5">
+        <img :src="data.categoryImage" alt="" class="like-img">
       </div>
       <div class="container d-flex justify-content-between">
         <div>
@@ -227,6 +226,11 @@ input:checked + .hearth {
   border-radius: 50%;
   box-shadow: (0 0 8px rgba(24, 24, 24, 0.05));
   margin: 0rem 0.5rem 0rem 0.5rem;
+}
+
+.like-img {
+  position: relative;
+  width: 50%;
 }
 
 </style>

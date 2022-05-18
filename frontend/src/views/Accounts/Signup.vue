@@ -5,36 +5,69 @@
     </div>
     <div class="col-7">
       <center>
-      <h1 style="margin-top: 10%; margin-bottom: 10%; font-weight: bold;">회원가입</h1>
-      <div class="box my-4 d-flex align-items-center row">
+      <h1 style="margin-top: 10%; margin-bottom: 5%; font-weight: bold;">회원가입</h1>
+      <div class="box d-flex align-items-center row">
         <div class="col-2 icon email">
         </div>
         <div class="v-line col-1">
         </div>
-        <input class="col-6" type="text" style="border: 0px; height: 80%;" placeholder="이메일 주소" v-model="state.email">
-        <span class="col-2 ms-4" style="padding: 0px" type="button" id="email_dup" @click="checkDuplicate($event)">중복확인</span>
+        <input class="col-6" type="text" style="border: 0px; height: 80%;" placeholder="이메일 주소" v-model="state.email" @keyup="clickValidateEmail">
+        <span class="col-2 ms-4" style="padding: 0px; font-weight: bold;" type="button" id="email_dup" @click="checkDuplicate($event)">중복확인</span>
       </div>
-      <div class="box my-4 d-flex align-items-center row">
+      <div v-if="state.emailValid===false & state.emailMessage!=''">
+        <p style="color: red;">{{ state.emailMessage }}</p>
+      </div>
+      <div v-else-if="state.emailValie===false & state.emailMessage==''">
+        <p style="color: white;">하</p>
+      </div>
+      <div v-else>
+        <p style="color: white;">하</p>
+      </div>
+      <div class="box mt-4 d-flex align-items-center row">
         <div class="col-2 icon nickname">
         </div>
         <div class="v-line col-1">
         </div>
-        <input class="col-6" type="text" style="border: 0px; height: 80%;" placeholder="닉네임" v-model="state.nickname">
-        <span class="col-2 ms-4" style="padding: 0px" type="button" id="nick_dup" @click="checkDuplicate($event)">중복확인</span>
+        <input class="col-6" type="text" style="border: 0px; height: 80%;" placeholder="닉네임" v-model="state.nickname" @keyup="clickValidateNickname">
+        <span class="col-2 ms-4" style="padding: 0px; font-weight: bold;" type="button" id="nick_dup" @click="checkDuplicate($event)">중복확인</span>
       </div>
-      <div class="box my-4 d-flex align-items-center row">
+      <div v-if="state.nicknameValid===false & state.nicknameMessage!=''">
+        <p style="color: red;">{{ state.nicknameMessage }}</p>
+      </div>
+      <div v-else-if="state.nicknameValid===false & state.nicknameMessage==''">
+        <p style="color: white;">하</p>
+      </div>
+      <div v-else>
+        <p style="color: white;">하</p>
+      </div>
+      <div class="box mt-4 d-flex align-items-center row">
         <div class="col-2 icon password">
         </div>
         <div class="v-line col-1">
         </div>
-        <input class="col-8" type="password" style="border: 0px; height: 80%;" placeholder="비밀번호" v-model="state.password">
+        <input class="col-8" type="password" style="border: 0px; height: 80%;" placeholder="비밀번호" v-model="state.password" @keyup="clickValidatePassword">
       </div>
-      <div class="box my-4 d-flex align-items-center row">
+      <div v-if="state.passwordValid===false & state.passwordMessage!=''">
+        <p style="color: red;">{{ state.passwordMessage }}</p>
+      </div>
+      <div v-else-if="state.passwordValid===false & state.passwordMessage==''">
+        <p style="color: white;">하</p>
+      </div>
+      <div v-else>
+        <p style="color: white;">하</p>
+      </div>
+      <div class="box mt-4 d-flex align-items-center row">
         <div class="col-2 icon password">
         </div>
         <div class="v-line col-1">
         </div>
         <input class="col-8" type="password" style="border: 0px; height: 80%;" placeholder="비밀번호 확인" v-model="state.passwordConfirm">
+      </div>
+      <div v-if="state.password!=state.passwordConfirm">
+        <p style="color: red;">비밀번호와 동일하지 않습니다.</p>
+      </div>
+      <div v-else>
+        <p style="color: white;">하</p>
       </div>
       <button class="my-4 accounts-btn" @click="GetSignUp">다음으로</button>
       <div class="d-flex" style="width: 60%;">
@@ -61,7 +94,13 @@ export default {
       password: "",
       passwordConfirm: "",
       emailDuplicate: computed(() => store.getters["root/emailDuplicate"]),
-      nicknameDuplicate: computed(() => store.getters["root/nicknameDuplicate"])
+      nicknameDuplicate: computed(() => store.getters["root/nicknameDuplicate"]),
+      emailMessage: "",
+      nicknameMessage: "",
+      passwordMessage: "",
+      emailValid: false,
+      nicknameValid: false,
+      passwordValid: false,
     })
 
     onMounted(() => {
@@ -77,17 +116,96 @@ export default {
       }
     }
 
+    const clickValidateEmail = function () {
+      let emailCheck = state.email
+      let lengthEmail = emailCheck.length
+      var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+      if (emailRule.test(emailCheck)) {
+        state.emailMessage = "사용할 수 있는 이메일입니다."
+        state.emailValid = true
+      } else {
+        state.emailMessage = "이메일 양식을 맞춰주세요."
+        state.emailValid = false
+      }
+      if (lengthEmail==0) {
+        state.emailMessage = ""
+        state.emailValid = false
+      }
+    }
+
+    const clickValidateNickname = function () {
+      let nicknameCheck = state.nickname
+      let lengthNickname = nicknameCheck.length
+      // eslint-disable-next-line no-useless-escape
+      var nicknameRule = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g
+      let specialNickname = nicknameCheck.search(nicknameRule)
+      let spaceNickname = nicknameCheck.search(/\s/)
+      if (lengthNickname > 15 | lengthNickname <= 1) {
+        state.nicknameMessage = "닉네임 길이 1글자 초과 및 15글자 미만"
+        state.nicknameValid = false
+      } else {
+        if (specialNickname != -1 || spaceNickname != -1) {
+          state.nicknameMessage =
+            "닉네임에 특수문자나 공백을 포함 불가능"
+          state.nicknameValid = false
+        } else {
+          state.nicknameMessage = "사용할 수 있는 닉네임입니다."
+          state.nicknameValid = true
+        }
+      }
+      if (lengthNickname == 0) {
+        state.nicknameMessage = ""
+        state.nicknameValid = false
+      }
+    }
+
+    const clickValidatePassword = function () {
+      let passwordCheck = state.password
+      let lengthPassword = passwordCheck.toString().length
+      let engPassword = passwordCheck.search(/[a-z]/gi)
+      let numPassword = passwordCheck.search(/[0-9]/g)
+      let specialPassword = passwordCheck.search(
+        // eslint-disable-next-line no-useless-escape
+        /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
+      )
+      if (lengthPassword < 8 || lengthPassword > 15) {
+        state.passwordMessage = "8자 이상 15자 이하로 작성해주세요."
+        state.passwordValid = false
+      } else {
+        if (engPassword == -1 || numPassword == -1 || specialPassword == -1) {
+          state.passwordMessage =
+            "영문, 숫자, 특수문자를 하나 이상 포함해야 합니다."
+          state.passwordValid = false
+        } else {
+          state.passwordMessage = "사용할 수 있는 비밀번호입니다."
+          state.passwordValid = true
+        }
+      }
+      if (lengthPassword == 0) {
+        state.passwordMessage = ""
+        state.passwordValid = false
+      }
+    }
+
     const GetSignUp = async function() {
       if (state.emailDuplicate===1 & state.nicknameDuplicate === 1 & state.password===state.passwordConfirm) {
-        const payload = {
-          email: state.email,
-          nickname: state.nickname,
-          password: state.password,
+        if (state.emailValid == true & state.nicknameValid == true & state.passwordValid == true) {
+          const payload = {
+            email: state.email,
+            nickname: state.nickname,
+            password: state.password,
+          }
+          await store.dispatch("root/signup", payload)
+          await router.push({
+            name: 'SignUpSecond',
+          })
+        } else if (state.emailValid == false) {
+          alert('이메일 양식이 잘못되었습니다.')
+        } else if (state.nicknameValid == false) {
+          alert('닉네임 양식이 잘못되었습니다.')
+        } else {
+          alert('비밀번호 양식이 잘못되었습니다.')
         }
-        await store.dispatch("root/signup", payload)
-        await router.push({
-          name: 'SignUpSecond',
-        })
       } else {
         if (state.emailDuplicate === 0) {
           alert('이메일 중복 확인을 해주세요.')
@@ -112,7 +230,14 @@ export default {
       })
     }
 
-    return { state, onMounted, checkDuplicate, GetSignUp, moveToLogin, moveToMain }
+    return { 
+      state, onMounted, 
+      checkDuplicate, 
+      clickValidateEmail,
+      clickValidateNickname,
+      clickValidatePassword,
+      GetSignUp, 
+      moveToLogin, moveToMain }
   }
   
 }
