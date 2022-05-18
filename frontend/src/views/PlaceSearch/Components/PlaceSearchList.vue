@@ -67,7 +67,6 @@ export default {
       } else {
         // pass;
       }
-      console.log(card, "card");
     };
     const moveToPlaceDetail = (res) => {
       // console.log(res, "여기디테일어디");

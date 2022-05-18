@@ -638,6 +638,7 @@ export async function mateDetailInfo({ commit }, payload) {
       },
     })
     .then((res) => {
+      console.log(res)
       commit("MATE_DETAIL_INFO", res.data)
     })
     .catch((err) => {
@@ -746,11 +747,12 @@ export async function getPlaceSearchInfo({ commit }, searchFiltersData) {
       },
     })
     .then((res) => {
+      console.log(res)
       if (res.data.placeList.length >= 1) {
         commit("PLACE_SEARCH_INFO", res.data);
         commit("CHANGE_POSITION", res.data);
       } else {
-        // alert("데이터가없습니다.");
+        alert("데이터가없습니다.");
       }
     })
     .catch((err) => {

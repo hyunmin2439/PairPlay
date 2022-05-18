@@ -93,7 +93,6 @@
                   </div>
                   <div class="col-7" style="text-align: center;">
                     <br>
-                    {{ mateDetail }}
                     <img :src="mateDetail.profileImage" alt="" style="width: 70%;">
                   </div>
                 </div>               

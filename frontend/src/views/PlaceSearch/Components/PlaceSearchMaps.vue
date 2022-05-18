@@ -13,10 +13,10 @@
           <!-- </div> -->
         </div>
       </naver-marker>
-      <naver-marker v-if="changemarker.name" :latitude="showmarker.latitude" :longitude="showmarker.longitude">
+      <naver-marker :latitude="state.showMapMarker.latitude" :longitude="state.showMapMarker.longitude">
         <div class="show-marker d-flex">
           <i class="bi bi-geo-alt-fill"></i>
-          {{ changemarker.name }}
+          <span>{{ state.content }}</span>
         </div>
       </naver-marker>
 
@@ -51,6 +51,9 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+    const state = reactive({
+      showMapMarker: computed(() => store.getters["root/showMapMarker"]),
+    })
     const showmarker = reactive({
       longitude: computed(() => store.state.root.showMapMarker.longitude),
       latitude: computed(() => store.state.root.showMapMarker.latitude),
@@ -167,6 +170,7 @@ export default {
       // cards,
       map,
       // name,
+      state,
       marker,
       mapOptions,
       initLayers,

@@ -5,7 +5,8 @@
       <Header style="position: sticky; top: 0px"></Header>
     </div>
     <!-- <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" /> -->
-    <place-search-filters style="position: sticky; top: 0px; z-index: 5; background-color: #ffffff"></place-search-filters>
+    <!-- <place-search-filters style="position: sticky; top: 0px; z-index: 5; background-color: #ffffff"></place-search-filters> -->
+    <place-search-filter style="position: sticky; top: 0px; z-index: 5; background-color: #ffffff"></place-search-filter>
     <div class="container PlaceSearchContentFrame">
       <div class="placeSearchContent container d-flex justify-content-around align-items-start">
         <div class="place-search-list-frame mt-4">
@@ -51,12 +52,13 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import Header from "../Common/Header.vue";
 import Footer from "../Common/Footer.vue";
-import PlaceSearchFilters from "./Components/PlaceSearchFilters.vue";
+// import PlaceSearchFilters from "./Components/PlaceSearchFilters.vue";
+import PlaceSearchFilter from "./Components/PlaceSearchFilter.vue";
 import PlaceSearchList from "./Components/PlaceSearchList.vue";
 import PlaceSearchMaps from "./Components/PlaceSearchMaps.vue";
 export default {
   name: "PlaceSearch",
-  components: { Header, Footer, PlaceSearchFilters, PlaceSearchList, PlaceSearchMaps },
+  components: { Header, Footer, PlaceSearchFilter, PlaceSearchList, PlaceSearchMaps },
   setup() {
     const store = useStore();
     const router = useRouter();

@@ -205,5 +205,6 @@ export async function CHECK_RESERVATION(state, data) {
   state.reservationCheck = data;
 }
 export async function SHOW_MAP_MARKER(state, data) {
+  state.showMapMarker = []
   state.showMapMarker = data;
 }
