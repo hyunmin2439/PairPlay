@@ -85,10 +85,12 @@ public class ActivityController {
             @ApiResponse(code = 200, message = "Success", response = BaseResponseBody.class),
     })
     public ResponseEntity<? extends ActivityDetailRes> getActivityDetail(@PathVariable(name = "activityId") @ApiParam(value="메이트 공고 상세번호", required = true)Long activityId){
-        Activity activity = activityService.getActivityDetail(activityId);
+        ActivityDetailRes res = activityService.getActivityDetail(activityId);
 
+        res.setCode(SUCCESS_GET_DETAIL.getCode());
+        res.setMessage(SUCCESS_GET_DETAIL.getMessage());
 
-        return ResponseEntity.status(200).body(ActivityDetailRes.of(activity, SUCCESS_GET_DETAIL.getCode(), SUCCESS_GET_DETAIL.getMessage()));
+        return ResponseEntity.status(200).body(res);
     }
 
 

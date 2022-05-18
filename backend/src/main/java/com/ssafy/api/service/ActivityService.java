@@ -4,6 +4,7 @@ package com.ssafy.api.service;
 import com.ssafy.api.request.ActivityCategoryReq;
 import com.ssafy.api.request.ActivityPostReq;
 import com.ssafy.api.request.ActivityRegisterReq;
+import com.ssafy.api.response.ActivityDetailRes;
 import com.ssafy.api.response.ActivityListRes;
 import com.ssafy.api.response.ActivityRes;
 import com.ssafy.common.handler.CustomException;
@@ -211,8 +212,17 @@ public class ActivityService {
 
 
     //메이트 상세 조회
-    public Activity getActivityDetail(Long activityId) {
-        return activityRepository.findById(activityId).orElseThrow(() -> new CustomException(FAIL_ACTIVITY_NOT_FOUND));
+    @Transactional
+    public ActivityDetailRes getActivityDetail(Long activityId) { //상세조회에서 이미지 사진
+
+        Activity activity = activityRepository.findById(activityId).orElseThrow(() -> new CustomException(FAIL_ACTIVITY_NOT_FOUND));
+
+
+        Mate mate = mateRepository.findByActivityId_IdAndMemberId_Id(activity.getId(), activity.getCreateId());
+
+        String profileImage = s3FileUploadService.findImg(mate.getMemberId().getProfileImage());
+
+        return ActivityDetailRes.of(mate, mate.getMemberId().getId(), profileImage);
     }
 
 

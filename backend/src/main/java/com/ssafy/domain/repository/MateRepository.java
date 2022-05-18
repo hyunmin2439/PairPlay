@@ -34,4 +34,6 @@ public interface MateRepository extends JpaRepository<Mate, Long> {
 
 
     void deleteByActivityId_Id(Long activityId);
+
+    Mate findByActivityId_IdAndMemberId_Id(Long activityId, Long memberId);
 }

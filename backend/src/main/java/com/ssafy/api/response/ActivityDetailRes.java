@@ -2,6 +2,7 @@ package com.ssafy.api.response;
 
 import com.ssafy.api.service.S3FileUploadService;
 import com.ssafy.domain.entity.Activity;
+import com.ssafy.domain.entity.Mate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -35,8 +36,8 @@ public class ActivityDetailRes extends BaseResponseBody{
     @ApiModelProperty(name = "위치 주소")
     String location;
 
-    @ApiModelProperty(name = "이미지 목록")
-    List<String> multipartFile;
+    @ApiModelProperty(name = "프로필 이미지")
+    String profileImage;
 
     @ApiModelProperty(name = "성별")
     int gender;
@@ -44,41 +45,31 @@ public class ActivityDetailRes extends BaseResponseBody{
     @ApiModelProperty(name = "연령대")
     int age;
 
-
-    private static S3FileUploadService s3FileUploadService;
-
-
-    public static ActivityDetailRes of(Activity activity, Integer statusCode, String message) {
+    @ApiModelProperty(name= "찜하기")
+    boolean isLike;
 
 
+    public static ActivityDetailRes of(Mate mate, Long memberId, String profileImage ) {
 
-
-        List<String> imageList = new ArrayList<>();
-
-        assert activity != null;
-        if(activity.getMateImage() != null && activity.getMateImage().length() != 0){
-            System.out.println("이미지리스트확인"+ activity.getMateImage());
-            String image = activity.getMateImage();
-            String[] arr = image.split(" ");
-
-            for (String imgUrl : arr){
-                imageList.add(s3FileUploadService.findImg(imgUrl));
-            }
-        }
 
         ActivityDetailRes res = new ActivityDetailRes();
 
-        res.setActivityId(activity.getId());
-        res.setCreatedDate(activity.getCreatedDate());
-        res.setCategoryId(activity.getCategoryId());
-        res.setTitle(activity.getTitle());
-        res.setDescription(activity.getDescription());
-        res.setLocation(activity.getLocation());
-        res.setMultipartFile(imageList);
-        res.setGender(activity.getGender());
-        res.setAge(activity.getAge());
-        res.setCode(statusCode);
-        res.setMessage(message);
+        res.setActivityId(mate.getActivityId().getId());
+        res.setCreatedDate(mate.getActivityId().getCreatedDate());
+        res.setCategoryId(mate.getActivityId().getCategoryId());
+        res.setTitle(mate.getActivityId().getTitle());
+        res.setDescription(mate.getActivityId().getDescription());
+        res.setLocation(mate.getActivityId().getLocation());
+        res.setGender(mate.getActivityId().getGender());
+        res.setAge(mate.getActivityId().getAge());
+        res.setProfileImage(profileImage);
+
+        mate.getActivityId().getActivityLikeList().forEach( like -> {
+            if(like.getMemberId().getId().equals(memberId)){
+                res.setLike(true);
+            }
+        });
+
         return res;
     }
 }
