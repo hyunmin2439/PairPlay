@@ -19,12 +19,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-import java.io.IOException;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.ssafy.common.statuscode.ActivityCode.*;
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
@@ -61,21 +58,18 @@ public class ActivityService {
     public ActivityListRes getActivityList(Pageable pageable) {
 
         Member member = findId();
-
+        Page<Mate> mates = null;
         if(member != null) {
             if (member.getSido() != null || member.getGugun() != null) {
                 String location = member.getSido() + " " + member.getGugun();
                 System.out.println(location);
-                Page<Mate> mates = activityRepositorySupport.findAllByLocation(pageable, location);
-                return ActivityListRes.of(mates, SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage());
+                mates = activityRepositorySupport.findAllByLocation(pageable, location);
             }
+        }else{
+            mates = activityRepositorySupport.findAllByActivityId_CreateIdEqualsMemberId_Id(pageable);
         }
 
-        Page<Mate> mates = activityRepositorySupport.findAllByActivityId_CreateIdEqualsMemberId_Id(pageable);
-
-
         return ActivityListRes.of(mates, SUCCESS_MATE_LIST.getCode(), SUCCESS_MATE_LIST.getMessage());
-//        return activityRepositorySupport.findAll(pageable);
     }
 
     @Transactional
@@ -120,10 +114,10 @@ public class ActivityService {
         }
 
         /*
-         * 검색어
+         * 검색어 + 지역 안들어옴
          */
         else if(!activityCategoryReq.getSearch().equals("") && !isSearchLocation) {
-
+            System.out.println("에?");
             activities = activityRepositorySupport.findBySearchAndLocation(pageable, activityCategoryReq.getSearch(), location);
         }
 
@@ -178,6 +172,7 @@ public class ActivityService {
 
         System.out.println("확인" + fileNameArr);
 
+        String location = activityInfo.getSido() + " " + activityInfo.getGugun();
 
 
         Activity activity = Activity.builder()
@@ -186,7 +181,7 @@ public class ActivityService {
                 .meetDt(activityInfo.getMeetDt())
                 .title(activityInfo.getTitle())
                 .description(activityInfo.getDescription())
-                .location(activityInfo.getLocation())
+                .location(location)
                 .mateImage(fileNameArr)
                 .age(activityInfo.getAge())
                 .gender(activityInfo.getGender())

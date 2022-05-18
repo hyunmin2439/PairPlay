@@ -1,5 +1,6 @@
 package com.ssafy.api.response;
 
+import com.ssafy.api.service.S3FileUploadService;
 import com.ssafy.domain.entity.Mate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -40,6 +41,10 @@ public class ActivityRes{
     @ApiModelProperty(name = "이미지")
     String profileImage;
 
+    private static S3FileUploadService s3FileUploadService;
+
+
+
     public static ActivityRes of(Mate mate, Long memberId) {
 
 
@@ -52,7 +57,16 @@ public class ActivityRes{
         res.setDescription(mate.getActivityId().getDescription());
         res.setLocation(mate.getActivityId().getLocation());
         res.setNickname(mate.getMemberId().getNickname());
-        res.setProfileImage(mate.getMemberId().getProfileImage());
+
+        System.out.println(mate.getMemberId().getProfileImage());
+
+//        if(mate.getMemberId().getProfileImage() != null || !mate.getMemberId().getProfileImage().equals("")) {
+//            String profile = s3FileUploadService.findImg(mate.getMemberId().getProfileImage());
+//            res.setProfileImage(profile);
+//        }else{
+            res.setProfileImage(mate.getMemberId().getProfileImage());
+//        }
+
 
         mate.getActivityId().getActivityLikeList().forEach( like -> {
             if(like.getMemberId().getId().equals(memberId)){

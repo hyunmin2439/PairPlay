@@ -18,10 +18,14 @@ import java.util.List;
 @ApiModel("MatePostReq")
 public class ActivityPostReq {
 
-    @ApiModelProperty(name = "주소")
-    String location;
+    @ApiModelProperty(name = "시도")
+    String sido;
 
 
+    @ApiModelProperty(name = "구군")
+    String gugun;
+
+    
     @ApiModelProperty(name = "카테고리ID")
     Long categoryId;
 
