@@ -43,9 +43,9 @@
         <div class="detailInfosLeft col-7">
           <div style="min-height: 150px">
             <h4 class="pb-4">이용시간 및 가격</h4>
-            <p v-for="(각시간, idx) in placeInfos.bizhour" :key="idx" class="">{{ 각시간 }}</p>
+            <p v-for="(각시간, idx) in placeInfos.bizhour" :key="idx" class="">{{ 각시간 }} / 10,000원</p>
             <p v-for="(각시간, idx) in placeInfos.menu" :key="idx" class="">{{ 각시간 }}</p>
-            <!-- <p></p> -->
+            <br />
           </div>
           <hr class="class-2" />
           <h4 class="pb-4 pt-3">시설정보</h4>
@@ -263,9 +263,8 @@
           {{ refundPolicy }}
         </p>
       </div>
-      <hr class="class-1" />
     </div>
-    <Footer></Footer>
+    <Footer class="footer"></Footer>
   </div>
 </template>
 
@@ -491,6 +490,10 @@ hr.class-2 {
 
   /* border-top: 1px solid black; */
   /* border: 0px; */
+}
+.footer {
+  /* background-color: wheat; */
+  margin-top: 6rem;
 }
 /* .dropwdonwTotal {
   width: 450px;

@@ -8,13 +8,13 @@
             <!--  -->
             <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
               <!--  -->
-              <div v-if="`${reservation < 20}`">
+              <div v-if="reservation < 20">
                 <input type="checkbox" :id="`btn${time}`" class="btn-check btn menu" />
                 <label class="btn btn-primary" :for="`btn${time}`" @click="timeSelect(time)">{{ reservation }} / 20</label>
               </div>
-              <div v-else>
+              <div v-if="reservation == 20">
                 <div type="checkbox" :id="`btn${time}`" class="btn-check btn menu" disabled />
-                <label class="btn btn-secondary" :for="`btn${time}`">예약불가</label>
+                <label class="btn btn-disabled" disabled :for="`btn${time}`">예약불가</label>
               </div>
             </div>
             <p class="time-mark">{{ time }}:00 ~</p>
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center mt-3">
-      <div class="btn reservation me-3" @click="requestPay($event)">예약</div>
+      <div class="btn reservation me-3" @click="requestPay">예약</div>
       <div class="btn btn-secondary ms-3">취소</div>
     </div>
   </div>
@@ -57,7 +57,7 @@ export default {
       } else {
         clickedNumber[time] = true;
       }
-      console.log(clickedNumber);
+      // console.log(clickedNumber);
       selectedTime.push(time);
     };
     let clickedNumber = { 8: false, 9: false, 10: false, 11: false, 12: false, 13: false, 14: false, 15: false, 16: false, 17: false, 18: false, 19: false, 20: false, 21: false };
@@ -67,48 +67,51 @@ export default {
       for (let i = 8; i <= 21; i++) {
         if (clickedNumber[i] == true) {
           temp.push(i);
+        } else {
+          //
         }
       }
+      console.log(temp, "temp");
       if (temp.length == 0) {
         alert("예약하려는 시간을 선택해주세요");
       } else {
-        // const { IMP } = window;
-        // IMP.init("imp57638465"); //iamport 대신 자신의 "가맹점 식별코드"를 사용
-        // IMP.request_pay(
-        //   {
-        //     pg: "inicis",
-        //     pay_method: "card",
-        //     merchantuid: "merchant" + new Date().getTime(),
-        //     name: "결제테스트",
-        //     amount: 1, // 결제금액
-        //     buyer_email: "iamport@siot.do",
-        //     buyer_name: "구매자",
-        //     buyer_tel: "010-1234-5678",
-        //     buyer_addr: "서울특별시 강남구 삼성동",
-        //     buyer_postcode: "123-456",
-        //   },
-        //   function (rsp) {
-        //     // callback
-        //     if (rsp.success) {
-        //       console.log("결제성공");
-        //       alert("예약이 완료되었습니다.");
-        //     } else {
-        //       console.log("결제실패");
-        //     }
-        //   }
-        // );
-        let tempbody = { placeId: placeInfos.value.placeId, reservationDt: selectedDate, price: 1, time: temp };
-        // console.log(body, "제대로?");
-        axios({
-          method: "post",
-          data: tempbody,
-          headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
-          url: `${BASE_URL}/places/reservation`,
-        }).then((res) => {
-          console.log(res);
-          alert("예약이 완료되었습니다.");
-          router.go(0);
-        });
+        const { IMP } = window;
+        IMP.init("imp57638465"); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+        IMP.request_pay(
+          {
+            pg: "inicis",
+            pay_method: "card",
+            merchantuid: "merchant" + new Date().getTime(),
+            name: "결제테스트",
+            amount: 1, // 결제금액
+            buyer_email: "iamport@siot.do",
+            buyer_name: "구매자",
+            buyer_tel: "010-1234-5678",
+            buyer_addr: "서울특별시 강남구 삼성동",
+            buyer_postcode: "123-456",
+          },
+          function (rsp) {
+            // callback
+            if (rsp.success) {
+              console.log("결제성공");
+              alert("예약이 완료되었습니다.");
+              let tempbody = { placeId: placeInfos.value.placeId, reservationDt: selectedDate, price: 1, time: temp };
+              // console.log(body, "제대로?");
+              axios({
+                method: "post",
+                data: tempbody,
+                headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
+                url: `${BASE_URL}/places/reservation`,
+              }).then((res) => {
+                console.log(res);
+                alert("예약이 완료되었습니다.");
+                router.go(0);
+              });
+            } else {
+              console.log("결제실패");
+            }
+          }
+        );
       }
     };
     const changeData = async () => {
@@ -197,7 +200,7 @@ export default {
   // flex-direction: column;
   // width: 100%;
   // width: 100%;
-  width: 80rem;
+  width: 70rem;
 }
 .btn-primary {
   background-color: #1976d2;
@@ -206,32 +209,16 @@ export default {
   margin: 0rem 0rem 0rem 0.8rem;
   font-size: 0.9rem;
   min-width: 4rem;
-
-  // &:hover {
-  //   background-color: #1664b1;
-  //   color: white;
-  //   box-shadow: 0 0 8px rgba(24, 24, 24, 0.4);
-  //   border: 1px solid rgba(1, 1, 1, 0.3);
-  //   border-radius: 5px;
-  // }
-  // &:focus {
-  //   background-color: #1664b1;
-  //   color: black;
-  //   box-shadow: 0 0 8px rgba(24, 24, 24, 0.4);
-  //   border: 1px solid rgba(1, 1, 1, 0.3);
-  //   border-radius: 5px;
-  // }
 }
-.btn.menu.disabled {
-  // display: inline-block;
-  text-align: center;
+.btn-disabled {
   background-color: rgb(145, 145, 145);
-  padding: 0.8rem 0rem 0.8rem 0rem;
-  margin: 0rem 0rem 0rem 0.2rem;
-  box-shadow: 0 0 8px rgba(24, 24, 24, 0.1);
   color: white;
-  border-radius: 5px;
+  padding: 0.8rem 0.2rem 0.8rem 0.2rem;
+  margin: 0rem 0rem 0rem 0.8rem;
+  font-size: 0.85rem;
+  min-width: 4rem;
 }
+
 .btn.reservation {
   background-color: #1976d2;
   color: white;
@@ -246,6 +233,6 @@ export default {
 
 .time-mark {
   font-size: 0.8rem;
-  padding: 0rem 0rem 0rem 1rem;
+  padding: 0rem 0rem 0rem 0.5rem;
 }
 </style>

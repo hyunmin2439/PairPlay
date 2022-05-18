@@ -47,7 +47,7 @@
         <place-recent-view></place-recent-view>
       </div>
     </div>
-    <Footer></Footer>
+    <Footer class="footer"></Footer>
   </div>
 </template>
 
@@ -149,7 +149,6 @@ export default {
 }
 .placeRecentView {
   margin-top: 4rem;
-
   padding: 1rem 0rem;
 
   /* background-color: wheat; */
@@ -158,7 +157,8 @@ export default {
   width: 20px;
   vertical-align: 0;
 }
-footer {
+.footer {
   /* background-color: wheat; */
+  margin-top: 6rem;
 }
 </style>
