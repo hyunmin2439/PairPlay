@@ -101,31 +101,34 @@ public class ProfileController {
     }
     
     // Profile Image Update
-    @PostMapping(value = "/profileImage", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    @PostMapping("/profileImage")
     @ApiOperation(value = "유저 프로필사진 수정", notes = "<string>JWT토큰</string>의 ID에 해당하는 회원 프로필 사진을 수정한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "유저 프로필 이미지 수정에 성공했습니다.", response = BaseResponseBody.class),
     })
     public ResponseEntity<? extends BaseResponseBody> updateProfileImage(
-            @RequestParam(value = "profileImage", required = false) @ApiParam(value = "프로파일 이미지", required = true) MultipartFile file
+            @RequestPart(value = "profileImage") MultipartFile file
     ) {
-        if (file != null) {
-            System.out.println("여기로 들어옴" + file.getName());
-            System.out.println(file.getOriginalFilename());
-            System.out.println(file.getSize());
 
-            try {
-                String fileName = s3FileUploadService.upload(file);
-                System.out.println(fileName == null ? "파일이름 null" : fileName);
-                profileService.updateMemberProfileImage(fileName);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new CustomException(FAIL_PROFILE_IMAGE_S3_UPLOAD_ERROR);
-            }
-        } else {
-            System.out.println("Default Profile");
-            profileService.updateMemberProfileImage("default_profile.jpeg");
+        try {
+            String fileName = s3FileUploadService.upload(file);
+            System.out.println(fileName == null ? "파일이름 null" : fileName);
+            profileService.updateMemberProfileImage(fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CustomException(FAIL_PROFILE_IMAGE_S3_UPLOAD_ERROR);
         }
+
+//        if (file != null) {
+//            System.out.println("여기로 들어옴" + file.getName());
+//            System.out.println(file.getOriginalFilename());
+//            System.out.println(file.getSize());
+//
+//
+//        } else {
+//            System.out.println("Default Profile");
+//            profileService.updateMemberProfileImage("default_profile.jpeg");
+//        }
 
         return ResponseEntity.status(200).body(
                 BaseResponseBody.of(

@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
 import static com.ssafy.common.statuscode.PlaceCode.*;
@@ -408,6 +406,39 @@ public class PlaceService {
         reservationRepository.save(reservation);
     }
 
+    /** 체육시설 예약 가능한지 조회 */
+    public Map<Integer, Integer> checkReservePlace(ReservationCheckPostReq reservationInfo) {
+        // 예약 정보에 담긴 시설 정보가 잘못되면
+        Place place = getPlace(reservationInfo.getPlaceId());
+        if(place == null)
+            throw new CustomException(FAIL_PLACE_NOT_FOUND);
+
+        LocalDateTime findStartDt = reservationInfo.getReservationDt().atTime(0, 0);
+        LocalDateTime findEndDt = reservationInfo.getReservationDt().atTime(23, 0);
+
+        List<Reservation> list = reservationRepository.findByPlaceIdAndReserveStartDtBetween(reservationInfo.getPlaceId(), findStartDt, findEndDt);
+
+        // 예약된 것이 없음. 프론트에서 처리할 것이 없음
+        if(list == null || list.isEmpty())
+            throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 8; i < 22; i++) {
+            map.put(i, 0);
+        }
+
+        for(int i = 0; i < list.size(); i++) {
+            List<Integer> times = list.get(i).getTime();
+
+            for(int j = 0; j < times.size(); j++) {
+                int time = times.get(j);
+                map.put(time, map.get(time) + 1);
+            }
+        }
+
+        return map;
+    }
+
     /** 체육시설 예약 등록 */
     public void reservePlace(ReservationPostReq reservationInfo) {
         Long memberId = memberService.getMemberIdFromAuthentication();
@@ -462,7 +493,7 @@ public class PlaceService {
     /**
      * 테스트용 : 유저의 예약정보를 조회하기 위해 사용
      */
-    public List<MyReservation> testGetReservation(Long memberId, int sw) {
-        return reservationRepositorySupport.getMyReservation(memberId, sw);
-    }
+//    public List<MyReservation> testGetReservation(Long memberId, int sw) {
+//        return reservationRepositorySupport.getMyReservation(memberId, sw);
+//    }
 }

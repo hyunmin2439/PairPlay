@@ -4,6 +4,7 @@ import com.ssafy.api.request.*;
 import com.ssafy.api.response.BaseResponseBody;
 import com.ssafy.api.response.PlaceDetailRes;
 import com.ssafy.api.response.PlaceListRes;
+import com.ssafy.api.response.ReservationCheckRes;
 import com.ssafy.api.service.PlaceService;
 import com.ssafy.domain.document.MyReservation;
 import com.ssafy.domain.document.Place;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.ssafy.common.statuscode.PlaceCode.*;
 
@@ -210,6 +212,28 @@ public class PlaceController {
      * 예약 API Post / Delete
      */
 
+    @PostMapping("/reservation/check")
+    @ApiOperation(value = "체육 시설 예약 가능 조회", notes = "체육 시설의 해당 날짜에 <strong>예약이 가능한지 조회</strong>한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "체육 시설 예약 가능 조회에 성공했습니다.", response = ReservationCheckRes.class),
+            @ApiResponse(code = 404, message = "체육시설의 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 404, message = "예약 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<? extends BaseResponseBody> checkReservePlace (
+            @RequestBody @ApiParam(value = "체육 시설 예약 정보", required = true) ReservationCheckPostReq reservationInfo) {
+
+        Map<Integer, Integer> times = placeService.checkReservePlace(reservationInfo);
+
+        return ResponseEntity.status(200).body(
+                ReservationCheckRes.of(
+                        SUCCESS_RESERVE_FOUND.getCode(),
+                        SUCCESS_RESERVE_FOUND.getMessage(),
+                        times
+                )
+        );
+    }
+
     @PostMapping("/reservation")
     @ApiOperation(value = "체육 시설 예약 등록", notes = "체육 시설을 <strong>예약 등록</strong>한다.")
     @ApiResponses({
@@ -243,19 +267,19 @@ public class PlaceController {
     }
 
     /**
-     * 유저의 예약 정보를 조회하기 위한 api
+     * 유저의 예약 정보를 조회하기 위한 api : 테스트용
      */
-    @GetMapping("reservation/test/{memberId}/{sw}")
-    @ApiOperation(value = "예약 정보", notes = "<strong>유저의 예약 정보</strong>를 넘겨준다. (테스트용: 추후 없어질 API)")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "유저의 예약 정보 검색에 성공했습니다.", response = PlaceListRes.class),
-            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
-    })
-    public List<MyReservation> testGetReservation(
-            @PathVariable(value = "memberId", required = true) @ApiParam(value = "member ID 값", required = true) Long memberId,
-            @PathVariable(value = "sw", required = true) @ApiParam(value = "시설 이용 종료 시각 기준 0: 전체, 1:사용완료, 2:예약중(사용전이나 사용중)", required = true) int sw
-    ) {
-        List<MyReservation> list = placeService.testGetReservation(memberId, sw);
-        return list;
-    }
+//    @GetMapping("reservation/test/{memberId}/{sw}")
+//    @ApiOperation(value = "예약 정보", notes = "<strong>유저의 예약 정보</strong>를 넘겨준다. (테스트용: 추후 없어질 API)")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "유저의 예약 정보 검색에 성공했습니다.", response = PlaceListRes.class),
+//            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+//    })
+//    public List<MyReservation> testGetReservation(
+//            @PathVariable(value = "memberId", required = true) @ApiParam(value = "member ID 값", required = true) Long memberId,
+//            @PathVariable(value = "sw", required = true) @ApiParam(value = "시설 이용 종료 시각 기준 0: 전체, 1:사용완료, 2:예약중(사용전이나 사용중)", required = true) int sw
+//    ) {
+//        List<MyReservation> list = placeService.testGetReservation(memberId, sw);
+//        return list;
+//    }
 }

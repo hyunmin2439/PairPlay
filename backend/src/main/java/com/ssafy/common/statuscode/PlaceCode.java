@@ -11,6 +11,7 @@ public enum PlaceCode implements StatusCode {
     SUCCESS_POST_PLACE_REVIEW(200, "체육 시설 리뷰 등록에 성공했습니다."),
     SUCCESS_MODIFY_PLACE_REVIEW(200, "체육 시설 리뷰 수정에 성공했습니다."),
     SUCCESS_DELETE_PLACE_REVIEW(200, "체육 시설 리뷰 삭제에 성공했습니다."),
+    SUCCESS_RESERVE_FOUND(200, "체육 시설 예약 가능 조회에 성공했습니다."),
     SUCCESS_RESERVE_PLACE(200, "체육 시설 예약 등록에 성공했습니다."),
     SUCCESS_CANCEL_PLACE(200, "체육 시설 예약 취소에 성공했습니다."),
 
