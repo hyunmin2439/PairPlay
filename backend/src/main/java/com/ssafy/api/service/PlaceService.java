@@ -422,7 +422,8 @@ public class PlaceService {
         for(int i = 8; i < 22; i++) {
             map.put(i, 0);
         }
-        if(list == null || list.isEmpty()) {
+
+        if( !(list == null || list.isEmpty()) ) {
             for(int i = 0; i < list.size(); i++) {
                 List<Integer> times = list.get(i).getTime();
 
