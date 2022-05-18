@@ -2,6 +2,7 @@ package com.ssafy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -11,7 +12,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
-
+//(exclude={MultipartAutoConfiguration.class})
 @SpringBootApplication
 @EnableScheduling
 public class PairplayApplication {

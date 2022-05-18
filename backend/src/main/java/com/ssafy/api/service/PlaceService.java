@@ -418,21 +418,19 @@ public class PlaceService {
 
         List<Reservation> list = reservationRepository.findByPlaceIdAndReserveStartDtBetween(reservationInfo.getPlaceId(), findStartDt, findEndDt);
 
-        // 예약된 것이 없음. 프론트에서 처리할 것이 없음
-        if(list == null || list.isEmpty())
-            throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
-
         Map<Integer, Integer> map = new HashMap<>();
         for(int i = 8; i < 22; i++) {
             map.put(i, 0);
         }
 
-        for(int i = 0; i < list.size(); i++) {
-            List<Integer> times = list.get(i).getTime();
+        if(list == null || list.isEmpty()) {
+            for(int i = 0; i < list.size(); i++) {
+                List<Integer> times = list.get(i).getTime();
 
-            for(int j = 0; j < times.size(); j++) {
-                int time = times.get(j);
-                map.put(time, map.get(time) + 1);
+                for(int j = 0; j < times.size(); j++) {
+                    int time = times.get(j);
+                    map.put(time, map.get(time) + 1);
+                }
             }
         }
 

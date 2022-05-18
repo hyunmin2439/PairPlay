@@ -2,6 +2,7 @@ package com.ssafy.config;
 
 import com.ssafy.common.util.JwtTokenUtil;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
 
 /**
  * 에러 1
@@ -46,6 +48,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+//    @Bean
+//    public MultipartConfigElement multipartConfigElement() {
+//        MultipartConfigFactory factory = new MultipartConfigFactory();
+//        factory.setMaxFileSize("512MB");
+//        factory.setMaxRequestSize("512MB");
+//        return factory.createMultipartConfig();
+//    }
+//
+//    @Bean
+//    public CommonsMultipartResolver multipartResolver(){
+//        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+//        commonsMultipartResolver.setDefaultEncoding("UTF-8");
+//        commonsMultipartResolver.setMaxUploadSize(50 * 1024 * 1024);
+//        return commonsMultipartResolver;
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

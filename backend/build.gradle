@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-	id 'org.springframework.boot' version '2.6.7'
+	id 'org.springframework.boot' version '2.6.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	//querydsl 추가
@@ -43,7 +43,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 
-	implementation 'commons-io:commons-io:2.8.0'
+	implementation 'commons-io:commons-io:2.6'
 	implementation 'commons-fileupload:commons-fileupload:1.4'
 	implementation 'org.apache.commons:commons-collections4:4.4'
 	implementation 'org.apache.commons:commons-lang3:3.9'

@@ -217,7 +217,6 @@ public class PlaceController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "체육 시설 예약 가능 조회에 성공했습니다.", response = ReservationCheckRes.class),
             @ApiResponse(code = 404, message = "체육시설의 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
-            @ApiResponse(code = 404, message = "예약 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> checkReservePlace (
