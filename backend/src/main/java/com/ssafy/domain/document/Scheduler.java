@@ -12,7 +12,7 @@ public class Scheduler {
         this.activityService = activityService;
     }
 
-    @Scheduled(cron = "0 0 15 * * ?")
+    @Scheduled(cron = "0 6 35 * * ?")
     public void cronJobSch(){
         activityService.endActivity();
 
