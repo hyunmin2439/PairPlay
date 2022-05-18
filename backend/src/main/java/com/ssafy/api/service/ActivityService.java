@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -111,7 +113,7 @@ public class ActivityService {
          */
         else if(activityCategoryReq.getCategoryId()!=0){
 
-            activities = activityRepositorySupport.findByCategory(pageable, location, activityCategoryReq.getCategoryId());
+            activities = activityRepositorySupport.findByCategory(pageable, activityCategoryReq.getCategoryId());
 
         }
 
@@ -120,7 +122,7 @@ public class ActivityService {
          */
         else if(!activityCategoryReq.getSearch().equals("")) {
 
-            activities = activityRepositorySupport.findByCategorySearch(pageable, location, activityCategoryReq.getSearch());
+            activities = activityRepositorySupport.findBySearch(pageable, activityCategoryReq.getSearch());
         }
         /*
          * 지역만 검색
@@ -167,6 +169,7 @@ public class ActivityService {
                 .mateImage(fileNameArr)
                 .age(activityInfo.getAge())
                 .gender(activityInfo.getGender())
+                .closeDt(activityInfo.getCloseDt())
                 .isEnd(false)
                 .build();
         activityRepository.save(activity);
@@ -240,8 +243,21 @@ public class ActivityService {
     }
 
     public void endActivity() {
+        //end_dt가 오늘인거 가지고와서
 
-//        Activity activity = activityRepository.findByCreateId();
+        LocalDateTime closeDt = LocalDateTime.now();
+        System.out.println("날짜확인" + closeDt);
+        List<Activity> activity  = activityRepository.findByCloseDtBeforeAndIsEnd(closeDt, false);
+
+        activity.forEach(date -> {
+            System.out.println(date.getCloseDt());
+            date.isEndUpdate(true);
+            activityRepository.save(date);
+        });
+
+
+
+        //1으로 변환해주는 작업
 
 
     }

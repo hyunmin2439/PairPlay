@@ -46,4 +46,8 @@ public class Activity extends BaseEntity{
     @Builder.Default
     private List<ActivityLike> activityLikeList = new LinkedList<>();
 
+    //isend
+    public void isEndUpdate(boolean isEnd){this.isEnd = isEnd;}
+
+
 }

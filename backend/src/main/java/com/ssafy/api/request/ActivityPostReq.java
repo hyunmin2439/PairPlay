@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,6 +28,9 @@ public class ActivityPostReq {
     @ApiModelProperty(name = "모임 날짜")
     LocalDateTime meetDt;
 
+    @ApiModelProperty(name = "공고 종료일")
+    LocalDateTime closeDt;
+    
     @ApiModelProperty(name = "제목")
     String title;
 

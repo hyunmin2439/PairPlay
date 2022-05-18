@@ -23,4 +23,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
 
         Activity findTop1ByCreateIdOrderByIdDesc(Long memberId);
+
+        List<Activity> findByCloseDtBeforeAndIsEnd(LocalDateTime closeDt, boolean IsEnd);
 }

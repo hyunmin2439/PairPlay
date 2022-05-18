@@ -86,15 +86,15 @@ public class ActivityRepositorySupport {
 //
 //
 //    /**
-//     * 지역, 검색어
+//     *  검색어
 //     */
-    public Page<Mate> findByCategorySearch(Pageable pageable, String location, String search){
+    public Page<Mate> findBySearch(Pageable pageable, String search){
 
 
         QueryResults<Mate> activities = jpaQueryFactory
                 .selectFrom(qmate)
                 .join(qmate.activityId, qActivity).on(qmate.activityId.id.eq(qActivity.id))
-                .where(qmate.activityId.id.eq(qActivity.id).and(qmate.memberId.id.eq(qActivity.createId)).and(qActivity.isEnd.isFalse()).and(qActivity.location.contains(location))
+                .where(qmate.activityId.id.eq(qActivity.id).and(qmate.memberId.id.eq(qActivity.createId)).and(qActivity.isEnd.isFalse())
                         .and(qActivity.title.contains(search).or(qActivity.description.contains(search))))
                 .orderBy(qActivity.id.desc())
                 .limit(pageable.getPageSize())
@@ -107,14 +107,14 @@ public class ActivityRepositorySupport {
 
 
     /**
-     * 카테고리, 지역
+     * 카테고리
      */
-    public Page<Mate> findByCategory(Pageable pageable, String location, Long categoryId){
+    public Page<Mate> findByCategory(Pageable pageable, Long categoryId){
 
         QueryResults<Mate> activities = jpaQueryFactory
                 .selectFrom(qmate)
                 .join(qmate.activityId, qActivity).on(qmate.activityId.id.eq(qActivity.id))
-                .where(qmate.activityId.id.eq(qActivity.id).and(qmate.memberId.id.eq(qActivity.createId)).and(qActivity.isEnd.isFalse()).and(qActivity.location.contains(location))
+                .where(qmate.activityId.id.eq(qActivity.id).and(qmate.memberId.id.eq(qActivity.createId)).and(qActivity.isEnd.isFalse())
                         .and(qActivity.categoryId.eq(categoryId)))
                 .orderBy(qActivity.id.desc())
                 .limit(pageable.getPageSize())
