@@ -106,6 +106,26 @@ public class ActivityRepositorySupport {
     }
 
 
+//    /**
+//     *  지역 + 검색어
+//     */
+    public Page<Mate> findBySearchAndLocation(Pageable pageable, String search, String location){
+
+
+        QueryResults<Mate> activities = jpaQueryFactory
+                .selectFrom(qmate)
+                .join(qmate.activityId, qActivity).on(qmate.activityId.id.eq(qActivity.id))
+                .where(qmate.activityId.id.eq(qActivity.id).and(qmate.memberId.id.eq(qActivity.createId)).and(qActivity.isEnd.isFalse()).and(qActivity.location.eq(location))
+                        .and(qActivity.title.contains(search).or(qActivity.description.contains(search))))
+                .orderBy(qActivity.id.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchResults();
+        if(activities == null) return Page.empty();
+
+        return new PageImpl<Mate>(activities.getResults(), pageable, activities.getTotal());
+    }
+
     /**
      * 카테고리
      */
@@ -125,4 +145,23 @@ public class ActivityRepositorySupport {
         return new PageImpl<Mate>(activities.getResults(), pageable, activities.getTotal());
     }
 
+
+    /**
+     * 카테고리,지역
+     */
+    public Page<Mate> findByCategoryAndLocation(Pageable pageable, Long categoryId, String location){
+
+        QueryResults<Mate> activities = jpaQueryFactory
+                .selectFrom(qmate)
+                .join(qmate.activityId, qActivity).on(qmate.activityId.id.eq(qActivity.id))
+                .where(qmate.activityId.id.eq(qActivity.id).and(qmate.memberId.id.eq(qActivity.createId)).and(qActivity.isEnd.isFalse())
+                        .and(qActivity.categoryId.eq(categoryId)).and(qActivity.location.eq(location)))
+                .orderBy(qActivity.id.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchResults();
+        if(activities == null) return Page.empty();
+
+        return new PageImpl<Mate>(activities.getResults(), pageable, activities.getTotal());
+    }
 }

@@ -89,11 +89,13 @@ public class ActivityService {
         assert member != null;
         sido = member.getSido();
         gugun = member.getGugun();
-
+        boolean isSearchLocation = true;
+        //지역 값 없음
         if(!activityCategoryReq.getSido().equals("") || !activityCategoryReq.getGungu().equals("")){
 
             sido = activityCategoryReq.getSido();
             gugun = activityCategoryReq.getGungu();
+            isSearchLocation = false;
         }
 
         location = sido + " " + gugun;
@@ -111,6 +113,24 @@ public class ActivityService {
         /*
          * 운동 카테고리
          */
+        else if(activityCategoryReq.getCategoryId()!=0 && !isSearchLocation){
+
+            activities = activityRepositorySupport.findByCategoryAndLocation(pageable, activityCategoryReq.getCategoryId(), location);
+
+        }
+
+        /*
+         * 검색어
+         */
+        else if(!activityCategoryReq.getSearch().equals("") && !isSearchLocation) {
+
+            activities = activityRepositorySupport.findBySearchAndLocation(pageable, activityCategoryReq.getSearch(), location);
+        }
+
+
+        /*
+         * 운동 카테고리
+         */
         else if(activityCategoryReq.getCategoryId()!=0){
 
             activities = activityRepositorySupport.findByCategory(pageable, activityCategoryReq.getCategoryId());
@@ -124,6 +144,7 @@ public class ActivityService {
 
             activities = activityRepositorySupport.findBySearch(pageable, activityCategoryReq.getSearch());
         }
+
         /*
          * 지역만 검색
          */
@@ -243,10 +264,8 @@ public class ActivityService {
     }
 
     public void endActivity() {
-        //end_dt가 오늘인거 가지고와서
-
         LocalDateTime closeDt = LocalDateTime.now();
-        System.out.println("날짜확인" + closeDt);
+
         List<Activity> activity  = activityRepository.findByCloseDtBeforeAndIsEnd(closeDt, false);
 
         activity.forEach(date -> {
@@ -254,11 +273,6 @@ public class ActivityService {
             date.isEndUpdate(true);
             activityRepository.save(date);
         });
-
-
-
-        //1으로 변환해주는 작업
-
 
     }
 }
