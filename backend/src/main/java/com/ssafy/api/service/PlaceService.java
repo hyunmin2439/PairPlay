@@ -419,24 +419,19 @@ public class PlaceService {
         List<Reservation> list = reservationRepository.findByPlaceIdAndReserveStartDtBetween(reservationInfo.getPlaceId(), findStartDt, findEndDt);
 
         Map<Integer, Integer> map = new HashMap<>();
-        for(int i = 8; i < 12; i++) {
+        for(int i = 8; i < 22; i++) {
             map.put(i, 0);
         }
+        if(list == null || list.isEmpty()) {
+            for(int i = 0; i < list.size(); i++) {
+                List<Integer> times = list.get(i).getTime();
 
-        for(int i = 12; i < 22; i++) {
-            map.put(i, 20);
+                for(int j = 0; j < times.size(); j++) {
+                    int time = times.get(j);
+                    map.put(time, map.get(time) + 1);
+                }
+            }
         }
-
-//        if(list == null || list.isEmpty()) {
-//            for(int i = 0; i < list.size(); i++) {
-//                List<Integer> times = list.get(i).getTime();
-//
-//                for(int j = 0; j < times.size(); j++) {
-//                    int time = times.get(j);
-//                    map.put(time, map.get(time) + 1);
-//                }
-//            }
-//        }
 
         return map;
     }
