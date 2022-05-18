@@ -312,7 +312,6 @@ export default {
       // await getCards();
       pageId.value = route.params.id;
       getPlaceDetailInfo();
-      console.log(placeInfos);
     });
     const getPlaceDetailInfo = async () => await store.dispatch("root/getPlaceDetailInfo", pageId.value);
     const clickLike = async (id) => {
@@ -320,7 +319,7 @@ export default {
       await axios({ method: "put", headers: { Authorization: "Bearer " + localStorage.getItem("jwt") }, url: `${BASE_URL}/places/like/${pageId.value}` });
       await store.dispatch("root/getPlaceDetailInfo", pageId.value);
     };
-    console.log(placeInfos.value, "placeInfos");
+    // console.log(placeInfos.value, "placeInfos");
     // let { imgUrl, cost } = toRefs(placeInfos);
     return {
       placeInfos,

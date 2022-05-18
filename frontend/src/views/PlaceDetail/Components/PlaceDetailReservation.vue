@@ -1,139 +1,42 @@
 <template>
   <div>
-    <Datepicker v-model="date" :format-locale="ko" :enableTimePicker="false" autoApply class="datePicker" inline></Datepicker>
+    <Datepicker v-model="date.selectedDate" :format-locale="ko" :enableTimePicker="false" autoApply class="datePicker" inline></Datepicker>
     <div class="ReservationRealTime" id="style-1">
       <div class="wrapper d-flex flex-row justify-content-center align-items-center">
-        <div class="d-flex row">
-          <div class="d-flex">
-            <!-- <div class="col menu justify-content-center">10,000원</div> -->
-            <div class="col" v-for="(time, idx) in reservationTime" :key="idx">
-              <div class="btn menu justify-content-center">1 / 20</div>
-              <p class="time-mark">{{ time }}</p>
-              {{ time }}
+        <div class="d-flex">
+          <div class="col" v-for="(reservation, time) in reservationCheck" :key="reservation.id">
+            <!--  -->
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+              <!--  -->
+              <div v-if="`${reservation < 20}`">
+                <input type="checkbox" :id="`btn${time}`" class="btn-check btn menu" />
+                <label class="btn btn-primary" :for="`btn${time}`" @click="timeSelect(time)">{{ reservation }} / 20</label>
+              </div>
+              <div v-else>
+                <input type="checkbox" :id="`btn${time}`" class="btn-check btn menu" disabled />
+                <label class="btn btn-primary" :for="`btn${time}`" @click="timeSelect(time)">예약불가</label>
+              </div>
             </div>
-            <!-- <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">09:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">10:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">11:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">12:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">13:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">14:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">15:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">16:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">17:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">18:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">19:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">20:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">21:00</p>
-            </div>
-            <div class="col">
-              <div class="btn menu justify-content-center" value="08:00">1 / 20</div>
-              <p class="time-mark">22:00</p>
-            </div> -->
+            <p class="time-mark">{{ time }}:00 ~</p>
           </div>
         </div>
-        <!-- <div class="col">
-          <div class="menu d-flex justify-content-center">10,000원</div>
-          <div class="d-flex justify-content-around align-items-center">
-            <p class="time-mark text-white">10:00</p>
-            <p class="time-mark ps-5">12:00</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="menu d-flex justify-content-center">10,000원</div>
-          <div class="d-flex justify-content-around align-items-center">
-            <p class="time-mark text-white">10:00</p>
-            <p class="time-mark ps-5">13:00</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="menu d-flex justify-content-center">10,000원</div>
-          <div class="d-flex justify-content-around align-items-center">
-            <p class="time-mark text-white">10:00</p>
-            <p class="time-mark ps-5">14:00</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="menu d-flex justify-content-center">10,000원</div>
-          <div class="d-flex justify-content-around align-items-center">
-            <p class="time-mark text-white">10:00</p>
-            <p class="time-mark ps-5">15:00</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="menu d-flex justify-content-center">10,000원</div>
-          <div class="d-flex justify-content-around align-items-center">
-            <p class="time-mark text-white">10:00</p>
-            <p class="time-mark ps-5">16:00</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="menu d-flex justify-content-center">10,000원</div>
-          <div class="d-flex justify-content-around align-items-center">
-            <p class="time-mark text-white">10:00</p>
-            <p class="time-mark ps-5">17:00</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="menu d-flex justify-content-center">10,000원</div>
-          <div class="d-flex justify-content-around align-items-center">
-            <p class="time-mark text-white">10:00</p>
-            <p class="time-mark ps-5">18:00</p>
-          </div>
-        </div> -->
       </div>
     </div>
     <div class="d-flex justify-content-center mt-3">
-      <div class="btn reservation me-3" @click="requestPay">예약</div>
+      <div class="btn reservation me-3" @click="requestPay($event)">예약</div>
       <div class="btn btn-secondary ms-3">취소</div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted, watch } from "vue";
+import { reactive, computed, onMounted, watch } from "vue";
 import Datepicker from "@vuepic/vue-datepicker";
 import { ko } from "date-fns/locale";
 import { useStore } from "vuex";
-
+import axios from "axios";
 import "@vuepic/vue-datepicker/dist/main.css";
+const BASE_URL = "https://pairplay.site/api/v1";
 
 export default {
   name: "PlaceDetailReservation",
@@ -141,57 +44,92 @@ export default {
 
   setup() {
     const store = useStore();
-    const date = ref();
-    const reservationTime = reactive(computed(() => store.state.root.reservationCheck));
+    const date = reactive({ selectedDate: "" });
+    // console.log(date, "하");
+    const reservationCheck = reactive(computed(() => store.state.root.reservationCheck));
+    const selectedTime = [];
     const placeInfos = reactive(computed(() => store.state.root.placeDetailInfo));
-
-    const requestPay = function () {
-      const { IMP } = window;
-      IMP.init("imp57638465"); //iamport 대신 자신의 "가맹점 식별코드"를 사용
-      IMP.request_pay(
-        {
-          pg: "inicis",
-          pay_method: "card",
-          merchantuid: "merchant" + new Date().getTime(),
-          name: "결제테스트",
-          amount: 0, // 결제금액
-          buyer_email: "iamport@siot.do",
-          buyer_name: "구매자",
-          buyer_tel: "010-1234-5678",
-          buyer_addr: "서울특별시 강남구 삼성동",
-          buyer_postcode: "123-456",
-        },
-        function (rsp) {
-          // callback
-          if (rsp.success) {
-            console.log("결제성공");
-            alert("예약이 완료되었습니다.");
-          } else {
-            console.log("결제실패");
-          }
+    const timeSelect = (time) => {
+      if (clickedNumber[time] == true) {
+        clickedNumber[time] = false;
+      } else {
+        clickedNumber[time] = true;
+      }
+      console.log(clickedNumber);
+      selectedTime.push(time);
+    };
+    let clickedNumber = { 8: false, 9: false, 10: false, 11: false, 12: false, 13: false, 14: false, 15: false, 16: false, 17: false, 18: false, 19: false, 20: false, 21: false };
+    const requestPay = () => {
+      let selectedDate = new Date(date.selectedDate + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
+      let temp = [];
+      for (let i = 8; i <= 21; i++) {
+        if (clickedNumber[i] == true) {
+          temp.push(i);
         }
-      );
+      }
+      if (temp.length == 0) {
+        alert("예약하려는 시간을 선택해주세요");
+      } else {
+        const { IMP } = window;
+        IMP.init("imp57638465"); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+        IMP.request_pay(
+          {
+            pg: "inicis",
+            pay_method: "card",
+            merchantuid: "merchant" + new Date().getTime(),
+            name: "결제테스트",
+            amount: 1, // 결제금액
+            buyer_email: "iamport@siot.do",
+            buyer_name: "구매자",
+            buyer_tel: "010-1234-5678",
+            buyer_addr: "서울특별시 강남구 삼성동",
+            buyer_postcode: "123-456",
+          },
+          function (rsp) {
+            // callback
+            if (rsp.success) {
+              console.log("결제성공");
+              alert("예약이 완료되었습니다.");
+            } else {
+              console.log("결제실패");
+            }
+          }
+        );
+        let tempbody = { placeId: placeInfos.value.placeId, reservationDt: selectedDate, price: 1, time: temp };
+        // console.log(body, "제대로?");
+        axios({
+          method: "post",
+          data: tempbody,
+          headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
+          url: `${BASE_URL}/places/reservation`,
+        }).then((res) => {
+          console.log(res);
+        });
+      }
     };
     const changeData = async () => {
-      let selectedDate = new Date(+date.value + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
-      let temp = { placeId: placeInfos.placeId, reservationDt: selectedDate };
+      let selectedDate = new Date(date.selectedDate + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
+      let temp = { placeId: placeInfos.value.placeId, reservationDt: selectedDate };
       await store.dispatch("root/checkReservation", temp);
+      // console.log(reservationCheck.value, "언제고");
+      clickedNumber = { 8: false, 9: false, 10: false, 11: false, 12: false, 13: false, 14: false, 15: false, 16: false, 17: false, 18: false, 19: false, 20: false, 21: false };
     };
     onMounted(() => {
-      date.value = new Date();
-    });
-    console.log(placeInfos.value, "나오나요");
-    watch(date, () => {
-      // console.log(date.value, "몇일인데");
-
+      date.selectedDate = new Date();
       changeData();
+    });
+    watch(date, async () => {
+      // console.log(date.value, "몇일인데");
+      await changeData();
     });
     // const picked = ref(new Date());
     return {
       placeInfos,
       date,
-      reservationTime,
+      reservationCheck,
       ko,
+      selectedTime,
+      timeSelect,
       requestPay,
       changeData,
       // picked,
@@ -219,7 +157,7 @@ export default {
   // margin: 0rem 1rem 0rem 0rem;
   // padding: 0rem 0rem 0rem 0rem;
   // overflow: auto;
-  margin: 0rem auto 0rem auto;
+  margin: 4rem auto 0rem auto;
   color: #112031;
   // border: 1px solid #000;
   // overflow: auto;
@@ -249,28 +187,37 @@ export default {
 }
 .wrapper {
   // overflow-x: auto;
-  // display: flex;
-  // flex-direction: row;
+  display: flex;
+  // justify-items: stretch;
+  // flex-direction: column;
   // width: 100%;
   // width: 100%;
-  width: 60rem;
+  width: 80rem;
 }
-.menu {
-  // display: inline-block;
-  text-align: center;
-  font-size: 0.8rem;
-  min-width: 3rem;
+.btn-primary {
   background-color: #1976d2;
+  color: white;
   padding: 0.8rem 0.2rem 0.8rem 0.2rem;
   margin: 0rem 0rem 0rem 0.8rem;
-  // margin: 0rem 0rem 0rem 0.2rem;
+  font-size: 0.9rem;
+  min-width: 4rem;
 
-  box-shadow: 0 0 8px rgba(24, 24, 24, 0.1);
-  color: white;
-  border-radius: 5px;
-  // width: 130px;
+  // &:hover {
+  //   background-color: #1664b1;
+  //   color: white;
+  //   box-shadow: 0 0 8px rgba(24, 24, 24, 0.4);
+  //   border: 1px solid rgba(1, 1, 1, 0.3);
+  //   border-radius: 5px;
+  // }
+  // &:focus {
+  //   background-color: #1664b1;
+  //   color: black;
+  //   box-shadow: 0 0 8px rgba(24, 24, 24, 0.4);
+  //   border: 1px solid rgba(1, 1, 1, 0.3);
+  //   border-radius: 5px;
+  // }
 }
-.menu.disabled {
+.btn.menu.disabled {
   // display: inline-block;
   text-align: center;
   background-color: rgb(145, 145, 145);
@@ -284,9 +231,16 @@ export default {
   background-color: #1976d2;
   color: white;
   &:hover {
+    background-color: #1664b1;
+    color: white;
+    box-shadow: 0 0 8px rgba(24, 24, 24, 0.1);
+    border: 1px solid rgba(1, 1, 1, 0.3);
+    border-radius: 5px;
   }
 }
+
 .time-mark {
   font-size: 0.8rem;
+  padding: 0rem 0rem 0rem 1rem;
 }
 </style>

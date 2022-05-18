@@ -24,7 +24,7 @@ export default {
   name: "PlaceDetailMaps",
   props: ["latitude", "longitude", "placeInfos"],
   components: { NaverMaps, NaverMarker /*NaverCircle*/ },
-  setup(props) {
+  setup() {
     const store = useStore();
     const markers = reactive({
       latitude: computed(() => store.state.root.placeDetailInfo.latitude),
@@ -72,7 +72,7 @@ export default {
 
     // };
     onMounted(() => {});
-    console.log(props, "place");
+    // console.log(props, "place");
     return {
       map,
       state,

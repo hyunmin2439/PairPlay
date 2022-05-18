@@ -724,10 +724,12 @@ export async function getPlaceRecent({ commit }) {
     });
 }
 
-export async function checkReservation({ commit }, temp) {
+export async function checkReservation({ commit }, payload) {
   const jwt = localStorage.getItem("jwt");
   const url = "places/reservation/check";
-  let body = temp;
+  // let body = { placeId: payload.placeId, reservationDt: payload.reservationDt };
+  const body = payload;
+  // console.log(body, "굿바디");
   await $axios
     .post(url, body, {
       headers: {
@@ -735,7 +737,7 @@ export async function checkReservation({ commit }, temp) {
       },
     })
     .then((res) => {
-      console.log(res.data.times);
+      // console.log(res, "나오나");
       commit("CHECK_RESERVATION", res.data.times);
     })
     .catch((err) => {
