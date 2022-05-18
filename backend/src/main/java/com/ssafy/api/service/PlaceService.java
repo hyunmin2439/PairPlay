@@ -491,7 +491,13 @@ public class PlaceService {
         // 예약된 정보가 없으면 리뷰 작성 불가
         if( reservation == null )
             throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
-        
+
+        System.out.println("---------------------------시간 테스트-----------------------------------");
+        System.out.println("지금 시각" + LocalDateTime.now());
+        System.out.println("예약 시작 시간" + reservation.getReserveStartDt());
+        System.out.println( LocalDateTime.now().isAfter(reservation.getReserveStartDt()) );
+        System.out.println("---------------------------시간 테스트-----------------------------------");
+
         // 시설을 이용하기 시작했으면 취소 불가
         if( LocalDateTime.now().isAfter(reservation.getReserveStartDt()) )
             throw new CustomException(FAIL_CANCEL_AFTER_RESERVATION_TIME);

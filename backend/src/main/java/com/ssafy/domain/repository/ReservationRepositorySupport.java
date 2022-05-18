@@ -52,6 +52,7 @@ public class ReservationRepositorySupport {
                                 Collections.singletonList(
                                         new Document("$match", new Document("$expr", new Document("$and",
                                                 Arrays.asList(
+                                                        new Document("$eq", Arrays.asList("$_id", "$$reviewId")),
                                                         new Document("$eq", Arrays.asList("$_id", "$$reviewId"))
                                                 )))
                                         )
@@ -68,14 +69,14 @@ public class ReservationRepositorySupport {
         // 예약 사용 시작 시간이 현재 시각 이전 것을 가져옴 : 1 => 사용 완료
         MatchOperation matchOperation2 = Aggregation.match(
                 Criteria.where("member_id").is(memberId).andOperator(
-                        Criteria.where("reserve_end_dt").lt(LocalDateTime.now())
+                        Criteria.where("reserve_start_dt").lt(LocalDateTime.now())
                 )
         );
 
         // 예약 사용 종료 시간이 현재 시각 이후인 것을 가져옴 : 2 => 예약 중
         MatchOperation matchOperation3 = Aggregation.match(
                 Criteria.where("member_id").is(memberId).andOperator(
-                        Criteria.where("reserve_end_dt").gt(LocalDateTime.now())
+                        Criteria.where("reserve_start_dt").gt(LocalDateTime.now())
                 )
         );
 
