@@ -441,12 +441,17 @@ public class PlaceService {
 
     /** 체육시설 예약 등록 */
     public void reservePlace(ReservationPostReq reservationInfo) {
+
+        System.out.println("서비스 들어옴");
+
         Long memberId = memberService.getMemberIdFromAuthentication();
 
         // 예약 정보에 담긴 시설 정보가 잘못되면
         Place place = getPlace(reservationInfo.getPlaceId());
         if(place == null)
             throw new CustomException(FAIL_PLACE_NOT_FOUND);
+
+        System.out.println("플레이스 문제없음");
 
         List<Integer> times = reservationInfo.getTime();
         int startTime = times.get(0);
@@ -455,6 +460,8 @@ public class PlaceService {
         LocalDateTime reserveStartDt = reserveDt.atTime(startTime, 0);
         LocalDateTime reserveEndDt = lastTime != 24 ? reserveDt.atTime(lastTime, 0) : reserveDt.plusDays(1).atTime(0, 0);
 
+        System.out.println("시간값 문제");
+        
 //        // 예약 하려는 시간이 현재 시간보다 이전이면 ( 테스트의 편의를 위해 잠시 막아둠 )
 //        if( reserveStartDt.isBefore(LocalDateTime.now()) )
 //            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
@@ -472,6 +479,8 @@ public class PlaceService {
                 .price(reservationInfo.getPrice())
                 .build();
 
+        System.out.println("예약저장");
+        
         reservationRepository.save(reservation);
     }
 

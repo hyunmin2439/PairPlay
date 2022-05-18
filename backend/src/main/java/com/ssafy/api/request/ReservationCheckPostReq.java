@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-@ApiModel("ReservationPostRequest")
+@ApiModel("ReservationCheckPostRequest")
 public class ReservationCheckPostReq {
     @ApiModelProperty(name="예약할 시설 Id", example="499")
     Long placeId;
