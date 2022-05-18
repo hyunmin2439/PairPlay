@@ -34,6 +34,9 @@ public class CalendarDetailActivityRes {
     @ApiModelProperty(name = "Activity Location")
     String location;
 
+    @ApiModelProperty(name = "Category Image")
+    String categoryImage;
+
     @ApiModelProperty(name = "참여한 Mate List")
     List<CalendarDetailMateRes> mateResList;
 
@@ -48,6 +51,8 @@ public class CalendarDetailActivityRes {
         res.setMeetDt(activity.getMeetDt());
         res.setCloseDt(activity.getCloseDt());
         res.setLocation(activity.getLocation());
+
+        res.setCategoryImage("https://pairplayteams.s3.ap-northeast-2.amazonaws.com/category" + activity.getCategoryId() + ".png");
 
         res.setMateResList(mateResList);
 

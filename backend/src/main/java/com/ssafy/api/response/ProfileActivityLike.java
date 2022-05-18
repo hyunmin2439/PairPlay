@@ -23,6 +23,8 @@ public class ProfileActivityLike {
     LocalDateTime closeDt;
     String location;
 
+    String categoryImage;
+
     Boolean isEnd;
 
     public static ProfileActivityLike of (ActivityLike activityLike) {
@@ -36,6 +38,8 @@ public class ProfileActivityLike {
         dto.setMeetDt(activityLike.getActivityId().getMeetDt());
         dto.setCloseDt(activityLike.getActivityId().getCloseDt());
         dto.setLocation(activityLike.getActivityId().getLocation());
+
+        dto.setCategoryImage("https://pairplayteams.s3.ap-northeast-2.amazonaws.com/category" + activityLike.getActivityId().getCategoryId() + ".png");
 
         dto.setIsEnd(activityLike.getActivityId().getIsEnd());
 
