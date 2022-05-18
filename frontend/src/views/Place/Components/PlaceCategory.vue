@@ -98,7 +98,7 @@ export default {
       categoryList.value = [text];
       // console.log(categoryList, "텍스트 변화후");
       await store.dispatch("root/selectSportsCategory", categoryList.value);
-      await router.push({ name: "PlaceSearch" });
+      await router.push({ name: "PlaceSearch" }).then(() => window.scrollTo(0, 0));
     };
     return {
       categoryList,

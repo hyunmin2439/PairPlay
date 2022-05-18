@@ -1,7 +1,7 @@
 <template>
   <div>
     <naver-maps class="naverMaps" style="width: 100%; height: 100vh; position: sticky" :mapOptions="mapOptions" :initLayers="initLayers" @onLoad="onLoadMap($event)">
-      <naver-marker v-for="card in cards" :key="card.id" :latitude="card.latitude" :longitude="card.longitude" @click="popUP($event)">
+      <naver-marker v-for="card in cards" :key="card.id" :latitude="card.latitude" :longitude="card.longitude" @click="moveToDetail(card.id)">
         <div class="marker d-flex">
           <i class="bi bi-geo-alt-fill"></i>
           {{ card.name }}
@@ -22,6 +22,7 @@
 <script>
 import { ref, reactive, computed, onMounted } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 import { NaverMaps, NaverMarker } from "vue3-naver-maps";
 
@@ -31,6 +32,7 @@ export default {
   props: ["cards"],
   setup() {
     const store = useStore();
+    const router = useRouter();
     let markers = reactive(computed(() => store.state.root.placeSearchInfo.placeList));
     // const markers = reactive();
     // watch(markers, () => console.log(markers.value));
@@ -125,6 +127,17 @@ export default {
     const checkPosition = (event) => {
       console.log(event, "checkPosition");
     };
+    const moveToDetail = (res) => {
+      console.log(res, "여기디테일어디");
+      router
+        .push({
+          name: "PlaceDetail",
+          params: {
+            id: res,
+          },
+        })
+        .then(() => window.scrollTo(0, 0));
+    };
     return {
       // cards,
       map,
@@ -136,6 +149,7 @@ export default {
       tempLatitude,
       tempLongitude,
       onMounted,
+      moveToDetail,
       onLoadMap,
       onLoadMarker,
       onMarkerClicked,

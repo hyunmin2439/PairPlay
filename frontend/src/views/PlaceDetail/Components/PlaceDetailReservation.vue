@@ -13,8 +13,8 @@
                 <label class="btn btn-primary" :for="`btn${time}`" @click="timeSelect(time)">{{ reservation }} / 20</label>
               </div>
               <div v-else>
-                <input type="checkbox" :id="`btn${time}`" class="btn-check btn menu" disabled />
-                <label class="btn btn-primary" :for="`btn${time}`" @click="timeSelect(time)">예약불가</label>
+                <div type="checkbox" :id="`btn${time}`" class="btn-check btn menu" disabled />
+                <label class="btn btn-secondary" :for="`btn${time}`">예약불가</label>
               </div>
             </div>
             <p class="time-mark">{{ time }}:00 ~</p>
@@ -34,6 +34,7 @@ import { reactive, computed, onMounted, watch } from "vue";
 import Datepicker from "@vuepic/vue-datepicker";
 import { ko } from "date-fns/locale";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import "@vuepic/vue-datepicker/dist/main.css";
 const BASE_URL = "https://pairplay.site/api/v1";
@@ -44,6 +45,7 @@ export default {
 
   setup() {
     const store = useStore();
+    const router = useRouter();
     const date = reactive({ selectedDate: "" });
     // console.log(date, "하");
     const reservationCheck = reactive(computed(() => store.state.root.reservationCheck));
@@ -70,31 +72,31 @@ export default {
       if (temp.length == 0) {
         alert("예약하려는 시간을 선택해주세요");
       } else {
-        const { IMP } = window;
-        IMP.init("imp57638465"); //iamport 대신 자신의 "가맹점 식별코드"를 사용
-        IMP.request_pay(
-          {
-            pg: "inicis",
-            pay_method: "card",
-            merchantuid: "merchant" + new Date().getTime(),
-            name: "결제테스트",
-            amount: 1, // 결제금액
-            buyer_email: "iamport@siot.do",
-            buyer_name: "구매자",
-            buyer_tel: "010-1234-5678",
-            buyer_addr: "서울특별시 강남구 삼성동",
-            buyer_postcode: "123-456",
-          },
-          function (rsp) {
-            // callback
-            if (rsp.success) {
-              console.log("결제성공");
-              alert("예약이 완료되었습니다.");
-            } else {
-              console.log("결제실패");
-            }
-          }
-        );
+        // const { IMP } = window;
+        // IMP.init("imp57638465"); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+        // IMP.request_pay(
+        //   {
+        //     pg: "inicis",
+        //     pay_method: "card",
+        //     merchantuid: "merchant" + new Date().getTime(),
+        //     name: "결제테스트",
+        //     amount: 1, // 결제금액
+        //     buyer_email: "iamport@siot.do",
+        //     buyer_name: "구매자",
+        //     buyer_tel: "010-1234-5678",
+        //     buyer_addr: "서울특별시 강남구 삼성동",
+        //     buyer_postcode: "123-456",
+        //   },
+        //   function (rsp) {
+        //     // callback
+        //     if (rsp.success) {
+        //       console.log("결제성공");
+        //       alert("예약이 완료되었습니다.");
+        //     } else {
+        //       console.log("결제실패");
+        //     }
+        //   }
+        // );
         let tempbody = { placeId: placeInfos.value.placeId, reservationDt: selectedDate, price: 1, time: temp };
         // console.log(body, "제대로?");
         axios({
@@ -104,12 +106,15 @@ export default {
           url: `${BASE_URL}/places/reservation`,
         }).then((res) => {
           console.log(res);
+          alert("예약이 완료되었습니다.");
+          router.go(0);
         });
       }
     };
     const changeData = async () => {
       let selectedDate = new Date(date.selectedDate + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
       let temp = { placeId: placeInfos.value.placeId, reservationDt: selectedDate };
+      // console.log(temp);
       await store.dispatch("root/checkReservation", temp);
       // console.log(reservationCheck.value, "언제고");
       clickedNumber = { 8: false, 9: false, 10: false, 11: false, 12: false, 13: false, 14: false, 15: false, 16: false, 17: false, 18: false, 19: false, 20: false, 21: false };

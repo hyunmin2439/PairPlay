@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="container" style="max-width: 1280px">
+    <div class="container" style="max-width: 1200px; padding: 0rem 0rem 0rem 0rem">
       <!-- <header></header> -->
       <div class="category container">
         <div class="category-title ps-3 mb-4">
@@ -24,7 +24,7 @@
         </div>
         <place-category></place-category>
       </div>
-      <div class="placeRecommend container">
+      <div class="placeRecommend container" v-if="address">
         <div class="category-title ps-3 mt-3 mb-2 d-flex justify-content-between">
           <!-- <div class="fs-3 fw-bold">{{}}</div> -->
           <div class="fs-5 mb-4 d-flex align-items-center">
@@ -35,12 +35,11 @@
             <p class="text-danger"><strong> Hot한</strong></p>
             <p>&nbsp;<strong>시설</strong></p>
           </div>
-
           <!-- <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p> -->
         </div>
         <place-recommend></place-recommend>
       </div>
-      <div class="placeRecentView container my-5">
+      <div class="placeRecentView container my-5" v-if="recentCards.length >= 1">
         <div class="category-title ps-3 mt-3 mb-2 d-flex justify-content-between">
           <div class="fs-5 fw-bold mb-4">최근 조회한 시설</div>
           <!-- <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p> -->
@@ -69,21 +68,24 @@ export default {
     const store = useStore();
     const router = useRouter();
     const address = reactive(computed(() => store.state.root.userInfo.address));
+    const recentCards = reactive(computed(() => store.state.root.placeRecent));
     // const route = useRoute();
     const checkJwt = () => {
       if (localStorage.getItem("jwt")) {
         // pass
         return true;
       } else {
-        router.push({
-          name: "Login",
-        });
+        router
+          .push({
+            name: "Login",
+          })
+          .then(() => window.scrollTo(0, 0));
       }
     };
     onMounted(() => {
       checkJwt();
     });
-    return { address, onMounted, checkJwt };
+    return { address, recentCards, onMounted, checkJwt };
   },
 };
 </script>
@@ -113,6 +115,9 @@ export default {
   z-index: 1;
   color: white;
 }
+.PlaceTitle {
+  font-size: 2.5rem;
+}
 .PlaceBackground-Content {
   position: absolute;
   top: 40%;
@@ -131,20 +136,21 @@ export default {
 }
 .category {
   /* background-color: wheat; */
-  padding: 1rem 2rem;
+  padding: 1rem 0rem;
+  // max-width: 1200px;
 }
 /* #place-category { */
 /* width: 100%; */
 /* } */
 .placeRecommend {
   margin-top: 4rem;
-  padding: 1rem 2.5rem;
+  padding: 1rem 0rem;
   /* background-color: wheat; */
 }
 .placeRecentView {
   margin-top: 4rem;
 
-  padding: 1rem 2.5rem;
+  padding: 1rem 0rem;
 
   /* background-color: wheat; */
 }

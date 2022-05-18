@@ -60,12 +60,14 @@ export default {
     };
     const moveToPlaceDetail = (res) => {
       console.log(res, "여기디테일어디");
-      router.push({
-        name: "PlaceDetail",
-        params: {
-          id: res,
-        },
-      });
+      router
+        .push({
+          name: "PlaceDetail",
+          params: {
+            id: res,
+          },
+        })
+        .then(() => window.scrollTo(0, 0));
     };
     // const changeMark = () => {};
     return {

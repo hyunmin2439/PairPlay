@@ -158,9 +158,11 @@ export default {
         // pass
         return true;
       } else {
-        router.push({
-          name: "Login",
-        });
+        router
+          .push({
+            name: "Login",
+          })
+          .then(() => window.scrollTo(0, 0));
       }
     };
     onMounted(async () => {
