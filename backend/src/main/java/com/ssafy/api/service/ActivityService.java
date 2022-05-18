@@ -161,24 +161,24 @@ public class ActivityService {
     
     
     //메이트 등록
-    public void createActivity(ActivityPostReq activityInfo, List<String> fileName) {
+    public void createActivity(ActivityPostReq activityInfo) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
 
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new CustomException(FAIL_MEMBER_NOT_FOUND));
 
+//
+//        String fileNameArr = "";
+//
+//        if(fileName.size() != 0){
+//            for (String file : fileName) {
+//                fileNameArr = fileNameArr + " " + file + " ";
+//            }
+//        }
 
-        String fileNameArr = "";
 
-        if(fileName.size() != 0){
-            for (String file : fileName) {
-                fileNameArr = fileNameArr + " " + file + " ";
-            }
-        }
-
-
-        System.out.println("확인" + fileNameArr);
+//        System.out.println("확인" + fileNameArr);
 
         String location = activityInfo.getSido() + " " + activityInfo.getGugun();
 
@@ -190,7 +190,7 @@ public class ActivityService {
                 .title(activityInfo.getTitle())
                 .description(activityInfo.getDescription())
                 .location(location)
-                .mateImage(fileNameArr)
+//                .mateImage(fileNameArr)
                 .age(activityInfo.getAge())
                 .gender(activityInfo.getGender())
                 .closeDt(activityInfo.getCloseDt())

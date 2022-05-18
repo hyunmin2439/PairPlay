@@ -100,25 +100,25 @@ public class ActivityController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "공고 생성 성공하였습니다.", response = BaseResponseBody.class),
     })
-    public ResponseEntity<? extends BaseResponseBody> createActivity(@RequestPart("content") @ApiParam(value = "공고 정보", required = true) ActivityPostReq activityInfo,
-                                                                     @RequestPart("imgUrl") @ApiParam(value = "공고 이미지 업로드 List", required = true)List<MultipartFile> multipartFile) {
+    public ResponseEntity<? extends BaseResponseBody> createActivity(@RequestBody @ApiParam(value = "공고 정보", required = true) ActivityPostReq activityInfo) {
+//                                                                     @RequestPart("imgUrl") @ApiParam(value = "공고 이미지 업로드 List", required = true)List<MultipartFile> multipartFile
 
-        List<String> fileName = new ArrayList<>();
+//        List<String> fileName = new ArrayList<>();
+//
+//        if(multipartFile.size() != 0){
+//
+//            multipartFile.forEach(image -> {
+//                try {
+//                    fileName.add(s3FileUploadService.upload(image));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                    throw new CustomException(FAIL_MATE_IMAGE_S3_UPLOAD_ERROR);
+//                }
+//            });
+//
+//        }
 
-        if(multipartFile.size() != 0){
-
-            multipartFile.forEach(image -> {
-                try {
-                    fileName.add(s3FileUploadService.upload(image));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    throw new CustomException(FAIL_MATE_IMAGE_S3_UPLOAD_ERROR);
-                }
-            });
-
-        }
-
-        activityService.createActivity(activityInfo, fileName);
+        activityService.createActivity(activityInfo);
 
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_ACTIVITY_CREATE.getCode(), SUCCESS_ACTIVITY_CREATE.getMessage()));
