@@ -84,21 +84,21 @@ public class ProfileController {
     }
 
     // Profile Update
-    @PutMapping("")
-    @ApiOperation(value = "유저 프로필 수정", notes = "<string>JWT토큰</string>의 ID에 해당하는 회원 정보를 수정한다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "유저 프로필 수정에 성공했습니다.", response = BaseResponseBody.class),
-    })
-    public ResponseEntity<? extends BaseResponseBody> updateProfile(@RequestBody ProfilePutReq profilePutReq) {
-        profileService.updateMemberProfile(profilePutReq);
-
-        return ResponseEntity.status(200).body(
-                BaseResponseBody.of(
-                        SUCCESS_UPDATE_PROFILE.getCode(),
-                        SUCCESS_UPDATE_PROFILE.getMessage()
-                )
-        );
-    }
+//    @PutMapping("")
+//    @ApiOperation(value = "유저 프로필 수정", notes = "<string>JWT토큰</string>의 ID에 해당하는 회원 정보를 수정한다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "유저 프로필 수정에 성공했습니다.", response = BaseResponseBody.class),
+//    })
+//    public ResponseEntity<? extends BaseResponseBody> updateProfile(@RequestBody ProfilePutReq profilePutReq) {
+//        profileService.updateMemberProfile(profilePutReq);
+//
+//        return ResponseEntity.status(200).body(
+//                BaseResponseBody.of(
+//                        SUCCESS_UPDATE_PROFILE.getCode(),
+//                        SUCCESS_UPDATE_PROFILE.getMessage()
+//                )
+//        );
+//    }
     
     // Profile Image Update
     @PostMapping("/profileImage")
@@ -107,7 +107,7 @@ public class ProfileController {
             @ApiResponse(code = 200, message = "유저 프로필 이미지 수정에 성공했습니다.", response = BaseResponseBody.class),
     })
     public ResponseEntity<? extends BaseResponseBody> updateProfileImage(
-            @RequestPart(value = "profileImage") MultipartFile file
+            @RequestParam(value = "file", required = false) MultipartFile file
     ) {
 
         try {
