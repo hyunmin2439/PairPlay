@@ -12,7 +12,7 @@
         <div class="place-search-list-frame mt-4">
           <div class="placeSearchTitle mb-3 ps-2" v-if="store.state.root.placeSearchInfo.placeList">
             <strong>{{ store.state.root.placeSearchInfo.placeList[0].address.split(" ")[0] }} {{ store.state.root.placeSearchInfo.placeList[0].address.split(" ")[1] }}</strong
-            >에 위치한 <strong>{{ totalElements }}개</strong>의 시설
+            >에 위치한 <strong>{{ totalElements }}개</strong>의 장소
           </div>
           <div class="py-2">
             <div class="placeSearchList">
