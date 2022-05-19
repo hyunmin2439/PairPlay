@@ -56,7 +56,8 @@ public class ActivityController {
 
         return ResponseEntity.status(200).body(res);
 
-    }
+    }//-> 지역기반 추가 수정 해야함
+
 
 
     /**
