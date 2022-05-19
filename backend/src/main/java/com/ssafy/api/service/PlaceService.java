@@ -495,17 +495,17 @@ public class PlaceService {
         LocalDateTime reserveStartDt = reserveDt.atTime(startTime, 0);
         LocalDateTime reserveEndDt = lastTime != 24 ? reserveDt.atTime(lastTime, 0) : reserveDt.plusDays(1).atTime(0, 0);
         
-//        // 예약 하려는 시간이 현재 시간보다 이전이면 ( 테스트의 편의를 위해 잠시 막아둠 )
-//        if( reserveStartDt.isBefore(LocalDateTime.now().plusHours(9)) )
-//            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
+        // 예약 하려는 시간이 현재 시간보다 이전이면 ( 테스트의 편의를 위해 잠시 막아둠 )
+        if( reserveStartDt.isBefore(LocalDateTime.now().plusHours(9)) )
+            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
 
         Reservation reservation = Reservation.builder()
                 .memberId(memberId)
                 .placeId(reservationInfo.getPlaceId())
                 .isWrittenReview(false)
                 .reviewId("111111111111111111111111")
-//                .createDt(LocalDateTime.now().plusHours(9)) // throw Exception 주석 풀면서 같이 풀고 아래 메서드 지울 것!
-                .createDt(reservationInfo.getReservationDt().atTime(0, 0))
+                .createDt(LocalDateTime.now().plusHours(9)) // throw Exception 주석 풀면서 같이 풀고 아래 메서드 지울 것!
+//                .createDt(reservationInfo.getReservationDt().atTime(0, 0))
                 .reserveStartDt(reserveStartDt)
                 .reserveEndDt(reserveEndDt)
                 .time(reservationInfo.getTime())
@@ -529,15 +529,9 @@ public class PlaceService {
          * 로컬 -> mongoDB -9시간 되서 들어감
          * 서버 -> mongoDB 시간 그대로 들어감
          */
-        System.out.println("---------------------------시간 테스트-----------------------------------");
-        System.out.println("지금 시각" + LocalDateTime.now().plusHours(9));
-        System.out.println("예약 시작 시간" + reservation.getReserveStartDt());
-        System.out.println( LocalDateTime.now().plusHours(9).isAfter(reservation.getReserveStartDt()) );
-        System.out.println("---------------------------시간 테스트-----------------------------------");
-
         // 시설을 이용하기 시작했으면 취소 불가
-//        if( LocalDateTime.now().plusHours(9).isAfter(reservation.getReserveStartDt()) )
-//            throw new CustomException(FAIL_CANCEL_AFTER_RESERVATION_TIME);
+        if( LocalDateTime.now().plusHours(9).isAfter(reservation.getReserveStartDt()) )
+            throw new CustomException(FAIL_CANCEL_AFTER_RESERVATION_TIME);
 
         reservationRepository.delete(reservation);
     }
