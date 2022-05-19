@@ -34,7 +34,7 @@ public class PlaceRepositorySupport {
     public List<Place> getPopularPlaces(String address) {
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("address").regex(".*" + address + ".*")),
-                Aggregation.sort(Sort.Direction.DESC, "view_cnt").and(Sort.Direction.DESC, "review_cnt").and(Sort.Direction.DESC, "like_cnt"),
+                Aggregation.sort(Sort.Direction.DESC, "review_cnt").and(Sort.Direction.DESC, "like_cnt").and(Sort.Direction.DESC, "view_cnt"),
                 Aggregation.limit(10)
         );
 

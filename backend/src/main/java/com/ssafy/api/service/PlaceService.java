@@ -519,7 +519,7 @@ public class PlaceService {
     public void cancelPlace(ReservationDeleteReq reservationInfo) {
         Reservation reservation = getReservation(reservationInfo.getReservationId());
 
-        // 예약된 정보가 없으면 리뷰 작성 불가
+        // 예약된 정보가 없으면 예약 취소 불가
         if( reservation == null )
             throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
 
@@ -536,8 +536,8 @@ public class PlaceService {
         System.out.println("---------------------------시간 테스트-----------------------------------");
 
         // 시설을 이용하기 시작했으면 취소 불가
-        if( LocalDateTime.now().plusHours(9).isAfter(reservation.getReserveStartDt()) )
-            throw new CustomException(FAIL_CANCEL_AFTER_RESERVATION_TIME);
+//        if( LocalDateTime.now().plusHours(9).isAfter(reservation.getReserveStartDt()) )
+//            throw new CustomException(FAIL_CANCEL_AFTER_RESERVATION_TIME);
 
         reservationRepository.delete(reservation);
     }
