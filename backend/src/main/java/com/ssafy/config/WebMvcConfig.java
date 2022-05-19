@@ -2,20 +2,16 @@ package com.ssafy.config;
 
 import com.ssafy.common.util.JwtTokenUtil;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
-import javax.servlet.MultipartConfigElement;
 
 /**
  * 에러 1
@@ -49,6 +45,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return source;
     }
 
+    // MultipartFile이 안 받아져서 새로 주입 시도
 //    @Bean
 //    public MultipartConfigElement multipartConfigElement() {
 //        MultipartConfigFactory factory = new MultipartConfigFactory();
@@ -70,8 +67,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     		registry.addResourceHandler("/resources/**")
     				.addResourceLocations("/WEB-INF/resources/");
 
-    		registry.addResourceHandler("/swagger-ui/index.html/")
-    				.addResourceLocations("classpath:/META-INF/resources/");
+//    		registry.addResourceHandler("/swagger-ui/index.html/")
+//    				.addResourceLocations("classpath:/META-INF/resources/");
 
     		registry.addResourceHandler("/webjars/**")
     				.addResourceLocations("classpath:/META-INF/resources/webjars/");
@@ -103,7 +100,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         loggingFilter.setIncludeQueryString(true);
         loggingFilter.setIncludePayload(true);
         loggingFilter.setIncludeHeaders(true);
-        loggingFilter.setMaxPayloadLength(64000);
+        loggingFilter.setMaxPayloadLength(640000);
         return loggingFilter;
     }
 

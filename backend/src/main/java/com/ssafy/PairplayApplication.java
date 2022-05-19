@@ -12,8 +12,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
-//(exclude={MultipartAutoConfiguration.class})
-@SpringBootApplication
+
+@SpringBootApplication // (exclude={MultipartAutoConfiguration.class}) // WebMvcConfig에서 CommonsMultipartResolver DI시
 @EnableScheduling
 public class PairplayApplication {
 

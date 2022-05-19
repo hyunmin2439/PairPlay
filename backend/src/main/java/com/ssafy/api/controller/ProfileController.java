@@ -108,30 +108,22 @@ public class ProfileController {
             @ApiResponse(code = 200, message = "유저 프로필 이미지 수정에 성공했습니다.", response = BaseResponseBody.class),
     })
     public ResponseEntity<? extends BaseResponseBody> updateProfileImage(
-            @RequestPart(value = "file", required = false) MultipartFile imgFile
-    ) throws IOException {
-//        System.out.println("------------------------" + memberId + "---------------------------------");
+            @RequestParam(value = "profileImage", required = false) MultipartFile imgFile) throws IOException {
 
-        try {
-            String fileName = s3FileUploadService.upload(imgFile);
-            System.out.println(fileName == null ? "파일이름 null" : fileName);
-            profileService.updateMemberProfileImage(fileName);
-//            System.out.println(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new CustomException(FAIL_PROFILE_IMAGE_S3_UPLOAD_ERROR);
+        if (imgFile != null) {
+            System.out.println(imgFile.getOriginalFilename());
+            try {
+                String fileName = s3FileUploadService.upload(imgFile);
+                profileService.updateMemberProfileImage(fileName);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new CustomException(FAIL_PROFILE_IMAGE_S3_UPLOAD_ERROR);
+            }
+
+        } else {
+            System.out.println("Default Profile");
+            profileService.updateMemberProfileImage("default_profile.jpeg");
         }
-
-//        if (file != null) {
-//            System.out.println("여기로 들어옴" + file.getName());
-//            System.out.println(file.getOriginalFilename());
-//            System.out.println(file.getSize());
-//
-//
-//        } else {
-//            System.out.println("Default Profile");
-//            profileService.updateMemberProfileImage("default_profile.jpeg");
-//        }
 
         return ResponseEntity.status(200).body(
                 BaseResponseBody.of(
