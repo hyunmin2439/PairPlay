@@ -1,5 +1,6 @@
 package com.ssafy.domain.document;
 
+import com.ssafy.common.util.CategoryConverter;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -17,6 +18,7 @@ public class PlaceDetail {
     @Field(name = "id")
     private Long placeId;
     private String category;
+    private String categoryImage;
     private String address;
     private List<String> bizhour;
     private String homepage;
@@ -52,5 +54,8 @@ public class PlaceDetail {
         this.place = detailScore[1];
         this.location = detailScore[2];
         this.price = detailScore[3];
+
+        // 이미지 세팅도 같이
+        categoryImage = "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/category" + CategoryConverter.convertToInt(this.category) + ".jpg";
     }
 }
