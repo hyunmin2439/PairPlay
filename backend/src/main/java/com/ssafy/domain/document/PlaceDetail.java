@@ -49,13 +49,15 @@ public class PlaceDetail {
        this.isLike = true;
     }
 
+    public void setCategoryImage() {
+        this.categoryImage = "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/category"
+                + CategoryConverter.convertToInt(this.category) + ".jpg";
+    }
+
     public void setDetailScore(double[] detailScore) {
         this.cleanness = detailScore[0];
         this.place = detailScore[1];
         this.location = detailScore[2];
         this.price = detailScore[3];
-
-        // 이미지 세팅도 같이
-        categoryImage = "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/category" + CategoryConverter.convertToInt(this.category) + ".jpg";
     }
 }

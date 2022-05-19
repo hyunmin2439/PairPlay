@@ -146,6 +146,10 @@ public class PlaceService {
         
         // 세부 평균 점수 담기
         PlaceDetail placeDetail = placeRepositorySupport.detailPlace(placeId);
+        
+        // 이미지
+        placeDetail.setCategoryImage();
+
         if( ! ( placeDetail.getReviewList() == null || placeDetail.getReviewList().isEmpty() ) )
             placeDetail.setDetailScore( getDetailScore(placeDetail.getReviewList()) );
 
