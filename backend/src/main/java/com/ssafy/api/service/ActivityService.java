@@ -208,10 +208,13 @@ public class ActivityService {
 
         Mate mate = mateRepository.findByActivityId_IdAndMemberId_IdAndAccept(activity.getId(), activity.getCreateId(),1);
 
-        String profileImage = "";
-        if(mate.getMemberId().getProfileImage() != null || !mate.getMemberId().getProfileImage().equals("")){
-            profileImage = s3FileUploadService.findImg(mate.getMemberId().getProfileImage());
+        if(mate.getMemberId().getProfileImage() == null){
+            throw new CustomException(PROFILE_IMAGE_NULL);
         }
+
+
+        String profileImage = s3FileUploadService.findImg(mate.getMemberId().getProfileImage());
+
 
         return ActivityDetailRes.of(mate, mate.getMemberId().getId(), profileImage);
     }

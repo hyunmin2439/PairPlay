@@ -17,7 +17,8 @@ public enum ActivityCode implements StatusCode{
     FAIL_MEMBER_NOT_FOUND(404, "해당 유저 정보를 찾지 못했습니다."),
     FAIL_ACTIVITY_NOT_FOUND(404, "해당 공고를 찾지 못했습니다."),
 
-    MATE_USER_REGISTER_SAME(409, "본인의 공고에 메이트 신청 불가능합니다.")
+    MATE_USER_REGISTER_SAME(409, "본인의 공고에 메이트 신청 불가능합니다."),
+    PROFILE_IMAGE_NULL(400, "프로필 이미지 값이null입니다")
     ;
 
 
