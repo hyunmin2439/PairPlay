@@ -80,47 +80,66 @@ export default {
           text: "예약하려는 시간을 선택해주세요",
         });
       } else {
-        const { IMP } = window;
-        IMP.init("imp57638465"); //iamport 대신 자신의 "가맹점 식별코드"를 사용
-        IMP.request_pay(
-          {
-            pg: "inicis",
-            pay_method: "card",
-            merchantuid: "merchant" + new Date().getTime(),
-            name: placeInfos.value.name + " 예약",
-            amount: 100, // 결제금액
-            buyer_email: "iamport@siot.do",
-            buyer_name: "구매자",
-            buyer_tel: "010-1234-5678",
-            buyer_addr: "서울특별시 강남구 삼성동",
-            buyer_postcode: "123-456",
-          },
-          function (rsp) {
-            // callback
-            if (rsp.success) {
-              console.log("결제성공");
+        // 임시
+        let tempbody = { placeId: placeInfos.value.placeId, reservationDt: selectedDate, price: 1, time: temp };
+        // console.log(body, "제대로?");
+        axios({
+          method: "post",
+          data: tempbody,
+          headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
+          url: `${BASE_URL}/places/reservation`,
+        }).then(() => {
+          // console.log(res);
+          Swal.fire({
+            icon: "success",
+            title: "성공!",
+            text: "예약이 완료되었습니다.",
+          });
+          router.go(0);
+        });
 
-              let tempbody = { placeId: placeInfos.value.placeId, reservationDt: selectedDate, price: 1, time: temp };
-              // console.log(body, "제대로?");
-              axios({
-                method: "post",
-                data: tempbody,
-                headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
-                url: `${BASE_URL}/places/reservation`,
-              }).then(() => {
-                // console.log(res);
-                Swal.fire({
-                  icon: "success",
-                  title: "성공!",
-                  text: "예약이 완료되었습니다.",
-                });
-                router.go(0);
-              });
-            } else {
-              console.log("결제실패");
-            }
-          }
-        );
+        // 아래가 정답
+        // const { IMP } = window;
+        // IMP.init("imp57638465"); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+        // IMP.request_pay(
+        //   {
+        //     pg: "inicis",
+        //     pay_method: "card",
+        //     merchantuid: "merchant" + new Date().getTime(),
+        //     name: placeInfos.value.name + " 예약",
+        //     amount: 100, // 결제금액
+        //     buyer_email: "iamport@siot.do",
+        //     buyer_name: "구매자",
+        //     buyer_tel: "010-1234-5678",
+        //     buyer_addr: "서울특별시 강남구 삼성동",
+        //     buyer_postcode: "123-456",
+        //   },
+        // function (rsp) {
+        //   // callback
+        //   if (rsp.success) {
+        //     console.log("결제성공");
+
+        //     let tempbody = { placeId: placeInfos.value.placeId, reservationDt: selectedDate, price: 1, time: temp };
+        //     // console.log(body, "제대로?");
+        //     axios({
+        //       method: "post",
+        //       data: tempbody,
+        //       headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
+        //       url: `${BASE_URL}/places/reservation`,
+        //     }).then(() => {
+        //       // console.log(res);
+        //       Swal.fire({
+        //         icon: "success",
+        //         title: "성공!",
+        //         text: "예약이 완료되었습니다.",
+        //       });
+        //       router.go(0);
+        //     });
+        //   } else {
+        //     console.log("결제실패");
+        //   }
+        // }
+        // );
       }
     };
     const changeData = async () => {
