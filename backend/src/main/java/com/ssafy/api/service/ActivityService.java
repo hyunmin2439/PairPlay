@@ -161,25 +161,13 @@ public class ActivityService {
 
     
     
-    //메이트 등록
+    //공고 등록
     public void createActivity(ActivityPostReq activityInfo) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long memberId = Long.parseLong(authentication.getName());
 
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new CustomException(FAIL_MEMBER_NOT_FOUND));
-
-//
-//        String fileNameArr = "";
-//
-//        if(fileName.size() != 0){
-//            for (String file : fileName) {
-//                fileNameArr = fileNameArr + " " + file + " ";
-//            }
-//        }
-
-
-//        System.out.println("확인" + fileNameArr);
 
         String location = activityInfo.getSido() + " " + activityInfo.getGugun();
 
@@ -191,7 +179,6 @@ public class ActivityService {
                 .title(activityInfo.getTitle())
                 .description(activityInfo.getDescription())
                 .location(location)
-//                .mateImage(fileNameArr)
                 .age(activityInfo.getAge())
                 .gender(activityInfo.getGender())
                 .closeDt(activityInfo.getCloseDt())
@@ -204,6 +191,7 @@ public class ActivityService {
         Mate mate = Mate.builder()
                         .activityId(activityId)
                         .memberId(member)
+                        .accept(1)
                         .build();
 
         mateRepository.save(mate);
@@ -218,9 +206,12 @@ public class ActivityService {
         Activity activity = activityRepository.findById(activityId).orElseThrow(() -> new CustomException(FAIL_ACTIVITY_NOT_FOUND));
 
 
-        Mate mate = mateRepository.findByActivityId_IdAndMemberId_IdAndAccept(activity.getId(), activity.getCreateId(), 0);
+        Mate mate = mateRepository.findByActivityId_IdAndMemberId_IdAndAccept(activity.getId(), activity.getCreateId(),1);
 
-        String profileImage = s3FileUploadService.findImg(mate.getMemberId().getProfileImage());
+        String profileImage = "";
+        if(mate.getMemberId().getProfileImage() != null || !mate.getMemberId().getProfileImage().equals("")){
+            profileImage = s3FileUploadService.findImg(mate.getMemberId().getProfileImage());
+        }
 
         return ActivityDetailRes.of(mate, mate.getMemberId().getId(), profileImage);
     }
