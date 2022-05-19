@@ -51,7 +51,7 @@ public class PlaceDetail {
 
     public void setCategoryImage() {
         this.categoryImage = "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/category"
-                + CategoryConverter.convertToInt(this.category) + ".jpg";
+                + CategoryConverter.convertToInt(this.category) + ".png";
     }
 
     public void setDetailScore(double[] detailScore) {
