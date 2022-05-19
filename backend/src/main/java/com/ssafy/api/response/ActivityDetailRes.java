@@ -39,6 +39,9 @@ public class ActivityDetailRes extends BaseResponseBody{
     @ApiModelProperty(name = "프로필 이미지")
     String profileImage;
 
+    @ApiModelProperty(name = "닉네임")
+    String Nickname;
+
     @ApiModelProperty(name = "성별")
     int gender;
 
@@ -63,7 +66,7 @@ public class ActivityDetailRes extends BaseResponseBody{
         res.setGender(mate.getActivityId().getGender());
         res.setAge(mate.getActivityId().getAge());
         res.setProfileImage(profileImage);
-
+        res.setNickname(mate.getMemberId().getNickname());
         mate.getActivityId().getActivityLikeList().forEach( like -> {
             if(like.getMemberId().getId().equals(memberId)){
                 res.setLike(true);
