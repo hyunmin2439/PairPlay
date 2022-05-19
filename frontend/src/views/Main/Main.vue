@@ -3,15 +3,21 @@
     <div style="max-width: 1255px; margin: auto">
       <Header></Header>
     </div>
+    <!-- 확인 -->
+    <!--  -->
     <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" />
     <div style="max-width: 1200px; margin: auto">
-      <div class="PlaceBackgroundImage">
-        <div class="PlaceBackgroundImageCover">
-          <div class="PlaceBackground-Content ms-5 ps-2">
-            <p style="font-size: 3.2rem">PAIR PLAY</p>
-          </div>
-        </div>
-      </div>
+      <video autoplay class="container-fluid mainvideo" loop muted id="video-background" playsinline>
+        <source src="@/assets/videos/Main/pairplayVideo.mp4" type="video/mp4" />
+      </video>
+      <!-- <div class="PlaceBackgroundImageCover"> -->
+      <!-- <div class="PlaceBackgroundImage"> -->
+      <!-- <div class="PlaceBackgroundImageCover"> -->
+      <!-- <div class="PlaceBackground-Content ms-5 ps-2"> -->
+      <!-- <p style="font-size: 3.2rem">PAIR PLAY</p> -->
+      <!-- </div> -->
+      <!-- </div> -->
+      <!-- </div> -->
     </div>
     <div class="container mb-5 pb-5" style="max-width: 1200px; padding: 0px">
       <div class="category container" style="padding: 0px">
@@ -43,7 +49,7 @@
           <div class="container-in mt-3">
             <div class="box">
               <div class="thumbnail three">
-                <div class="thumbnail-post">
+                <div class="thumbnail-post-one">
                   <span class="serv-1">운동할 장소를 직접 확인해보세요!</span>
                   <span class="desc-1">12개의 운동과 지역에 따라 존재하는<br />모든 체육관과 시설을 찾고 예약할 수 있습니다.</span>
                 </div>
@@ -53,7 +59,7 @@
           <div class="container-in mt-4">
             <div class="box">
               <div class="thumbnail four">
-                <div class="thumbnail-post d-flex">
+                <div class="thumbnail-post-two d-flex">
                   <span class="serv-2">운동할 메이트를 직접 확인해보세요!</span>
                   <span class="desc-2">우리가 원하는 지역에서 원하는 운동을 <br />같이 수행할 메이트를 만나 기록 관리가 가능합니다.</span>
                 </div>
@@ -103,26 +109,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.PlaceBackgroundImage {
-  width: 100%;
-  height: 300px;
-  background: black;
-  // margin-bottom: 5rem;
-  /* background-color: rgba(0, 0, 0, 0.4); */
-  // background-image: url("@/assets/images/Main/Main.jpeg");
-  background: url("https://images.pexels.com/photos/3601094/pexels-photo-3601094.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") 50% 40% no-repeat;
-  background-size: 100%;
-  margin: 0rem auto 5rem auto;
-  background-repeat: no-repeat;
-}
+// .PlaceBackgroundImage {
+//   width: 100%;
+//   height: 350px;
+//   background: black;
+//   // margin-bottom: 5rem;
+//   /* background-color: rgba(0, 0, 0, 0.4); */
+//   // background-image: url("@/assets/images/Main/Main.jpeg");
+//   background: url("https://images.pexels.com/photos/3601094/pexels-photo-3601094.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") 50% 40% no-repeat;
+//   background-size: 100%;
+//   margin: 0rem auto 5rem auto;
+//   background-repeat: no-repeat;
+// }
 .PlaceBackgroundImageCover {
   position: absolute;
   width: 1200px;
-  height: 300px;
+  height: 350px;
   background: linear-gradient(30deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
   /* background-color: rgba(0, 0, 0, 0.3); */
   z-index: 1;
   color: white;
+}
+.mainvideo {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  margin-bottom: 5rem;
 }
 .PlaceBackground-Content {
   position: relative;
@@ -269,8 +281,12 @@ export default {
     }
   }
 }
-
-.thumbnail-post {
+.thumbnail-post-one {
+  width: 100%;
+  height: 100%;
+  // background: linear-gradient(30deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+}
+.thumbnail-post-two {
   width: 100%;
   height: 100%;
   background: linear-gradient(30deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
@@ -308,6 +324,7 @@ export default {
   // background-image: url("@/assets/images/Main/Place.jpeg");
   background-image: url("https://as2.ftcdn.net/v2/jpg/00/83/15/95/1000_F_83159570_JOI1NtD7MzEOqzTYIz3eTOhEm20HgGzp.jpg");
   // background-image: url("https://as2.ftcdn.net/v2/jpg/02/67/46/51/1000_F_267465121_hbjzEm2kJc9yowdM1TqCwdgNYZA76fse.jpg");
+  // background-image: url("https://t4.ftcdn.net/jpg/03/18/07/17/240_F_318071706_6YXAMsVDPmuTisfwcrdBnuOAOYyK5Uq1.jpg");
 
   background-size: cover;
 }
@@ -336,7 +353,8 @@ export default {
 }
 
 .three {
-  background-image: url("@/assets/images/Main/Place2.jpeg");
+  // background-image: url("@/assets/images/Main/Place2.jpeg");
+  background: url("@/assets/images/Main/place3.png") 50% 60% no-repeat;
   background-size: cover;
 }
 

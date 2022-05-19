@@ -19,7 +19,7 @@
               <place-search-list v-for="(card, idx) in cards" :key="idx" :card="card" :cardId="card.id" class="placeSearchList me-3 col"> </place-search-list>
               <!-- 페이지네이션 시작 -->
               <nav aria-label="Search results pages" class="paginationFrame">
-                <ul class="pagination">
+                <ul class="pagination pe-5">
                   <li class="page-item-left" @click="prevPages">
                     <a class="page-link" style="font-family: bootstrap-icons"> &#xF284; </a>
                   </li>

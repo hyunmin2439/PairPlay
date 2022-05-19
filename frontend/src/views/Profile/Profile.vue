@@ -19,7 +19,7 @@
           <div v-if="state.userInfo.memberId == state.otherInfo.memberId" class="edit mt-2" @click="changeDescriptionStatus"></div>
         </div>
         <hr />
-        <div v-if="state.isDescript == false">
+        <div v-if="state.isDescript == false" style="font-size: 1.1rem">
           {{ state.otherInfo.description }}
         </div>
         <div v-else>

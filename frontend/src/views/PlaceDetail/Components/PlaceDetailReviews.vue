@@ -24,15 +24,15 @@
             </div>
           </div>
           <div class="d-flex justify-content-between align-items-center px-3">
-            <div class="review-score-button"><strong>청결이</strong> {{ reviewScore.cleannessScore }}</div>
             <div class="review-score-button"><strong>시설이</strong> {{ reviewScore.placeScore }}</div>
+            <div class="review-score-button"><strong>청결이</strong> {{ reviewScore.cleannessScore }}</div>
             <div class="review-score-button"><strong>위치가</strong> {{ reviewScore.locationScore }}</div>
             <div class="review-score-button"><strong>가격이</strong> {{ reviewScore.priceScore }}</div>
           </div>
         </div>
       </div>
       <div class="review-picture col-4">
-        <img src="https://as1.ftcdn.net/v2/jpg/01/62/91/42/1000_F_162914286_O4BwMXsYDASlf49pe69tbUwgT9O7LqNa.jpg" class="img-fluid review-card-Image rounded" alt="..." />
+        <img :src="`${review.reviewImage}`" class="img-fluid review-card-Image rounded" alt="..." />
       </div>
     </div>
   </div>
@@ -140,6 +140,8 @@ export default {
 .review-card-Image {
   object-fit: cover;
   height: 80%;
+  min-height: 200px;
+  min-width: 380px;
 }
 
 .review-date {

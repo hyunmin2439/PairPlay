@@ -210,7 +210,7 @@ export default {
 
     const changeGungu = function (event) {
       searchFiltersData.gugun = event.target.value;
-      state.region = searchFiltersData.sido + "" + searchFiltersData.gugun;
+      state.region = searchFiltersData.sido + " " + searchFiltersData.gugun;
     };
 
     const inputCategory = async function (event) {

@@ -107,8 +107,8 @@ export default {
                 data: tempbody,
                 headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
                 url: `${BASE_URL}/places/reservation`,
-              }).then((res) => {
-                console.log(res);
+              }).then(() => {
+                // console.log(res);
                 Swal.fire({
                   icon: "success",
                   title: "성공!",

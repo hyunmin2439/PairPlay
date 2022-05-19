@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="placeDetailSportsCategory btnCategory">
-          <img src="https://cdn-icons-png.flaticon.com/512/921/921285.png" style="width: 2.5rem" alt="" />
+          <img :src="`${placeInfos.categoryImage}`" style="width: 2.5rem" alt="" />
           <h4 class="ms-4 me-2 align-self-center">{{ placeInfos.category }}</h4>
         </div>
       </div>
@@ -160,7 +160,7 @@
                     <div
                       class="progress-bar d-flex"
                       role="progressbar"
-                      :style="`width:${placeInfos.cleanness * 100}%; background-color:white;`"
+                      :style="`width:${(placeInfos.cleanness / 5) * 100}%; background-color:white;`"
                       :aria-valuenow="`${placeInfos.cleanness}`"
                       aria-valuemin="0"
                       aria-valuemax="5"
@@ -171,7 +171,7 @@
                     <div
                       class="progress-bar bg-dark d-flex"
                       role="progressbar"
-                      :style="`width:${placeInfos.cleanness * 100}%; height:6px;`"
+                      :style="`width:${(placeInfos.cleanness / 5) * 100}%; height:6px;`"
                       :aria-valuenow="`${placeInfos.cleanness}`"
                       aria-valuemin="0"
                       aria-valuemax="5"
@@ -191,7 +191,7 @@
                     <div
                       class="progress-bar d-flex"
                       role="progressbar"
-                      :style="`width:${placeInfos.location * 100}%; background-color:white;`"
+                      :style="`width:${(placeInfos.location / 5) * 100}%; background-color:white;`"
                       :aria-valuenow="`${placeInfos.location}`"
                       aria-valuemin="0"
                       aria-valuemax="5"
@@ -202,7 +202,7 @@
                     <div
                       class="progress-bar bg-dark d-flex"
                       role="progressbar"
-                      :style="`width:${placeInfos.location * 100}%; height:6px; `"
+                      :style="`width:${(placeInfos.location / 5) * 100}%; height:6px; `"
                       :aria-valuenow="`${placeInfos.location}`"
                       aria-valuemin="0"
                       aria-valuemax="5"
@@ -246,7 +246,7 @@
           <!-- 총평점 끝 -->
           <!-- 리뷰시작 -->
           <!-- <hr class="class-1" /> -->
-          <div class="place-detail-reviews-frame d-flex flex-row align-items-center my-2">
+          <div class="place-detail-reviews-frame d-flex flex-column align-items-center my-2">
             <place-detail-reviews v-for="(review, idx) in placeInfos.reviewList" :key="idx" :review="review"></place-detail-reviews>
             <!-- {{ placeInfos.reviewList }} -->
           </div>
@@ -391,7 +391,6 @@ h5 {
   display: flex;
   justify-content: space-between;
 }
-
 .detailInfos {
   width: 100%;
 }
@@ -433,7 +432,6 @@ h5 {
   border: 1px solid rgb(0, 0, 0, 0.1);
   /* border: 1px solid black; */
 }
-
 .detailInfosRule {
   margin-bottom: 2rem;
   /* width: 600px;
@@ -454,6 +452,7 @@ h5 {
   // margin: 3rem 0rem 0rem 0rem;
   max-height: 600px;
   max-width: 100%;
+  overflow-y: auto;
   // min-height: 300px;
   // background-color: black;
   // border: 1px solid black;
