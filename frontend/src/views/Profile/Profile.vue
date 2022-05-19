@@ -15,7 +15,7 @@
       <input @change="changeImgFile" type="file" id="input-file" style="display: none;">
       <div class="me-4 mt-4" style="width: 60%; height: 80%; font-size: x-large;">
         <div class="d-flex justify-content-between" style="width: 100%; height: 100%;">
-          <h2><b>Profile</b></h2>
+          <h2><b>프로필 한 줄 소개</b></h2>
           <div v-if="state.userInfo.memberId == state.otherInfo.memberId" class="edit mt-2" @click="changeDescriptionStatus"></div>
         </div>
         <hr>
@@ -33,27 +33,27 @@
       <div class="d-flex">
         <div class="container pt-4" style="position: sticky; top: 30px; max-width: 20%; height: 100%;">
           <div class="py-4">
-            <span class="side" :class="{ 'is-active': state.isActivePro }" @click="changeSideComponents($event)">Profile</span>
+            <span class="side" :class="{ 'is-active': state.isActivePro }" @click="changeSideComponents($event)">프로필 소개</span>
           </div>
           <div class="py-4">
-            <span class="side" :class="{ 'is-active': state.isActiveLik }" @click="changeSideComponents($event)">Like</span>
+            <span class="side" :class="{ 'is-active': state.isActiveLik }" @click="changeSideComponents($event)">찜한 목록</span>
           </div>
           <div class="py-4">
-            <span class="side" :class="{ 'is-active': state.isActiveRes }" @click="changeSideComponents($event)">Reservation</span>
+            <span class="side" :class="{ 'is-active': state.isActiveRes }" @click="changeSideComponents($event)">예약 목록</span>
           </div>
           <div class="py-4">
-            <span class="side" :class="{ 'is-active': state.isActiveSch }" @click="changeSideComponents($event)">Schedule</span>
+            <span class="side" :class="{ 'is-active': state.isActiveSch }" @click="changeSideComponents($event)">운동 스케줄</span>
           </div>
           <div class="py-4">
-            <span class="side" :class="{ 'is-active': state.isActiveMat }" @click="changeSideComponents($event)">Mate List</span>
+            <span class="side" :class="{ 'is-active': state.isActiveMat }" @click="changeSideComponents($event)">메이트 신청 목록</span>
           </div>
         </div>
         <div class="container pt-4" style="max-width: 80%; height: 100%; border-left: 1px solid #c8c9ca;">
-          <profile-view v-if="state.sideComponents=='Profile'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-view>
-          <profile-like v-else-if="state.sideComponents=='Like'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-like>
-          <profile-reservation v-else-if="state.sideComponents=='Reservation'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-reservation>
-          <profile-schedule v-else-if="state.sideComponents=='Schedule'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-schedule>
-          <profile-mate v-else-if="state.sideComponents=='Mate List'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-mate>
+          <profile-view v-if="state.sideComponents=='프로필 소개'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-view>
+          <profile-like v-else-if="state.sideComponents=='찜한 목록'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-like>
+          <profile-reservation v-else-if="state.sideComponents=='예약 목록'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-reservation>
+          <profile-schedule v-else-if="state.sideComponents=='운동 스케줄'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-schedule>
+          <profile-mate v-else-if="state.sideComponents=='메이트 신청 목록'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-mate>
         </div>
       </div>
     </div>
@@ -62,15 +62,15 @@
       <div class="d-flex">
         <div class="container pt-4" style="position: sticky; top: 30px; max-width: 20%; height: 100%;">
           <div class="py-4">
-            <span class="side" :class="{ 'is-active': state.isActivePro }" @click="changeSideComponents($event)">Profile</span>
+            <span class="side" :class="{ 'is-active': state.isActivePro }" @click="changeSideComponents($event)">프로필 소개</span>
           </div>
           <div class="py-4">
-            <span class="side" :class="{ 'is-active': state.isActiveSch }" @click="changeSideComponents($event)">Schedule</span>
+            <span class="side" :class="{ 'is-active': state.isActiveSch }" @click="changeSideComponents($event)">운동 스케줄</span>
           </div>
         </div>
         <div class="container pt-4" style="max-width: 80%; height: 100%; border-left: 1px solid #c8c9ca;">
-          <profile-view v-if="state.sideComponents=='Profile'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-view>
-          <profile-schedule v-else-if="state.sideComponents=='Schedule'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-schedule>
+          <profile-view v-if="state.sideComponents=='프로필 소개'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-view>
+          <profile-schedule v-else-if="state.sideComponents=='운동 스케줄'" :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-schedule>
         </div>
       </div>
     </div>
@@ -109,7 +109,7 @@ export default {
       userInfo: computed(() => store.getters["root/userInfo"]),
       otherInfo: computed(() => store.getters["root/otherInfo"]),
       profileImg: null,
-      sideComponents: "Profile",
+      sideComponents: "프로필 소개",
       isDescript: false,
       isActivePro: true,
       isActiveLik: false,
@@ -141,24 +141,6 @@ export default {
           file: state.profileImg,
           memberId: state.otherInfo.memberId
         })
-      //   const formData = new FormData()
-      //   formData.append("profileImage", state.profileImg)
-      //   const url = "profiles/profileImage";
-      //   const jwt = localStorage.getItem("jwt");
-      //   const header = {
-      //     headers: {
-      //       Authorization: "Bearer " + jwt,
-      //       "Content-Type": "multipart/form-data",
-      //     }
-      //   }
-      //   await axios
-      //     .post(url, formData, header)
-      //       .then((res) => {
-      //         console.log(res);
-      //       })
-      //       .catch((err) => {
-      //         console.log(err);
-      //       });
       }
     }
 
@@ -171,25 +153,25 @@ export default {
 
     const changeSideComponents = function (event) {
       state.sideComponents = event.target.textContent
-      if (state.sideComponents == "Profile") {
+      if (state.sideComponents == "프로필 소개") {
         state.isActivePro = true
         state.isActiveLik = false
         state.isActiveRes = false
         state.isActiveSch = false
         state.isActiveMat = false
-      } else if (state.sideComponents == "Like") {
+      } else if (state.sideComponents == "찜한 목록") {
         state.isActivePro = false
         state.isActiveLik = true
         state.isActiveRes = false
         state.isActiveSch = false
         state.isActiveMat = false
-      } else if (state.sideComponents == "Reservation") {
+      } else if (state.sideComponents == "예약 목록") {
         state.isActivePro = false
         state.isActiveLik = false
         state.isActiveRes = true
         state.isActiveSch = false
         state.isActiveMat = false
-      } else if (state.sideComponents == "Schedule") {
+      } else if (state.sideComponents == "운동 스케줄") {
         state.isActivePro = false
         state.isActiveLik = false
         state.isActiveRes = false
