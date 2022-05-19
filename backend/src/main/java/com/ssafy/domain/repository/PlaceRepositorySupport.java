@@ -23,6 +23,14 @@ public class PlaceRepositorySupport {
 
     public PlaceRepositorySupport(MongoTemplate mongoTemplate) { this.mongoTemplate = mongoTemplate; }
 
+    public List<Place> getPlaceList(String searchWord) {
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("name").regex(".*" + searchWord + ".*"))
+        );
+
+        return mongoTemplate.aggregate(aggregation, "region", Place.class).getMappedResults();
+    }
+
     public List<Place> getPopularPlaces(String address) {
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("address").regex(".*" + address + ".*")),

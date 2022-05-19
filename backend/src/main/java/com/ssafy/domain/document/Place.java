@@ -37,6 +37,8 @@ public class Place {
     private int reviewCnt;
     private double score;
 
+    public void modifyName(String name) { this.name = name; }
+
     public void increaseViewCnt() { this.viewCnt++; }
 
     public void modifyLikeCnt(long likeCnt){ this.likeCnt = (int)likeCnt; }
