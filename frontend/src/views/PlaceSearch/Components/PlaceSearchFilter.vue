@@ -154,6 +154,7 @@ export default {
 
     const changeSido = async function (event) {
       searchFiltersData.sido = event.target.textContent
+      console.log(searchFiltersData.sido)
     }
 
     const changeGungu = function (event) {
@@ -187,6 +188,7 @@ export default {
       searchFiltersData.page = 0;
       searchFiltersData.page = 0;
       searchFiltersData.searchWord = "";
+
       await changeFilters()
     };
 
@@ -239,14 +241,57 @@ export default {
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-// .btnPlace {
-//   margin: 10px 5px 10px 5px;
-//   background: #ffff;
-//   border-radius: 30px;
-//   box-shadow: (0 1px 10px rgba(24, 24, 24, 0.04));
-//   // box-shadow: (0 0 8px rgba(24, 24, 24, 0.04));
-//   border: 1px solid rgba(1, 1, 1, 0.1);
-//   font-size: 14px;
-//   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-// }
+
+.dropdown-menu li {
+  position: relative;
+}
+
+.dropdown-menu {
+  height: 350px;
+  // display: none;
+  position: relative;
+  left: 100%;
+  box-shadow: 0 0 8px rgba(24, 24, 24, 0.1);
+
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.dropdown-submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -9px;
+  width: 250px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.dropdown-menu .dropdown-submenu-left {
+  right: 100%;
+  left: auto;
+  margin: 50px;
+}
+.dropdown-menu > li:hover {
+  display: block;
+  border-right: 1px solid rgba(1, 1, 1, 0.1);
+}
+.dropdown-menu > li:hover > .dropdown-submenu {
+  display: block;
+  border-left: 1px solid rgba(1, 1, 1, 0.1);
+}
+
+.btnPlace {
+  margin: 10px 5px 10px 5px;
+  background: #ffff;
+  border-radius: 5px;
+  box-shadow: (0 1px 10px rgba(24, 24, 24, 0.04));
+  // box-shadow: (0 0 8px rgba(24, 24, 24, 0.04));
+  border: 1px solid rgba(1, 1, 1, 0.1);
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
 </style>

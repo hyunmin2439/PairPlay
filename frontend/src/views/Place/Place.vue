@@ -102,7 +102,7 @@ export default {
   background: black;
   margin-bottom: 5rem;
   /* background-color: rgba(0, 0, 0, 0.4); */
-  background: url("@/assets/images/Main/Mate2.jpeg") 50% 40% no-repeat;
+  background: url("@/assets/images/Main/Place2.jpeg") 50% 40% no-repeat;
   background-size: 100% auto;
 }
 .PlaceBackgroundImageCover {

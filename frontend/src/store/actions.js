@@ -206,9 +206,11 @@ export async function profileChangePassword({ state }, payload) {
     })
     .then((res) => {
       console.log(res)
+      alert("비밀번호 변경에 성공했습니다.")
     })
     .catch((err) => {
       console.log(err);
+      alert("비밀번호 변경에 실패했습니다.")
     })
 }
 
@@ -281,12 +283,13 @@ export async function profileMateFromAccept({ dispatch }, payload) {
         Authorization: "Bearer " + jwt,
       },
     })
-    .then((res) => {
+    .then(async (res) => {
       console.log(res);
-      dispatch("profileMateListFrom", {
+      await dispatch("profileMateListFrom", {
         page: page,
         size: 3,
       });
+      alert("해당 메이트 신청을 수락했습니다.")
     })
     .catch((err) => {
       console.log(err);
@@ -303,12 +306,13 @@ export async function profileMateFromReject({ dispatch }, payload) {
         Authorization: "Bearer " + jwt,
       },
     })
-    .then((res) => {
+    .then(async (res) => {
       console.log(res);
-      dispatch("profileMateListFrom", {
+      await dispatch("profileMateListFrom", {
         page: payload["page"],
         size: 3,
       });
+      alert("해당 메이트 신청을 거절했습니다.")
     })
     .catch((err) => {
       console.log(err);
@@ -487,6 +491,7 @@ export async function profileMateToCancle({ dispatch }, payload) {
         page: payload["page"],
         size: 3,
       });
+      alert("해당 메이트 신청이 취소되었습니다.")
     })
     .catch((err) => {
       console.log(err);

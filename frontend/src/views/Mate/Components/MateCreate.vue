@@ -143,6 +143,8 @@ import Header from "../../Common/Header.vue";
 import Footer from "../../Common/Footer.vue";
 import { reactive } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
 
 export default {
   name: "MateCreate",
@@ -152,6 +154,8 @@ export default {
   },
   setup () {
     const store = useStore()
+    const router = useRouter()
+    // const Swal = require('sweetalert2')
     const state = reactive({
       category: [
         "축구", "풋살", "농구", "야구",
@@ -265,27 +269,75 @@ export default {
           'gender': state.gender,
         }
         await store.dispatch("root/mateCreate", body)
+        Swal.fire({
+          icon: 'success',
+          title: '성공!!',
+          text: '메이트 등록에 성공했습니다.',
+        })
+        await router.push({
+          name: "Mate"
+        })
 
       } else if (state.sido=="") {
-        alert("시도를 선택해주세요.")
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '시도를 선택해주세요.',
+        })
       } else if (state.gungu=="") {
-        alert("군구를 선택해주세요.")
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '군구를 선택해주세요.',
+        })
       } else if (state.gender==-1) {
-        alert("성별을 선택해주세요.")
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '성별을 선택해주세요.',
+        })
       } else if (state.age==-1) {
-        alert("연령대를 선택해주세요.")
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '연령대를 선택해주세요.',
+        })
       } else if (state.categoryId==-1) {
-        alert("운동 종류를 선택해주세요.")
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '운동 종류를 선택해주세요.',
+        })
       } else if (state.meetDt=="") {
-        alert("운동할 날짜를 선택해주세요.")
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '운동할 날짜를 선택해주세요.',
+        })
       } else if (state.time=="") {
-        alert("운동할 시간을 선택해주세요.")
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '운동할 시간을 선택해주세요.',
+        })
       } else if (state.closeDt=="") {
-        alert("공고를 종료할 날짜를 선택해주세요.")
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '공고를 종료할 날짜를 선택해주세요.',
+        })
       } else if (state.title=="") {
-        alert("공고 제목을 기입해주세요.")
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '공고 제목을 기입해주세요.',
+        })
       } else if (state.description=="") {
-        alert("공고 내용을 기입해주세요.")
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '공고 내용을 기입해주세요.',
+        })
       }
     }
 
