@@ -13,9 +13,17 @@
       <p>{{ data.description }}</p>
       <p style="font-size: large;" class="mt-5"><b>종목 : {{ state.category[data.categoryId] }}</b></p>
     </div>
-    <div class="col-2 my-4 d-flex justify-content-around" style="flex-direction: column;">
+    <div v-if="data.accept==0" class="col-2 my-4 d-flex justify-content-around" style="flex-direction: column;">
       <button class="btn-mate accept" @click="mateFromAccept(data.id)">
         수락
+      </button>
+      <button class="btn-mate reject" @click="mateFromReject(data.id)">
+        거절
+      </button>
+    </div>
+    <div v-if="data.accept==1" class="col-2 my-4 d-flex justify-content-around" style="flex-direction: column;">
+      <button class="btn-mate accept" style="cursor: auto;">
+        수락완료
       </button>
       <button class="btn-mate reject" @click="mateFromReject(data.id)">
         거절

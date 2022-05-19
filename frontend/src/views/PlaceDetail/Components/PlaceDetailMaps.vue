@@ -8,6 +8,10 @@
       <p class="placeName">'{{ placeInfos.name }}'</p>
       <p class="placeAddress">{{ placeInfos.address }}</p>
     </div>
+    <!-- <div class="btn place-now" @click="moveToPlace"> -->
+    <!-- <strong>{{ placeInfos.name }}</strong -->
+    <!-- >로 이동 -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -20,7 +24,7 @@ export default {
   name: "PlaceDetailMaps",
   props: ["latitude", "longitude", "placeInfos"],
   components: { NaverMaps, NaverMarker /*NaverCircle*/ },
-  setup(props) {
+  setup() {
     const store = useStore();
     const markers = reactive({
       latitude: computed(() => store.state.root.placeDetailInfo.latitude),
@@ -57,15 +61,18 @@ export default {
       marker.value = markerObject;
       // console.log(marker.value, "marker");
     };
-    const onMarkerClicked = (event) => {
-      console.log(event, "onMarkerClicked");
+    const onMarkerClicked = () => {
+      // console.log(event, "onMarkerClicked");
     };
-    const checkPosition = (event) => {
+    const checkPosition = () => {
       // positionYX['latitude':]
-      console.log(event, "checkPosition");
+      // console.log(event, "checkPosition");
     };
+    // const moveToPlace = () => {
+
+    // };
     onMounted(() => {});
-    console.log(props, "place");
+    // console.log(props, "place");
     return {
       map,
       state,
@@ -80,6 +87,7 @@ export default {
       checkPosition,
       // onLoadCircle,
       onMounted,
+      // moveToPlace,
     };
   },
 };
@@ -97,6 +105,20 @@ export default {
   bottom: 370px;
   // margin: auto;
   z-index: 2;
+  box-shadow: 0 0 8px rgba(24, 24, 24, 0.3);
+}
+.place-now {
+  max-width: 30%;
+  // height: 50px;
+  background: white;
+  border-radius: 10px;
+  // opacity: 0.2;
+  position: relative;
+  font-size: 13px;
+  left: 80%;
+  bottom: 450px;
+  // margin: auto;
+  z-index: 5;
   box-shadow: 0 0 8px rgba(24, 24, 24, 0.3);
 }
 // .overlay {

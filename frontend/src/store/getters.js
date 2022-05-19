@@ -52,15 +52,40 @@ export function profileReservationList(state) {
   return state.profileReservationList
 }
 
+export function profileLikePlaceTotalPages(state) {
+  return state.profileLikePlaceTotalPages
+}
+
+export function profileLikePlaceList(state) {
+  return state.profileLikePlaceList
+}
+
+export function profileLikeMateTotalPages(state) {
+  return state.profileLikeMateTotalPages
+}
+
+export function profileLikeMateList(state) {
+  return state.profileLikeMateList
+}
+
+export function reviewDetailList(state) {
+  return state.reviewDetailList
+}
+
 export function mateArticleList(state) {
   return state.mateArticleList;
+}
+
+export function mateDetailList(state) {
+  return state.mateDetailList
 }
 
 export function matePage(state) {
   return state.matePage;
 }
-export function mateArticlePage(state) {
-  return state.mateArticlePage;
+
+export function mateArticleFilter(state) {
+  return state.mateArticleFilter;
 }
 
 export function getPlaceInfo(state) {
@@ -77,4 +102,8 @@ export function mateArticleListTotalElements(state) {
 
 export function changeList(state) {
   return state.changeList;
+}
+
+export function showMapMarker(state) {
+  return state.showMapMarker
 }

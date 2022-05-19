@@ -6,21 +6,21 @@
     <div class="col-7">
       <center>
       <h1 style="margin-top: 10%; margin-bottom: 5%; font-weight: bold;">회원가입</h1>
-      <div class="box my-4 d-flex align-items-center row">
+      <div class="box my-5 d-flex align-items-center row">
         <div class="col-2 icon name">
         </div>
         <div class="v-line col-1">
         </div>
         <input class="col-8" type="text" style="border: 0px; height: 80%;" placeholder="이름" v-model="state.name">
       </div>
-      <div class="box my-4 d-flex align-items-center row">
+      <div class="box my-5 d-flex align-items-center row">
         <div class="col-2 icon phone">
         </div>
         <div class="v-line col-1">
         </div>
         <input class="col-8" type="text" style="border: 0px; height: 80%;" placeholder="휴대 전화" v-model="state.phone" @keyup="autoHypen">
       </div>
-      <div class="box my-4 d-flex align-items-center row">
+      <div class="box my-5 d-flex align-items-center row">
         <div class="col-2 icon birthday">
         </div>
         <div class="v-line col-1">
@@ -36,7 +36,7 @@
           />
         </div>
       </div>
-      <div class="box my-4 d-flex align-items-center row">
+      <div class="box my-5 d-flex align-items-center row">
         <div class="col-2 icon address">
         </div>
         <div class="v-line col-1">
@@ -131,7 +131,6 @@ export default {
         address: state.address,
         phone: state.phone
       }
-      console.log(payload)
       await store.dispatch("root/signupSecond", payload)
       await router.push({
         name: "Main"

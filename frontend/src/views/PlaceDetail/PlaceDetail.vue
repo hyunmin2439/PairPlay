@@ -1,9 +1,10 @@
 <template>
-  <div>
-    <div style="max-width: 1400px; margin: auto">
+  <div v-if="checkJwt() && placeInfos">
+    <div style="max-width: 1255px; margin: auto">
       <Header></Header>
     </div>
-    <div class="container">
+    <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" />
+    <div class="container" style="max-width: 1200px; margin: auto">
       <div class="imageBox" v-if="placeInfos.img">
         <img class="imageFrist col-6" :src="`${placeInfos.img[0]}`" alt="" />
         <img v-for="(placeInfoImage, idx) in placeInfos.img.slice(1)" :key="idx" :src="`${placeInfoImage}`" class="imageOthers col-3" alt="" />
@@ -22,17 +23,17 @@
             <div class="saveBox ms-2 p-2">
               <div v-if="`${placeInfos.like}` == `true`" @click="clickLike" class="d-flex">
                 <h5><i class="bi bi-heart-fill me-1" style="color: #e01760"></i></h5>
-                <h5 class="ms-1 fw-bold"><u>저장</u></h5>
+                <h5 class="ms-1 fw-bold"><u>찜하기 취소</u></h5>
               </div>
               <div v-else @click="clickLike" class="d-flex">
                 <h5><i class="bi bi-heart me-1"></i></h5>
-                <h5 class="ms-1 fw-bold"><u>저장</u></h5>
+                <h5 class="ms-1 fw-bold"><u>찜하기 </u></h5>
               </div>
             </div>
           </div>
         </div>
         <div class="placeDetailSportsCategory btnCategory">
-          <img src="https://cdn-icons-png.flaticon.com/512/921/921285.png" style="width: 2.5rem" alt="" />
+          <img :src="`${placeInfos.categoryImage}`" style="width: 2.5rem" alt="" />
           <h4 class="ms-4 me-2 align-self-center">{{ placeInfos.category }}</h4>
         </div>
       </div>
@@ -42,8 +43,9 @@
         <div class="detailInfosLeft col-7">
           <div style="min-height: 150px">
             <h4 class="pb-4">이용시간 및 가격</h4>
-            <p v-for="(각시간, idx) in placeInfos.bizhour" :key="idx" class="">{{ 각시간 }}</p>
-            <!-- <p></p> -->
+            <p v-for="(각시간, idx) in placeInfos.bizhour" :key="idx" class="">{{ 각시간 }} / 10,000원</p>
+            <p v-for="(각시간, idx) in placeInfos.menu" :key="idx" class="">{{ 각시간 }}</p>
+            <br />
           </div>
           <hr class="class-2" />
           <h4 class="pb-4 pt-3">시설정보</h4>
@@ -158,7 +160,7 @@
                     <div
                       class="progress-bar d-flex"
                       role="progressbar"
-                      :style="`width:${placeInfos.cleanness * 100}%; background-color:white;`"
+                      :style="`width:${(placeInfos.cleanness / 5) * 100}%; background-color:white;`"
                       :aria-valuenow="`${placeInfos.cleanness}`"
                       aria-valuemin="0"
                       aria-valuemax="5"
@@ -169,7 +171,7 @@
                     <div
                       class="progress-bar bg-dark d-flex"
                       role="progressbar"
-                      :style="`width:${placeInfos.cleanness * 100}%; height:6px;`"
+                      :style="`width:${(placeInfos.cleanness / 5) * 100}%; height:6px;`"
                       :aria-valuenow="`${placeInfos.cleanness}`"
                       aria-valuemin="0"
                       aria-valuemax="5"
@@ -189,7 +191,7 @@
                     <div
                       class="progress-bar d-flex"
                       role="progressbar"
-                      :style="`width:${placeInfos.location * 100}%; background-color:white;`"
+                      :style="`width:${(placeInfos.location / 5) * 100}%; background-color:white;`"
                       :aria-valuenow="`${placeInfos.location}`"
                       aria-valuemin="0"
                       aria-valuemax="5"
@@ -200,7 +202,7 @@
                     <div
                       class="progress-bar bg-dark d-flex"
                       role="progressbar"
-                      :style="`width:${placeInfos.location * 100}%; height:6px; `"
+                      :style="`width:${(placeInfos.location / 5) * 100}%; height:6px; `"
                       :aria-valuenow="`${placeInfos.location}`"
                       aria-valuemin="0"
                       aria-valuemax="5"
@@ -244,7 +246,7 @@
           <!-- 총평점 끝 -->
           <!-- 리뷰시작 -->
           <!-- <hr class="class-1" /> -->
-          <div class="place-detail-reviews-frame d-flex flex-row align-items-center my-2">
+          <div class="place-detail-reviews-frame d-flex flex-column align-items-center my-2">
             <place-detail-reviews v-for="(review, idx) in placeInfos.reviewList" :key="idx" :review="review"></place-detail-reviews>
             <!-- {{ placeInfos.reviewList }} -->
           </div>
@@ -261,9 +263,8 @@
           {{ refundPolicy }}
         </p>
       </div>
-      <hr class="class-1" />
     </div>
-    <Footer></Footer>
+    <Footer class="footer"></Footer>
   </div>
 </template>
 
@@ -274,7 +275,7 @@ import PlaceDetailMaps from "./Components/PlaceDetailMaps.vue";
 import PlaceDetailReservation from "./Components/PlaceDetailReservation.vue";
 // import PlaceDetailReviewCreate from "./Components/PlaceDetailReviewCreate.vue";
 import { ref, reactive, computed, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import axios from "axios";
 import PlaceDetailReviews from "./Components/PlaceDetailReviews.vue";
@@ -286,24 +287,22 @@ export default {
 
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const store = useStore();
     const pageId = ref();
     const placeInfos = reactive(computed(() => store.state.root.placeDetailInfo));
-    // const placeInfos = ref({
-    //   title: "부산시 사직 실내체육관 농구코트",
-    //   position: "부산 연제구",
-    //   imgUrl: [
-    //     "https://as1.ftcdn.net/v2/jpg/02/17/45/12/1000_F_217451286_ixsvEptyrSYvxBvcyEGWKAVZUxFrayJ9.jpg",
-    //     "https://as2.ftcdn.net/v2/jpg/01/81/20/87/1000_F_181208786_UvD9jXyBbIR4Pb1UIN6LQDk3vOChsmyC.jpg",
-    //     "https://as1.ftcdn.net/v2/jpg/04/95/38/22/1000_F_495382282_buPZ5PEupMPyv1DzNnzKMtXdr4gDBVCC.jpg",
-    //   ],
-    //   facility: "잔디, 바닥, 샤워",
-    //   rate: "3.9",
-    //   reviewsCount: 98,
-    //   category: "농구",
-    //   cost: ["1개월 99,000", "2개월 177,000", "3개월 237,000"],
-    //   이용시간: ["평일 17:30~22:00 OPEN", "평일 18:00~19:00 레슨", "평일 19:00~20:00 레슨", "평일 20:30~21:30 (금요일 20:30~22:00)"],
-    // });
+    const checkJwt = () => {
+      if (localStorage.getItem("jwt")) {
+        // pass
+        return true;
+      } else {
+        router
+          .push({
+            name: "Login",
+          })
+          .then(() => window.scrollTo(0, 0));
+      }
+    };
     const rules =
       "▶️ 체육시설 예약시간 준수 \n ▶️ 체육시설 내 취사, 흡연 및 음주행위, 지나친 소음행위 금지(적발 시 이용불가) \n ▶️ 시설 사용 후 정리정돈(쓰레기 반드시 처리) \n ▶️ 고의 및 과실로 인한 시설물 훼손 및 파손시 사용자가 배상하며 경기중 부상은 본인이 책임집니다. \n ▶️ 시설보호와 부상방지를 위하여 스터드가 있는 축구화는 착용이 제한될 수 있습니다. \n ▶️ 운동시에는 마스크를 꼭 착용해주셔야합니다. 호흡이 어려운 경우 운동템포와 휴식시간을 조정해주세요. \n ▶️ 실내구장의 경우에는 휴식시에도 마스크를 착용해주셔야합니다. \n ▶️ 야외구장의 경우에는 휴식시 2M 이상 거리를 유지해주세요. \n ▶️ 휴식 및 대기는 구장 밖에서 해주셔야 합니다. \n ▶️ 위 내용이 지켜지지 않을 경우 무환불 퇴장조치 될 수 있으니 예약시 꼭 참고부탁드립니다. \n ▶️ 위 내용을 지키지 않아 발생하는 문제는 예약자 본인에게 있습니다.";
 
@@ -311,17 +310,17 @@ export default {
       " - 사용 10일 전 까지 : 100% 환불 \n - 9일 전 ~ 7일 전 : 90% 환불 \n - 6일 전 ~ 5일 전 : 70% 환불 \n - 4일 전 ~ 2일 전 : 50% 환불 \n - 1일 전 : 20% 환불 \n - 대관 당일 : 환불 불가";
 
     onMounted(() => {
+      checkJwt();
       // await getCards();
       pageId.value = route.params.id;
       getPlaceDetailInfo();
     });
     const getPlaceDetailInfo = async () => await store.dispatch("root/getPlaceDetailInfo", pageId.value);
-    const clickLike = async (id) => {
-      console.log(id, "id는?");
+    const clickLike = async () => {
       await axios({ method: "put", headers: { Authorization: "Bearer " + localStorage.getItem("jwt") }, url: `${BASE_URL}/places/like/${pageId.value}` });
       await store.dispatch("root/getPlaceDetailInfo", pageId.value);
     };
-
+    // console.log(placeInfos.value, "placeInfos");
     // let { imgUrl, cost } = toRefs(placeInfos);
     return {
       placeInfos,
@@ -329,6 +328,7 @@ export default {
       pageId,
       refundPolicy,
       onMounted,
+      checkJwt,
       getPlaceDetailInfo,
       clickLike,
     };
@@ -363,7 +363,7 @@ h5 {
 .imageBox {
   max-width: 100%;
   height: 60vh;
-  /* margin: auto; */
+  // /* margin: auto; */
   display: flex;
   /* height: 100%; */
   justify-content: center;
@@ -372,14 +372,14 @@ h5 {
 .imageFrist {
   object-fit: cover;
   border-radius: 5px;
-  margin: 1rem 0.5rem 1rem 0.5rem;
+  margin: 0rem 0.5rem 1rem 0.5rem;
   align-self: stretch;
 }
 .imageOthers {
   object-fit: cover;
   border-radius: 5px;
   align-self: stretch;
-  margin: 1rem 0.5rem 1rem 0;
+  margin: 0rem 0.5rem 1rem 0;
 }
 .placeDetailImage {
   /* margin: 1rem 0.1vw 1rem 0.1vw; */
@@ -391,7 +391,6 @@ h5 {
   display: flex;
   justify-content: space-between;
 }
-
 .detailInfos {
   width: 100%;
 }
@@ -433,7 +432,6 @@ h5 {
   border: 1px solid rgb(0, 0, 0, 0.1);
   /* border: 1px solid black; */
 }
-
 .detailInfosRule {
   margin-bottom: 2rem;
   /* width: 600px;
@@ -454,6 +452,7 @@ h5 {
   // margin: 3rem 0rem 0rem 0rem;
   max-height: 600px;
   max-width: 100%;
+  overflow-y: auto;
   // min-height: 300px;
   // background-color: black;
   // border: 1px solid black;
@@ -489,6 +488,10 @@ hr.class-2 {
 
   /* border-top: 1px solid black; */
   /* border: 0px; */
+}
+.footer {
+  /* background-color: wheat; */
+  margin-top: 6rem;
 }
 /* .dropwdonwTotal {
   width: 450px;

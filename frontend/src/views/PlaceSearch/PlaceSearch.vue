@@ -1,24 +1,25 @@
 <template>
-  <div>
+  <div v-if="checkJwt()">
     <!-- 헤더 -->
     <div style="max-width: 1400px; margin: auto">
-      <Header></Header>
+      <Header style="position: sticky; top: 0px"></Header>
     </div>
     <!-- <hr style="margin-top: 0px; margin-bottom: 0px; color: #b7b7b7" /> -->
-    <place-search-filters></place-search-filters>
+    <!-- <place-search-filters style="position: sticky; top: 0px; z-index: 5; background-color: #ffffff"></place-search-filters> -->
+    <place-search-filter style="position: sticky; top: 0px; z-index: 5; background-color: #ffffff"></place-search-filter>
     <div class="container PlaceSearchContentFrame">
       <div class="placeSearchContent container d-flex justify-content-around align-items-start">
         <div class="place-search-list-frame mt-4">
           <div class="placeSearchTitle mb-3 ps-2" v-if="store.state.root.placeSearchInfo.placeList">
             <strong>{{ store.state.root.placeSearchInfo.placeList[0].address.split(" ")[0] }} {{ store.state.root.placeSearchInfo.placeList[0].address.split(" ")[1] }}</strong
-            >에 위치한 <strong>{{ totalElements }}개</strong>의 시설
+            >에 위치한 <strong>{{ totalElements }}개</strong>의 장소
           </div>
           <div class="py-2">
             <div class="placeSearchList">
               <place-search-list v-for="(card, idx) in cards" :key="idx" :card="card" :cardId="card.id" class="placeSearchList me-3 col"> </place-search-list>
               <!-- 페이지네이션 시작 -->
               <nav aria-label="Search results pages" class="paginationFrame">
-                <ul class="pagination">
+                <ul class="pagination pe-5">
                   <li class="page-item-left" @click="prevPages">
                     <a class="page-link" style="font-family: bootstrap-icons"> &#xF284; </a>
                   </li>
@@ -41,25 +42,26 @@
         <place-search-maps :cards="cards" class="col placeSearchMaps"></place-search-maps>
       </div>
     </div>
-    <footer>푸터</footer>
+    <Footer>푸터</Footer>
   </div>
 </template>
 
 <script>
 import { onMounted, reactive, computed } from "vue";
 import { useStore } from "vuex";
-// import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import Header from "../Common/Header.vue";
-import PlaceSearchFilters from "./Components/PlaceSearchFilters.vue";
+import Footer from "../Common/Footer.vue";
+// import PlaceSearchFilters from "./Components/PlaceSearchFilters.vue";
+import PlaceSearchFilter from "./Components/PlaceSearchFilter.vue";
 import PlaceSearchList from "./Components/PlaceSearchList.vue";
 import PlaceSearchMaps from "./Components/PlaceSearchMaps.vue";
 export default {
   name: "PlaceSearch",
-  components: { Header, PlaceSearchFilters, PlaceSearchList, PlaceSearchMaps },
+  components: { Header, Footer, PlaceSearchFilter, PlaceSearchList, PlaceSearchMaps },
   setup() {
     const store = useStore();
-    // console.log(store.state.root.addPlaceFilters);
-    // const route = useRoute();
+    const router = useRouter();
     let cards = reactive(computed(() => store.state.root.placeSearchInfo.placeList));
     let totalPages = reactive(computed(() => store.state.root.placeSearchInfo.totalPages));
     let totalElements = reactive(computed(() => store.state.root.placeSearchInfo.totalElements));
@@ -114,7 +116,6 @@ export default {
       activeBtn.classList.add("active");
       searchFiltersData.value["page"];
       await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
-      console.log(nowPage.value);
     };
     const nextPages = async () => {
       for (var i = 0; i < totalPages.value; i++) {
@@ -133,10 +134,8 @@ export default {
       activeBtn.classList.add("active");
       searchFiltersData.value["page"];
       await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
-      console.log(nowPage.value);
     };
     const changePage = async (event) => {
-      console.log(event.target.textContent);
       if (Number(event.target.textContent) <= 1) {
         var activeBtn = document.getElementsByClassName("page-item")[0];
       } else if (Number(event.target.textContent) >= totalPages.value) {
@@ -153,7 +152,20 @@ export default {
       searchFiltersData.value["page"] = Number(event.target.textContent) - 1;
       await store.dispatch("root/getPlaceSearchInfo", searchFiltersData.value);
     };
+    const checkJwt = () => {
+      if (localStorage.getItem("jwt")) {
+        // pass
+        return true;
+      } else {
+        router
+          .push({
+            name: "Login",
+          })
+          .then(() => window.scrollTo(0, 0));
+      }
+    };
     onMounted(async () => {
+      checkJwt();
       // await getCards();
       nowPage.value = computed(() => store.state.root.placeSearchInfo.page);
       // console.log(cards, "카드들");
@@ -173,7 +185,7 @@ export default {
       // await getCards();
     });
 
-    return { cards, store, totalPages, totalElements, nowPage, onMounted, changePage, /*getSearchFiltersData*/ getCards, prevPages, nextPages };
+    return { cards, store, totalPages, totalElements, nowPage, onMounted, checkJwt, changePage, /*getSearchFiltersData*/ getCards, prevPages, nextPages };
   },
 };
 </script>
@@ -190,8 +202,8 @@ export default {
 
   // width: 50%;
   // background-color: wheat;
-  max-height: 66vh;
-  overflow-y: overlay;
+  // max-height: 66vh;
+  // overflow-y: overlay;
   // overflow-x: overlay;
   // scrollbar-width: 0px;
   max-width: 100vw;

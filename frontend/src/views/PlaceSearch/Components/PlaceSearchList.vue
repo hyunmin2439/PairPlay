@@ -1,11 +1,11 @@
 <template>
-  <div class="cardTotalFrame" @mouseover="changeMark">
+  <div class="cardTotalFrame">
     <div class="card my-4">
       <div class="row card-frame">
         <div class="col-6">
-          <img :src="`${card.img[0]}`" @click="moveToPlaceDetail(card.id)" class="img-fluid placeSearchListCardImage rounded" alt="..." />
+          <img :src="`${card.img[0]}`" @click="moveToPlaceDetail(card.id)" @mouseover="checkthis(card)" class="img-fluid placeSearchListCardImage rounded" alt="..." />
         </div>
-        <div class="col d-flex flex-row align-items-start">
+        <div class="col d-flex flex-row align-items-start" @mouseover="checkthis(card)">
           <div class="card-body text-start d-flex flex-column justify-content-between text-start">
             <div class="d-flex justify-content-between">
               <p class="card-region me-5" @click="moveToPlaceDetail(card.id)">{{ card.address }}</p>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-// import { ref } from "vue";
+import { reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import axios from "axios";
@@ -48,6 +48,8 @@ export default {
     // console.log(props.card, "props.card");
     // console.log(props.cardId, "props.cardId");
     const store = useStore();
+    let temp = reactive({ id: "" });
+
     // const placeSearchData = ref(props);
     // const like = ref(props.card.like);
     // let like = ref(props.card[props.cardId].like);
@@ -58,23 +60,35 @@ export default {
       await axios({ method: "put", headers: { Authorization: "Bearer " + localStorage.getItem("jwt") }, url: `${BASE_URL}/places/like/${id}` });
       await store.dispatch("root/getPlaceSearchInfo", store.state.root.addPlaceFilters);
     };
-    const moveToPlaceDetail = (res) => {
-      console.log(res, "여기디테일어디");
-      router.push({
-        name: "PlaceDetail",
-        params: {
-          id: res,
-        },
-      });
+    const checkthis = async (card) => {
+      if (temp.id != card.id) {
+        await store.dispatch("root/showMapMarker", card);
+        temp = reactive({ card });
+      } else {
+        // pass;
+      }
     };
-    const changeMark = () => {};
+    const moveToPlaceDetail = (res) => {
+      // console.log(res, "여기디테일어디");
+      router
+        .push({
+          name: "PlaceDetail",
+          params: {
+            id: res,
+          },
+        })
+        .then(() => window.scrollTo(0, 0));
+    };
+    // const changeMark = () => {};
     return {
       // placeSearchData,
+      temp,
       clickLike,
       moveToPlaceDetail,
+      checkthis,
       // getCards,
       // like,
-      changeMark,
+      // changeMark,
     };
   },
 };
@@ -83,6 +97,10 @@ export default {
 <style lang="scss" scoped>
 .card {
   border: 0px;
+  &:hover {
+    box-shadow: 0.8px 0.8px 0.8px 0.8px rgba(0.1, 0.1, 0.1, 0.1);
+  }
+  cursor: pointer;
 }
 .cardTotalFrame {
   border-top: 1px solid rgba(1, 1, 1, 0.1);

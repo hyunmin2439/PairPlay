@@ -6,6 +6,7 @@
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'OAuthSuccess',
@@ -22,6 +23,11 @@ export default {
       localStorage.setItem("jwt", token)
       if (localStorage.getItem("jwt")) {
         if (isLogin==1) {
+          Swal.fire({
+            icon: 'success',
+            title: '성공!',
+            text: '로그인에 성공했습니다.',
+          })
           store.commit("root/LOGIN_STATUS", true)
           await store.dispatch("root/getUserInfo", { 'jwt': token, 'memberId': memberId })
           await router.push({
@@ -33,7 +39,11 @@ export default {
           })
         }
       } else {
-        alert('로그인 실패')
+        Swal.fire({
+          icon: 'error',
+          title: '실패...',
+          text: '로그인에 실패했습니다.',
+        })
       }
     })
 

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useStore } from "vuex";
 import { NaverMaps, NaverMarker, NaverCircle } from "vue3-naver-maps";
 
@@ -51,15 +51,14 @@ export default {
       marker.value = markerObject;
       // console.log(marker.value, "marker");
     };
-    const onMarkerClicked = (event) => {
-      console.log(event, "onMarkerClicked");
+    const onMarkerClicked = () => {
+      // console.log(event, "onMarkerClicked");
     };
     const checkPosition = (event) => {
       // positionYX['latitude':]
-      console.log(event, "checkPosition");
+      // console.log(event, "checkPosition");
     };
-    onMounted(() => {});
-    console.log(props, "place");
+    // console.log(props, "place");
     return {
       map,
       state,
@@ -73,7 +72,6 @@ export default {
       onMarkerClicked,
       checkPosition,
       onLoadCircle,
-      onMounted,
     };
   },
 };

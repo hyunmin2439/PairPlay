@@ -121,7 +121,7 @@ export default {
 <style lang="scss" scoped>
 .btn {
   &:hover {
-    border: 0.5px solid black;
+    border: 0.02px solid rgba(1, 1, 1, 0.3);
   }
 }
 .form-check-label {

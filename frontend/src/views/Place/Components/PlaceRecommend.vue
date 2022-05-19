@@ -80,13 +80,15 @@ export default {
     const router = useRouter();
     const recommendCards = reactive(computed(() => store.state.root.placeRecommend));
     const moveToPlaceDetail = (res) => {
-      console.log(res, "여기디테일어디");
-      router.push({
-        name: "PlaceDetail",
-        params: {
-          id: res,
-        },
-      });
+      // console.log(res, "여기디테일어디");
+      router
+        .push({
+          name: "PlaceDetail",
+          params: {
+            id: res,
+          },
+        })
+        .then(() => window.scrollTo(0, 0));
     };
     onMounted(async () => {
       await store.dispatch("root/getPlaceRecommend");

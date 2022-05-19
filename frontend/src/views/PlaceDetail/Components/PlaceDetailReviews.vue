@@ -6,10 +6,10 @@
       <div class="col d-flex flex-row align-items-start">
         <div class="card-body px-0 me-5 text-start">
           <div class="d-flex align-items-center">
-            <div><img src="https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" class="profile-image" alt="" /></div>
+            <div><img :src="`${review.profileImage}`" class="profile-image" alt="" /></div>
             <div class="ms-3 d-flex col justify-content-between">
               <div>
-                <p class="mb-0 fw-bold">글쓴이</p>
+                <p class="mb-0 fw-bold">{{ review.nickname }}</p>
                 <p class="review-date mb-0">{{ review.writtenDt[0] }}년 {{ review.writtenDt[1] }}월</p>
               </div>
               <p class="card-rate mb-0 fw-bold d-flex align-items-center">
@@ -24,15 +24,17 @@
             </div>
           </div>
           <div class="d-flex justify-content-between align-items-center px-3">
-            <div class="review-score-button"><strong>청결이</strong> {{ reviewScore.cleannessScore }}</div>
             <div class="review-score-button"><strong>시설이</strong> {{ reviewScore.placeScore }}</div>
+            <div class="review-score-button"><strong>청결이</strong> {{ reviewScore.cleannessScore }}</div>
             <div class="review-score-button"><strong>위치가</strong> {{ reviewScore.locationScore }}</div>
             <div class="review-score-button"><strong>가격이</strong> {{ reviewScore.priceScore }}</div>
+            {{ reviewScore }}
           </div>
         </div>
       </div>
       <div class="review-picture col-4">
-        <img src="https://as1.ftcdn.net/v2/jpg/01/62/91/42/1000_F_162914286_O4BwMXsYDASlf49pe69tbUwgT9O7LqNa.jpg" class="img-fluid review-card-Image rounded" alt="..." />
+        <img v-if="review.reviewImage.length > 1" :src="`${review.reviewImage}`" class="img-fluid review-card-Image rounded" alt="..." />
+        <div v-else class="img-fluid review-card-Image rounded" alt="..." />
       </div>
     </div>
   </div>
@@ -45,6 +47,7 @@ export default {
   props: ["review"],
   setup(props) {
     const reviewData = reactive(props);
+    // console.log(props, "프롭스");
     const reviewScore = reactive({
       cleannessScore: "",
       placeScore: "",
@@ -52,49 +55,51 @@ export default {
       priceScore: "",
     });
     onMounted(async () => {
-      if (reviewData.cleanness <= 1) {
+      console.log(reviewData.review.cleanness);
+      if (0 <= reviewData.review.cleanness <= 1) {
         reviewScore.cleannessScore = "매우 별로에요";
-      } else if (reviewData.cleanness <= 2) {
+        console.log(reviewScore.cleannessScore);
+      } else if (1 < reviewData.review.cleanness <= 2) {
         reviewScore.cleannessScore = "별로에요";
-      } else if (reviewData.cleanness <= 3) {
+      } else if (2 < reviewData.review.cleanness <= 3) {
         reviewScore.cleannessScore = "보통이에요";
-      } else if (reviewData.cleanness <= 4) {
+      } else if (3 < reviewData.review.cleanness <= 4) {
         reviewScore.cleannessScore = "좋아요";
       } else {
         reviewScore.cleannessScore = "매우 좋아요";
       }
 
-      if (reviewData.place <= 1) {
+      if (0 <= reviewData.review.place <= 1) {
         reviewScore.placeScore = "매우 좋지 않아요";
-      } else if (reviewData.place <= 2) {
-        reviewData.placeScore = "좋지 않아요";
-      } else if (reviewData.place <= 3) {
+      } else if (1 < reviewData.review.place <= 2) {
+        reviewData.review.placeScore = "좋지 않아요";
+      } else if (2 < reviewData.review.place <= 3) {
         reviewScore.placeScore = "보통이에요";
-      } else if (reviewData.place <= 4) {
+      } else if (3 < reviewData.review.place <= 4) {
         reviewScore.placeScore = "좋아요";
       } else {
         reviewScore.placeScore = "매우 좋아요";
       }
 
-      if (reviewData.location <= 1) {
+      if (0 <= reviewData.review.location <= 1) {
         reviewScore.locationScore = "매우 좋지 않아요";
-      } else if (reviewData.location <= 2) {
+      } else if (1 < reviewData.review.location <= 2) {
         reviewScore.locationScore = "좋지 않아요";
-      } else if (reviewData.location <= 3) {
+      } else if (2 < reviewData.review.location <= 3) {
         reviewScore.locationScore = "보통이에요";
-      } else if (reviewData.location <= 4) {
+      } else if (3 < reviewData.review.location <= 4) {
         reviewScore.locationScore = "좋아요";
       } else {
         reviewScore.locationScore = "매우 좋아요";
       }
 
-      if (reviewData.price <= 1) {
+      if (0 <= reviewData.review.price <= 1) {
         reviewScore.priceScore = "매우 비싸요";
-      } else if (reviewData.price <= 2) {
+      } else if (1 < reviewData.review.price <= 2) {
         reviewScore.priceScore = "비싸요";
-      } else if (reviewData.price <= 3) {
+      } else if (2 < reviewData.review.price <= 3) {
         reviewScore.priceScore = "보통이에요";
-      } else if (reviewData.price <= 4) {
+      } else if (3 < reviewData.review.price <= 4) {
         reviewScore.priceScore = "저렴해요";
       } else {
         reviewScore.priceScore = "매우 저렴해요";
@@ -134,12 +139,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #ffff;
   // padding: 0rem 2rem 0rem 0rem;
   margin: 0rem 2rem 0rem 0rem;
 }
 .review-card-Image {
   object-fit: cover;
   height: 80%;
+  min-height: 200px;
+  min-width: 380px;
 }
 
 .review-date {

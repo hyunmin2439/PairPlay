@@ -20,7 +20,7 @@
     <div class="col-9 pt-4">
       <span><b>비밀번호 재설정이 가능합니다.</b></span><br>
       <span>영문과 숫자, 특수문자를 포함한 8자리 이상 18자리 이하</span><br>
-      <button class="mt-3" style="border-radius: 15px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">비밀번호 재설정</button>
+      <button class="mt-3" style="border-radius: 15px; border: 1px solid grey;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">비밀번호 재설정</button>
       <!-- Modal -->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -45,10 +45,13 @@
                 <input class="input-modal" type="password" style="width: 100%;" v-model="state.newPasswordConfirm" @keyup="checkPasswordLength(3)">
                 <p style="float: right;">{{ state.newPasswordConfirmLength }} / 20</p>
               </div>
+              <div v-if="state.newPassword != state.newPasswordConfirm" style="text-align: center; color: red;">
+                <span>새로운 비밀번호가 서로 동일하지 않습니다.</span>
+              </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn" style="background-color: skyblue;">Understood</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+              <button type="button" class="btn" style="background-color: skyblue;" @click="changeProfilePassword">변경하기</button>
             </div>
           </div>
         </div>
@@ -212,7 +215,6 @@ export default {
       } else {
         state.isGender = true
       }
-      console.log(state)
     }
 
     const checkPasswordLength = function (num) {
@@ -316,7 +318,28 @@ export default {
       });
     }
 
-    return { state, changeIsInfo, checkPasswordLength, autoHypen, checkDuplicate, changeNickname, changeName, changePhone, changeBirthDt, changeAddress, changeGenderStatus, changeGender, search }
+    const changeProfilePassword = function () {
+      store.dispatch("root/profileChangePassword", {
+        "password": state.newPassword
+      })
+    }
+
+    return { 
+      state, 
+      changeIsInfo, 
+      checkPasswordLength, 
+      autoHypen, 
+      checkDuplicate, 
+      changeNickname, 
+      changeName, 
+      changePhone, 
+      changeBirthDt, 
+      changeAddress, 
+      changeGenderStatus, 
+      changeGender, 
+      search,
+      changeProfilePassword
+    }
   }
 }
 </script>
