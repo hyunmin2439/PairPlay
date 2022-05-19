@@ -1,14 +1,13 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.*;
-import com.ssafy.api.response.BaseResponseBody;
-import com.ssafy.api.response.PlaceDetailRes;
-import com.ssafy.api.response.PlaceListRes;
-import com.ssafy.api.response.ReservationCheckRes;
+import com.ssafy.api.response.*;
 import com.ssafy.api.service.PlaceService;
+import com.ssafy.common.handler.CustomException;
 import com.ssafy.domain.document.MyReservation;
 import com.ssafy.domain.document.Place;
 import com.ssafy.domain.document.PlaceDetail;
+import com.ssafy.domain.document.Review;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -155,8 +154,24 @@ public class PlaceController {
     }
 
     /**
-     * 리뷰 API Post / Put / Delete
+     * 리뷰 API Get / Post / Put / Delete
      */
+    @GetMapping("/review/{reservation_id}")
+    @ApiOperation(value = "체육 시설 리뷰 조회", notes = "체육 시설에 대한 <strong>리뷰를 조회</strong> 한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "체육 시설 리뷰 조회에 성공했습니다.", response = ReviewRes.class),
+            @ApiResponse(code = 400, message = "요청 변수 값이 비어 있습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 404, message = "리뷰 정보를 찾을 수 없습니다.", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<? extends BaseResponseBody> searchReview (
+            @PathVariable(value = "reservation_id", required = true) @ApiParam(value = "예약 id 값", required = true) String reservationId) {
+
+        Review review = placeService.searchReview(reservationId);
+
+        return ResponseEntity.status(200).body(ReviewRes.of(SUCCESS_GET_PLACE_REVIEW.getCode(), SUCCESS_GET_PLACE_REVIEW.getMessage(), review));
+    }
+
     @PostMapping("/review")
     @ApiOperation(value = "체육 시설 리뷰 작성", notes = "체육 시설에 대한 <strong>리뷰를 등록</strong> 한다.")
     @ApiResponses({

@@ -269,6 +269,19 @@ public class PlaceService {
         placeRepository.save(place);
     }
 
+    /** 체육시설 리뷰 예약번호로 조회 */
+    public Review searchReview(String reservationId)  {
+        if(reservationId == null || "".equals(reservationId))
+            throw new CustomException(EMPTY_REQUEST_VALUE);
+
+        Review review = reviewRepository.findByReservationId(reservationId).orElse(null);
+
+        if(review == null)
+            throw new CustomException(FAIL_REVIEW_NOT_FOUND);
+
+        return review;
+    }
+
     /** 체육시설 리뷰 등록 */
     @Transactional(rollbackOn = Exception.class)
     public void postReview(ReviewPostReq reviewInfo, MultipartFile imgFile) {
