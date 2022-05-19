@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -270,7 +271,7 @@ public class PlaceService {
 
     /** 체육시설 리뷰 등록 */
     @Transactional(rollbackOn = Exception.class)
-    public void postReview(ReviewPostReq reviewInfo) {
+    public void postReview(ReviewPostReq reviewInfo, MultipartFile imgFile) {
         Member member = memberService.getMemberFromAuthentication();
 
         // 예약된 정보가 없으면 리뷰 작성 불가
@@ -291,6 +292,17 @@ public class PlaceService {
         if( ! LocalDateTime.now().plusHours(9).isAfter(reservation.getReserveEndDt()) )
             throw new CustomException(FAIL_NOT_YET_POST_REVIEW);
 
+        String fileName = "";
+
+        if(imgFile != null) {
+            try {
+                fileName = s3FileUploadService.upload(imgFile);
+                fileName = s3FileUploadService.findImg(fileName);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new CustomException(FAIL_REVIEW_IMAGE_S3_UPLOAD_ERROR);
+            }
+        }
 
         // 만약 시설에 대한 리뷰를 작성했는데 다시 리뷰 작성 요청으로 온다면 수정으로 보내기
         Review review = reviewRepository.findById(reservation.getReviewId()).orElse(null);
@@ -303,7 +315,7 @@ public class PlaceService {
             reviewPutInfo.setLocation(reviewInfo.getLocation());
             reviewPutInfo.setPrice(reviewInfo.getPrice());
             
-            modifyReview(reviewPutInfo);
+            modifyReview(reviewPutInfo, imgFile);
             return;
         }
 
@@ -323,6 +335,7 @@ public class PlaceService {
                 .profileImage(s3FileUploadService.findImg(member.getProfileImage()))
                 .placeId(reservation.getPlaceId())
                 .writtenDt(LocalDateTime.now().plusHours(9))
+                .reviewImage(fileName)
                 .description(reviewInfo.getDescription())
                 .cleanness(reviewInfo.getCleanness())
                 .place(reviewInfo.getPlace())
@@ -348,7 +361,7 @@ public class PlaceService {
 
     /** 체육시설 리뷰 수정 */
     @Transactional(rollbackOn = Exception.class)
-    public void modifyReview(ReviewPutReq reviewInfo) {
+    public void modifyReview(ReviewPutReq reviewInfo, MultipartFile imgFile) {
         Review review = getReview(reviewInfo.getReviewId());
 
         // 리뷰가 존재하지 않으면
@@ -360,7 +373,19 @@ public class PlaceService {
         if(place == null)
             throw new CustomException(FAIL_PLACE_NOT_FOUND);
 
-        review.modifyReview(reviewInfo);
+        String fileName = "";
+
+        if(imgFile != null) {
+            try {
+                fileName = s3FileUploadService.upload(imgFile);
+                fileName = s3FileUploadService.findImg(fileName);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new CustomException(FAIL_REVIEW_IMAGE_S3_UPLOAD_ERROR);
+            }
+        }
+
+        review.modifyReview(reviewInfo, fileName);
         reviewRepository.save(review);
 
         // place의 리뷰 개수와 점수 수정

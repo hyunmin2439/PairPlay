@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -168,9 +169,10 @@ public class PlaceController {
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> postReview (
-            @RequestBody @ApiParam(value = "체육 시설 리뷰 정보", required = true) ReviewPostReq reviewInfo) {
+            @RequestPart(value = "reviewInfo", required = false) @ApiParam(value = "체육 시설 리뷰 정보", required = false) ReviewPostReq reviewInfo,
+            @RequestPart(value = "reviewImage", required = false) @ApiParam(value = "체육 시설 리뷰 이미지", required = false) MultipartFile imgFile) {
 
-        placeService.postReview(reviewInfo);
+        placeService.postReview(reviewInfo, imgFile);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_POST_PLACE_REVIEW.getCode(), SUCCESS_POST_PLACE_REVIEW.getMessage()));
     }
@@ -184,9 +186,10 @@ public class PlaceController {
             @ApiResponse(code = 500, message = "Server Error.", response = BaseResponseBody.class)
     })
     public ResponseEntity<? extends BaseResponseBody> modifyReview (
-            @RequestBody @ApiParam(value = "체육 시설 리뷰 ID값과 리뷰 정보", required = true) ReviewPutReq reviewInfo) {
+            @RequestPart(value = "reviewInfo", required = false) @ApiParam(value = "체육 시설 리뷰 ID값과 리뷰 정보", required = false) ReviewPutReq reviewInfo,
+            @RequestPart(value = "reviewImage", required = false) @ApiParam(value = "체육 시설 리뷰 이미지", required = false) MultipartFile imgFile) {
 
-        placeService.modifyReview(reviewInfo);
+        placeService.modifyReview(reviewInfo, imgFile);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(SUCCESS_MODIFY_PLACE_REVIEW.getCode(), SUCCESS_MODIFY_PLACE_REVIEW.getMessage()));
     }

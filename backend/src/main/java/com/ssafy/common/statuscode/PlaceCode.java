@@ -27,9 +27,12 @@ public enum PlaceCode implements StatusCode {
     FAIL_RECENT_NOT_FOUND(404, "유저가 최근 본 체육시설 정보가 없습니다."),
     FAIL_PLACE_NOT_FOUND(404, "체육시설의 정보를 찾을 수 없습니다."),
     FAIL_RESERVATION_NOT_FOUND(404, "예약 정보를 찾을 수 없습니다."),
-    FAIL_REVIEW_NOT_FOUND(404, "리뷰 정보를 찾을 수 없습니다.");
+    FAIL_REVIEW_NOT_FOUND(404, "리뷰 정보를 찾을 수 없습니다."),
 
     // 409 CONFLICT 중복된 리소스
+
+    // 500 Server Error
+    FAIL_REVIEW_IMAGE_S3_UPLOAD_ERROR(500, "리뷰 이미지를 S3서버에 업로드하지 못했습니다.");
 
     protected final int code;
     protected final String message;

@@ -26,13 +26,16 @@ public class Review {
     private Long placeId; // 시설 Id값 : 예약 정보에 포함하여 가져올 수 있지만 시설에 대한 리뷰 정보를 조회할 때를 대비 추가
     @Field(name = "written_dt")
     private LocalDateTime writtenDt; // 작성 일자
+    private String reviewImage; // 리뷰 이미지
     private String description; // 한줄 평
     private double cleanness; // 청결 점수 0 ~ 5.0
     private double place; // 시설 점수 0 ~ 5.0
     private double location; // 위치 점수 0 ~ 5.0
     private double price; // 가격 점수 0 ~ 5.0
 
-    public void modifyReview(ReviewPutReq reviewInfo) {
+    public void modifyReview(ReviewPutReq reviewInfo, String fileName) {
+        if( !"".equals( fileName ) )
+            this.reviewImage = fileName;
         if( !"".equals(reviewInfo.getDescription()) )
             this.description = reviewInfo.getDescription();
         if(reviewInfo.getCleanness() != null)
