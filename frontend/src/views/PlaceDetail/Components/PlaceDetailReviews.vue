@@ -32,7 +32,8 @@
         </div>
       </div>
       <div class="review-picture col-4">
-        <img :src="`${review.reviewImage}`" class="img-fluid review-card-Image rounded" alt="..." />
+        <img v-if="review.reviewImage.length > 1" :src="`${review.reviewImage}`" class="img-fluid review-card-Image rounded" alt="..." />
+        <div v-else class="img-fluid review-card-Image rounded" alt="..." />
       </div>
     </div>
   </div>
@@ -45,6 +46,7 @@ export default {
   props: ["review"],
   setup(props) {
     const reviewData = reactive(props);
+    // console.log(props, "프롭스");
     const reviewScore = reactive({
       cleannessScore: "",
       placeScore: "",
@@ -52,49 +54,50 @@ export default {
       priceScore: "",
     });
     onMounted(async () => {
-      if (reviewData.cleanness <= 1) {
+      console.log(reviewData, "맞나");
+      if (0 <= reviewData.cleanness <= 1) {
         reviewScore.cleannessScore = "매우 별로에요";
-      } else if (reviewData.cleanness <= 2) {
+      } else if (1 < reviewData.cleanness <= 2) {
         reviewScore.cleannessScore = "별로에요";
-      } else if (reviewData.cleanness <= 3) {
+      } else if (2 < reviewData.cleanness <= 3) {
         reviewScore.cleannessScore = "보통이에요";
-      } else if (reviewData.cleanness <= 4) {
+      } else if (3 < reviewData.cleanness <= 4) {
         reviewScore.cleannessScore = "좋아요";
       } else {
         reviewScore.cleannessScore = "매우 좋아요";
       }
 
-      if (reviewData.place <= 1) {
+      if (0 <= reviewData.place <= 1) {
         reviewScore.placeScore = "매우 좋지 않아요";
-      } else if (reviewData.place <= 2) {
+      } else if (1 < reviewData.place <= 2) {
         reviewData.placeScore = "좋지 않아요";
-      } else if (reviewData.place <= 3) {
+      } else if (2 < reviewData.place <= 3) {
         reviewScore.placeScore = "보통이에요";
-      } else if (reviewData.place <= 4) {
+      } else if (3 < reviewData.place <= 4) {
         reviewScore.placeScore = "좋아요";
       } else {
         reviewScore.placeScore = "매우 좋아요";
       }
 
-      if (reviewData.location <= 1) {
+      if (0 <= reviewData.location <= 1) {
         reviewScore.locationScore = "매우 좋지 않아요";
-      } else if (reviewData.location <= 2) {
+      } else if (1 < reviewData.location <= 2) {
         reviewScore.locationScore = "좋지 않아요";
-      } else if (reviewData.location <= 3) {
+      } else if (2 < reviewData.location <= 3) {
         reviewScore.locationScore = "보통이에요";
-      } else if (reviewData.location <= 4) {
+      } else if (3 < reviewData.location <= 4) {
         reviewScore.locationScore = "좋아요";
       } else {
         reviewScore.locationScore = "매우 좋아요";
       }
 
-      if (reviewData.price <= 1) {
+      if (0 <= reviewData.price <= 1) {
         reviewScore.priceScore = "매우 비싸요";
-      } else if (reviewData.price <= 2) {
+      } else if (1 < reviewData.price <= 2) {
         reviewScore.priceScore = "비싸요";
-      } else if (reviewData.price <= 3) {
+      } else if (2 < reviewData.price <= 3) {
         reviewScore.priceScore = "보통이에요";
-      } else if (reviewData.price <= 4) {
+      } else if (3 < reviewData.price <= 4) {
         reviewScore.priceScore = "저렴해요";
       } else {
         reviewScore.priceScore = "매우 저렴해요";
@@ -134,6 +137,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #ffff;
   // padding: 0rem 2rem 0rem 0rem;
   margin: 0rem 2rem 0rem 0rem;
 }
