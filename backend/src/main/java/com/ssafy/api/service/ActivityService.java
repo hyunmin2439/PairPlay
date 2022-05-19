@@ -218,7 +218,7 @@ public class ActivityService {
         Activity activity = activityRepository.findById(activityId).orElseThrow(() -> new CustomException(FAIL_ACTIVITY_NOT_FOUND));
 
 
-        Mate mate = mateRepository.findByActivityId_IdAndMemberId_IdAndAcceptIsFalse(activity.getId(), activity.getCreateId());
+        Mate mate = mateRepository.findByActivityId_IdAndMemberId_IdAndAccept(activity.getId(), activity.getCreateId(), 0);
 
         String profileImage = s3FileUploadService.findImg(mate.getMemberId().getProfileImage());
 
