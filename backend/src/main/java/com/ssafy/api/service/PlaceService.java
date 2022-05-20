@@ -504,8 +504,8 @@ public class PlaceService {
                 .placeId(reservationInfo.getPlaceId())
                 .isWrittenReview(false)
                 .reviewId("111111111111111111111111")
-                .createDt(LocalDateTime.now().plusHours(9)) // throw Exception 주석 풀면서 같이 풀고 아래 메서드 지울 것!
-//                .createDt(reservationInfo.getReservationDt().atTime(0, 0))
+//                .createDt(LocalDateTime.now().plusHours(9)) // throw Exception 주석 풀면서 같이 풀고 아래 메서드 지울 것!
+                .createDt(reservationInfo.getReservationDt().atTime(0, 0))
                 .reserveStartDt(reserveStartDt)
                 .reserveEndDt(reserveEndDt)
                 .time(reservationInfo.getTime())
@@ -520,8 +520,8 @@ public class PlaceService {
         Reservation reservation = getReservation(reservationInfo.getReservationId());
 
         // 예약된 정보가 없으면 예약 취소 불가
-        if( reservation == null )
-            throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
+//        if( reservation == null )
+//            throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
 
         /**
          * 로컬에서 now() 현재 시각
