@@ -6,4 +6,3 @@ export default createStore({
   modules: { root },
   plugins: [createPersistedState()],
 });
-

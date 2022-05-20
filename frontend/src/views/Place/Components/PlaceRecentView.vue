@@ -1,7 +1,30 @@
 <template>
   <!-- 카테고리 카드들 시작 -->
   <div class="row row-cols-1 row-cols-md-5 g-4">
-    <div class="col">
+    <div class="col" v-for="(recentCard, idx) in recentCards" :key="idx">
+      <div class="card" @click="moveToPlaceDetail(recentCard.id)">
+        <img :src="`${recentCard.img[0]}`" class="card-img" alt="" />
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <p class="card-placeRegion">{{ recentCard.address.split(" ")[0] }} {{ recentCard.address.split(" ")[1] }}</p>
+            <p class="card-title fw-bold">{{ recentCard.name }}</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-star-fill me-1" style="color: #fe8a01"></i>
+              <p class="card-text my-0 ms-1 fw-bold">{{ recentCard.score }}</p>
+              <p class="card-text ms-1">({{ recentCard.reviewCnt }})</p>
+
+              <!-- <p class="card-text my-0 ms-1 fw-bold">3.05</p> -->
+              <!-- <p class="card-text ms-1">(11)</p> -->
+            </div>
+            <p class="card-text ms-1 fw-bold"># {{ recentCard.category }}</p>
+          </div>
+          <!-- <p class="card-text">부산 해운대구 card with supporting text .</p> -->
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col">
       <div class="card">
         <img src="https://t3.ftcdn.net/jpg/03/29/60/84/240_F_329608479_vP9nFK795X8lWmoTa8DPhMgoewQ7U1lG.jpg" class="card-img" alt="" />
         <div class="card-body">
@@ -55,18 +78,41 @@
           <p class="card-text">This is a longer card with supporting text .</p>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <!-- 카테고리 카드들 끝 -->
 </template>
 
 <script>
+import { onMounted, computed, reactive } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 export default {
   name: "PlaceRecentView",
 
   setup() {
-    // const store = userStore();
+    const store = useStore();
+    const router = useRouter();
+    const recentCards = reactive(computed(() => store.state.root.placeRecent));
+    const moveToPlaceDetail = (res) => {
+      // console.log(res, "여기디테일어디");
+      router
+        .push({
+          name: "PlaceDetail",
+          params: {
+            id: res,
+          },
+        })
+        .then(() => window.scrollTo(0, 0));
+    };
+    onMounted(async () => {
+      await store.dispatch("root/getPlaceRecent");
+    });
     // const route = useRoute();
+    return {
+      recentCards,
+      moveToPlaceDetail,
+    };
   },
 };
 </script>
@@ -80,10 +126,14 @@ export default {
   padding: 0px;
   // height: 350px;
   border-radius: 10px;
-  height: 400px;
+  height: 370px;
   // padding: 0px !important;
   border: 0px;
-
+  cursor: pointer;
+  transform: scale(1);
+  &:hover {
+    // transform: scale(1.01);
+  }
   // white-space: nowrap;
 }
 .card-img {
@@ -93,6 +143,7 @@ export default {
   // max-height: 350px;
   border-radius: 10px;
   object-fit: cover;
+  box-shadow: 0 0 8px rgba(24, 24, 24, 0.12);
 }
 .card-img-cover {
   position: absolute;
@@ -118,7 +169,7 @@ export default {
 }
 .card-title {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 19px;
   // 두줄 이상이면 말줄임표
   overflow: hidden;
   text-overflow: ellipsis;

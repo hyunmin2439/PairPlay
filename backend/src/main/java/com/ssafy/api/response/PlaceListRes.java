@@ -1,6 +1,6 @@
 package com.ssafy.api.response;
 
-import com.ssafy.domain.entity.PlaceMongo;
+import com.ssafy.domain.document.Place;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +19,8 @@ public class PlaceListRes extends BaseResponseBody{
     long totalElements; // 전체 개수
     List<PlaceRes> placeList;
 
-    public static PlaceListRes of(Integer statusCode, String message,
-                                  long totalPages, long totalElements, List<PlaceMongo> list) {
+    public static PlaceListRes of(Integer statusCode, String message, long totalPages,
+                                  long totalElements, List<Place> list, List<Long> likeList) {
         PlaceListRes res = new PlaceListRes();
         res.setCode(statusCode);
         res.setMessage(message);
@@ -28,7 +28,9 @@ public class PlaceListRes extends BaseResponseBody{
         res.totalElements = totalElements;
 
         res.placeList = new ArrayList<>();
-        list.forEach( place -> res.placeList.add( PlaceRes.of(place)) );
+        list.forEach( place ->
+                res.placeList.add( PlaceRes.of(place, likeList.contains(place.getPlaceId())) )
+        );
 
         return res;
     }

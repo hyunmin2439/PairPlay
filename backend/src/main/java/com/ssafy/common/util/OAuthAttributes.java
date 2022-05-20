@@ -4,6 +4,7 @@ import com.ssafy.domain.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Getter
@@ -73,7 +74,13 @@ public class OAuthAttributes {
                 .nickname(nickname)
                 .email(email)
                 .socialId(socialId)
-                .profileImage(picture != "" ? picture : "")
+                .profileImage(picture != "" ? picture : "default_profile.jpeg")
+                .name(nickname)
+                .sido("부산")
+                .gugun("강서구")
+                .detailAddress("녹산산업중로 333")
+                .birthDt(LocalDateTime.now().plusHours(9).toLocalDate())
+                .phone("010-0000-0000")
                 .enable(true)
                 .build();
     }

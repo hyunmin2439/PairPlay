@@ -1,7 +1,7 @@
 package com.ssafy.api.response;
 
 
-import com.ssafy.domain.entity.Activity;
+import com.ssafy.domain.entity.Mate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -9,41 +9,36 @@ import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@ApiModel("Mate List Response")
+@ApiModel("activity List Response")
 public class ActivityListRes extends BaseResponseBody{
 
     @ApiModelProperty(name = "activity List")
-    Page<ActivityRes> list;
+    List<ActivityRes> list;
+
+    long totalPages;
+    long totalElements;
+
+    public static ActivityListRes of(long totalPages, long totalElements, List<ActivityRes> mates){
 
 
-    public static ActivityListRes of(Page<Activity> activityList, Integer statusCode, String message){
 
         ActivityListRes activityListRes = new ActivityListRes();
-        activityListRes.setCode(statusCode);
-        activityListRes.setMessage(message);
 
-        List<ActivityRes> list = new ArrayList<>();
+        activityListRes.setTotalPages( totalPages );
+        activityListRes.setTotalElements( totalElements );
 
-        Pageable pageable = activityList.getPageable();
-        long total = activityList.getTotalElements();
 
-        activityList.forEach(activity -> {
-            list.add(ActivityRes.of(activity));
-        });
-
-        activityListRes.setList(new PageImpl<ActivityRes>(list, pageable, total));
+        activityListRes.setList(mates);
 
         return activityListRes;
     }
-
-
-
-
 
 }

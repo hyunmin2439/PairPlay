@@ -30,7 +30,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // configuration.addAllowedOrigin("*");
+//        configuration.addAllowedOrigin("*");
+        configuration.addAllowedOrigin("https://pairplay.site");
+        configuration.addAllowedOrigin("http://localhost:8080");
+        configuration.addAllowedOrigin("http://localhost:5500");
         configuration.addAllowedOriginPattern("*");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
@@ -42,6 +45,23 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return source;
     }
 
+    // MultipartFile이 안 받아져서 새로 주입 시도
+//    @Bean
+//    public MultipartConfigElement multipartConfigElement() {
+//        MultipartConfigFactory factory = new MultipartConfigFactory();
+//        factory.setMaxFileSize("512MB");
+//        factory.setMaxRequestSize("512MB");
+//        return factory.createMultipartConfig();
+//    }
+//
+//    @Bean
+//    public CommonsMultipartResolver multipartResolver(){
+//        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+//        commonsMultipartResolver.setDefaultEncoding("UTF-8");
+//        commonsMultipartResolver.setMaxUploadSize(50 * 1024 * 1024);
+//        return commonsMultipartResolver;
+//    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
     		registry.addResourceHandler("/resources/**")
@@ -52,24 +72,26 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     		registry.addResourceHandler("/webjars/**")
     				.addResourceLocations("classpath:/META-INF/resources/webjars/");
-    		
+
     		/*
     		 * 
     		 * Front-end에서 참조하는 URL을 /dist로 매핑
     		 * 
     		 */
-//        registry.addResourceHandler("/css/**")
-//        			.addResourceLocations("classpath:/dist/css/");
-//        	registry.addResourceHandler("/fonts/**")
-//        			.addResourceLocations("classpath:/dist/fonts/");
-//        registry.addResourceHandler("/icons/**")
-//				.addResourceLocations("classpath:/dist/icons/");
-//        registry.addResourceHandler("/img/**")
-//			.addResourceLocations("classpath:/dist/img/");
-//        registry.addResourceHandler("/js/**")
-//				.addResourceLocations("classpath:/dist/js/");
+        registry.addResourceHandler("/css/**")
+        			.addResourceLocations("classpath:/dist/css/");
+        	registry.addResourceHandler("/fonts/**")
+        			.addResourceLocations("classpath:/dist/fonts/");
+        registry.addResourceHandler("/icons/**")
+				.addResourceLocations("classpath:/dist/icons/");
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("classpath:/dist/img/");
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/dist/");
+        registry.addResourceHandler("/js/**")
+				.addResourceLocations("classpath:/dist/js/");
 //        registry.addResourceHandler("/profile/image/**")
-//                .addResourceLocations("classpath:/static/profile_img/**");
+//                .addResourceLocations("classpath:/static/profileImage/**");
     }
 
     public Filter requestLoggingFilter() {
@@ -78,7 +100,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         loggingFilter.setIncludeQueryString(true);
         loggingFilter.setIncludePayload(true);
         loggingFilter.setIncludeHeaders(true);
-        loggingFilter.setMaxPayloadLength(64000);
+        loggingFilter.setMaxPayloadLength(640000);
         return loggingFilter;
     }
 

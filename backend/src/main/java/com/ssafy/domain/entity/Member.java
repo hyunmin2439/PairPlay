@@ -1,6 +1,7 @@
 package com.ssafy.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.api.request.MemberSignupPutReq;
 import com.ssafy.api.request.ProfilePutReq;
@@ -11,7 +12,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -23,26 +27,36 @@ import java.util.StringTokenizer;
 @AllArgsConstructor
 @Builder
 public class Member extends BaseEntity {
-    String email;
-    String nickname;
-    String name;
-    int gender; // 0(남) / 1(여) Converter 사용할지 고민
-    LocalDate birthDt;
+    private String email;
+    private String nickname;
+    private String name;
+    private int gender; // 0(남) / 1(여) Converter 사용할지 고민
+    private LocalDate birthDt;
 
-    String sido;
-    String gugun;
-    String detailAddress;
+    private String sido;
+    private String gugun;
+    private String detailAddress;
 
-    String phone;
-    String profileImage; // 프로필 이미지 주소
-    boolean enable; // 삭제 여부
-    String description;
-    String socialId;
+    private String phone;
+    private String profileImage; // 프로필 이미지 주소
+    private boolean enable; // 삭제 여부
+    private String description;
+    private String socialId;
 
     // Jackson 라이브러리 Annotation
     @JsonIgnoreProperties// 직렬화 시 제외 필드
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // 쓰기 전용
-            String password;
+    private String password;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "memberId") //참조를 당하는 쪽에서 읽기만 가능!
+    @Builder.Default
+    private List<Mate> mateList = new LinkedList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "memberId") //참조를 당하는 쪽에서 읽기만 가능!
+    @Builder.Default
+    private List<ActivityLike> activityLikeList = new LinkedList<>();
 
     // 패스워드 랜덤 비밀번호로 초기화
     public void resetPassword(String password) {

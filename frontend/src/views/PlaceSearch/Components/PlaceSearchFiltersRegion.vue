@@ -3,6 +3,67 @@
     <div class="dropdown">
       <div class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">지역</div>
       <ul class="dropdown-menu mt-2" aria-labelledby="dropdownMenuButton">
+        <!-- 서울시작 -->
+        <li class="sido">
+          <a class="dropdown-item d-flex justify-content-between px-4">
+            <div>서울</div>
+          </a>
+          <ul class="dropdown-menu dropdown-submenu px-2 text-align" @click="selectSeoulGugun">
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" @click="selectSeoulGugun" class="dropdown-item ps-4" value="강남구" />
+              <input type="button" class="dropdown-item" value="강동구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="강북구" />
+              <input type="button" class="dropdown-item" value="강서구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="관악구" />
+              <input type="button" class="dropdown-item" value="광진구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="구로구" />
+              <input type="button" class="dropdown-item" value="금천구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="노원구" />
+              <input type="button" class="dropdown-item" value="도봉구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="동대문구" />
+              <input type="button" class="dropdown-item" value="동작구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="마포구" />
+              <input type="button" class="dropdown-item" value="서대문구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="서초구" />
+              <input type="button" class="dropdown-item" value="성동구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="성북구" />
+              <input type="button" class="dropdown-item" value="송파구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="양천구" />
+              <input type="button" class="dropdown-item" value="영등포구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="용산구" />
+              <input type="button" class="dropdown-item" value="은평구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="종로구" />
+              <input type="button" class="dropdown-item" value="중구" />
+            </li>
+            <li class="d-flex justify-content-around text-start my-2">
+              <input type="button" class="dropdown-item ps-4" value="중랑구" />
+            </li>
+          </ul>
+        </li>
+        <!-- 서울끝 -->
+        <!-- 부산 처음-->
         <li class="sido">
           <a class="dropdown-item d-flex justify-content-between px-4">
             <div>부산</div>
@@ -41,9 +102,9 @@
               <input type="button" class="dropdown-item ps-4" value="해운대구" />
               <input type="button" class="dropdown-item" value="기장군" />
             </li>
-            <li class="d-flex"></li>
           </ul>
         </li>
+        <!-- 부산끝 -->
         <!-- <li class="sido">
           <a class="dropdown-item d-flex justify-content-between px-4"><span>서울</span> <span>&gt;</span></a>
           <ul class="dropdown-menu dropdown-submenu">
@@ -79,12 +140,34 @@ export default {
     const regionData = ref({ sido: "", gugun: "" });
     // const store = userStore();
     // const route = useRoute();
-    const selectBusanGugun = (res) => {
-      regionData.value.sido = "부산";
-      regionData.value.gugun = res.target.value;
+    const selectSeoulGugun = (res) => {
+      // console.log(res, "res!!!!");
+      regionData.value.sido = "서울";
+      if (res.target.value == null) {
+        // pass
+      } else {
+        regionData.value.gugun = res.target.value;
+      }
+      // var menus = document.getElementsByClassName("dropdown-menu");
+      // for (var i = 0; i < menus.length; i++) {
+      // menus[0].classList.remove("show");
+      // menus[0].classList.add("show");
+
+      // }
       emit("regionData", regionData.value);
     };
-    return { regionData, selectBusanGugun };
+    const selectBusanGugun = (res) => {
+      // console.log(res, "res!!!!");
+      regionData.value.sido = "부산";
+      if (res.target.value == null) {
+        // pass
+      } else {
+        regionData.value.gugun = res.target.value;
+      }
+      emit("regionData", regionData.value);
+    };
+
+    return { regionData, selectSeoulGugun, selectBusanGugun };
   },
 };
 // let getDropdownItemsData = document.querySelectorAll(".dropdown-item");
@@ -123,7 +206,7 @@ export default {
   position: relative;
 }
 .dropdown-menu {
-  height: 350px;
+  // min-height: 350px;
   display: none;
   position: relative;
   left: 100%;
@@ -158,6 +241,14 @@ export default {
   display: block;
   border-left: 1px solid rgba(1, 1, 1, 0.1);
 }
+.dropdown-menu > li:hover > .dropdown-submenu::after > .dropdown-menu {
+  display: none;
+  // border-left: 1px solid rgba(1, 1, 1, 0.1);
+}
+
+// .dropdown-menu > li:hover > .dropdown-submenu:visited > .dropdown-menu {
+//   display: none;
+// }
 // .dropdown-item {
 // &:hover {
 // box-shadow: 0 0 8px rgba(24, 24, 24, 0.1);

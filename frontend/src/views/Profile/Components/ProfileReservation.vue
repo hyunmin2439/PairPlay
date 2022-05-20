@@ -1,13 +1,31 @@
 <template>
   <div>
-    <h1>ProfileReservation</h1>
-    <img src="https://pairplayteams.s3.ap-northeast-2.amazonaws.com/judo1.jpeg" alt="">
+    <div class="ps-4 pt-4" style="height: 100%;">
+      <profile-reservation-view :otherInfo="state.otherInfo" :userInfo="state.userInfo"></profile-reservation-view>
+    </div>
   </div>
 </template>
 
 <script>
+import { reactive } from 'vue'
+import ProfileReservationView from './ProfileReservationView.vue'
 export default {
-  name: "ProfileReservation"
+  name: "ProfileReservation",
+  components: {
+    ProfileReservationView
+  },
+  props: {
+    userInfo: Object,
+    otherInfo: Object,
+  },
+  setup(props) {
+    const state = reactive({
+      userInfo: props.userInfo,
+      otherInfo: props.otherInfo
+    })
+
+    return { state }
+  }
 }
 </script>
 

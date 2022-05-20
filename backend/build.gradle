@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-	id 'org.springframework.boot' version '2.6.7'
+	id 'org.springframework.boot' version '2.6.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	//querydsl 추가
@@ -43,8 +43,21 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 
+	implementation 'commons-io:commons-io:2.6'
+//	implementation 'commons-fileupload:commons-fileupload:1.3.1'
+	implementation 'org.apache.commons:commons-collections4:4.4'
+	implementation 'org.apache.commons:commons-lang3:3.9'
+
 	implementation 'com.google.guava:guava:29.0-jre'
+	annotationProcessor("com.google.guava:guava:29.0-jre")
 	annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+
+	compile("javax.annotation:javax.annotation-api:1.2")
+	compile('org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE')
+
+	implementation("com.squareup.retrofit2:retrofit:2.7.1")
+	implementation("com.squareup.retrofit2:converter-jackson:2.7.1")
+	implementation("com.squareup.okhttp3:logging-interceptor:3.9.0")
 
 	// ------------------- swagger ----------------------
 	implementation 'io.springfox:springfox-swagger2:3.0.0'
@@ -69,6 +82,10 @@ dependencies {
 	// ------------------- mongo db -----------------------
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 //	implementation 'com.querydsl:querydsl-mongodb' // 이 설정을 안넣어도 기본 queryDSL 설정이 들어가 있어서 동작함
+//	annotationProcessor 'com.querydsl:querydsl-apt:4.3.1:morphia'
+	// mongoDB QueryDsl을 사용할 수 없음. MongoDB QueryDsl을 사용하기 위해 위 의존성 주입을 해야하지만
+	// 위 의존성 주입을 하면 기존의 MySQL과 연동하여 사용하는 QEntity들이 사용이 안되는 상황.
+	// 현재 이에 대한 해답을 찾지 못해 MongoDB는 QueryDSL을 포기하고 다른 방식으로 사용
 
 	//  aws s3
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")

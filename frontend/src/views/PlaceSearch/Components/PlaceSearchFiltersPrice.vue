@@ -27,8 +27,6 @@ export default {
     // const refresh = () =>
     const changedExpand = () => {
       expand = !expand;
-      console.log(expand, "expand");
-      console.log(value, "value");
       return;
     };
 

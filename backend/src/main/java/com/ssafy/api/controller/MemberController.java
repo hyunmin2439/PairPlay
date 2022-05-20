@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
 import static com.ssafy.common.statuscode.MemberCode.*;
 
@@ -131,6 +133,7 @@ public class MemberController {
         );
     }
 
+    @Transactional
     @PostMapping("/signin")
     @ApiOperation(value = "로그인", notes = "<strong>아이디와 패스워드</strong>를 통해 로그인 한다.")
     @ApiResponses({
@@ -146,6 +149,7 @@ public class MemberController {
             throw new CustomException(EMPTY_REQUEST_VALUE);
 
         Member member = memberService.getMemberByEmail(loginInfo.getEmail());
+
         if(member == null)
             throw new CustomException(FAIL_INVALID_EMAIL);
 

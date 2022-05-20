@@ -9,7 +9,16 @@ public enum ActivityCode implements StatusCode{
     SUCCESS_MATE_LIST(200, "메이트 리스트 조회 성공했습니다."),
     SUCCESS_GET_DETAIL(200, "메이트 공고 상세 조회 성공했습니다."),
     SUCCESS_ACTIVITY_CREATE(200, "메이트 공고 등록 성공했습니다."),
-    SUCCESS_ACTIVITY_REGISTER(200, "메이트 신청 성공했습니다.")
+    SUCCESS_ACTIVITY_REGISTER(200, "메이트 신청 성공했습니다."),
+    SUCCESS_ACTIVITY_LIKE(200,"메이트 찜하기 성공했습니다."),
+    SUCCESS_DELETE_ACTIVITY(200, "메이트공고 삭제를 성공했습니다"),
+
+    FAIL_MATE_IMAGE_S3_UPLOAD_ERROR(404, "공고 이미지를 S3서버에 업로드하지 못했습니다."),
+    FAIL_MEMBER_NOT_FOUND(404, "해당 유저 정보를 찾지 못했습니다."),
+    FAIL_ACTIVITY_NOT_FOUND(404, "해당 공고를 찾지 못했습니다."),
+
+    MATE_USER_REGISTER_SAME(409, "본인의 공고에 메이트 신청 불가능합니다."),
+    PROFILE_IMAGE_NULL(400, "프로필 이미지 값이null입니다")
     ;
 
 

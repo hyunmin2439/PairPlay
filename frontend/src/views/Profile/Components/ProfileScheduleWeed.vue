@@ -6,7 +6,7 @@
   <!-- { date: '2021-9-27', count: 6 },
     { date: '2021-9-21', count: 6 } -->
   <calendar-heatmap
-    :values="state.calenderInfo"
+    :values="state.userSchedule"
     :end-date="state.end"
     :range-color="[
       '#ebedf0',
@@ -25,7 +25,8 @@
 </template>
 
 <script>
-import { reactive, onMounted } from 'vue'
+import { reactive, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 export default {
   name: "ProfileScheduleWeed",
   props: {
@@ -33,27 +34,37 @@ export default {
     otherInfo: Object,
   },
   setup(props) {
+    const store = useStore()
     const state = reactive({
       userInfo: props.userInfo,
       otherInfo: props.otherInfo,
       end: new Date,
-      calenderInfo: [
-        { date: '2021-9-21', count: 1 },
-        { date: '2021-9-28', count: 2 },
-        { date: '2021-10-5', count: 3 },
-        { date: '2021-10-12', count: 4 },
-        { date: '2021-10-19', count: 5 },
-        { date: '2021-10-26', count: 6 },
-        { date: '2021-11-2', count: 16 },
-      ]
+      userSchedule: computed(() => store.getters["root/profileUserSchedule"]),
+      monthInfo: {
+        "Jan": "01", "Feb": "02", "Mar": "03",
+        "Apr": "04", "May": "05", "Jun": "06",
+        "Jul": "07", "Aug": "08", "Sep": "09",
+        "Oct": "10", "Nov": "11", "Dec": "12",
+      }
     })
 
     onMounted(() => {
       state.end = state.end.toISOString().substr(0, 10)
     })
 
-    const getDateTodo = function (event) {
-      console.log(event.target.dataset.tippyContent)
+    const getDateTodo = async function (event) {
+      let dateList = event.target.dataset.tippyContent.split(' ')
+      let date = ""
+      if (dateList[5].length==2) {
+        date = dateList[6] + '-' + state.monthInfo[dateList[4]] + "-0" + String(dateList[5]).substr(0, 1)
+      } else {
+        date = dateList[6] + '-' + state.monthInfo[dateList[4]] + "-" + String(dateList[5]).substr(0, 2)
+      }
+      let payload = {
+        'date': date,
+        'memberId': state.otherInfo.memberId
+      }
+      await store.dispatch("root/profileDateTodo", payload)
     }
 
     return { state, onMounted, getDateTodo }

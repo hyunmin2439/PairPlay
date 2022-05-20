@@ -1,6 +1,7 @@
 package com.ssafy.api.response;
 
-import com.ssafy.domain.entity.Activity;
+import com.ssafy.api.service.S3FileUploadService;
+import com.ssafy.domain.entity.Mate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -31,17 +32,43 @@ public class ActivityRes{
     @ApiModelProperty(name = "위치 주소")
     String location;
 
-    public static ActivityRes of(Activity activity) {
-        System.out.println(activity);
+    @ApiModelProperty(name = "찜하기")
+    boolean like;
+
+    @ApiModelProperty(name = "닉네임")
+    String nickname;
+
+    @ApiModelProperty(name = "이미지")
+    String profileImage;
+
+    private static S3FileUploadService s3FileUploadService;
+
+    public ActivityRes(){}
+
+
+
+    public static ActivityRes of(Mate mate, Long memberId, String profileImage) {
+
 
         ActivityRes res = new ActivityRes();
-        res.setActivityId(activity.getId());
-        res.setCreatedDate(activity.getCreatedDate());
-        res.setCategoryId(activity.getCategoryId());
-        res.setTitle(activity.getTitle());
-        res.setDescription(activity.getDescription());
-        res.setLocation(activity.getLocation());
+
+        res.setActivityId(mate.getActivityId().getId());
+        res.setCreatedDate(mate.getActivityId().getCreatedDate());
+        res.setCategoryId(mate.getActivityId().getCategoryId());
+        res.setTitle(mate.getActivityId().getTitle());
+        res.setDescription(mate.getActivityId().getDescription());
+        res.setLocation(mate.getActivityId().getLocation());
+        res.setNickname(mate.getMemberId().getNickname());
+
+        res.setProfileImage(profileImage);
+
+        mate.getActivityId().getActivityLikeList().forEach( like -> {
+            if(like.getMemberId().getId().equals(memberId)){
+                res.setLike(true);
+            }
+        });
 
         return res;
     }
+
 }

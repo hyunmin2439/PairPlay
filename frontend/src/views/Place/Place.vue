@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="checkJwt">
     <!-- 헤더 -->
     <div style="max-width: 1255px; margin: auto">
       <Header></Header>
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="container" style="max-width: 1280px">
+    <div class="container" style="max-width: 1200px; padding: 0rem 0rem 0rem 0rem">
       <!-- <header></header> -->
       <div class="category container">
         <div class="category-title ps-3 mb-4">
@@ -24,23 +24,30 @@
         </div>
         <place-category></place-category>
       </div>
-      <div class="placeRecommend container">
+      <div class="placeRecommend container" v-if="address">
         <div class="category-title ps-3 mt-3 mb-2 d-flex justify-content-between">
           <!-- <div class="fs-3 fw-bold">{{}}</div> -->
-          <div class="fs-5 fw-bold">부산 강서구에서 인기있는 운동장소</div>
-          <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p>
+          <div class="fs-5 mb-4 d-flex align-items-center">
+            <p>
+              <strong>{{ address.split(" ")[0] }} {{ address.split(" ")[1] }}</strong
+              >에서 <img src="@/assets/images/Place/flame.svg" class="placeFlame" alt="" />
+            </p>
+            <p class="text-danger"><strong> Hot한</strong></p>
+            <p>&nbsp;<strong>장소</strong></p>
+          </div>
+          <!-- <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p> -->
         </div>
         <place-recommend></place-recommend>
       </div>
-      <div class="placeRecentView container my-5">
+      <div class="placeRecentView container my-5" v-if="recentCards">
         <div class="category-title ps-3 mt-3 mb-2 d-flex justify-content-between">
-          <div class="fs-5 fw-bold">최근 조회 시설</div>
-          <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p>
+          <div class="fs-5 fw-bold mb-4">최근 조회한 장소</div>
+          <!-- <p class="fw-bold pe-2 pt-3" style="font-size: 16px">전체보기</p> -->
         </div>
         <place-recent-view></place-recent-view>
       </div>
     </div>
-    <footer>푸터</footer>
+    <Footer class="footer"></Footer>
   </div>
 </template>
 
@@ -49,12 +56,49 @@ import PlaceCategory from "./Components/PlaceCategory.vue";
 import PlaceRecentView from "./Components/PlaceRecentView.vue";
 import PlaceRecommend from "./Components/PlaceRecommend.vue";
 import Header from "../Common/Header.vue";
+import Footer from "../Common/Footer.vue";
+
+import { computed, onMounted, reactive } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import Swal from "sweetalert2";
 export default {
   name: "Place",
-  components: { Header, PlaceCategory, PlaceRecommend, PlaceRecentView },
+  components: { Header, Footer, PlaceCategory, PlaceRecommend, PlaceRecentView },
   setup() {
-    // const store = userStore();
+    const store = useStore();
+    const router = useRouter();
+    const address = reactive(computed(() => store.state.root.userInfo.address));
+    const recentCards = reactive(computed(() => store.state.root.placeRecent));
     // const route = useRoute();
+    const checkJwt = () => {
+      if (!localStorage.getItem("jwt")) {
+        // pass
+        router
+          .push({
+            name: "Login",
+          })
+          .then(() => window.scrollTo(0, 0));
+      } else if (localStorage.getItem("jwt") && store.state.root.userInfo.address.includes("null")) {
+        Swal.fire({
+          icon: "error",
+          // title: "실패",
+          text: "서비스를 이용하기 위해서는 주소가 필요합니다.",
+        });
+        router
+          .push({
+            name: "Profile",
+            params: {
+              memberId: store.state.root.userInfo.memberId,
+            },
+          })
+          .then(() => window.scrollTo(0, 0));
+      }
+    };
+    onMounted(() => {
+      checkJwt();
+    });
+    return { address, recentCards, onMounted, checkJwt };
   },
 };
 </script>
@@ -71,7 +115,9 @@ export default {
   background: black;
   margin-bottom: 5rem;
   /* background-color: rgba(0, 0, 0, 0.4); */
-  background: url("https://images.pexels.com/photos/3601094/pexels-photo-3601094.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260") 50% 40% no-repeat;
+  // background: url("@/assets/images/Main/Place.jpeg") 50% 40% no-repeat;
+
+  background: url("https://images.pexels.com/photos/3660204/pexels-photo-3660204.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") 50% 60% no-repeat;
   background-size: 100% auto;
 }
 .PlaceBackgroundImageCover {
@@ -84,11 +130,14 @@ export default {
   z-index: 1;
   color: white;
 }
+.PlaceTitle {
+  font-size: 2.5rem;
+}
 .PlaceBackground-Content {
   position: absolute;
   top: 40%;
   /* max-width: 968px; */
-  font-size: calc(1em + 2vw);
+  font-size: calc(1em + 1.5vw);
   /* transform: translate(-50%, -50%); */
   z-index: 2;
   text-align: left;
@@ -102,24 +151,29 @@ export default {
 }
 .category {
   /* background-color: wheat; */
-  padding: 1rem 2rem;
+  padding: 1rem 0rem;
+  // max-width: 1200px;
 }
 /* #place-category { */
 /* width: 100%; */
 /* } */
 .placeRecommend {
   margin-top: 4rem;
-  padding: 1rem 2.5rem;
+  padding: 1rem 0rem;
   /* background-color: wheat; */
 }
 .placeRecentView {
   margin-top: 4rem;
-
-  padding: 1rem 2.5rem;
+  padding: 1rem 0rem;
 
   /* background-color: wheat; */
 }
-footer {
+.placeFlame {
+  width: 20px;
+  vertical-align: 0;
+}
+.footer {
   /* background-color: wheat; */
+  margin-top: 6rem;
 }
 </style>

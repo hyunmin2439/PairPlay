@@ -51,7 +51,7 @@ export default {
   box-shadow: 0 0 8px rgba(24, 24, 24, 0.1);
   // border-radius: 500px;
   &:hover {
-    border: 0.5px solid black;
+    // border: 0.2px solid black;
     border-radius: 4px;
   }
 }

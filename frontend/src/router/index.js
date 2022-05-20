@@ -55,9 +55,24 @@ const routes = [
     component: () => import("../views/Mate/Mate.vue"),
   },
   {
+    path: "/mate/create",
+    name: "MateCreate",
+    component: () => import("../views/Mate/Components/MateCreate.vue"),
+  },
+  {
     path: "/profile/:memberId",
     name: "Profile",
     component: () => import("../views/Profile/Profile.vue"),
+  },
+  {
+    path: "/ProfileTemp/temp",
+    name: "ProfileTemp",
+    component: () => import("../views/Profile/Components/ProfileTemp.vue"),
+  },
+  {
+    path: "/matecreate",
+    name: "MateCreate",
+    component: () => import("../views/MateCreate/MateCreate.vue"),
   },
 ];
 

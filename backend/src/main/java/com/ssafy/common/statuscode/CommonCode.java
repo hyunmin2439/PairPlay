@@ -10,6 +10,9 @@ public enum CommonCode implements StatusCode {
     //400 BAD_REQUEST 잘못된 요청
     EMPTY_REQUEST_VALUE(400, "요청 변수 값이 비어 있습니다."),
 
+    // 401 Access Dinied 접근 권한 없음
+    FAIL_ACCESS_DINIDED(401, "접근 권한이 없습니다."),
+
     //404 NOT_FOUND 잘못된 리소스 접근
 
     //409 CONFLICT 중복된 리소스

@@ -1,15 +1,16 @@
 package com.ssafy.api.response;
 
-import com.ssafy.domain.entity.PlaceMongo;
+import com.ssafy.domain.document.Place;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
 @Getter
 @Setter
 public class PlaceRes {
-    String id;
+    Long id;
     String category;
     String address;
     List<String> bizhour;
@@ -23,10 +24,15 @@ public class PlaceRes {
     String transport;
     String near;
     List<String> hashtags;
+    boolean isLike;
+    int viewCnt;
+    int likeCnt;
+    int reviewCnt;
+    double score;
 
-    public static PlaceRes of(PlaceMongo place) {
+    public static PlaceRes of(Place place, boolean isLike) {
         PlaceRes res = new PlaceRes();
-        res.setId(place.getAttrId());
+        res.setId(place.getPlaceId());
         res.setCategory(place.getCategory());
         res.setAddress(place.getAddress());
         res.setBizhour(place.getBizhour());
@@ -40,6 +46,11 @@ public class PlaceRes {
         res.setTransport(place.getTransport());
         res.setNear(place.getNear());
         res.setHashtags(place.getHashtags());
+        res.setLike(isLike);
+        res.setViewCnt(place.getViewCnt());
+        res.setLikeCnt(place.getLikeCnt());
+        res.setReviewCnt(place.getReviewCnt());
+        res.setScore(place.getScore());
         return res;
     }
 }

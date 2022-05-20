@@ -1,0 +1,1030 @@
+[{
+  "_id": {
+    "$oid": "62862473960b0b6da380e10e"
+  },
+  "reservation_id": "6285319633bca84be9a67cc7",
+  "member_id": 70,
+  "nickname": "qweqwe",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/1e50530482bc4de08a756ebd8c9e9118.jpg",
+  "place_id": 499,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1652990723853"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/9197dffb749d473d80d1712a63aa9c15.jpg",
+  "description": "여기 너무 좋았어요!!",
+  "cleanness": 4,
+  "place": 4,
+  "location": 3,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286259923e9a24e80a39c2a"
+  },
+  "reservation_id": "6285319533bca84be9a67cc6",
+  "member_id": 70,
+  "nickname": "qweqwe",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/1e50530482bc4de08a756ebd8c9e9118.jpg",
+  "place_id": 499,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1652991017816"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/15f0f54cd1ee424f94b592c386ed0182.jpg",
+  "description": "좋았어요!!!",
+  "cleanness": 4,
+  "place": 5,
+  "location": 5,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62864b67103fc45707323152"
+  },
+  "reservation_id": "62864b3a103fc45707323151",
+  "member_id": 38,
+  "nickname": "정재호",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/default_profile.jpeg",
+  "place_id": 18121,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653000695876"
+    }
+  },
+  "reviewImage": "",
+  "description": "전체적으로 나쁘지 않았습니다. 다음에 또 사용하겠습니다.",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62864d1c103fc45707323154"
+  },
+  "reservation_id": "62864cff103fc45707323153",
+  "member_id": 38,
+  "nickname": "정재호",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/default_profile.jpeg",
+  "place_id": 13333,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653001132433"
+    }
+  },
+  "reviewImage": "",
+  "description": "쾌적하게 운동 할 수 있어서 좋았습니다!",
+  "cleanness": 5,
+  "place": 5,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62865b2a103fc45707323157"
+  },
+  "reservation_id": "62865a5a103fc45707323156",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 18122,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653004730724"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a1c06d58190e4f519a7dbd2b5da91015.jpg",
+  "description": "축구 잘 뛰고 갑니다. 시설 관리 잘되어있네요 ",
+  "cleanness": 4,
+  "place": 4,
+  "location": 3,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62865cba103fc45707323159"
+  },
+  "reservation_id": "62865bea103fc45707323158",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 13336,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653005130990"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/027e170954a94fda94608eac9aa01768.jpg",
+  "description": "만족합니다.\n자주 이용하고싶습니다",
+  "cleanness": 5,
+  "place": 5,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62865dd3103fc4570732315c"
+  },
+  "reservation_id": "628641cd103fc4570732314e",
+  "member_id": 82,
+  "nickname": "티벳여우",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/444e4ada0740423aacbbaac2250db6cd.jpg",
+  "place_id": 18152,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653005411854"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/d81bb6b063514bb0ad4f7ffcce5c8f35.jpg",
+  "description": "시설은 좋은데 가격은 좀..",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 3,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62865dfa103fc4570732315d"
+  },
+  "reservation_id": "62865d70103fc4570732315a",
+  "member_id": 82,
+  "nickname": "티벳여우",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/444e4ada0740423aacbbaac2250db6cd.jpg",
+  "place_id": 13336,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653005450492"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/52ee06a704b547afb3e1044bd2f44964.jpg",
+  "description": "오늘도 만족하고 갑니다. 트레이너 쌤들 잘 알려줘서 좋아요",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 3,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62865e1e103fc4570732315e"
+  },
+  "reservation_id": "62865d94103fc4570732315b",
+  "member_id": 82,
+  "nickname": "티벳여우",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/444e4ada0740423aacbbaac2250db6cd.jpg",
+  "place_id": 13336,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653005486590"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/05fad5adcad14b85831cbcac2e42aef6.jpg",
+  "description": "관리 잘 되는 것 같아 좋습니다.",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 3,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62866024103fc45707323160"
+  },
+  "reservation_id": "62865ff1103fc4570732315f",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 18124,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653006004695"
+    }
+  },
+  "reviewImage": "",
+  "description": "개인적으로 위치는 좀 찾기 어려운 곳에 있었습니다. 축구 잘 배우고 갑니다",
+  "cleanness": 4,
+  "place": 4,
+  "location": 3,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62866181103fc45707323165"
+  },
+  "reservation_id": "628660e6103fc45707323162",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 13333,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653006353409"
+    }
+  },
+  "reviewImage": "",
+  "description": "기구 관리가 안되어있네요",
+  "cleanness": 2,
+  "place": 2,
+  "location": 2,
+  "price": 2,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "628661a4103fc45707323166"
+  },
+  "reservation_id": "628660bb103fc45707323161",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 13330,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653006388555"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/1af75abe55a84ddaabd899cbc839a796.jpg",
+  "description": "시설 괜찮네요. 마음에 들었습니다.",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "628661eb103fc45707323167"
+  },
+  "reservation_id": "6286610b103fc45707323163",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 13337,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653006459077"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/18982fa993b0403aba2d1f55bf582050.jpg",
+  "description": "크로스핏..정말... 너무 힘들다",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62866291103fc4570732316a"
+  },
+  "reservation_id": "62866278103fc45707323169",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 18120,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653006625263"
+    }
+  },
+  "reviewImage": "",
+  "description": "안정환 선생님은 어디계시죠. 보고싶습니다.",
+  "cleanness": 5,
+  "place": 5,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "628667b6b964bb64e122abc5"
+  },
+  "reservation_id": "62866338103fc4570732316b",
+  "member_id": 82,
+  "nickname": "티벳여우",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/444e4ada0740423aacbbaac2250db6cd.jpg",
+  "place_id": 18120,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653007942693"
+    }
+  },
+  "reviewImage": "",
+  "description": "아들 운동하라고 보냈습니다. 집에 오니 일찍 자네요 감사합니다.",
+  "cleanness": 5,
+  "place": 5,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62866878b964bb64e122abc7"
+  },
+  "reservation_id": "62866860b964bb64e122abc6",
+  "member_id": 82,
+  "nickname": "티벳여우",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/444e4ada0740423aacbbaac2250db6cd.jpg",
+  "place_id": 18121,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653008136311"
+    }
+  },
+  "reviewImage": "",
+  "description": "잘 썼습니다.",
+  "cleanness": 5,
+  "place": 4,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286690ab964bb64e122abc9"
+  },
+  "reservation_id": "628668f0b964bb64e122abc8",
+  "member_id": 79,
+  "nickname": "흥민손",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/443c1a06345e4e0184ba3122390eaf66.jpg",
+  "place_id": 18056,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653008282724"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/e85c193aa9574deda3f33045ea16ecee.jpg",
+  "description": "관리가 잘 안되어있네요",
+  "cleanness": 3,
+  "place": 3,
+  "location": 3,
+  "price": 3,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62866a5f26f48e141ae9c9d9"
+  },
+  "reservation_id": "6286696db964bb64e122abcb",
+  "member_id": 79,
+  "nickname": "흥민손",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/443c1a06345e4e0184ba3122390eaf66.jpg",
+  "place_id": 7448,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653008623063"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/24afb1be162b4212b1ef1747d14ed86d.jpg",
+  "description": "볼링화랑 볼링공 상태 좋았습니다. 잘놀았습니다",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62866a8926f48e141ae9c9da"
+  },
+  "reservation_id": "6286694eb964bb64e122abca",
+  "member_id": 79,
+  "nickname": "흥민손",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/443c1a06345e4e0184ba3122390eaf66.jpg",
+  "place_id": 18120,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653008665227"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/3d3395e9f9744f46ac4f14d735e90ac7.jpg",
+  "description": "굳굳",
+  "cleanness": 4,
+  "place": 5,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62866a9c26f48e141ae9c9db"
+  },
+  "reservation_id": "628669bcb964bb64e122abcc",
+  "member_id": 79,
+  "nickname": "흥민손",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/443c1a06345e4e0184ba3122390eaf66.jpg",
+  "place_id": 18124,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653008684127"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/15310fa6d7c341ac9e5ef27886b1144f.jpg",
+  "description": "생각보다 별로네요,,",
+  "cleanness": 4,
+  "place": 4,
+  "location": 3,
+  "price": 3,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62866e04d82bae3f5a3ecc19"
+  },
+  "reservation_id": "62866d24d82bae3f5a3ecc16",
+  "member_id": 83,
+  "nickname": "ssafy123",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a599fa5939cb441db5c9a6bb28ce6571.jpg",
+  "place_id": 18120,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653009556919"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/72e79dbd529d451ab8b49af080d16330.jpg",
+  "description": "좋네요 리뷰 사진은 잔디 질 입니다.",
+  "cleanness": 5,
+  "place": 4,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62866ec2d82bae3f5a3ecc1a"
+  },
+  "reservation_id": "62866d55d82bae3f5a3ecc17",
+  "member_id": 83,
+  "nickname": "ssafy123",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a599fa5939cb441db5c9a6bb28ce6571.jpg",
+  "place_id": 18121,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653009746822"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/c64054b6c5cf460c8f7a19b530328f75.jpg",
+  "description": "좋네요 리뷰 사진은 잔디 질 입니다.",
+  "cleanness": 5,
+  "place": 4,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286703fd82bae3f5a3ecc1b"
+  },
+  "reservation_id": "62866d8ed82bae3f5a3ecc18",
+  "member_id": 83,
+  "nickname": "ssafy123",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a599fa5939cb441db5c9a6bb28ce6571.jpg",
+  "place_id": 18124,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653010127745"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/743c689332f04c7895ecbe4f39432edc.jpg",
+  "description": "무난함",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62867185d82bae3f5a3ecc1e"
+  },
+  "reservation_id": "62867141d82bae3f5a3ecc1d",
+  "member_id": 62,
+  "nickname": "대댐",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/1b9d23a6d33e4c3495b4c365252736e4.jpg",
+  "place_id": 13331,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653010453878"
+    }
+  },
+  "reviewImage": "",
+  "description": "와 여기 진짜 나이쓰합니다. 값, 시설, 위치, 청결 전부 쩔어요. 추천합니다.",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62867232d82bae3f5a3ecc1f"
+  },
+  "reservation_id": "62866147103fc45707323164",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 18130,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653010626930"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/b1c85e1f20244c3dbeb1bbcc71e2c39e.jpg",
+  "description": "운동 잘하고갑니다 좋네요",
+  "cleanness": 5,
+  "place": 4,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62867280d82bae3f5a3ecc21"
+  },
+  "reservation_id": "62867256d82bae3f5a3ecc20",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 18119,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653010704258"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/cbf1b2d9655a4355af777717d6bc8e93.jpg",
+  "description": "아 좀 덥네요. 시원하게 관리 부탁드립니다;",
+  "cleanness": 3,
+  "place": 3,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62867303d82bae3f5a3ecc23"
+  },
+  "reservation_id": "628672a5d82bae3f5a3ecc22",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 2594,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653010835912"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/459f1bca33704b739df8c2857a7d6974.jpg",
+  "description": "시설 좋습니다. 배드민턴 잘 치고 갑니다!!",
+  "cleanness": 5,
+  "place": 4,
+  "location": 4,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62867370d82bae3f5a3ecc25"
+  },
+  "reservation_id": "6286734ed82bae3f5a3ecc24",
+  "member_id": 82,
+  "nickname": "티벳여우",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/444e4ada0740423aacbbaac2250db6cd.jpg",
+  "place_id": 2594,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653010944322"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/6b6a2bf45a3645d0b44df6eadabd0678.webp",
+  "description": "관리 잘 되고 있는 배드민턴 장 입니다! 라켓 대여 가능! 좋아여!",
+  "cleanness": 4,
+  "place": 4,
+  "location": 5,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62867449d82bae3f5a3ecc27"
+  },
+  "reservation_id": "628673a5d82bae3f5a3ecc26",
+  "member_id": 83,
+  "nickname": "ssafy123",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a599fa5939cb441db5c9a6bb28ce6571.jpg",
+  "place_id": 2594,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653011161483"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/6e1b42ab2cc44df9bb1f92b626961534.webp",
+  "description": "좋네요. 또 올 것 같습니다",
+  "cleanness": 4,
+  "place": 4,
+  "location": 5,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "628674e7d82bae3f5a3ecc2d"
+  },
+  "reservation_id": "6286745ed82bae3f5a3ecc28",
+  "member_id": 83,
+  "nickname": "ssafy123",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a599fa5939cb441db5c9a6bb28ce6571.jpg",
+  "place_id": 13332,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653011319763"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/24fdf906dab94ffd8d9083042f61d831.jpg",
+  "description": "무난합니다. ",
+  "cleanness": 4,
+  "place": 3,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62867541d82bae3f5a3ecc30"
+  },
+  "reservation_id": "628674a8d82bae3f5a3ecc2b",
+  "member_id": 62,
+  "nickname": "대댐",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/1b9d23a6d33e4c3495b4c365252736e4.jpg",
+  "place_id": 13332,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653011409500"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/9bd2db57d79748119e121c80fd395585.jpg",
+  "description": "진짜 알통이 생길 것만 같은 헬스장입니다. 추천합니다.",
+  "cleanness": 4,
+  "place": 4,
+  "location": 3,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "628675b0d82bae3f5a3ecc32"
+  },
+  "reservation_id": "6286758ed82bae3f5a3ecc31",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 13332,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653011520945"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/222aaf207c31463ab4afc11db66ced52.jpg",
+  "description": "알통 맛있다",
+  "cleanness": 4,
+  "place": 3,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "628675f6d82bae3f5a3ecc33"
+  },
+  "reservation_id": "628674c9d82bae3f5a3ecc2c",
+  "member_id": 83,
+  "nickname": "ssafy123",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a599fa5939cb441db5c9a6bb28ce6571.jpg",
+  "place_id": 13336,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653011590385"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/b7b990c609824ddbacedd120075efd1d.jpg",
+  "description": "쾌적하고운동하기 좋습니다. pt쌤도 좋음",
+  "cleanness": 5,
+  "place": 5,
+  "location": 4,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62867625d82bae3f5a3ecc34"
+  },
+  "reservation_id": "62867486d82bae3f5a3ecc2a",
+  "member_id": 83,
+  "nickname": "ssafy123",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a599fa5939cb441db5c9a6bb28ce6571.jpg",
+  "place_id": 13333,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653011637448"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/83d4080ce8ca4aa191b8d3d48949e99f.jpg",
+  "description": "시설 좋고 운동하기 좋네여!",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 3,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62867650d82bae3f5a3ecc35"
+  },
+  "reservation_id": "62867473d82bae3f5a3ecc29",
+  "member_id": 83,
+  "nickname": "ssafy123",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a599fa5939cb441db5c9a6bb28ce6571.jpg",
+  "place_id": 13331,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653011680303"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/1f3be9f4cb4547a780cef421218f4908.jpg",
+  "description": "자주 이용하고 싶습니다.",
+  "cleanness": 4,
+  "place": 4,
+  "location": 5,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "628676e3d82bae3f5a3ecc37"
+  },
+  "reservation_id": "628676bcd82bae3f5a3ecc36",
+  "member_id": 83,
+  "nickname": "ssafy123",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a599fa5939cb441db5c9a6bb28ce6571.jpg",
+  "place_id": 18122,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653011827006"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/33f6208d7e8d4cb1be8e0f1b2b1f9072.jpg",
+  "description": "잘 뛰다 갑니다!! 사장님 친절하세요",
+  "cleanness": 4,
+  "place": 4,
+  "location": 4,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62867779d82bae3f5a3ecc39"
+  },
+  "reservation_id": "6286774cd82bae3f5a3ecc38",
+  "member_id": 83,
+  "nickname": "ssafy123",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a599fa5939cb441db5c9a6bb28ce6571.jpg",
+  "place_id": 18119,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653011977880"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/80a2837333af4bc699002ad599db1b13.jpg",
+  "description": "운동하기엔 좀 덥습니다.. 사장님 에어컨 많이틀어주세요",
+  "cleanness": 3,
+  "place": 3,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286789c480d0a051f6f7376"
+  },
+  "reservation_id": "62867528d82bae3f5a3ecc2f",
+  "member_id": 38,
+  "nickname": "정재호",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/a9b26fbded6043fcb372c28bc6ab296a.jpg",
+  "place_id": 12345,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653012268600"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/f66ca63ad01d40dea0337982a5bc0272.jpg",
+  "description": "시설 별로..",
+  "cleanness": 3,
+  "place": 3,
+  "location": 4,
+  "price": 3,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62868c28480d0a051f6f7384"
+  },
+  "reservation_id": "62866770b964bb64e122abc4",
+  "member_id": 82,
+  "nickname": "티벳여우",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/444e4ada0740423aacbbaac2250db6cd.jpg",
+  "place_id": 18120,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653017272729"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/6122cce349df429d8d88ed5e69a032f3.jpg",
+  "description": "나쁘지 않은 곳이었습니다",
+  "cleanness": 3,
+  "place": 4,
+  "location": 3,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "62868d6c480d0a051f6f7386"
+  },
+  "reservation_id": "62868ccb480d0a051f6f7385",
+  "member_id": 82,
+  "nickname": "티벳여우",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/444e4ada0740423aacbbaac2250db6cd.jpg",
+  "place_id": 2608,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653017596156"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/b2534efc25334e3898a0ba1f944e1dc8.png",
+  "description": "좋은 ",
+  "cleanness": 3,
+  "place": 5,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286f5d828ca6b52c6105ba4"
+  },
+  "reservation_id": "6286f56528ca6b52c6105ba3",
+  "member_id": 88,
+  "nickname": "qsd1",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/default_profile.jpeg",
+  "place_id": 2589,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653044328936"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/1d700f3d111f4f89ba5ca35cbe32cd1c.png",
+  "description": "정말 만족스러운 곳입니다! 코치분들도 정말 친절하고 좋습니다!",
+  "cleanness": 5,
+  "place": 5,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286f93b28ca6b52c6105ba8"
+  },
+  "reservation_id": "6286f8ef28ca6b52c6105ba7",
+  "member_id": 89,
+  "nickname": "수영하는해달",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/58e934cecc334f6a88da283645c226ef.jpg",
+  "place_id": 4250,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653045195299"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/c64dbcb32239433f85f15c22389c9c40.png",
+  "description": "나쁘지 않아요!\n야구 기계가 조금 오래 됐는지 공이 여기저기로 튀어요ㅠ",
+  "cleanness": 3,
+  "place": 4,
+  "location": 4,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286f9b328ca6b52c6105baa"
+  },
+  "reservation_id": "6286f98328ca6b52c6105ba9",
+  "member_id": 82,
+  "nickname": "티벳여우",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/aed64f6520c442e0b0e64dfd4a70cd05.jpg",
+  "place_id": 13343,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653045315558"
+    }
+  },
+  "reviewImage": "",
+  "description": "평소 근력이 부족해서 헬스를 좀 해야겠다고 생각했는데 마침 좋은 곳을 찾은 것 같아요!",
+  "cleanness": 5,
+  "place": 4,
+  "location": 5,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286fc5728ca6b52c6105baf"
+  },
+  "reservation_id": "6286fc3d28ca6b52c6105bae",
+  "member_id": 90,
+  "nickname": "sksek2",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/70777a74e862429aacac128db970fd74.png",
+  "place_id": 20391,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653045991854"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/6d454b8cc0e14ffaa590efba76e1ae24.jpg",
+  "description": "여긴 정말 좋은 곳이에요",
+  "cleanness": 5,
+  "place": 5,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286fce728ca6b52c6105bb1"
+  },
+  "reservation_id": "6286fcd128ca6b52c6105bb0",
+  "member_id": 38,
+  "nickname": "정재호",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/aca0449b9aae4d4c85fd77fa469440d0.jpg",
+  "place_id": 2589,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653046135272"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/36c08253953043009dd8d9739e4b411e.jpg",
+  "description": "쾌적하고 좋았습니다.\n자주 사용할게요",
+  "cleanness": 4,
+  "place": 4,
+  "location": 5,
+  "price": 4,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286fd7328ca6b52c6105bb5"
+  },
+  "reservation_id": "6286fd0228ca6b52c6105bb2",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 2590,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653046275810"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/d328fcfcd52a410abfdc619cd47f4bbd.webp",
+  "description": "조이에서 조이했습니다 ^^",
+  "cleanness": 5,
+  "place": 5,
+  "location": 4,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286fd8d28ca6b52c6105bb6"
+  },
+  "reservation_id": "6286fd1828ca6b52c6105bb3",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 2591,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653046301785"
+    }
+  },
+  "reviewImage": "",
+  "description": "여기 갈 바에 다른데 감 ㅡㅡ 시설도 별로;;관리안됨",
+  "cleanness": 2,
+  "place": 2,
+  "location": 2,
+  "price": 2,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286fdd728ca6b52c6105bb8"
+  },
+  "reservation_id": "6286fdb228ca6b52c6105bb7",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 2592,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653046375170"
+    }
+  },
+  "reviewImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/9558e6523b4f418c8e39ef42ccf9cb6c.webp",
+  "description": "시설 청결하고 배드민턴 도구 상태 좋네요! 굳! 또 들리겠습니다~ ",
+  "cleanness": 5,
+  "place": 5,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+},{
+  "_id": {
+    "$oid": "6286fe6128ca6b52c6105bba"
+  },
+  "reservation_id": "6286fe2c28ca6b52c6105bb9",
+  "member_id": 78,
+  "nickname": "그뉵그뉵",
+  "profileImage": "https://pairplayteams.s3.ap-northeast-2.amazonaws.com/4a4837cc72434039ab147409df545ea6.webp",
+  "place_id": 2594,
+  "written_dt": {
+    "$date": {
+      "$numberLong": "1653046513569"
+    }
+  },
+  "reviewImage": "",
+  "description": "또 올게요~",
+  "cleanness": 5,
+  "place": 4,
+  "location": 5,
+  "price": 5,
+  "_class": "com.ssafy.domain.document.Review"
+}]

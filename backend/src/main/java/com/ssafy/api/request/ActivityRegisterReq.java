@@ -13,6 +13,6 @@ import lombok.Setter;
 @ApiModel("ActivityRegisterReq")
 public class ActivityRegisterReq {
     @ApiModelProperty(name = "메이트 신청 공고 ID")
-    Activity activityId;
+    Long activityId;
 
 }

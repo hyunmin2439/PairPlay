@@ -6,26 +6,23 @@
       <!-- <div class="input-group serachbar">search</div> -->
       <div class="d-flex align-items-center col-lg-9 filters">
         <place-search-filters-region @regionData="selectRegion"></place-search-filters-region>
-        <place-search-filters-price></place-search-filters-price>
-        <place-search-filters-time @timeData="selectTime"></place-search-filters-time>
+        <!-- <place-search-filters-price></place-search-filters-price> -->
         <place-search-filter-sports-category @sportsCategoryData="selectSportsCategory"></place-search-filter-sports-category>
+        <place-search-filters-time @timeData="selectTime"></place-search-filters-time>
         <div class="btn btn-Cancel btn-secondary" type="button" @click="cancelFilters">초기화</div>
-        <!-- <div class="btn-group">
-        <button type="button" class="btn btnPlace dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" :aria-expanded="`${expand}`">Price</button>
-        <ul class="dropdown-menu ps-5" style="width: 400px; height: 300px; font-size: 14px">
-          <Slider v-model="value" type="input" :format="format" />
-          <div class="d-flex justify-content-around">
-            <button type="button" class="btn btn-dark mb-2" @click="changedExpand">적용</button>
-            <button type="button" class="btn btn-outline-secondary mb-2">취소</button>
-          </div>
-        </ul>
-      </div> -->
         <!-- 지역 -->
       </div>
       <div class="col-lg-2">
         <div class="input-group flex-nowrap">
-          <!-- <span class="input-group-text" id="addon-wrapping">@</span> -->
-          <input type="text" class="form-control serachbar" placeholder="&#xf52a; search" aria-label="Username" aria-describedby="addon-wrapping" />
+          <!-- <input @keyup.enter="inputWord($event)" type="text" class="form-control serachbar" placeholder="&#xf52a;  시설명, 해시태그 입력" aria-label="Username" aria-describedby="addon-wrapping" />           -->
+          <input
+            v-model="searchFiltersData.searchWord"
+            type="text"
+            class="form-control serachbar"
+            placeholder="&#xf52a; 시설명, 해시태그 입력"
+            aria-label="Username"
+            aria-describedby="addon-wrapping"
+          />
         </div>
       </div>
     </div>
@@ -33,59 +30,110 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
-import PlaceSearchFiltersPrice from "./PlaceSearchFiltersPrice.vue";
+import { reactive, ref, watch } from "vue";
+// import PlaceSearchFiltersPrice from "./PlaceSearchFiltersPrice.vue";
 import PlaceSearchFiltersRegion from "./PlaceSearchFiltersRegion.vue";
 import PlaceSearchFiltersTime from "./PlaceSearchFiltersTime.vue";
 import PlaceSearchFilterSportsCategory from "./PlaceSearchFilterSportsCategory.vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 // import Slider from "@vueform/slider";
 
 export default {
   name: "PlaceSearchFilters",
-  emits: ["searchFiltersData"],
-  components: { PlaceSearchFiltersRegion, PlaceSearchFiltersPrice, PlaceSearchFiltersTime, PlaceSearchFilterSportsCategory },
-  setup(_, { emit }) {
-    let searchFiltersData = ref({
+  // emits: ["searchFiltersData"],
+  components: { PlaceSearchFiltersRegion, /*PlaceSearchFiltersPrice*/ PlaceSearchFiltersTime, PlaceSearchFilterSportsCategory },
+  setup(/*_, { emit }*/) {
+    const store = useStore();
+    const router = useRouter();
+    let searchFiltersData = reactive({
       price: "",
-      region: { sido: "", gugun: "" },
-      time: { startDate: "", endDate: "" },
-      sportsCategory: "",
+      sido: "",
+      gugun: "",
+      startDate: "",
+      endDate: "",
+      categoryList: [],
+      page: 0,
+      searchWord: "",
     });
+    const word = ref("");
     const selectRegion = (res) => {
-      // console.log(res, "나옵니까");
-      searchFiltersData.value.region = res;
+      searchFiltersData.sido = res.sido;
+      searchFiltersData.gugun = res.gugun;
     };
     const selectTime = (res) => {
       let startTime = new Date(+res[0] + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
       let endTime = new Date(+res[1] + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "").substring(0, 10);
-      searchFiltersData.value.time.startDate = startTime;
-      searchFiltersData.value.time.endDate = endTime;
+      searchFiltersData.startDate = startTime;
+      searchFiltersData.endDate = endTime;
     };
     const selectSportsCategory = (res) => {
+      if (res) {
+        //   console.log(res, "고른 스포츠");
+        searchFiltersData.categoryList = res;
+      } else {
+        searchFiltersData.categoryList = store.state.root.selectSportsCategory;
+      }
       // console.log(res);
-      searchFiltersData.value.sportsCategory = res;
     };
-    // searchFiltersData.value.region.sido = regionData.sido;
-    // searchFiltersData.value.region.gugun = regionData.gugun;
-    // let value = [20, 40];
-    // const format = (value) => {
-    //   return `${value}원`;
+    // const  async (e) => {
+    //   word.value = e.target.value;
+    //   console.log(word.value, "검색어추가함");
+    //   await store.dispatch("root/addSearchWord", [searchFiltersData, word.value]);
+    //   // searchFiltersData.searchWord = e.target.value;
     // };
-    // console.log(searchFiltersData, "아아");
-    const cancelFilters = () => {
-      searchFiltersData.value.price = "";
-      searchFiltersData.value.region = { sido: "", gugun: "" };
-      searchFiltersData.value.time = { startDate: "", endDate: "" };
-      searchFiltersData.value.sportsCategory = "";
+
+    // const = () => {
+    //   console.log(word.value, "검색어임");
+    //   searchFiltersData.searchWord = word.value;
+    //   console.log(searchFiltersData.value.searchWord, "추가됬음?");
+    // };
+    // const handleSearchInput = (e) => {
+    //   word.value = e.target.value;
+    //   if (word.value.length !== 0) {
+    //     clearTimeout(debounce);
+    //     const debounce = setTimeout(() => {
+    //       const filteredList = this.stageInfoList.filter((item) => item.title.includes(word.value));
+    //       searchFiltersData.searchWord = filteredList;
+    //     }, 300);
+    //   } else {
+    //     clearTimeout(debounce);
+    //     debounce = setTimeout(() => {
+    //       searchFiltersData.searchWord = "";
+    //     }, 500);
+    //   }
+    // };
+
+    const changeFilters = async () => {
+      console.log(searchFiltersData);
+      await store.dispatch("root/addPlaceFilters", searchFiltersData);
     };
-    watch(searchFiltersData.value, () => {
-      emit("searchFiltersData", searchFiltersData.value);
-      // console.log(res);
-      // console.log(searchFiltersData.value, "searchFiltersData");
+    const cancelFilters = () => {
+      searchFiltersData.price = "";
+      searchFiltersData.sido = "";
+      searchFiltersData.gugun = "";
+      searchFiltersData.startDate = "";
+      searchFiltersData.endDate = "";
+      searchFiltersData.categoryList = [];
+      searchFiltersData.page = 0;
+      searchFiltersData.page = 0;
+      searchFiltersData.searchWord = "";
+      router.go(0);
+    };
+    watch(searchFiltersData, async () => {
+      // word.value = "";
+      await changeFilters();
     });
+    // watch(() => {
+    //   if (word.value.length == 0) {
+    //     async () => {
+    //       // await changeFilters();
+    //     };
+    //   }
+    // });
     // const refresh = () =>
-    return { searchFiltersData, selectRegion, selectTime, selectSportsCategory, cancelFilters };
+    return { searchFiltersData, word, selectRegion, selectTime, selectSportsCategory, cancelFilters, changeFilters };
   },
 };
 </script>
@@ -98,7 +146,7 @@ export default {
 // }
 .btn {
   &:hover {
-    border: 0.5px solid black;
+    border: 0.02px solid rgba(1, 1, 1, 0.3);
   }
 }
 .placeSearchFiltersTotalFrame {
@@ -124,7 +172,7 @@ export default {
   font-family: "bootstrap-icons", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .btn-Cancel {
-  margin: 10px 5px 10px 5px;
+  margin: auto 0.5rem auto 0.8rem;
   // background: red;
   color: white;
   border-radius: 5px;

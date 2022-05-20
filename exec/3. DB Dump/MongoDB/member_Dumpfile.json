@@ -1,0 +1,427 @@
+[{
+  "_id": {
+    "$oid": "6278db2492d5177f3bd3233c"
+  },
+  "member_id": 9,
+  "recent_items": [
+    2594,
+    2591,
+    18119,
+    8474,
+    8476,
+    18130,
+    18138,
+    18121,
+    18120
+  ],
+  "like_items": [
+    1,
+    8474,
+    8476
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6278db3a92d5177f3bd3233d"
+  },
+  "member_id": 28,
+  "recent_items": [
+    null
+  ],
+  "like_items": [
+    126,
+    127,
+    128,
+    888,
+    124,
+    125,
+    123,
+    155
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6278dbba92d5177f3bd3233e"
+  },
+  "member_id": 38,
+  "recent_items": [
+    2594,
+    2589,
+    5789,
+    13333,
+    2593,
+    2605,
+    13336,
+    19793,
+    5746,
+    18119
+  ],
+  "like_items": [
+    18120,
+    18123,
+    5793,
+    13336
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6278e86483ee4c3aa0cba722"
+  },
+  "member_id": 45,
+  "recent_items": [],
+  "like_items": []
+},{
+  "_id": {
+    "$oid": "6278e8bf83ee4c3aa0cba727"
+  },
+  "member_id": 46,
+  "recent_items": [],
+  "like_items": []
+},{
+  "_id": {
+    "$oid": "6278e8fd83ee4c3aa0cba728"
+  },
+  "member_id": 47,
+  "recent_items": [],
+  "like_items": []
+},{
+  "_id": {
+    "$oid": "6278e90a83ee4c3aa0cba729"
+  },
+  "member_id": 49,
+  "recent_items": [
+    8474,
+    18119
+  ],
+  "like_items": [
+    18119
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6278e91183ee4c3aa0cba72a"
+  },
+  "member_id": 53,
+  "recent_items": [],
+  "like_items": []
+},{
+  "_id": {
+    "$oid": "6278e91583ee4c3aa0cba72b"
+  },
+  "member_id": 59,
+  "recent_items": [],
+  "like_items": [
+    1,
+    0
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6278e91a83ee4c3aa0cba72c"
+  },
+  "member_id": 60,
+  "recent_items": [
+    18119,
+    18112,
+    8474,
+    4224,
+    1499,
+    11499,
+    499,
+    15,
+    0,
+    18008
+  ],
+  "like_items": [
+    0
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6278e95683ee4c3aa0cba72d"
+  },
+  "member_id": 61,
+  "recent_items": [],
+  "like_items": [
+    8475,
+    8474,
+    441
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6278e96283ee4c3aa0cba72e"
+  },
+  "member_id": 62,
+  "recent_items": [
+    13333,
+    18102,
+    18333,
+    2954,
+    1333,
+    13392,
+    5821,
+    13332,
+    13331,
+    18119
+  ],
+  "like_items": [
+    602,
+    601,
+    5821,
+    7063
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "627b41e674d9dd1c66855b3f"
+  },
+  "member_id": 63,
+  "recent_items": [],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "628113fa96cc027b6eec106f"
+  },
+  "member_id": 65,
+  "recent_items": [],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "62848e33150b307f6afb4dfd"
+  },
+  "member_id": 67,
+  "recent_items": [],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "62848ece150b307f6afb4dfe"
+  },
+  "member_id": 68,
+  "recent_items": [],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6284a87b38081a29bced3886"
+  },
+  "member_id": 69,
+  "recent_items": [
+    3972
+  ],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6284f0d4b24aec5e5f079ec8"
+  },
+  "member_id": 70,
+  "recent_items": [
+    5789,
+    18119,
+    13336,
+    13330,
+    499,
+    18128,
+    18120,
+    8474
+  ],
+  "like_items": [
+    23040,
+    23042,
+    9726,
+    8476,
+    8477,
+    13330
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6285eb8681b946537dbc80fb"
+  },
+  "member_id": 75,
+  "recent_items": [
+    8474,
+    20392,
+    8475,
+    18129,
+    18120
+  ],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "628615013b61e655ac25943f"
+  },
+  "member_id": 77,
+  "recent_items": [
+    5802
+  ],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "62862af623e9a24e80a39c2b"
+  },
+  "member_id": 78,
+  "recent_items": [
+    2594,
+    2592,
+    2590,
+    2591,
+    13332,
+    18119,
+    18130,
+    18120,
+    18124,
+    13337
+  ],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "62863283103fc45707323149"
+  },
+  "member_id": 79,
+  "recent_items": [
+    18056,
+    18121,
+    18057,
+    18119,
+    18124,
+    7448,
+    18120
+  ],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "62863cee103fc4570732314a"
+  },
+  "member_id": 80,
+  "recent_items": [],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "62863d8d103fc4570732314b"
+  },
+  "member_id": 81,
+  "recent_items": [
+    18119
+  ],
+  "like_items": [
+    18119,
+    18120,
+    18121
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "62864122103fc4570732314d"
+  },
+  "member_id": 82,
+  "recent_items": [
+    13333,
+    442,
+    16048,
+    8475,
+    13343,
+    2589,
+    13334,
+    13331,
+    18333,
+    18119
+  ],
+  "like_items": [
+    13336,
+    18120,
+    13331
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6286442d103fc45707323150"
+  },
+  "member_id": 83,
+  "recent_items": [
+    2589,
+    2590,
+    2596,
+    2594,
+    2592,
+    2591,
+    18119,
+    18122,
+    13333,
+    13331
+  ],
+  "like_items": [
+    13331
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6286888f480d0a051f6f7381"
+  },
+  "member_id": 85,
+  "recent_items": [
+    13333
+  ],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6286f287f955c468ba3b71ad"
+  },
+  "member_id": 87,
+  "recent_items": [
+    9060,
+    19034
+  ],
+  "like_items": [
+    9060
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6286f4ac07d27e2f55f3bd13"
+  },
+  "member_id": 88,
+  "recent_items": [
+    8475,
+    2590,
+    23040,
+    23039,
+    5790,
+    2589
+  ],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6286f81328ca6b52c6105ba6"
+  },
+  "member_id": 89,
+  "recent_items": [
+    4250
+  ],
+  "like_items": [],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+},{
+  "_id": {
+    "$oid": "6286fb4728ca6b52c6105bac"
+  },
+  "member_id": 90,
+  "recent_items": [
+    20391,
+    447
+  ],
+  "like_items": [
+    447
+  ],
+  "_class": "com.ssafy.domain.document.PlaceMember"
+}]

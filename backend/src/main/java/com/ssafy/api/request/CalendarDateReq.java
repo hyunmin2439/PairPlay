@@ -14,4 +14,7 @@ public class CalendarDateReq {
     @ApiModelProperty(name="날짜", example="1995-01-01")
     //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     LocalDate date;
+
+    @ApiModelProperty(name = "조회할 멤버 id", example="1")
+    Long memberId;
 }
