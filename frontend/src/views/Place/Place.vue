@@ -1,5 +1,5 @@
 <template>
-  <div v-if="checkJwt()">
+  <div v-if="checkJwt">
     <!-- 헤더 -->
     <div style="max-width: 1255px; margin: auto">
       <Header></Header>
@@ -61,6 +61,7 @@ import Footer from "../Common/Footer.vue";
 import { computed, onMounted, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import Swal from "sweetalert2";
 export default {
   name: "Place",
   components: { Header, Footer, PlaceCategory, PlaceRecommend, PlaceRecentView },
@@ -71,13 +72,25 @@ export default {
     const recentCards = reactive(computed(() => store.state.root.placeRecent));
     // const route = useRoute();
     const checkJwt = () => {
-      if (localStorage.getItem("jwt")) {
+      if (!localStorage.getItem("jwt")) {
         // pass
-        return true;
-      } else {
         router
           .push({
             name: "Login",
+          })
+          .then(() => window.scrollTo(0, 0));
+      } else if (localStorage.getItem("jwt") && store.state.root.userInfo.address.includes("null")) {
+        Swal.fire({
+          icon: "error",
+          // title: "실패",
+          text: "서비스를 이용하기 위해서는 주소가 필요합니다.",
+        });
+        router
+          .push({
+            name: "Profile",
+            params: {
+              memberId: store.state.root.userInfo.memberId,
+            },
           })
           .then(() => window.scrollTo(0, 0));
       }
