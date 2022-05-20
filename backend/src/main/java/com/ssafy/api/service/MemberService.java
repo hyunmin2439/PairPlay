@@ -14,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 
 import static com.ssafy.common.statuscode.CommonCode.EMPTY_REQUEST_VALUE;
@@ -109,6 +111,13 @@ public class MemberService {
                 .email(email)
                 .nickname(nickname)
                 .password(memberInfo.getPassword())
+                .gender(0)
+                .name(nickname)
+                .sido("부산")
+                .gugun("강서구")
+                .detailAddress("녹산산업중로 333")
+                .birthDt(LocalDateTime.now().plusHours(9).toLocalDate())
+                .phone("010-0000-0000")
                 .profileImage("default_profile.jpeg") // defaultImage
                 .enable(true)
                 .build();
