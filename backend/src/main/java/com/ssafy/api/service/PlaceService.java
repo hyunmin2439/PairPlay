@@ -496,16 +496,16 @@ public class PlaceService {
         LocalDateTime reserveEndDt = lastTime != 24 ? reserveDt.atTime(lastTime, 0) : reserveDt.plusDays(1).atTime(0, 0);
         
         // 예약 하려는 시간이 현재 시간보다 이전이면 ( 테스트의 편의를 위해 잠시 막아둠 )
-//        if( reserveStartDt.isBefore(LocalDateTime.now().plusHours(9)) )
-//            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
+        if( reserveStartDt.isBefore(LocalDateTime.now().plusHours(9)) )
+            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
 
         Reservation reservation = Reservation.builder()
                 .memberId(memberId)
                 .placeId(reservationInfo.getPlaceId())
                 .isWrittenReview(false)
                 .reviewId("111111111111111111111111")
-//                .createDt(LocalDateTime.now().plusHours(9)) // throw Exception 주석 풀면서 같이 풀고 아래 메서드 지울 것!
-                .createDt(reservationInfo.getReservationDt().atTime(0, 0))
+                .createDt(LocalDateTime.now().plusHours(9)) // throw Exception 주석 풀면서 같이 풀고 아래 메서드 지울 것!
+//                .createDt(reservationInfo.getReservationDt().atTime(0, 0))
                 .reserveStartDt(reserveStartDt)
                 .reserveEndDt(reserveEndDt)
                 .time(reservationInfo.getTime())
