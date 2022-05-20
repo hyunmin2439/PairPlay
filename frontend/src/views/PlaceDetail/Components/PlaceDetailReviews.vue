@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="card"> -->
-  <div class="card" style="border: 0px">
+  <div class="card col-12" style="border: 0px">
     <div class="d-flex">
       <!-- {{ review }} -->
       <div class="col d-flex flex-row align-items-start">
