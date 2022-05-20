@@ -496,8 +496,8 @@ public class PlaceService {
         LocalDateTime reserveEndDt = lastTime != 24 ? reserveDt.atTime(lastTime, 0) : reserveDt.plusDays(1).atTime(0, 0);
         
         // 예약 하려는 시간이 현재 시간보다 이전이면 ( 테스트의 편의를 위해 잠시 막아둠 )
-        if( reserveStartDt.isBefore(LocalDateTime.now().plusHours(9)) )
-            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
+//        if( reserveStartDt.isBefore(LocalDateTime.now().plusHours(9)) )
+//            throw new CustomException(FAIL_RESERVE_BEFORE_NOW_DATE);
 
         Reservation reservation = Reservation.builder()
                 .memberId(memberId)
@@ -520,8 +520,8 @@ public class PlaceService {
         Reservation reservation = getReservation(reservationInfo.getReservationId());
 
         // 예약된 정보가 없으면 예약 취소 불가
-//        if( reservation == null )
-//            throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
+        if( reservation == null )
+            throw new CustomException(FAIL_RESERVATION_NOT_FOUND);
 
         /**
          * 로컬에서 now() 현재 시각
