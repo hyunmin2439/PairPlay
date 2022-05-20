@@ -1,0 +1,4606 @@
+[{
+  "_id": {
+    "$oid": "627b79775011c36c84fd09cb"
+  },
+  "member_id": 60,
+  "place_id": 499,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652108400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652155200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652173200000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "627b799f5011c36c84fd09cc"
+  },
+  "member_id": 60,
+  "place_id": 499,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652194800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652241600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652256000000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "627b79aa5011c36c84fd09cd"
+  },
+  "member_id": 60,
+  "place_id": 499,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652194800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652241600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652259600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "627b7eae7f696a4fd2d69c4e"
+  },
+  "member_id": 60,
+  "place_id": 499,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652108400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652155200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652176800000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "627b805697073f237f8b4f6b"
+  },
+  "member_id": 60,
+  "place_id": 499,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652194800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652241600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652263200000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "627b807597073f237f8b4f6c"
+  },
+  "member_id": 60,
+  "place_id": 499,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652194800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652241600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652259600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "627ca5faf68fda5140b20a20"
+  },
+  "member_id": 9,
+  "place_id": 499,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652108400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652155200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652173200000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "627de8d8dda28b5983d08abf"
+  },
+  "member_id": 28,
+  "place_id": 15,
+  "is_written_review": true,
+  "review_id": "627df3dadda28b5983d08ac1",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653051600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653069600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "627de8e1dda28b5983d08ac0"
+  },
+  "member_id": 28,
+  "place_id": 189,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652227200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652274000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652292000000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 77777,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "627e0de9884aa414fc08d538"
+  },
+  "member_id": 28,
+  "place_id": 222,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653264000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653310800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653328800000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 77777,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62834f191b1c503b2c144dc8"
+  },
+  "member_id": 28,
+  "place_id": 888,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62834f1c1b1c503b2c144dc9"
+  },
+  "member_id": 28,
+  "place_id": 777,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62834f1e1b1c503b2c144dca"
+  },
+  "member_id": 28,
+  "place_id": 666,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62834f211b1c503b2c144dcb"
+  },
+  "member_id": 28,
+  "place_id": 555,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62834f221b1c503b2c144dcc"
+  },
+  "member_id": 28,
+  "place_id": 444,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62834f241b1c503b2c144dcd"
+  },
+  "member_id": 28,
+  "place_id": 333,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62834f261b1c503b2c144dce"
+  },
+  "member_id": 28,
+  "place_id": 222,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62834f271b1c503b2c144dcf"
+  },
+  "member_id": 28,
+  "place_id": 111,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62834f291b1c503b2c144dd0"
+  },
+  "member_id": 28,
+  "place_id": 11,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62834f301b1c503b2c144dd1"
+  },
+  "member_id": 28,
+  "place_id": 12,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628354d7e1d3a11e15c359f8"
+  },
+  "member_id": 28,
+  "place_id": 121,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628354d9e1d3a11e15c359f9"
+  },
+  "member_id": 28,
+  "place_id": 122,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628354dde1d3a11e15c359fa"
+  },
+  "member_id": 28,
+  "place_id": 123,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628354dfe1d3a11e15c359fb"
+  },
+  "member_id": 28,
+  "place_id": 124,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628354e2e1d3a11e15c359fc"
+  },
+  "member_id": 28,
+  "place_id": 125,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628354e4e1d3a11e15c359fd"
+  },
+  "member_id": 28,
+  "place_id": 126,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628354e7e1d3a11e15c359fe"
+  },
+  "member_id": 28,
+  "place_id": 127,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628354e9e1d3a11e15c359ff"
+  },
+  "member_id": 28,
+  "place_id": 128,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628354ede1d3a11e15c35a00"
+  },
+  "member_id": 28,
+  "place_id": 129,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628452122d957f73e7d21a43"
+  },
+  "member_id": 60,
+  "place_id": 4929,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652972400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653019200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653037200000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628452942d957f73e7d21a44"
+  },
+  "member_id": 60,
+  "place_id": 1,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652972400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653019200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653037200000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 30000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628453db090e56501519396f"
+  },
+  "member_id": 60,
+  "place_id": 4224,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652194800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652241600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652259600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62845409090e565015193970"
+  },
+  "member_id": 60,
+  "place_id": 4224,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652194800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652241600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652259600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62845477090e565015193971"
+  },
+  "member_id": 60,
+  "place_id": 4224,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652799600000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652839200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652857200000"
+    }
+  },
+  "time": [
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284644f3e44734ad57946b3"
+  },
+  "member_id": 60,
+  "place_id": 1000,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652886000000"
+    }
+  },
+  "time": [
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "price": 30000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284eb87ba26ce6fe36c1fb1"
+  },
+  "member_id": 62,
+  "place_id": 18102,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 0,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284ebbcba26ce6fe36c1fb2"
+  },
+  "member_id": 62,
+  "place_id": 18102,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 0,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284ebc7ba26ce6fe36c1fb3"
+  },
+  "member_id": 62,
+  "place_id": 18102,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "time": [
+    8
+  ],
+  "price": 0,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284ebd4ba26ce6fe36c1fb4"
+  },
+  "member_id": 62,
+  "place_id": 18102,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 0,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284ebd6ba26ce6fe36c1fb5"
+  },
+  "member_id": 62,
+  "place_id": 18102,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 0,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5d9b24aec5e5f079ec9"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653051600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653073200000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5dab24aec5e5f079eca"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653051600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653073200000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5dcb24aec5e5f079ecb"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653051600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653073200000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5e3b24aec5e5f079ecc"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653055200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653073200000"
+    }
+  },
+  "time": [
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5e5b24aec5e5f079ecd"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653055200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653073200000"
+    }
+  },
+  "time": [
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5efb24aec5e5f079ece"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f0b24aec5e5f079ecf"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f1b24aec5e5f079ed0"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f1b24aec5e5f079ed1"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f1b24aec5e5f079ed2"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f1b24aec5e5f079ed3"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f2b24aec5e5f079ed4"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f2b24aec5e5f079ed5"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f2b24aec5e5f079ed6"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f2b24aec5e5f079ed7"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f2b24aec5e5f079ed8"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284f5f4b24aec5e5f079ed9"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284fb8171586102bd1a1303"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "time": [
+    8
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284fb9671586102bd1a1304"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "time": [
+    8
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284fc677e7371695473ecca"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "time": [
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284fc7c7e7371695473eccb"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "time": [
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284fc9d7e7371695473eccc"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653076800000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284fcb57e7371695473eccd"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284fccd7e7371695473ecce"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653066000000"
+    }
+  },
+  "time": [
+    15,
+    16
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284fcce7e7371695473eccf"
+  },
+  "member_id": 60,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653066000000"
+    }
+  },
+  "time": [
+    15,
+    16
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284fd207e7371695473ecd0"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6284fd277e7371695473ecd1"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652947200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652950800000"
+    }
+  },
+  "time": [
+    8
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6285055d368f296ddabb5433"
+  },
+  "member_id": 9,
+  "place_id": 8474,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652875200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652878800000"
+    }
+  },
+  "time": [
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850706368f296ddabb5434"
+  },
+  "member_id": 62,
+  "place_id": 5822,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "time": [
+    8
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850744368f296ddabb5435"
+  },
+  "member_id": 62,
+  "place_id": 5822,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "time": [
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850747368f296ddabb5436"
+  },
+  "member_id": 62,
+  "place_id": 5822,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6285074f368f296ddabb5437"
+  },
+  "member_id": 62,
+  "place_id": 5822,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850754368f296ddabb5438"
+  },
+  "member_id": 62,
+  "place_id": 5822,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850758368f296ddabb5439"
+  },
+  "member_id": 62,
+  "place_id": 5822,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "time": [
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6285077d368f296ddabb543a"
+  },
+  "member_id": 62,
+  "place_id": 5822,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "time": [
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850783368f296ddabb543b"
+  },
+  "member_id": 62,
+  "place_id": 5822,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652875200000"
+    }
+  },
+  "time": [
+    8,
+    10,
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628507ae368f296ddabb543c"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "time": [
+    8
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850948368f296ddabb543d"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "time": [
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6285094e368f296ddabb543e"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6285096f368f296ddabb543f"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652875200000"
+    }
+  },
+  "time": [
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6285099f368f296ddabb5440"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652864400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "time": [
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850a17368f296ddabb5441"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850a22368f296ddabb5442"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652868000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850a6a368f296ddabb5443"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652875200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652878800000"
+    }
+  },
+  "time": [
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62850af1368f296ddabb5444"
+  },
+  "member_id": 62,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652878800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652882400000"
+    }
+  },
+  "time": [
+    13
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6285319533bca84be9a67cc6"
+  },
+  "member_id": 70,
+  "place_id": 499,
+  "is_written_review": true,
+  "review_id": "6286259923e9a24e80a39c2a",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6285319633bca84be9a67cc7"
+  },
+  "member_id": 70,
+  "place_id": 499,
+  "is_written_review": true,
+  "review_id": "62862473960b0b6da380e10e",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652187600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652205600000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 20000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62863ff5103fc4570732314c"
+  },
+  "member_id": 81,
+  "place_id": 18119,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652954400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652958000000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628641cd103fc4570732314e"
+  },
+  "member_id": 82,
+  "place_id": 18152,
+  "is_written_review": true,
+  "review_id": "62865dd3103fc4570732315c",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652986800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652994000000"
+    }
+  },
+  "time": [
+    19,
+    20
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628642e6103fc4570732314f"
+  },
+  "member_id": 38,
+  "place_id": 18120,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653782400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653818400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653825600000"
+    }
+  },
+  "time": [
+    10,
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62864b3a103fc45707323151"
+  },
+  "member_id": 38,
+  "place_id": 18121,
+  "is_written_review": true,
+  "review_id": "62864b67103fc45707323152",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652572800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652608800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652612400000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62864cff103fc45707323153"
+  },
+  "member_id": 38,
+  "place_id": 13333,
+  "is_written_review": true,
+  "review_id": "62864d1c103fc45707323154",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652907600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652911200000"
+    }
+  },
+  "time": [
+    21
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62864e2d103fc45707323155"
+  },
+  "member_id": 70,
+  "place_id": 13330,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653091200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653138000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653145200000"
+    }
+  },
+  "time": [
+    13,
+    14
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62865a5a103fc45707323156"
+  },
+  "member_id": 78,
+  "place_id": 18122,
+  "is_written_review": true,
+  "review_id": "62865b2a103fc45707323157",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652313600000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652353200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652356800000"
+    }
+  },
+  "time": [
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62865bea103fc45707323158"
+  },
+  "member_id": 78,
+  "place_id": 13336,
+  "is_written_review": true,
+  "review_id": "62865cba103fc45707323159",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652486400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652533200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652540400000"
+    }
+  },
+  "time": [
+    13,
+    14
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62865d70103fc4570732315a"
+  },
+  "member_id": 82,
+  "place_id": 13336,
+  "is_written_review": true,
+  "review_id": "62865dfa103fc4570732315d",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652572800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652601600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652608800000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62865d94103fc4570732315b"
+  },
+  "member_id": 82,
+  "place_id": 13336,
+  "is_written_review": true,
+  "review_id": "62865e1e103fc4570732315e",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652486400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652526000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652533200000"
+    }
+  },
+  "time": [
+    11,
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62865ff1103fc4570732315f"
+  },
+  "member_id": 78,
+  "place_id": 18124,
+  "is_written_review": true,
+  "review_id": "62866024103fc45707323160",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1651363200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1651392000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1651399200000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628660bb103fc45707323161"
+  },
+  "member_id": 78,
+  "place_id": 13330,
+  "is_written_review": true,
+  "review_id": "628661a4103fc45707323166",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652745600000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652778000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652785200000"
+    }
+  },
+  "time": [
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628660e6103fc45707323162"
+  },
+  "member_id": 78,
+  "place_id": 13333,
+  "is_written_review": true,
+  "review_id": "62866181103fc45707323165",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652878800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652882400000"
+    }
+  },
+  "time": [
+    13
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286610b103fc45707323163"
+  },
+  "member_id": 78,
+  "place_id": 13337,
+  "is_written_review": true,
+  "review_id": "628661eb103fc45707323167",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652227200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652281200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652284800000"
+    }
+  },
+  "time": [
+    15
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62866147103fc45707323164"
+  },
+  "member_id": 78,
+  "place_id": 18130,
+  "is_written_review": true,
+  "review_id": "62867232d82bae3f5a3ecc1f",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1649808000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1649836800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1649844000000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62866278103fc45707323169"
+  },
+  "member_id": 78,
+  "place_id": 18120,
+  "is_written_review": true,
+  "review_id": "62866291103fc4570732316a",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1647302400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1647334800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1647345600000"
+    }
+  },
+  "time": [
+    9,
+    10,
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62866338103fc4570732316b"
+  },
+  "member_id": 82,
+  "place_id": 18120,
+  "is_written_review": true,
+  "review_id": "628667b6b964bb64e122abc5",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652659200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652688000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652698800000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62866770b964bb64e122abc4"
+  },
+  "member_id": 82,
+  "place_id": 18120,
+  "is_written_review": true,
+  "review_id": "62868c28480d0a051f6f7384",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1646697600000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1646733600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1646744400000"
+    }
+  },
+  "time": [
+    10,
+    11,
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62866860b964bb64e122abc6"
+  },
+  "member_id": 82,
+  "place_id": 18121,
+  "is_written_review": true,
+  "review_id": "62866878b964bb64e122abc7",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652832000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652860800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652871600000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628668f0b964bb64e122abc8"
+  },
+  "member_id": 79,
+  "place_id": 18056,
+  "is_written_review": true,
+  "review_id": "6286690ab964bb64e122abc9",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652169600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652180400000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286694eb964bb64e122abca"
+  },
+  "member_id": 79,
+  "place_id": 18120,
+  "is_written_review": true,
+  "review_id": "62866a8926f48e141ae9c9da",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652054400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652083200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652094000000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286696db964bb64e122abcb"
+  },
+  "member_id": 79,
+  "place_id": 7448,
+  "is_written_review": true,
+  "review_id": "62866a5f26f48e141ae9c9d9",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652572800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652601600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652608800000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628669bcb964bb64e122abcc"
+  },
+  "member_id": 79,
+  "place_id": 18124,
+  "is_written_review": true,
+  "review_id": "62866a9c26f48e141ae9c9db",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1641340800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1641384000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1641391200000"
+    }
+  },
+  "time": [
+    12,
+    13
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62866b1fd82bae3f5a3ecc15"
+  },
+  "member_id": 79,
+  "place_id": 18056,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652572800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652601600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652612400000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62866d24d82bae3f5a3ecc16"
+  },
+  "member_id": 83,
+  "place_id": 18120,
+  "is_written_review": true,
+  "review_id": "62866e04d82bae3f5a3ecc19",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652169600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652176800000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62866d55d82bae3f5a3ecc17"
+  },
+  "member_id": 83,
+  "place_id": 18121,
+  "is_written_review": true,
+  "review_id": "62866ec2d82bae3f5a3ecc1a",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1651536000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1651579200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1651586400000"
+    }
+  },
+  "time": [
+    12,
+    13
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62866d8ed82bae3f5a3ecc18"
+  },
+  "member_id": 83,
+  "place_id": 18124,
+  "is_written_review": true,
+  "review_id": "6286703fd82bae3f5a3ecc1b",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1651276800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1651305600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1651312800000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62867060d82bae3f5a3ecc1c"
+  },
+  "member_id": 62,
+  "place_id": 5822,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652947200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652950800000"
+    }
+  },
+  "time": [
+    8
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62867141d82bae3f5a3ecc1d"
+  },
+  "member_id": 62,
+  "place_id": 13331,
+  "is_written_review": true,
+  "review_id": "62867185d82bae3f5a3ecc1e",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652950800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652954400000"
+    }
+  },
+  "time": [
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62867256d82bae3f5a3ecc20"
+  },
+  "member_id": 78,
+  "place_id": 18119,
+  "is_written_review": true,
+  "review_id": "62867280d82bae3f5a3ecc21",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1651363200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1651402800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1651410000000"
+    }
+  },
+  "time": [
+    11,
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628672a5d82bae3f5a3ecc22"
+  },
+  "member_id": 78,
+  "place_id": 2594,
+  "is_written_review": true,
+  "review_id": "62867303d82bae3f5a3ecc23",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652169600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652176800000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286734ed82bae3f5a3ecc24"
+  },
+  "member_id": 82,
+  "place_id": 2594,
+  "is_written_review": true,
+  "review_id": "62867370d82bae3f5a3ecc25",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1651968000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652011200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652018400000"
+    }
+  },
+  "time": [
+    12,
+    13
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628673a5d82bae3f5a3ecc26"
+  },
+  "member_id": 83,
+  "place_id": 2594,
+  "is_written_review": true,
+  "review_id": "62867449d82bae3f5a3ecc27",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652572800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652619600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652626800000"
+    }
+  },
+  "time": [
+    13,
+    14
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286745ed82bae3f5a3ecc28"
+  },
+  "member_id": 83,
+  "place_id": 13332,
+  "is_written_review": true,
+  "review_id": "628674e7d82bae3f5a3ecc2d",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652659200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652691600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652695200000"
+    }
+  },
+  "time": [
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62867473d82bae3f5a3ecc29"
+  },
+  "member_id": 83,
+  "place_id": 13331,
+  "is_written_review": true,
+  "review_id": "62867650d82bae3f5a3ecc35",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652173200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652180400000"
+    }
+  },
+  "time": [
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62867486d82bae3f5a3ecc2a"
+  },
+  "member_id": 83,
+  "place_id": 13333,
+  "is_written_review": true,
+  "review_id": "62867625d82bae3f5a3ecc34",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652176800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652180400000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628674a8d82bae3f5a3ecc2b"
+  },
+  "member_id": 62,
+  "place_id": 13332,
+  "is_written_review": true,
+  "review_id": "62867541d82bae3f5a3ecc30",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652954400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652958000000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628674c9d82bae3f5a3ecc2c"
+  },
+  "member_id": 83,
+  "place_id": 13336,
+  "is_written_review": true,
+  "review_id": "628675f6d82bae3f5a3ecc33",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652140800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652180400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652184000000"
+    }
+  },
+  "time": [
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286750dd82bae3f5a3ecc2e"
+  },
+  "member_id": 38,
+  "place_id": 777,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653609600000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653656400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653674400000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 55555,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62867528d82bae3f5a3ecc2f"
+  },
+  "member_id": 38,
+  "place_id": 12345,
+  "is_written_review": true,
+  "review_id": "6286789c480d0a051f6f7376",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652965200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652983200000"
+    }
+  },
+  "time": [
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "price": 36000,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286758ed82bae3f5a3ecc31"
+  },
+  "member_id": 78,
+  "place_id": 13332,
+  "is_written_review": true,
+  "review_id": "628675b0d82bae3f5a3ecc32",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652486400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652522400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652529600000"
+    }
+  },
+  "time": [
+    10,
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628676bcd82bae3f5a3ecc36"
+  },
+  "member_id": 83,
+  "place_id": 18122,
+  "is_written_review": true,
+  "review_id": "628676e3d82bae3f5a3ecc37",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652486400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652526000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652533200000"
+    }
+  },
+  "time": [
+    11,
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286774cd82bae3f5a3ecc38"
+  },
+  "member_id": 83,
+  "place_id": 18119,
+  "is_written_review": true,
+  "review_id": "62867779d82bae3f5a3ecc39",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652486400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652518800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652526000000"
+    }
+  },
+  "time": [
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "628681f2480d0a051f6f737b"
+  },
+  "member_id": 38,
+  "place_id": 5789,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652954400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652958000000"
+    }
+  },
+  "time": [
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62868416480d0a051f6f737c"
+  },
+  "member_id": 62,
+  "place_id": 2954,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652950800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652954400000"
+    }
+  },
+  "time": [
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286864e480d0a051f6f737e"
+  },
+  "member_id": 70,
+  "place_id": 5789,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652958000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652961600000"
+    }
+  },
+  "time": [
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286864e480d0a051f6f737f"
+  },
+  "member_id": 77,
+  "place_id": 5802,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1657670400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1657699200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1657706400000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286882e480d0a051f6f7380"
+  },
+  "member_id": 70,
+  "place_id": 5789,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653004800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653044400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653051600000"
+    }
+  },
+  "time": [
+    11,
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62868910480d0a051f6f7382"
+  },
+  "member_id": 70,
+  "place_id": 5789,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652958000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652961600000"
+    }
+  },
+  "time": [
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62868a66480d0a051f6f7383"
+  },
+  "member_id": 70,
+  "place_id": 5789,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652958000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652961600000"
+    }
+  },
+  "time": [
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62868ccb480d0a051f6f7385"
+  },
+  "member_id": 82,
+  "place_id": 2608,
+  "is_written_review": true,
+  "review_id": "62868d6c480d0a051f6f7386",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652947200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652965200000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "62868dfe480d0a051f6f7387"
+  },
+  "member_id": 82,
+  "place_id": 2592,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652918400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652947200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652965200000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286f2eef955c468ba3b71b0"
+  },
+  "member_id": 82,
+  "place_id": 13331,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653043582755"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653058800000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653069600000"
+    }
+  },
+  "time": [
+    15,
+    16,
+    17
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286f56528ca6b52c6105ba3"
+  },
+  "member_id": 88,
+  "place_id": 2589,
+  "is_written_review": true,
+  "review_id": "6286f5d828ca6b52c6105ba4",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652313600000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652342400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652360400000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286f69b28ca6b52c6105ba5"
+  },
+  "member_id": 88,
+  "place_id": 8475,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1655164800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1655193600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1655204400000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286f8ef28ca6b52c6105ba7"
+  },
+  "member_id": 89,
+  "place_id": 4250,
+  "is_written_review": true,
+  "review_id": "6286f93b28ca6b52c6105ba8",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652659200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652688000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652709600000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286f98328ca6b52c6105ba9"
+  },
+  "member_id": 82,
+  "place_id": 13343,
+  "is_written_review": true,
+  "review_id": "6286f9b328ca6b52c6105baa",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652659200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652688000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652702400000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10,
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286fa9c28ca6b52c6105bab"
+  },
+  "member_id": 82,
+  "place_id": 442,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653955200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653984000000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1654002000000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286fc2928ca6b52c6105bad"
+  },
+  "member_id": 90,
+  "place_id": 447,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1653350400000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1653379200000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1653400800000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286fc3d28ca6b52c6105bae"
+  },
+  "member_id": 90,
+  "place_id": 20391,
+  "is_written_review": true,
+  "review_id": "6286fc5728ca6b52c6105baf",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652745600000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652774400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652792400000"
+    }
+  },
+  "time": [
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286fcd128ca6b52c6105bb0"
+  },
+  "member_id": 38,
+  "place_id": 2589,
+  "is_written_review": true,
+  "review_id": "6286fce728ca6b52c6105bb1",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652745600000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652781600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652788800000"
+    }
+  },
+  "time": [
+    10,
+    11
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286fd0228ca6b52c6105bb2"
+  },
+  "member_id": 78,
+  "place_id": 2590,
+  "is_written_review": true,
+  "review_id": "6286fd7328ca6b52c6105bb5",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652659200000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652691600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652698800000"
+    }
+  },
+  "time": [
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286fd1828ca6b52c6105bb3"
+  },
+  "member_id": 78,
+  "place_id": 2591,
+  "is_written_review": true,
+  "review_id": "6286fd8d28ca6b52c6105bb6",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652572800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652601600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652605200000"
+    }
+  },
+  "time": [
+    8
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286fd2728ca6b52c6105bb4"
+  },
+  "member_id": 78,
+  "place_id": 2592,
+  "is_written_review": false,
+  "review_id": "111111111111111111111111",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1651536000000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1651568400000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1651575600000"
+    }
+  },
+  "time": [
+    9,
+    10
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286fdb228ca6b52c6105bb7"
+  },
+  "member_id": 78,
+  "place_id": 2592,
+  "is_written_review": true,
+  "review_id": "6286fdd728ca6b52c6105bb8",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1652572800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1652601600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1652608800000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+},{
+  "_id": {
+    "$oid": "6286fe2c28ca6b52c6105bb9"
+  },
+  "member_id": 78,
+  "place_id": 2594,
+  "is_written_review": true,
+  "review_id": "6286fe6128ca6b52c6105bba",
+  "create_dt": {
+    "$date": {
+      "$numberLong": "1649980800000"
+    }
+  },
+  "reserve_start_dt": {
+    "$date": {
+      "$numberLong": "1650009600000"
+    }
+  },
+  "reserve_end_dt": {
+    "$date": {
+      "$numberLong": "1650016800000"
+    }
+  },
+  "time": [
+    8,
+    9
+  ],
+  "price": 1,
+  "_class": "com.ssafy.domain.document.Reservation"
+}]
