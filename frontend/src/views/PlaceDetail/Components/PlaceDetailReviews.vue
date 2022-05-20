@@ -24,11 +24,29 @@
             </div>
           </div>
           <div class="d-flex justify-content-between align-items-center px-3">
-            <div class="review-score-button"><strong>시설이</strong> {{ reviewScore.placeScore }}</div>
-            <div class="review-score-button"><strong>청결이</strong> {{ reviewScore.cleannessScore }}</div>
-            <div class="review-score-button"><strong>위치가</strong> {{ reviewScore.locationScore }}</div>
-            <div class="review-score-button"><strong>가격이</strong> {{ reviewScore.priceScore }}</div>
-            {{ reviewScore }}
+            <div class="review-score-button" v-if="review.place <= 1"><strong>시설이</strong> 매우 별로에요</div>
+            <div class="review-score-button" v-else-if="review.place <= 2"><strong>시설이</strong> 별로에요</div>
+            <div class="review-score-button" v-else-if="review.place <= 3"><strong>시설이</strong> 보통이에요</div>
+            <div class="review-score-button" v-else-if="review.place <= 4"><strong>시설이</strong> 좋아요</div>
+            <div class="review-score-button" v-else><strong>시설이</strong> 매우 좋아요</div>
+
+            <div class="review-score-button" v-if="review.cleanness <= 1"><strong>청결이</strong> 매우 별로에요</div>
+            <div class="review-score-button" v-else-if="review.cleanness <= 2"><strong>청결이</strong> 별로에요</div>
+            <div class="review-score-button" v-else-if="review.cleanness <= 3"><strong>청결이</strong> 보통이에요</div>
+            <div class="review-score-button" v-else-if="review.cleanness <= 4"><strong>청결이</strong> 좋아요</div>
+            <div class="review-score-button" v-else><strong>청결이</strong> 매우 좋아요</div>
+
+            <div class="review-score-button" v-if="review.location <= 1"><strong>위치가</strong> 매우 별로에요</div>
+            <div class="review-score-button" v-else-if="review.location <= 2"><strong>위치가</strong> 별로에요</div>
+            <div class="review-score-button" v-else-if="review.location <= 3"><strong>위치가</strong> 보통이에요</div>
+            <div class="review-score-button" v-else-if="review.location <= 4"><strong>위치가</strong> 좋아요</div>
+            <div class="review-score-button" v-else><strong>위치가</strong> 매우 좋아요</div>
+
+            <div class="review-score-button" v-if="review.price <= 1"><strong>가격이</strong> 매우 비싸요</div>
+            <div class="review-score-button" v-else-if="review.price <= 2"><strong>가격이</strong> 비싸요</div>
+            <div class="review-score-button" v-else-if="review.price <= 3"><strong>가격이</strong> 보통이에요</div>
+            <div class="review-score-button" v-else-if="review.price <= 4"><strong>가격이</strong> 저렴해요</div>
+            <div class="review-score-button" v-else><strong>가격이</strong> 매우 저렴해요</div>
           </div>
         </div>
       </div>
@@ -41,7 +59,7 @@
 </template>
 
 <script>
-import { reactive, onMounted } from "vue";
+import { reactive } from "vue";
 export default {
   name: "PlaceDetailReviews",
   props: ["review"],
@@ -54,57 +72,56 @@ export default {
       locationScore: "",
       priceScore: "",
     });
-    onMounted(async () => {
-      console.log(reviewData.review.cleanness);
-      if (0 <= reviewData.review.cleanness <= 1) {
-        reviewScore.cleannessScore = "매우 별로에요";
-        console.log(reviewScore.cleannessScore);
-      } else if (1 < reviewData.review.cleanness <= 2) {
-        reviewScore.cleannessScore = "별로에요";
-      } else if (2 < reviewData.review.cleanness <= 3) {
-        reviewScore.cleannessScore = "보통이에요";
-      } else if (3 < reviewData.review.cleanness <= 4) {
-        reviewScore.cleannessScore = "좋아요";
-      } else {
-        reviewScore.cleannessScore = "매우 좋아요";
-      }
+    // onMounted(async () => {
+    //   if (0 <= reviewData.review.cleanness <= 1) {
+    //     reviewScore.cleannessScore = "매우 별로에요";
+    //     console.log(reviewScore.cleannessScore);
+    //   } else if (1 < reviewData.review.cleanness <= 2) {
+    //     reviewScore.cleannessScore = "별로에요";
+    //   } else if (2 < reviewData.review.cleanness <= 3) {
+    //     reviewScore.cleannessScore = "보통이에요";
+    //   } else if (3 < reviewData.review.cleanness <= 4) {
+    //     reviewScore.cleannessScore = "좋아요";
+    //   } else {
+    //     reviewScore.cleannessScore = "매우 좋아요";
+    //   }
 
-      if (0 <= reviewData.review.place <= 1) {
-        reviewScore.placeScore = "매우 좋지 않아요";
-      } else if (1 < reviewData.review.place <= 2) {
-        reviewData.review.placeScore = "좋지 않아요";
-      } else if (2 < reviewData.review.place <= 3) {
-        reviewScore.placeScore = "보통이에요";
-      } else if (3 < reviewData.review.place <= 4) {
-        reviewScore.placeScore = "좋아요";
-      } else {
-        reviewScore.placeScore = "매우 좋아요";
-      }
+    //   if (0 <= reviewData.review.place <= 1) {
+    //     reviewScore.placeScore = "매우 좋지 않아요";
+    //   } else if (1 < reviewData.review.place <= 2) {
+    //     reviewData.review.placeScore = "좋지 않아요";
+    //   } else if (2 < reviewData.review.place <= 3) {
+    //     reviewScore.placeScore = "보통이에요";
+    //   } else if (3 < reviewData.review.place <= 4) {
+    //     reviewScore.placeScore = "좋아요";
+    //   } else {
+    //     reviewScore.placeScore = "매우 좋아요";
+    //   }
 
-      if (0 <= reviewData.review.location <= 1) {
-        reviewScore.locationScore = "매우 좋지 않아요";
-      } else if (1 < reviewData.review.location <= 2) {
-        reviewScore.locationScore = "좋지 않아요";
-      } else if (2 < reviewData.review.location <= 3) {
-        reviewScore.locationScore = "보통이에요";
-      } else if (3 < reviewData.review.location <= 4) {
-        reviewScore.locationScore = "좋아요";
-      } else {
-        reviewScore.locationScore = "매우 좋아요";
-      }
+    //   if (0 <= reviewData.review.location <= 1) {
+    //     reviewScore.locationScore = "매우 좋지 않아요";
+    //   } else if (1 < reviewData.review.location <= 2) {
+    //     reviewScore.locationScore = "좋지 않아요";
+    //   } else if (2 < reviewData.review.location <= 3) {
+    //     reviewScore.locationScore = "보통이에요";
+    //   } else if (3 < reviewData.review.location <= 4) {
+    //     reviewScore.locationScore = "좋아요";
+    //   } else {
+    //     reviewScore.locationScore = "매우 좋아요";
+    //   }
 
-      if (0 <= reviewData.review.price <= 1) {
-        reviewScore.priceScore = "매우 비싸요";
-      } else if (1 < reviewData.review.price <= 2) {
-        reviewScore.priceScore = "비싸요";
-      } else if (2 < reviewData.review.price <= 3) {
-        reviewScore.priceScore = "보통이에요";
-      } else if (3 < reviewData.review.price <= 4) {
-        reviewScore.priceScore = "저렴해요";
-      } else {
-        reviewScore.priceScore = "매우 저렴해요";
-      }
-    });
+    //   if (0 <= reviewData.review.price <= 1) {
+    //     reviewScore.priceScore = "매우 비싸요";
+    //   } else if (1 < reviewData.review.price <= 2) {
+    //     reviewScore.priceScore = "비싸요";
+    //   } else if (2 < reviewData.review.price <= 3) {
+    //     reviewScore.priceScore = "보통이에요";
+    //   } else if (3 < reviewData.review.price <= 4) {
+    //     reviewScore.priceScore = "저렴해요";
+    //   } else {
+    //     reviewScore.priceScore = "매우 저렴해요";
+    //   }
+    // });
 
     return { reviewData, reviewScore };
   },

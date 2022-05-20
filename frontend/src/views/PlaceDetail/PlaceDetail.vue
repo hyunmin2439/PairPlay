@@ -273,12 +273,11 @@ import Header from "../Common/Header.vue";
 import Footer from "../Common/Footer.vue";
 import PlaceDetailMaps from "./Components/PlaceDetailMaps.vue";
 import PlaceDetailReservation from "./Components/PlaceDetailReservation.vue";
-// import PlaceDetailReviewCreate from "./Components/PlaceDetailReviewCreate.vue";
+import PlaceDetailReviews from "./Components/PlaceDetailReviews.vue";
 import { ref, reactive, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import axios from "axios";
-import PlaceDetailReviews from "./Components/PlaceDetailReviews.vue";
 const BASE_URL = "https://pairplay.site/api/v1";
 
 export default {
