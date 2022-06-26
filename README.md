@@ -129,40 +129,40 @@
 
 ### 1. 카카오 로그인
 
-![로그인](exec/4. 시연 시나리오/image/01.png)
+![로그인](README.assets/기능소개01.png)
 
-![카카오 로그인](exec/4. 시연 시나리오/image/02.png)
+![카카오 로그인](README.assets/기능소개02.png)
 
 ### 2. 메인 페이지
 
-![메인 페이지](exec/4. 시연 시나리오/image/03.png)
+![메인 페이지](README.assets/기능소개03.png)
 
 ### 3. 장소 페이지
 
-![장소 페이지](exec/4. 시연 시나리오/image/04.png)
+![장소 페이지](README.assets/기능소개04.png)
 
-![장소 검색](exec/4. 시연 시나리오/image/05.png)
+![장소 검색](README.assets/기능소개05.png)
 
-![장소 상세 페이지](exec/4. 시연 시나리오/image/06.png)
+![장소 상세 페이지](README.assets/기능소개06.png)
 
-![장소 예약 결제](exec/4. 시연 시나리오/image/07.png)
+![장소 예약 결제](README.assets/기능소개07.png)
 
 ### 4. 메이트 페이지
 
-![메이트 페이지](exec/4. 시연 시나리오/image/08.png)
+![메이트 페이지](README.assets/기능소개08.png)
 
-![메이트 생성](exec/4. 시연 시나리오/image/09.png)
+![메이트 생성](README.assets/기능소개09.png)
 
-![메이트 상세 조회](exec/4. 시연 시나리오/image/10.png)
+![메이트 상세 조회](README.assets/기능소개10.png)
 
 ### 5. 프로필 페이지
 
-![프로필 소개](exec/4. 시연 시나리오/image/11.png)
+![프로필 소개](README.assets/기능소개11.png)
 
-![찜한 목록](exec/4. 시연 시나리오/image/12.png)
+![찜한 목록](README.assets/기능소개12.png)
 
-![예약 목록](exec/4. 시연 시나리오/image/13.png)
+![예약 목록](README.assets/기능소개13.png)
 
-![운동 스케줄](exec/4. 시연 시나리오/image/14.png)
+![운동 스케줄](README.assets/기능소개14.png)
 
-![메이트 신청 목록](exec/4. 시연 시나리오/image/15.png)
+![메이트 신청 목록](README.assets/기능소개15.png)
