@@ -129,40 +129,40 @@
 
 ### 1. 카카오 로그인
 
-![로그인](README.assets/기능소개01.png)
+![로그인](README.assets/기능소개01.PNG)
 
-![카카오 로그인](README.assets/기능소개02.png)
+![카카오 로그인](README.assets/기능소개02.PNG)
 
 ### 2. 메인 페이지
 
-![메인 페이지](README.assets/기능소개03.png)
+![메인 페이지](README.assets/기능소개03.PNG)
 
 ### 3. 장소 페이지
 
-![장소 페이지](README.assets/기능소개04.png)
+![장소 페이지](README.assets/기능소개04.PNG)
 
-![장소 검색](README.assets/기능소개05.png)
+![장소 검색](README.assets/기능소개05.PNG)
 
-![장소 상세 페이지](README.assets/기능소개06.png)
+![장소 상세 페이지](README.assets/기능소개06.PNG)
 
-![장소 예약 결제](README.assets/기능소개07.png)
+![장소 예약 결제](README.assets/기능소개07.PNG)
 
 ### 4. 메이트 페이지
 
-![메이트 페이지](README.assets/기능소개08.png)
+![메이트 페이지](README.assets/기능소개08.PNG)
 
-![메이트 생성](README.assets/기능소개09.png)
+![메이트 생성](README.assets/기능소개09.PNG)
 
-![메이트 상세 조회](README.assets/기능소개10.png)
+![메이트 상세 조회](README.assets/기능소개10.PNG)
 
 ### 5. 프로필 페이지
 
-![프로필 소개](README.assets/기능소개11.png)
+![프로필 소개](README.assets/기능소개11.PNG)
 
-![찜한 목록](README.assets/기능소개12.png)
+![찜한 목록](README.assets/기능소개12.PNG)
 
-![예약 목록](README.assets/기능소개13.png)
+![예약 목록](README.assets/기능소개13.PNG)
 
-![운동 스케줄](README.assets/기능소개14.png)
+![운동 스케줄](README.assets/기능소개14.PNG)
 
-![메이트 신청 목록](README.assets/기능소개15.png)
+![메이트 신청 목록](README.assets/기능소개15.PNG)
